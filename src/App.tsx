@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Pool_TopDetail from "./pages/poolDetail/Darkmode_Test";
-import Darkmode_Test from "./pages/poolDetail/Darkmode_Test";
+import Pool_TopDetail from "./pages/Darkmode_Test";
+import Darkmode_Test from "./pages/Darkmode_Test";
 
 function App() {
   return (
