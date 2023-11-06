@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LiquidityTap from "./LiquidityTap";
 import AddLiquidity from "./AddLiquidity";
+import RemoveLiquidity from "./RemoveLiquidity";
 
 const AddRemoveLiquidity = () => {
   const [addColor, setAddColor] = useState("bg-[rgba(255,255,255,0.85)]");
@@ -9,15 +10,9 @@ const AddRemoveLiquidity = () => {
   const [removeTextColor, setRemoveTextColor] = useState("text-[#000000]");
   const [addTextWeight, setAddTextWeight] = useState("font-bold");
   const [removeTextWeight, setRemoveTextWeight] = useState("font-normal");
-  const [addDisplay, setAddDispaly] = useState("flex");
-  const [removeDisplay, setRemoveDispaly] = useState("none");
+  const [click, setClick] = useState("Add");
 
-  const Tapclick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // *  e.target을 HTMLDivElement 타입으로 캐스팅
-    // 나는 이 e.target이 HTMLDivElement 타입의 객체라는 것을 확신하고 있으니, HTMLDivElement 타입의 모든 속성과 메서드를 사용할 수 있도록 해줘"라는 의미
-    const target = e.target as HTMLDivElement;
-    const click = target.id;
-    console.log(click);
+  useEffect(() => {
     if (click == "Add") {
       setAddColor("bg-[rgba(255,255,255,0.85)]");
       setRemoveColor("bg-[#A9AAA6]");
@@ -25,8 +20,6 @@ const AddRemoveLiquidity = () => {
       setRemoveTextColor("text-[#000000]");
       setAddTextWeight("font-bold");
       setRemoveTextWeight("font-normal");
-      setAddDispaly("flex");
-      setRemoveDispaly("hidden");
     } else if (click == "Remove") {
       setAddColor("bg-[#A9AAA6]");
       setRemoveColor("bg-[rgba(255,255,255,0.85)]");
@@ -34,9 +27,14 @@ const AddRemoveLiquidity = () => {
       setRemoveTextColor("text-[#338415]");
       setAddTextWeight("font-normal");
       setRemoveTextWeight("font-bold");
-      setAddDispaly("hidden");
-      setRemoveDispaly("flex");
     }
+  }, [click]);
+
+  const Tapclick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // *  e.target을 HTMLDivElement 타입으로 캐스팅
+    // 나는 이 e.target이 HTMLDivElement 타입의 객체라는 것을 확신하고 있으니, HTMLDivElement 타입의 모든 속성과 메서드를 사용할 수 있도록 해줘"라는 의미
+    const target = e.target as HTMLDivElement;
+    setClick(target.id);
   };
   return (
     <div className="flex flex-col">
@@ -60,12 +58,8 @@ const AddRemoveLiquidity = () => {
           Remove Liquidity
         </LiquidityTap>
       </div>
-      <div className="mobile:w-[340px] pc:w-[600px] pc:p-5 pc:m-7 pc:mt-0  bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
-        {/* -------------------- AddLiquidity -------------------- */}
-        <AddLiquidity display={addDisplay}></AddLiquidity>
-
-        {/* -------------------- RemoveLiquidity -------------------- */}
-
+      <div className="mobile:w-[340px] pc:w-[600px] pc:p-5 pc:m-7 pc:mt-0 bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
+        {click == "Add" ? <AddLiquidity /> : <RemoveLiquidity />}
         <div></div>
       </div>
     </div>

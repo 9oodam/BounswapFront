@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNodeProps } from "../../Interface/ReactNode.interface";
 
-const DivCard: React.FC<ReactNodeProps> = ({ children }) => {
+const Card: React.FC<ReactNodeProps> = ({ children }) => {
   return (
     <div className="mobile:w-[340px] pc:w-[620px] pc:p-7 pc:m-7 pc:mt-8 bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
       {children}
@@ -9,4 +9,4 @@ const DivCard: React.FC<ReactNodeProps> = ({ children }) => {
   );
 };
 
-export default DivCard;
+export default Card;

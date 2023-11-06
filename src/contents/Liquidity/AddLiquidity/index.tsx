@@ -1,12 +1,14 @@
 import React from "react";
 import Balance from "./Balance";
 import InputToken from "./InputBox";
-import { LiquidiityBtn } from "./LiquidiityBtn";
-import {Display} from "../../Interface/ReactNode.interface"
+import { LiquidiityBtn } from "../LiquidiityBtn";
+import { Display } from "../../../Interface/ReactNode.interface";
 
-const AddLiquidity:React.FC<Display> = ({display}) => {
+// const AddLiquidity:React.FC<Display> = ({display}) => {
+const AddLiquidity = () => {
   return (
-    <div className={`${display} flex-col items-center p-5`}>
+    // <div className={`${display} flex-col items-center p-5`}>
+    <div className="flex flex-col items-center p-5">
       <Balance></Balance>
       <InputToken tokenName={"EHT"} />
       <Balance></Balance>

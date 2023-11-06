@@ -1,7 +1,7 @@
 import React from "react";
 
 // todo 나중에는 이미지 링크를 받아서 넣어야 한다.... 그때 타입값 지정해서 넣기로해,,,
-const CoinPairImg = () => {
+const PairImg = () => {
   return (
     <div className="relative w-[100px] h-[50px]">
       <img
@@ -16,4 +16,4 @@ const CoinPairImg = () => {
   );
 };
 
-export default CoinPairImg;
+export default PairImg;

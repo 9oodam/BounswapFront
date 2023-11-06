@@ -1,6 +1,6 @@
 import React from "react";
-import CoinImg from "../CoinImg/CoinImg";
-import BalanceText from "../../contents/Deposite/BalanceText";
+import BalanceText from "./BalanceText";
+import CoinImg from "src/components/CoinImg";
 
 const PairCoinBox = ({
   amount,

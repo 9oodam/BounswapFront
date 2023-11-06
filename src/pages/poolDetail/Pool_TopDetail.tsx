@@ -1,5 +1,5 @@
 import React from "react";
-import TopTitleDiv from "../../components/DivBox/TopTitleDiv";
+import TopTitleDiv from "../../components/Pairname";
 import TopBlackBox from "./TopBlackBox";
 
 const Pool_TopDetail = () => {
@@ -11,8 +11,8 @@ const Pool_TopDetail = () => {
           src="/images/backArrow.png"
           className=" w-[50px] h-[43px] mb-5"
         ></img>
-      <TopTitleDiv></TopTitleDiv>
-      <TopBlackBox></TopBlackBox>
+        <TopTitleDiv></TopTitleDiv>
+        <TopBlackBox></TopBlackBox>
       </div>
     </>
   );

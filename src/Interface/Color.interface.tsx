@@ -10,3 +10,5 @@ export type LiquidityTapProps = ReactNodeProps & {
   textColor: string;
   textweight: string;
 };
+
+// interface 와 type 에 차이 알아오셈
