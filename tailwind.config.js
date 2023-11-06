@@ -9,7 +9,7 @@ module.exports = {
       backgroundImage: (theme) => ({
         "green-yellow":
           "linear-gradient(125deg, #B2FF96 38.14%, #FFFB88 77.5%);",
-        "gradient-2": "linear-gradient(125deg, #FF96B2 38.14%, #FF88FB 77.5%)",
+        "red-pink": "linear-gradient(125deg, #FF96B2 38.14%, #FF88FB 77.5%)",
         "gradient-3": "linear-gradient(125deg, #96B2FF 38.14%, #889FFB 77.5%)",
         "gradient-4": "linear-gradient(125deg, #96FFB2 38.14%, #88FFFB 77.5%)",
       }),

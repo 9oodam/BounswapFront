@@ -9,7 +9,7 @@ import AddRemoveLiquidity from "../../contents/AddRemoveLiquidity/AddRemoveLiqui
 const TopBlackBox = () => {
   return (
     <BodyBackground>
-      <div className="flex items-start flex-row">
+      <div className="flex items-start flex-row justify-center">
         <div>
           <DivCard>
             <CardTitle>Liquidity</CardTitle>

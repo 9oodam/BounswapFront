@@ -6,7 +6,7 @@ import GY_Background from "./components/GradientBackground/GY_Background";
 
 function App() {
   return (
-    <div className="App ">
+    <div className="App">
       <GY_Background>
         <Routes>
           {/* 루트 경로로 signup 페이지가 들어갈 것으로 예상됩니다.
