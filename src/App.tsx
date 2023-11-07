@@ -17,6 +17,7 @@ function App() {
           {/* ------------------------💡 Test Page 💡-------------------------- */}
           <Route path="/darkmode" element={<Darkmode_Test />} />
         </Routes>
+        <Footer />
       </GradientBg>
       {/* <button className="py-2 px-4 rounded-lg shadow-md text-white bg-blue-500 mobile:bg-green-200">
         Click me

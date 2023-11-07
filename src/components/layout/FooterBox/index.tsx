@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = (): JSX.Element => {
   return (
-    <footer className="relative w-full max-w-[1359px] mx-auto h-[129px] border-t border-[#6b7d63cc] p-4">
+    <footer className="relative w-4/5 mx-auto h-[129px] border-t border-[#6b7d63cc] p-4 mt-[150px]">
       <div className="flex justify-between items-start">
         <p className="text-left text-[#6b7d63cc] text-[12px]">
           상호: 주식회사 바운스코드

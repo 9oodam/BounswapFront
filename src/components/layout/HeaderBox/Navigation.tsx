@@ -29,9 +29,9 @@ const Navigation = () => {
         Tokens
       </Link>
       <Link
-        to="/apool"
+        to="/poolpair"
         className={`absolute left-[193px] font-bold text-[22px] ${getTabStyle(
-          "/apool"
+          "/poolpair"
         )}`}
       >
         Pools
