@@ -3,6 +3,8 @@
 node_modules
 
 testBounsWallet/
+.git
+node_modules
 
 # dependencies
 /node_modules

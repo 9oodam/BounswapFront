@@ -1,4 +1,3 @@
-
 ```
 BounSwap
 ├─ index.md
@@ -12,11 +11,21 @@ BounSwap
 │  │  ├─ backArrow.png
 │  │  ├─ search.png
 │  │  └─ search.svg
+front
+├─ index.md
+├─ public
+│  ├─ images
+│  │  ├─ backArrow 2.png
+│  │  └─ backArrow.png
 │  └─ index.html
 ├─ src
 │  ├─ App.css
 │  ├─ App.test.tsx
 │  ├─ App.tsx
+│  ├─ Interface
+│  │  ├─ Color.interface.tsx
+│  │  ├─ ReactNode.interface.tsx
+│  │  └─ Token.interface.tsx
 │  ├─ components
 │  │  ├─ CoinImg
 │  │  │  ├─ CoinImg.tsx
@@ -47,6 +56,18 @@ BounSwap
 │  │  ├─ AddRemoveLiquidity
 │  │  │  └─ AddRemoveLiquidity.tsx
 │  │  └─ sample.md
+│  │  │  ├─ AddLiquidity.tsx
+│  │  │  ├─ AddRemoveLiquidity.tsx
+│  │  │  ├─ Balance.tsx
+│  │  │  ├─ InputBox.tsx
+│  │  │  ├─ InputToken.tsx
+│  │  │  ├─ InputTokenName.tsx
+│  │  │  ├─ LiquidiityBtn.tsx
+│  │  │  ├─ LiquidityTap.tsx
+│  │  │  ├─ RemoveLiquidity.tsx
+│  │  │  └─ RemoveSubText.tsx
+│  │  └─ Deposite
+│  │     └─ BalanceText.tsx
 │  ├─ features
 │  │  └─ sample.md
 │  ├─ hooks
@@ -73,6 +94,7 @@ BounSwap
 └─ webpack.config.js
 
 ```
+
 ```
 BounSwap
 ├─ README.md
@@ -128,6 +150,8 @@ BounSwap
 │  │  └─ sample.md
 │  ├─ index.css
 │  ├─ index.tsx
+│  ├─ layout
+│  │  └─ sample.md
 │  ├─ pages
 │  │  ├─ Darkmode_Test.tsx
 │  │  ├─ poolDetail
