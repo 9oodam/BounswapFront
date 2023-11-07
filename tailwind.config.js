@@ -13,16 +13,16 @@ module.exports = {
         "gradient-3": "linear-gradient(125deg, #96B2FF 38.14%, #889FFB 77.5%)",
         "gradient-4": "linear-gradient(125deg, #96FFB2 38.14%, #88FFFB 77.5%)",
       }),
+      borderRadius: {
+        bodyBackRadius: "20px",
+        coinLogo: "2em",
+        coinBox: "15px",
+      },
     },
     screens: {
       mobile: { min: "0px", max: "428px" },
 
       pc: { min: "429px", max: "9999px" },
-    },
-    borderRadius: {
-      bodyBackRadius: "20px",
-      coinLogo: "2em",
-      coinBox: "15px",
     },
   },
   variants: {

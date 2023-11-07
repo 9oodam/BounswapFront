@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LiquidityTap from "./LiquidityTap";
+import Tap from "./Tap";
 import AddLiquidity from "./AddLiquidity";
 import RemoveLiquidity from "./RemoveLiquidity";
 
@@ -39,7 +39,7 @@ const AddRemoveLiquidity = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row pc:m-5 pc:mb-0 justify-evenly">
-        <LiquidityTap
+        <Tap
           id="Add"
           onClick={Tapclick}
           backgroundColor={addColor}
@@ -47,8 +47,8 @@ const AddRemoveLiquidity = () => {
           textweight={addTextWeight}
         >
           Add Liquidity
-        </LiquidityTap>
-        <LiquidityTap
+        </Tap>
+        <Tap
           id="Remove"
           onClick={Tapclick}
           backgroundColor={removeColor}
@@ -56,9 +56,9 @@ const AddRemoveLiquidity = () => {
           textweight={removeTextWeight}
         >
           Remove Liquidity
-        </LiquidityTap>
+        </Tap>
       </div>
-      <div className="mobile:w-[340px] pc:w-[600px] pc:p-5 pc:m-7 pc:mt-0 bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
+      <div className="mobile:w-[340px] pc:w-[700px] pc:p-5 pc:m-7 pc:mt-0 bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
         {click == "Add" ? <AddLiquidity /> : <RemoveLiquidity />}
         <div></div>
       </div>

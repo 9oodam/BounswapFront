@@ -1,9 +1,8 @@
-import React from "react";
-import ChartDiv from "../../components/Card/Chart";
-import PairCoinsBox from "../../contents/Deposite/PairCoinsBox";
-import AddRemoveLiquidity from "../../contents/Liquidity";
-import CardTitle from "src/components/Card/CardTitle";
 import DivCard from "src/components/Card";
+import CardTitle from "src/components/Card/CardTitle";
+import ChartDiv from "src/components/Card/Chart";
+import Deposite from "../../../contents/Deposite";
+import AddRemoveLiquidity from "src/contents/Liquidity";
 import Container from "src/components/container";
 
 const TopBlackBox = () => {
@@ -17,7 +16,7 @@ const TopBlackBox = () => {
           </DivCard>
           <DivCard>
             <CardTitle>Deposit Balance</CardTitle>
-            <PairCoinsBox></PairCoinsBox>
+            <Deposite></Deposite>
           </DivCard>
         </div>
         <AddRemoveLiquidity />

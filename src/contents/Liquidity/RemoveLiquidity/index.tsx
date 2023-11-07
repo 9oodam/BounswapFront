@@ -1,23 +1,50 @@
-import React from "react";
-import Balance from "../AddLiquidity/Balance";
-import InputToken from "../AddLiquidity/InputBox";
-import { LiquidiityBtn } from "../LiquidiityBtn";
-import RemoveSubText from "./RemoveSubText";
-import InputBox from "../AddLiquidity/InputBox";
+import React, { useEffect, useState } from "react";
+import InputToken from "../AddLiquidity/InputToken";
+import LiquidiityBtn from "../LiquidiityBtn";
+import PercentBtnWarp from "./PercentBtnWarp";
+import { Divstyle, Textstyle, Imgstyle } from "./RemoveLiquidity.styled";
+import MyLiquidity from "./PercentBtnWarp/MyLiquidity";
+import Price from "./PercentBtnWarp/Price";
 
 const RemoveLiquidity = () => {
+  const [tokens, setTokens] = useState({
+    token1: {
+      amount: 0,
+      symbol: "",
+    },
+    token2: {
+      amount: 0,
+      symbol: "",
+    },
+  });
+  // ! 현재 페어 심볼과 내가 가진 페어의 양을 테스트하는 함수
+  const Test = () => {
+    setTokens({
+      token1: {
+        amount: 0,
+        symbol: "ETH",
+      },
+      token2: {
+        amount: 20,
+        symbol: "USDT",
+      },
+    });
+  };
+
+  useEffect(() => {
+    Test();
+  }, []);
+
+  console.log("tokens", tokens);
   return (
-    <div className="flex flex-col items-center p-5">
-      <RemoveSubText></RemoveSubText>
+    <div className={`${Divstyle.flexCol}`}>
+      <div className={Textstyle.subText}>Percentage to withdraw:</div>
       <InputToken tokenName={""} />
-      <div>percent btn</div>
-      <div>arrow</div>
-      <div>amount box</div>
-      <div>
-        <div>price</div>
-        <div>button</div>
-      </div>
-      <LiquidiityBtn tokenName={"Add Liquidity"}></LiquidiityBtn>
+      <PercentBtnWarp />
+      <img src="/images/downArrow.png" alt="arrow" className={Imgstyle.arrow} />
+      <MyLiquidity token1={tokens.token1} token2={tokens.token2} />
+      <Price />
+      <LiquidiityBtn tokenName={"Remove Liquidity"} />
     </div>
   );
 };
