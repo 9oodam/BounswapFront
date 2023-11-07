@@ -37,8 +37,8 @@ const AddRemoveLiquidity = () => {
     setClick(target.id);
   };
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row pc:m-5 pc:mb-0 justify-evenly">
+    <div className="flex flex-col items-center w-full">
+      <div className="flex flex-row justify-evenly w-full ">
         <Tap
           id="Add"
           onClick={Tapclick}
@@ -58,7 +58,7 @@ const AddRemoveLiquidity = () => {
           Remove Liquidity
         </Tap>
       </div>
-      <div className="mobile:w-[340px] pc:w-[700px] pc:p-5 pc:m-7 pc:mt-0 bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
+      <div className="mobile:w-[340px] pc:w-[80%] pc:p-5 bg-[rgba(255,255,255,0.85)] rounded-xl: rounded-bodyBackRadius">
         {click == "Add" ? <AddLiquidity /> : <RemoveLiquidity />}
         <div></div>
       </div>

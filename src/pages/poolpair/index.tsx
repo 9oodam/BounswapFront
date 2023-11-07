@@ -9,7 +9,7 @@ const Poolpair: React.FC = () => {
     <div className={Divstyle.w_90}>
       <Container>
         <div className={Divstyle.flexRow}>
-          <div>
+          <div className="flex flex-col items-center w-[100%]">
             <Liquidity />
             <DepositBalacne />
           </div>

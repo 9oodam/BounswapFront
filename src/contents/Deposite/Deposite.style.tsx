@@ -3,5 +3,5 @@ export const Divstyle = {
 };
 
 export const Textstyle = {
-  plus: `text-2xl font-bold`,
+  plus: `text-2xl font-bold ml-3 mr-3`,
 };

@@ -20,9 +20,9 @@ module.exports = {
       },
     },
     screens: {
-      mobile: { min: "0px", max: "428px" },
+      mobile: { min: "0px", max: "1259px" },
 
-      pc: { min: "429px", max: "9999px" },
+      pc: { min: "1260px", max: "9999px" },
     },
   },
   variants: {
