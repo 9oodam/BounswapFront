@@ -1,22 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const Navigation = () => (
-  <div className="relative w-[334px] h-px">
-    <div className="fixed w-[342px] h-px top-0 left-0">
-      <div className="left-[277px] text-white absolute h-px top-0 [font-family:'Roboto-Bold',Helvetica] font-bold text-[22px] text-center tracking-[0] leading-[0.1px]">
-        Stake
-      </div>
-      <div className="left-[190px] text-white absolute h-px top-0 [font-family:'Roboto-Bold',Helvetica] font-bold text-[22px] text-center tracking-[0] leading-[0.1px]">
-        Pools
-      </div>
-      <div className="left-[85px] text-white absolute h-px top-0 [font-family:'Roboto-Bold',Helvetica] font-bold text-[22px] text-center tracking-[0] leading-[0.1px]">
-        Tokens
-      </div>
-      <div className="left-0 text-[#338415] absolute h-px top-0 [font-family:'Roboto-Bold',Helvetica] font-bold text-[22px] text-center tracking-[0] leading-[0.1px]">
+const Navigation = () => {
+  const location = useLocation();
+
+  const getTabStyle = (path: string) => {
+    return location.pathname === path
+      ? "text-green-yellow-accent"
+      : "text-green-yellow-base";
+  };
+
+  return (
+    <div className="absolute top-[35px] left-[158px] w-[354px] h-[23px]">
+      <Link
+        to="/swap"
+        className={`absolute left-0 font-bold text-[22px] ${getTabStyle(
+          "/swap"
+        )}`}
+      >
         Swap
-      </div>
+      </Link>
+      <Link
+        to="/tokens"
+        className={`absolute left-[87px] font-bold text-[22px] ${getTabStyle(
+          "/tokens"
+        )}`}
+      >
+        Tokens
+      </Link>
+      <Link
+        to="/apool"
+        className={`absolute left-[193px] font-bold text-[22px] ${getTabStyle(
+          "/apool"
+        )}`}
+      >
+        Pools
+      </Link>
+      <Link
+        to="/stake"
+        className={`absolute left-[281px] font-bold text-[22px] ${getTabStyle(
+          "/stake"
+        )}`}
+      >
+        Stake
+      </Link>
     </div>
-  </div>
-);
+  );
+};
 
 export default Navigation;
