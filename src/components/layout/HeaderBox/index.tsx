@@ -7,9 +7,8 @@ import LogoArea from "./LogoArea";
 const HeaderBox = (): JSX.Element => {
   return (
     <>
-      <div className="mx-auto flex justify-center items-center w-4/5 h-[93px] bg-[#37373740] rounded-[20px] mb-5 mt-10">
-        {/* <div className="relative w-full h-full"> */}
-        <div className="flex w-full h-full">
+      <div className="mx-auto pc:flex mobile:hidden justify-center items-center w-4/5 h-[93px] bg-[#37373740] rounded-[20px] mb-5 mt-10">
+        <div className="flex w-full h-full items-center justify-between pl-10 pr-10">
           <LogoArea />
           <Navigation />
           <SearchBox />

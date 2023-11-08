@@ -11,18 +11,16 @@ const Navigation = () => {
   };
 
   return (
-    <div className="absolute top-[35px] left-[158px] w-[354px] h-[23px]">
+    <div className="flex w-[30%] justify-evenly">
       <Link
         to="/swap"
-        className={`absolute left-0 font-bold text-[22px] ${getTabStyle(
-          "/swap"
-        )}`}
+        className={` left-0 font-bold text-[22px] ${getTabStyle("/swap")}`}
       >
         Swap
       </Link>
       <Link
         to="/tokens"
-        className={`absolute left-[87px] font-bold text-[22px] ${getTabStyle(
+        className={` left-[87px] font-bold text-[22px] ${getTabStyle(
           "/tokens"
         )}`}
       >
@@ -30,7 +28,7 @@ const Navigation = () => {
       </Link>
       <Link
         to="/poolpair"
-        className={`absolute left-[193px] font-bold text-[22px] ${getTabStyle(
+        className={` left-[193px] font-bold text-[22px] ${getTabStyle(
           "/poolpair"
         )}`}
       >
@@ -38,7 +36,7 @@ const Navigation = () => {
       </Link>
       <Link
         to="/stake"
-        className={`absolute left-[281px] font-bold text-[22px] ${getTabStyle(
+        className={` left-[281px] font-bold text-[22px] ${getTabStyle(
           "/stake"
         )}`}
       >
