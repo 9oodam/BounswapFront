@@ -10,22 +10,6 @@ const index = () => {
         <div className={Divstyle.Btn}>75%</div>
         <div className={Divstyle.Btn}>100%</div>
       </div>
-      {/* ------MyLiwuidity------- */}
-      <div>
-        <div></div>
-        <div></div>
-      </div>
-      {/* ------PricenBtn------ */}
-      <div>
-        <div>
-          <div>
-            <div></div>
-            <div></div>
-          </div>
-          <div></div>
-        </div>
-        <div></div>
-      </div>
     </>
   );
 };

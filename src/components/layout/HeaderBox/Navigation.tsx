@@ -5,9 +5,7 @@ const Navigation = () => {
   const location = useLocation();
 
   const getTabStyle = (path: string) => {
-    return location.pathname === path
-      ? "text-green-yellow-accent"
-      : "text-green-yellow-base";
+    return location.pathname === path ? "text-deepGreen" : "text-white";
   };
 
   return (

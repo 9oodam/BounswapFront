@@ -17,9 +17,25 @@ module.exports = {
       }),
 
       colors: {
-        "green-yellow-base": "#FDFDFD",
-        "green-yellow-accent": "#338415",
-        "custom-accent": "#9CE084",
+        opercityBlack: "#37373740",
+        deepBlack: "#454545",
+        lightBlack: "#7C7C7C",
+        cardWhite: "#ffffffd9",
+        baseWhite: "#ffffff",
+        deepGreen: "#338415",
+        lightGreen: "#9CE084",
+        deepYellow: "#D8D46C",
+        lightYellow: "#f5f070",
+
+        D_opercityBlack: "#ffffffd9",
+        D_deepBlack: "#ffffff",
+        D_lightBlack: "#c8c8c8",
+        D_cardWhite: "#37373740",
+        D_baseWhite: "#454545",
+        D_deepGreen: "#34c200",
+        D_lightGreen: "#c0fea9",
+        D_deepYellow: "#ece753",
+        D_lightYellow: "#fffcb2",
       },
 
       borderRadius: {

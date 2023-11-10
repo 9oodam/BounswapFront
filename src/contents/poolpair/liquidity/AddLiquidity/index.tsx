@@ -1,7 +1,7 @@
 import React from "react";
+import { Divstyle, Textstyle } from "./AddLiquidity.style";
 import InputToken from "./InputToken";
 import LiquidiityBtn from "../LiquidiityBtn";
-import { Divstyle, Textstyle } from "./AddLiquidity.style";
 
 // const AddLiquidity:React.FC<Display> = ({display}) => {
 const AddLiquidity = () => {

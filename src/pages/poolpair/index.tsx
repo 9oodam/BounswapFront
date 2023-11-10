@@ -1,22 +1,32 @@
 import Container from "src/components/container";
-import AddRemoveLiquidity from "src/contents/Liquidity";
-import DepositBalacne from "src/contents/poolpair/depositBalance";
-import Liquidity from "src/contents/poolpair/liquidity";
+// import DepositBalacne from "src/contents/poolpair/depositBalance";
 import { Divstyle } from "./poolpair.styled";
+import AddRemoveLiquidity from "src/contents/poolpair/Liquidity";
+// import Liquidity from "src/contents/Liquidity";
+import CardTitle from "src/components/Card/CardTitle";
+import PoolDetail from "src/contents/poolpair/PoolDetail";
+import DivCard from "../../components/Card";
+import ChartDiv from "../../components/Card/Chart";
 
 const Poolpair: React.FC = () => {
   return (
-    <div className={Divstyle.w_90}>
-      <Container>
-        <div className={Divstyle.flexRow}>
-          <div className="flex flex-col items-center w-[100%]">
-            <Liquidity />
-            <DepositBalacne />
-          </div>
-          <AddRemoveLiquidity />
+    // <div className={Divstyle.w_90}>
+    <Container>
+      <div className={Divstyle.flexRow}>
+        <div className={Divstyle.flexCol}>
+          <DivCard>
+            <CardTitle>Liquidity</CardTitle>
+            <ChartDiv></ChartDiv>
+          </DivCard>
+          <DivCard>
+            <CardTitle>Pool Details</CardTitle>
+            <PoolDetail></PoolDetail>
+          </DivCard>
         </div>
-      </Container>
-    </div>
+        <AddRemoveLiquidity />
+      </div>
+    </Container>
+    // </div>
   );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 
 const Price = () => {
   return (
-    <div className="flex flex-col w-[500px] text-[#7C7C7C]">
+    <div className="flex flex-col w-full text-[#7C7C7C]">
       <div className="flex w-full justify-between">
         <div>Price :</div>
         <div className="flex">

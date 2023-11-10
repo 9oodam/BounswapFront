@@ -1,6 +1,6 @@
 import React from "react";
 import { Divstyle } from "./PercentBtnWarp.style";
-import { LiquidityToken } from "../../../../Interface/Token.interface";
+import { LiquidityToken } from "../../../../../Interface/Token.interface";
 
 const MyLiquidity: React.FC<LiquidityToken> = ({ token1, token2 }) => {
   console.log("token1", token1);
