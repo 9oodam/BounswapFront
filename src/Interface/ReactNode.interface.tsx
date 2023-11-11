@@ -24,3 +24,4 @@ export interface DataItem {
 export interface DataArray {
   data: DataItem[];
 }
+// export type DataArray2 = DataItem[];

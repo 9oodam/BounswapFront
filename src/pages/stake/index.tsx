@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Container from "../../components/container";
 import StakeDashboard from "../../contents/Stake/Dashboard";
+import { useQueryClient } from "react-query";
 const Stake = () => {
   const [visible, setVisible] = useState(10);
+  const queryClient = useQueryClient();
 
   const data = [
     {
@@ -215,6 +217,7 @@ const Stake = () => {
       your: 786,
     },
   ];
+  queryClient.setQueryData("lpTokens", data);
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
