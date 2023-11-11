@@ -7,26 +7,29 @@ import CardTitle from "src/components/Card/CardTitle";
 import PoolDetail from "src/contents/poolpair/PoolDetail";
 import DivCard from "../../components/Card";
 import ChartDiv from "../../components/Card/Chart";
+import Pairname from "../../components/Pairname";
 
 const Poolpair: React.FC = () => {
   return (
     // <div className={Divstyle.w_90}>
-    <Container>
-      <div className={Divstyle.flexRow}>
-        <div className={Divstyle.flexCol}>
-          <DivCard>
-            <CardTitle>Liquidity</CardTitle>
-            <ChartDiv></ChartDiv>
-          </DivCard>
-          <DivCard>
-            <CardTitle>Pool Details</CardTitle>
-            <PoolDetail></PoolDetail>
-          </DivCard>
+    <>
+      <Pairname />
+      <Container>
+        <div className={Divstyle.flexRow}>
+          <div className={Divstyle.flexCol}>
+            <DivCard>
+              <CardTitle>Liquidity</CardTitle>
+              <ChartDiv></ChartDiv>
+            </DivCard>
+            <DivCard>
+              <CardTitle>Pool Details</CardTitle>
+              <PoolDetail></PoolDetail>
+            </DivCard>
+          </div>
+          <AddRemoveLiquidity />
         </div>
-        <AddRemoveLiquidity />
-      </div>
-    </Container>
-    // </div>
+      </Container>
+    </>
   );
 };
 

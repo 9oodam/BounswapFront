@@ -27,7 +27,9 @@ const Information = () => {
   return (
     <div className={Divstyle.flex}>
       <div className={Textstyle.title}>Information</div>
-      <div className={Textstyle.mainText}>{`${commenter}...`}</div>
+      <div className={Textstyle.mainText}>{`${commenter}${
+        showMore ? "" : "..."
+      }`}</div>
       <div
         onClick={() => {
           setShowMore(!showMore);

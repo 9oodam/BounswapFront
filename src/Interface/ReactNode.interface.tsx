@@ -10,3 +10,17 @@ export interface ReactNodeProps {
 export interface Display {
   display: string;
 }
+
+export interface DataItem {
+  tokenCA: string;
+  tokenName: string;
+  tokenImg: string;
+  totkeStaked: number;
+  volume: number;
+  APR: number;
+  your: number;
+}
+
+export interface DataArray {
+  data: DataItem[];
+}

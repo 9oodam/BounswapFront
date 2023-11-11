@@ -5,23 +5,27 @@ import DivCard from "../../components/Card";
 import CardTitle from "../../components/Card/CardTitle";
 import ChartDiv from "../../components/Card/Chart";
 import Information from "../../contents/tokenDetail/information";
+import TokenName from "src/components/TokenName";
 
 const TokenDetail: React.FC = () => {
   return (
-    <Container>
-      <div className={Divstyles.flexRow}>
-        <div className={Divstyles.flexCol}>
+    <>
+      <TokenName />
+      <Container>
+        <div className={Divstyles.flexRow}>
+          <div className={Divstyles.flexCol}>
+            <DivCard>
+              <CardTitle>Volume</CardTitle>
+              <ChartDiv />
+            </DivCard>
+            <Information />
+          </div>
           <DivCard>
-            <CardTitle>Volume</CardTitle>
-            <ChartDiv />
+            <CardTitle>Swap</CardTitle>
           </DivCard>
-          <Information />
         </div>
-        <DivCard>
-          <CardTitle>Swap</CardTitle>
-        </DivCard>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 

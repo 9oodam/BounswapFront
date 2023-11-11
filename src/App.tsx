@@ -9,6 +9,8 @@ import { config } from "./wagmi-config";
 import { Divstyle } from "./App.style";
 import ToggleBtn from "./components/toggleBtn";
 import TokenDetail from "./pages/tokenDetail";
+import Stake from "./pages/stake";
+import StakeDetail from "./pages/StakeDetail";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             <Routes>
               <Route path="/poolpair" element={<Poolpair />} />
               <Route path="/tokendetail" element={<TokenDetail />} />
+              <Route path="/stake" element={<Stake />} />
+              <Route path="/stake/:id" element={<StakeDetail />} />
             </Routes>
           </div>
           <Footer />
