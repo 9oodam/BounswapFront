@@ -4,19 +4,35 @@ import { useParams } from "react-router";
 import { DataItem, DataArray } from "../../Interface/ReactNode.interface";
 
 const StakeDetail = () => {
-  const [lptokens, setLptokens] = useState([]);
-  useEffect(() => {}, []);
+  // ! async-await 써서 확실하게 순서를 잡자. 지금 순서가 꼬여버려서 안되는 것,,,,
+  const [lptokens, setLptokens] = useState<DataArray | null>(null);
+  const [selectToken, setSelectTokens] = useState<DataItem | null>(null);
+  const params = useParams<{ id: string }>();
+
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<DataArray>("lpTokens");
-  console.log("LpTokens", data);
-  setLptokens(data);
 
-  const params = useParams<{ id: string }>();
+  useEffect(() => {
+    if (data) {
+      console.log("data", data);
+      setLptokens(data);
+    }
+  }, [data]);
+  // console.log("LpTokens", data);
+
   console.log("params", params.id);
 
-  const select = data.find((el: DataItem) => {
-    return el.tokenCA == params;
-  });
+  useEffect(() => {
+    if (lptokens && lptokens.data) {
+      const select = lptokens.data.find((el: DataItem) => {
+        console.log("el", el);
+        return el.tokenCA == params.id;
+      });
+      console.log("선택", select);
+      // setSelectTokens(select.);
+    }
+  }, [lptokens, params.id]);
+
   return <div>StakeDetail</div>;
 };
 
