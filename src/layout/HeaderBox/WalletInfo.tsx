@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useChainId } from "wagmi";
 import { useNavigate } from "react-router-dom";
 
 const WalletInfo: React.FC = (): JSX.Element => {
   const { address, isConnected } = useAccount();
+
+  const chainId = useChainId();
+  console.log("chainId", chainId);
 
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
@@ -19,6 +22,11 @@ const WalletInfo: React.FC = (): JSX.Element => {
   const toggleConnectOptions = () => {
     setShowConnectOptions(!showConnectOptions);
   };
+
+  useEffect(() => {
+    console.log("connectors", connectors);
+    console.log("address", address);
+  }, [connectors, address, toString]);
 
   const ConnectOptions = () => (
     <div
@@ -36,6 +44,8 @@ const WalletInfo: React.FC = (): JSX.Element => {
           onClick={() => connect({ connector })}
         >
           {connector.name}
+          {/* {connector.chains[0].name} */}
+          {address}
           {!connector.ready && " (unsupported)"}
         </button>
       ))}

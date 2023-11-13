@@ -20,26 +20,26 @@ const StakeDetail = () => {
 
     const getLptokens = async () => {
       const data = await queryClient.getQueryData<DataArray>("lpTokens");
-      console.log("❗️data", data);
+      // console.log("❗️data", data);
       setLptokens(data ? data : null);
-      console.log("@@lptokens", lptokens);
+      // console.log("@@lptokens", lptokens);
     };
     getLptokens();
   }, [lptokens]);
   // console.log("LpTokens", data);
 
-  console.log("params", params.id);
+  // console.log("params", params.id);
 
   useEffect(() => {
     if (lptokens) {
       const find = async () => {
         const select = await lptokens.find((el: DataItem) => {
-          console.log("el", el);
+          // console.log("el", el);
           return el.tokenCA == params.id;
         });
-        console.log("선택", select);
+        // console.log("선택", select);
         setSelectTokens(select ? select : null);
-        console.log("⭐️⭐️⭐️selectToken", selectToken);
+        // console.log("⭐️⭐️⭐️selectToken", selectToken);
       };
       find();
     }
