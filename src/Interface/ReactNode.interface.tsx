@@ -21,6 +21,7 @@ export interface DataItem {
   your: number;
 }
 
-export interface DataArray {
-  data: DataItem[];
-}
+// export interface DataArray {
+//   data: DataItem[];
+// }
+export type DataArray = DataItem[];
