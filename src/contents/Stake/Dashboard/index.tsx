@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DataArray } from "src/Interface/ReactNode.interface";
 import Card from "src/components/Card";
 
-const StakeDashboard: React.FC<DataArray> = ({ data }) => {
+const StakeDashboard: React.FC<{ data: DataArray }> = ({ data }) => {
   const nav = useNavigate();
   return (
     <div className="flex justify-center w-full">

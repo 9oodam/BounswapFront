@@ -10,30 +10,44 @@ const StakeDetail = () => {
   const params = useParams<{ id: string }>();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<DataArray>("lpTokens");
+  // const data = queryClient.getQueryData<DataArray>("lpTokens");
 
   useEffect(() => {
-    if (data) {
-      console.log("data", data);
-      setLptokens(data);
-    }
-  }, [data]);
+    // if (data) {
+    //   console.log("data", data);
+    //   setLptokens(data);
+    // }
+
+    const getLptokens = async () => {
+      const data = await queryClient.getQueryData<DataArray>("lpTokens");
+      console.log("❗️data", data);
+      setLptokens(data ? data : null);
+      console.log("@@lptokens", lptokens);
+    };
+    getLptokens();
+  }, [lptokens]);
   // console.log("LpTokens", data);
 
   console.log("params", params.id);
 
   useEffect(() => {
-    if (lptokens && lptokens.data) {
-      const select = lptokens.data.find((el: DataItem) => {
-        console.log("el", el);
-        return el.tokenCA == params.id;
-      });
-      console.log("선택", select);
-      // setSelectTokens(select.);
+    if (lptokens) {
+      const find = async () => {
+        const select = await lptokens.find((el: DataItem) => {
+          console.log("el", el);
+          return el.tokenCA == params.id;
+        });
+        console.log("선택", select);
+        setSelectTokens(select ? select : null);
+        console.log("⭐️⭐️⭐️selectToken", selectToken);
+      };
+      find();
     }
-  }, [lptokens, params.id]);
+  }, [lptokens, params.id, selectToken]);
 
-  return <div>StakeDetail</div>;
+  // useEffect(() => {}, [selectToken]);
+
+  return <div>{selectToken?.APR}</div>;
 };
 
 export default StakeDetail;
