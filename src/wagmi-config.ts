@@ -1,6 +1,6 @@
-import { configureChains, createConfig } from "wagmi";
+import { configureChains, createConfig, Connector } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { polygon, mainnet, Chain } from "wagmi/chains";
+import { mainnet, Chain } from "wagmi/chains";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 const customChain: Chain = {
