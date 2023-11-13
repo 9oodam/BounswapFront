@@ -2,15 +2,31 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import { Result } from "postcss";
-import Web3 from "web3";
+import Web3, { Numbers } from "web3";
 
-function App() {
+// declare let window: any;
+
+const App: React.FC = () => {
   const [loggedData, setLoggedData] = useState();
   const [didToken, setDidToken] = useState();
+  const [account, setAccount] = useState<string | null>(null);
 
-  console.log("dfdffdf");
+  const web3 = new Web3("https://network.bouncecode.net/");
+  async function getBalance() {
+    try {
+      const balance = await web3.eth.getBalance(
+        "0x6877fDA0d42E69f5220d36b408aBd68cbd36C883"
+      );
+      console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  getBalance();
 
   const projectId = "6e9c40d1-1236-42c4-8a13-586e7df92327";
+  // const web3 = new Web3(`https://network.bouncecode.net/${projectId}`);
   // const projectId = "e820a145-cce9-46b1-993d-04bb413bf616";
   let parsedUrl = new URL(window.location.href);
   const accessToken = parsedUrl.searchParams.get("access_token");
@@ -39,12 +55,6 @@ function App() {
     // let didToken = null;
 
     if (accessToken || refreshToken) {
-      // setLoggedData({
-      //   // accessToken: jwt.decode(accessToken),
-      //   accessToken: accessToken,
-      //   refreshToken: refreshToken,
-      // });
-
       // access token 검증
       fetch(
         `https://bouns.io/api/jwt-verify?token=${accessToken}&projectId=${projectId}`,
@@ -61,31 +71,6 @@ function App() {
           createDidToken();
         }
       });
-
-      // fetch(`https://bouns.io/api/create-did-token-solana`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     token: accessToken,
-      //     // token: [jwt.decode(accessToken)],
-      //   }),
-      // })
-      //   .then(async (res) => {
-      //     const result = await res.json();
-      //     console.log("res : ", res);
-
-      //     // 지금 요구사항에서 제시해주신 문서를 참고해서 소셜로그인을 구현하고 있는데
-      //     // 액세스토큰은 이미 요청해서 받은 상태이고
-      //     // 이제 지갑 주소를 받으려면 액세스토큰으로 did토큰을 발급받아야 하는데
-      //     // 해당 경로로 요청을 보냈더니 null값이 뜹니다... 뭐가 문제인지 알수가 없어요..
-      //     didToken = res.body;
-      //     console.log(result);
-      //   })
-      //   .catch((e) => {
-      //     console.log("?", e);
-      //   });
     }
   }, []);
 
@@ -109,7 +94,7 @@ function App() {
     });
   };
 
-  // wallet
+  // wallet 주소 받아오기
   const verifyDidToken = () => {
     fetch(`https://bouns.io/api/verify-did-token`, {
       method: "POST",
@@ -131,6 +116,54 @@ function App() {
     });
   };
 
+  // Function equivalent to your script
+  const windowPopUp = () => {
+    const host = "https://bouns.io"; // MrLogin Endpoint. (* required)
+    const clientId = "6e9c40d1-1236-42c4-8a13-586e7df92327"; // projectId (* required)
+    const viewProjectId = undefined;
+
+    const network = "ether"; // bnc: bounce aliance , ether: ethereum mainnet, solana: solana mainnet
+
+    // 로그인 또는 auto 로그인 이후 redirect 할 화면
+    const dest = "sign"; // 기본 화면: null or undefined, 서명 화면: sign
+    // 언어 설정 ( ko: 한국, en: 미국, ja: 일본)
+    const locale = "ko";
+
+    // popup window style setting
+    const style = "left=10,top=10,width=375,height=520,scrollbars=auto";
+
+    const url = `${host}/walletv2/${clientId}/?${
+      !!viewProjectId ? `viewProjectId=${viewProjectId}` : ""
+    }&network=bnc&dest=${dest}&locale=${locale}`;
+
+    window.open(url, "popup", style); // MrLogin Wallet popup 실행
+  };
+
+  // 지갑연결
+
+  const connectWallet = async () => {
+    try {
+      // 커스텀 RPC를 사용하여 계정 정보를 가져옵니다.
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider("https://network.bouncecode.net/")
+      );
+      // 계정 정보를 가져옵니다.
+      const accounts = await web3.eth.getAccounts();
+      if (accounts.length === 0) {
+        throw new Error(
+          "No accounts found. Please check the network and accounts."
+        );
+      }
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error("Error connecting to the custom RPC:", error);
+    }
+  };
+
+  useEffect(() => {
+    connectWallet();
+  }, []);
+
   return (
     <div className="app">
       <button className="loginButton" onClick={onClickLogin}>
@@ -139,9 +172,16 @@ function App() {
       <button className="loginButton" onClick={verifyDidToken}>
         로그인인 버튼ㅇㅇ
       </button>
+      <button className="windowPopUp" onClick={windowPopUp}>
+        windowPopUp
+      </button>
       <pre className="jwtPre">{JSON.stringify(loggedData, null, 2)}</pre>
+      <div>
+        <button onClick={connectWallet}>Connect Wallet</button>
+        {account && <p>Connected Account: {account}</p>}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
