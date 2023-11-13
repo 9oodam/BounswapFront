@@ -1,29 +1,82 @@
-import "./App.css";
 import { useEffect, useState } from "react";
-import jwt from "jsonwebtoken";
-import { Result } from "postcss";
-import Web3, { Numbers } from "web3";
+import "./App.css";
+import Web3 from "web3";
 
-// declare let window: any;
+declare let window: any;
+
+// const web3: Web3 = new Web3("https://network.bouncecode.net/");
+const customRpcUrl: string = "https://network.bouncecode.net/";
+const chainId = "18328";
+
+let web3: Web3 | undefined;
+
+const connectWallet = async (): Promise<void> => {
+  if (window.ethereum) {
+    try {
+      const hexChainId = "0x" + parseInt(chainId, 10).toString(16);
+
+      await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: hexChainId,
+            rpcUrls: [customRpcUrl], // rpcUrls는 배열로 제공
+            chainName: "Custom Network", // 선택적: 네트워크의 이름
+          },
+        ],
+      });
+
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      web3 = new Web3(window.ethereum);
+    } catch (error) {
+      console.error("Error connecting to the wallet:", error);
+    }
+  } else {
+    console.error("Ethereum wallet is not detected.");
+  }
+};
 
 const App: React.FC = () => {
   const [loggedData, setLoggedData] = useState();
   const [didToken, setDidToken] = useState();
   const [account, setAccount] = useState<string | null>(null);
 
-  const web3 = new Web3("https://network.bouncecode.net/");
-  async function getBalance() {
-    try {
-      const balance = await web3.eth.getBalance(
-        "0x6877fDA0d42E69f5220d36b408aBd68cbd36C883"
-      );
-      console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const getAccountInfo = async (): Promise<void> => {
+    if (!web3) return; // Web3 인스턴스가 없으면 함수를 종료합니다.
 
-  getBalance();
+    try {
+      const accounts: string[] = await web3.eth.getAccounts();
+
+      if (accounts.length === 0) {
+        console.error("No accounts found.");
+      } else {
+        setAccount(accounts[0]);
+        console.log("Connected account:", accounts[0]);
+      }
+    } catch (error) {
+      console.error("Error fetching accounts:", error);
+    }
+  };
+
+  useEffect(() => {
+    connectWallet().then(() => {
+      getAccountInfo();
+    });
+  }, []);
+
+  // async function getBalance() {
+  //   try {
+  //     const balance = await web3.eth.getBalance(
+  //       "0x6877fDA0d42E69f5220d36b408aBd68cbd36C883"
+  //     );
+  //     console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
+
+  // getBalance();
 
   const projectId = "6e9c40d1-1236-42c4-8a13-586e7df92327";
   // const web3 = new Web3(`https://network.bouncecode.net/${projectId}`);
@@ -138,31 +191,6 @@ const App: React.FC = () => {
 
     window.open(url, "popup", style); // MrLogin Wallet popup 실행
   };
-
-  // 지갑연결
-
-  const connectWallet = async () => {
-    try {
-      // 커스텀 RPC를 사용하여 계정 정보를 가져옵니다.
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider("https://network.bouncecode.net/")
-      );
-      // 계정 정보를 가져옵니다.
-      const accounts = await web3.eth.getAccounts();
-      if (accounts.length === 0) {
-        throw new Error(
-          "No accounts found. Please check the network and accounts."
-        );
-      }
-      setAccount(accounts[0]);
-    } catch (error) {
-      console.error("Error connecting to the custom RPC:", error);
-    }
-  };
-
-  useEffect(() => {
-    connectWallet();
-  }, []);
 
   return (
     <div className="app">
