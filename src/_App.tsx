@@ -66,6 +66,7 @@ const App: React.FC = () => {
   //   });
   // }, []);
 
+  //! SNS 연동 부분
   const projectId = "6e9c40d1-1236-42c4-8a13-586e7df92327";
   // const web3 = new Web3(`https://network.bouncecode.net/${projectId}`);
   // const projectId = "e820a145-cce9-46b1-993d-04bb413bf616";

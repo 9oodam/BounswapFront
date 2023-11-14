@@ -48,6 +48,8 @@ module.exports = {
       mobile: { min: "0px", max: "1259px" },
 
       pc: { min: "1260px", max: "9999px" },
+
+      stakDash: { max: "850px" },
     },
   },
   variants: {
