@@ -1,13 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
 const WalletInfo: React.FC = () => {
-  const { address, isConnected } = useAccount();
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
-  const { disconnect } = useDisconnect();
   const navigate = useNavigate();
   const [showConnectOptions, setShowConnectOptions] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -17,56 +12,14 @@ const WalletInfo: React.FC = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const handleLogout = () => {
-    disconnect();
-    navigate("/"); // 메인으로 넘어가게
-  };
+  // const handleLogout = () => {
+  //   disconnect();
+  //   navigate("/"); // 메인으로 넘어가게
+  // };
 
   const toggleConnectOptions = () => {
     setShowConnectOptions(!showConnectOptions);
   };
-
-  // const ConnectOptions = () => (
-  //   <div
-  //     className={`absolute right-0 top-0 w-1 h-full bg-white transition-transform ${
-  //       showConnectOptions ? "translate-x-0" : "translate-x-full"
-  //     }`}
-  //   >
-  //     {connectors.map((connector) => (
-  //       <button
-  //         className={`p-2 m-2 ${!connector.ready && "opacity-50"} ${
-  //           isLoading && connector.id === pendingConnector?.id && "bg-gray-500"
-  //         }`}
-  //         disabled={!connector.ready}
-  //         key={connector.id}
-  //         onClick={() => connect({ connector })}
-  //       >
-  //         {connector.name}
-  //         {!connector.ready && " (unsupported)"}
-  //       </button>
-  //     ))}
-
-  //     {error && <div className="p-2 text-red-500">{error.message}</div>}
-  //   </div>
-  // );
-
-  // if (!isConnected || !address) {
-  //   return (
-  //     <>
-  //       <div className="relative w-[170px] h-[46px] ">
-  //         <div className="relative w-full h-full">
-  //           <button
-  //             className="bg-blue-500 text-white p-2 rounded"
-  //             onClick={toggleConnectOptions}
-  //           >
-  //             Connect
-  //           </button>
-  //           {/* {showConnectOptions && <ConnectOptions />} */}
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
-  // }
 
   // return (
   //   <>
@@ -93,9 +46,9 @@ const WalletInfo: React.FC = () => {
     <div className="relative w-[170px] h-[46px] ">
       <button
         onClick={toggleSidebar}
-        className="bg-blue-500 text-white p-2 rounded"
+        className="bg-lightGreen text-baseWhite p-10 rounded-coinLogogo hover:bg-deepGreen"
       >
-        Toggle Sidebar
+        Connect
       </button>
       <Sidebar width={500} isOpen={isSidebarOpen} toggleMenu={toggleSidebar}>
         <div>hi</div>
