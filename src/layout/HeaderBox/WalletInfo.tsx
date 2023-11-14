@@ -26,6 +26,9 @@ const WalletInfo: React.FC = (): JSX.Element => {
   useEffect(() => {
     console.log("connectors", connectors);
     console.log("address", address);
+    connectors.map((el) => {
+      console.log("elelelel", el);
+    });
   }, [connectors, address, toString]);
 
   const ConnectOptions = () => (

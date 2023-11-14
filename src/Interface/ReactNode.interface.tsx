@@ -14,8 +14,9 @@ export interface Display {
 export interface DataItem {
   tokenCA: string;
   tokenName: string;
+  tokenSymbol: string;
   tokenImg: string;
-  totkeStaked: number;
+  totalStaked: number;
   volume: number;
   APR: number;
   your: number;

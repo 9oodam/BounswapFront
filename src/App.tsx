@@ -1,7 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Poolpair from "./pages/poolpair";
-import GradientBg from "./components/GradientBg";
 import HeaderBox from "./layout/HeaderBox";
 import Footer from "./layout/FooterBox";
 import { WagmiConfig } from "wagmi";
@@ -20,19 +19,17 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="App ">
         <WagmiConfig config={config}>
-          <GradientBg>
-            <div className={Divstyle.header_body}>
-              <ToggleBtn />
-              <HeaderBox />
-              <Routes>
-                <Route path="/poolpair" element={<Poolpair />} />
-                <Route path="/tokendetail" element={<TokenDetail />} />
-                <Route path="/stake" element={<Stake />} />
-                <Route path="/stake/:id" element={<StakeDetail />} />
-              </Routes>
-            </div>
-            <Footer />
-          </GradientBg>
+          <div className={Divstyle.header_body}>
+            <ToggleBtn />
+            <HeaderBox />
+            <Routes>
+              <Route path="/poolpair" element={<Poolpair />} />
+              <Route path="/tokendetail" element={<TokenDetail />} />
+              <Route path="/stake" element={<Stake />} />
+              <Route path="/stake/:id" element={<StakeDetail />} />
+            </Routes>
+          </div>
+          <Footer />
         </WagmiConfig>
       </div>
     </QueryClientProvider>

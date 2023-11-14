@@ -9,209 +9,230 @@ const Stake = () => {
   const data = [
     {
       tokenCA: "0x1aaaaa123123213213213123213213123",
-      tokenName: "STK",
+      tokenName: "Stake",
+      tokenSymbol: "STK",
       tokenImg: "/images/LPToken_Steake2.png",
-      totkeStaked: 12345678,
+      totalStaked: 12345678,
       volume: 12000,
       APR: 2.33,
       your: 1234,
     },
     {
       tokenCA: "0x2bbbbbb123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 124453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x3aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x4aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x5aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x6aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x7aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x8aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x9aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x10aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x11aaaaa123123213213213123213213123",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
-      tokenName: "JGD",
+      tokenName: "Jipgagoshipda",
+      tokenSymbol: "JGD",
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      totkeStaked: 23449453,
+      totalStaked: 23449453,
       volume: 6578,
       APR: 3.53,
       your: 786,
@@ -226,12 +247,20 @@ const Stake = () => {
     // ! 대시보드 타이틀 / show more 수정 / 클릭 이벤트. 클릭 시 토큰 CA값 파라미더로 전달
     <>
       <Container>
-        <StakeDashboard data={data.slice(0, visible)} />
-        {visible < data.length ? (
-          <button onClick={showMore}>show more</button>
-        ) : (
-          <></>
-        )}
+        <div className="flex flex-col items-center">
+          <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
+            Stake
+          </div>
+          <StakeDashboard data={data.slice(0, visible)} />
+
+          <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer">
+            {visible < data.length ? (
+              <button onClick={showMore}>show more</button>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
       </Container>
     </>
   );

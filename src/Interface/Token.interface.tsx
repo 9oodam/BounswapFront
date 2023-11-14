@@ -28,3 +28,15 @@ export interface LiquidityToken {
     symbol: string;
   };
 }
+
+export interface TokenNameInterface {
+  tokenName: string;
+  tokenSymbol: string;
+  tokenImg: string;
+  onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
+}
+
+export interface TitleNumInterface {
+  title: string;
+  value: number;
+}

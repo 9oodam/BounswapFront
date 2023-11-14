@@ -10,16 +10,17 @@ const App: React.FC = () => {
   const [loggedData, setLoggedData] = useState();
   const [didToken, setDidToken] = useState();
   const [account, setAccount] = useState<string | null>(null);
+  const [address, setAddress] = useState<string | null>(null);
 
   const web3 = new Web3("https://network.bouncecode.net/");
   async function getBalance() {
-    try {
-      const balance = await web3.eth.getBalance(
-        "0x6877fDA0d42E69f5220d36b408aBd68cbd36C883"
-      );
-      console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
-    } catch (err) {
-      console.error(err);
+    if (address) {
+      try {
+        const balance = await web3.eth.getBalance(address);
+        console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -75,6 +76,21 @@ const App: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("address", address);
+    // async function getBalance() {
+    //   if (address) {
+    //     try {
+    //       const balance = await web3.eth.getBalance(address);
+    //       console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
+    //     } catch (err) {
+    //       console.error(err);
+    //     }
+    //   }
+    //   getBalance();
+    // }
+  }, [address]);
+
   // DID 토큰 생성 로직 추가
   const createDidToken = () => {
     fetch(`https://bouns.io/api/create-did-token`, {
@@ -113,6 +129,7 @@ const App: React.FC = () => {
       console.log("json :", result);
       const iss = result?.iss;
       const walletAddress = iss.split(":")[2];
+      setAddress(walletAddress);
       alert(walletAddress);
     });
   };
