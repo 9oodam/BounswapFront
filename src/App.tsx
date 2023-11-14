@@ -35,10 +35,10 @@ function App() {
     localStorage.setItem("loggedIn", "true");
     setIsSNSLoggedIn(true);
   };
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App ">
-<<<<<<< HEAD
         {!isSNSLoggedIn ? (
           <SNSLogin onLoginSuccess={() => setIsSNSLoggedIn(true)} />
         ) : (
@@ -56,21 +56,6 @@ function App() {
             <Footer />
           </>
         )}
-=======
-        <WagmiConfig config={config}>
-          <div className={Divstyle.header_body}>
-            <ToggleBtn />
-            <HeaderBox />
-            <Routes>
-              <Route path="/poolpair" element={<Poolpair />} />
-              <Route path="/tokendetail" element={<TokenDetail />} />
-              <Route path="/stake" element={<Stake />} />
-              <Route path="/stake/:id" element={<StakeDetail />} />
-            </Routes>
-          </div>
-          <Footer />
-        </WagmiConfig>
->>>>>>> origin/main
       </div>
     </QueryClientProvider>
   );
