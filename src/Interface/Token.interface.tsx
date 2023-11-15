@@ -40,3 +40,33 @@ export interface TitleNumInterface {
   title: string;
   value: number;
 }
+
+export interface DataItem {
+  tokenCA: string;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenImg: string;
+  totalStaked: number;
+  startTime: string;
+  endTime: string;
+  volume: number;
+  APR: number;
+  your: number;
+}
+
+export type DataArray = DataItem[];
+
+export interface TotalVolNTime {
+  totalvolum: number;
+  startTime: string;
+  endTime: string;
+}
+
+export interface EarlyInfo {
+  LPtoken: number;
+  reword: number;
+  time: string;
+  symbol: string;
+}
+
+export type EarlyArray = EarlyInfo[];
