@@ -9,10 +9,10 @@ const WalletInfo: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = async () => {
-    // const data = await axios.get(
-    //   "https://bouns.io/login/?client_id=6e9c40d1-1236-42c4-8a13-586e7df92327&redirect_uri=https://localhost:3000&auto_login=true"
-    // );
-    // console.log(data, "data");
+    const data = await axios.get(
+      "https://bouns.io/login/?client_id=6e9c40d1-1236-42c4-8a13-586e7df92327&redirect_uri=https://localhost:3000&auto_login=true"
+    );
+    console.log(data, "data");
 
     console.log("?", isSidebarOpen);
     setSidebarOpen(!isSidebarOpen);

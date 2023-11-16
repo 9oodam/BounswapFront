@@ -11,18 +11,4 @@ export interface Display {
   display: string;
 }
 
-export interface DataItem {
-  tokenCA: string;
-  tokenName: string;
-  tokenSymbol: string;
-  tokenImg: string;
-  totalStaked: number;
-  volume: number;
-  APR: number;
-  your: number;
-}
 
-// export interface DataArray {
-//   data: DataItem[];
-// }
-export type DataArray = DataItem[];
