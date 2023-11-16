@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { DataArray } from "src/Interface/ReactNode.interface";
+import { DataArray } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
 import CardTitle from "src/components/Card/CardTitle";
 
@@ -13,16 +13,15 @@ const StakeDashboard: React.FC<{ data: DataArray }> = ({ data }) => {
           <thead>
             <tr className="border-t-2 border-b-2 h-[50px] text-[18px] ">
               <th>Token name</th>
-              <th className="mobile:hidden">Total staked</th>
-              <th>Volume(24H)</th>
-              <th className="stakDash:hidden">APR(30D)</th>
+              <th>Total staked</th>
+              <th className="stakDash:hidden">End Date</th>
               <th className="mobile:hidden">Your tokens</th>
             </tr>
           </thead>
           <tbody>
             {data.map((data, index) => (
               <tr
-                className="border-t-2 border-b-2 cursor-pointer hover:bg-opercityBlack rounded-full "
+                className="border-t-2 border-b-2 cursor-pointer hover:bg-opercityBlack rounded-full h-16"
                 onClick={(e) => {
                   nav(`/stake/${data.tokenCA}`);
                 }}
@@ -47,9 +46,8 @@ const StakeDashboard: React.FC<{ data: DataArray }> = ({ data }) => {
                     </div>
                   </div>
                 </td>
-                <td className="mobile:hidden">{data.totalStaked}</td>
-                <td>{data.volume}</td>
-                <td className="stakDash:hidden">{data.APR}</td>
+                <td>{data.totalStaked}</td>
+                <td className="stakDash:hidden">{data.endTime}</td>
                 <td className="mobile:hidden">{data.your}</td>
               </tr>
             ))}
