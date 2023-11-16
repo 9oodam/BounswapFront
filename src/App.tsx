@@ -25,7 +25,7 @@ const App: React.FC = () => {
     setIsSNSLoggedIn(loggedIn === "true");
 
     if (!loggedIn) {
-      navigate("/login");
+      navigate(`${SNSLogin}`);
     }
   }, [navigate]);
 
@@ -38,22 +38,23 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
-        <Routes>
-          <Route
-            path="/login"
-            element={<SNSLogin onLoginSuccess={handleLoginSuccess} />}
-          />
-          <Route path="/poolpair" element={<Poolpair />} />
-          <Route path="/tokendetail" element={<TokenDetail />} />
-          <Route path="/stake" element={<Stake />} />
-          <Route path="/stake/:id" element={<StakeDetail />} />
-          {/* 추가 라우트 설정 */}
-        </Routes>
-        <div className={Divstyle.header_body}>
-          <ToggleBtn />
-          <HeaderBox />
-          <Footer />
-        </div>
+        {!isSNSLoggedIn ? (
+          <SNSLogin onLoginSuccess={handleLoginSuccess} />
+        ) : (
+          <>
+            <div className={Divstyle.header_body}>
+              <ToggleBtn />
+              <HeaderBox />
+              <Routes>
+                <Route path="/poolpair" element={<Poolpair />} />
+                <Route path="/tokendetail" element={<TokenDetail />} />
+                <Route path="/stake" element={<Stake />} />
+                <Route path="/stake/:id" element={<StakeDetail />} />
+              </Routes>
+            </div>
+            <Footer />
+          </>
+        )}
       </div>
     </QueryClientProvider>
   );

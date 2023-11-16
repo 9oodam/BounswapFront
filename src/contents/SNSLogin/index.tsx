@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import LoadingIndicator from "src/components/LoadingIndicator";
 import { verifyToken, getLoginUrl } from "src/Service/authService";
 import { SNSLoginProps } from "src/Interface/SNSLoginProps";
-import axios from "src/utils/axiosConfig";
 
 const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,25 +14,21 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
     console.log("현재 URL:", window.location.href);
     const url = new URL(window.location.href);
     const accessToken = url.searchParams.get("access_token");
+    const refreshToken = url.searchParams.get("refresh_token");
 
-    console.log("urlAccessToken:", accessToken);
+    console.log("accessToken:", accessToken);
 
-    if (accessToken) {
-      console.log("??");
+    if (accessToken && refreshToken) {
+      // 토큰이 유효한 경우, 로컬 스토리지에 저장
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
 
-      verifyToken(accessToken).then((isValid) => {
-        if (isValid) {
-          localStorage.setItem("accessToken", accessToken);
+      console.log("토큰 검증 완료 및 저장");
 
-          console.log("axiosConfig > verifyToken 완료");
-
-          onLoginSuccess();
-        } else {
-          alert("토큰이 유효하지 않습니다");
-          setIsLoading(false);
-        }
-      });
+      // 로그인 성공 처리
+      onLoginSuccess();
     } else {
+      // 토큰이 URL에 없는 경우
       setIsLoading(false);
     }
   }, [onLoginSuccess]);

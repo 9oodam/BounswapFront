@@ -4,16 +4,20 @@ const projectId = "6e9c40d1-1236-42c4-8a13-586e7df92327";
 // 토큰을 검증하는 함수
 export const verifyToken = async (token: string): Promise<boolean> => {
   try {
-    const response = await fetch(
-      `https://bouns.io/api/jwt-verify?token=${token}&projectId=${projectId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    const response = await axios.get(
+      `https://bouns.io/api/jwt-verify?token=${token}&projectId=${projectId}`
     );
-    const result = await response.json();
+
+    // const response = await fetch(
+    //   `https://bouns.io/api/jwt-verify?token=${token}&projectId=${projectId}`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    const result = await response.data;
     console.log("authService.ts > result :", result);
 
     return response.status === 200;

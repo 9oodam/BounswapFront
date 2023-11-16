@@ -20,7 +20,8 @@ axiosInstance.interceptors.request.use(
       if (!isValid) {
         // 토큰이 유효하지 않은 경우 처리
         localStorage.removeItem("accessToken"); // 토큰 제거
-        window.location.href = "/login"; // 로그인 페이지로 리다이렉트
+        localStorage.removeItem("loggedIn"); // 로그인 지우기
+        window.location.href = "/poolpair"; // 로그인 페이지로 리다이렉트
       }
     }
     return config;
