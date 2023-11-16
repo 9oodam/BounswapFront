@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 const Index = () => {
   const [dark, setDark] = useState("");
   const [isChecked, setIsChecked] = useState(localStorage.theme === "dark");

@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import VolumeCotainer from "src/contents/StakeDetail/VolumeCotainer";
 import EarlyCard from "src/contents/StakeDetail/EarlyCard";
 import { EarlyArray } from "../../Interface/Token.interface";
+import StakeCard from "src/contents/StakeDetail/StakeCard";
+import { getTime } from "src/features/getTime";
 
 const StakeDetail = () => {
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
@@ -138,11 +140,7 @@ const StakeDetail = () => {
     ];
     if (EarlyData) {
       const editData = EarlyData.map((el, index) => {
-        const time = new Date(el.time * 1000);
-        const year = time.getFullYear().toString();
-        const month = ("0" + (time.getMonth() + 1)).slice(-2);
-        const day = ("0" + time.getDate()).slice(-2);
-        const date = `${year}-${month}-${day}`;
+        const date = getTime(el.time);
 
         return {
           LPtoken: el.LPtoken,
@@ -156,7 +154,6 @@ const StakeDetail = () => {
     }
   }, [selectToken]);
 
-  useEffect(() => {}, [withdrawal]);
   return (
     <>
       {selectToken && (
@@ -176,14 +173,14 @@ const StakeDetail = () => {
             {selectToken && (
               <VolumeCotainer
                 totalvolum={selectToken?.totalStaked}
-                endTime={selectToken.endTime}
-                startTime={selectToken.startTime}
+                endTime={getTime(selectToken.endTime)}
+                startTime={getTime(selectToken.startTime)}
               />
             )}
             {withdrawal && <EarlyCard data={withdrawal} />}
           </div>
-          <div>
-            <Card>sd</Card>
+          <div className="border-2 flex flex-col items-center pc:w-full mobile:w-[85%] mobile:mt-5">
+            {selectToken && <StakeCard timestamp={selectToken.endTime} />}
             <Card>sd</Card>
           </div>
         </div>
