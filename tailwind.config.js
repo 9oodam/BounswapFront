@@ -50,6 +50,8 @@ module.exports = {
       pc: { min: "1260px", max: "9999px" },
 
       stakDash: { max: "850px" },
+
+      header: { max: "1500px" },
     },
   },
   variants: {

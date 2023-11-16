@@ -140,7 +140,7 @@ const App: React.FC = () => {
     });
   };
 
-  // wallet 주소 받아오기
+  // did 토큰 검증 후 wallet 주소 받아오기
   const verifyDidToken = () => {
     fetch(`https://bouns.io/api/verify-did-token`, {
       method: "POST",
@@ -164,27 +164,27 @@ const App: React.FC = () => {
   };
 
   // Function equivalent to your script
-  const windowPopUp = () => {
-    const host = "https://bouns.io"; // MrLogin Endpoint. (* required)
-    const clientId = "6e9c40d1-1236-42c4-8a13-586e7df92327"; // projectId (* required)
-    const viewProjectId = undefined;
+  // const windowPopUp = () => {
+  //   const host = "https://bouns.io"; // MrLogin Endpoint. (* required)
+  //   const clientId = "6e9c40d1-1236-42c4-8a13-586e7df92327"; // projectId (* required)
+  //   const viewProjectId = undefined;
 
-    const network = "ether"; // bnc: bounce aliance , ether: ethereum mainnet, solana: solana mainnet
+  //   const network = "ether"; // bnc: bounce aliance , ether: ethereum mainnet, solana: solana mainnet
 
-    // 로그인 또는 auto 로그인 이후 redirect 할 화면
-    const dest = "sign"; // 기본 화면: null or undefined, 서명 화면: sign
-    // 언어 설정 ( ko: 한국, en: 미국, ja: 일본)
-    const locale = "ko";
+  //   // 로그인 또는 auto 로그인 이후 redirect 할 화면
+  //   const dest = "sign"; // 기본 화면: null or undefined, 서명 화면: sign
+  //   // 언어 설정 ( ko: 한국, en: 미국, ja: 일본)
+  //   const locale = "ko";
 
-    // popup window style setting
-    const style = "left=10,top=10,width=375,height=520,scrollbars=auto";
+  //   // popup window style setting
+  //   const style = "left=10,top=10,width=375,height=520,scrollbars=auto";
 
-    const url = `${host}/walletv2/${clientId}/?${
-      !!viewProjectId ? `viewProjectId=${viewProjectId}` : ""
-    }&network=bnc&dest=${dest}&locale=${locale}`;
+  //   const url = `${host}/walletv2/${clientId}/?${
+  //     !!viewProjectId ? `viewProjectId=${viewProjectId}` : ""
+  //   }&network=bnc&dest=${dest}&locale=${locale}`;
 
-    window.open(url, "popup", style); // MrLogin Wallet popup 실행
-  };
+  //   window.open(url, "popup", style); // MrLogin Wallet popup 실행
+  // };
 
   const web3 = new Web3("https://network.bouncecode.net/");
   async function getBalance() {
@@ -208,9 +208,9 @@ const App: React.FC = () => {
       <button className="loginButton" onClick={verifyDidToken}>
         로그인인 버튼ㅇㅇ
       </button>
-      <button className="windowPopUp" onClick={windowPopUp}>
-        windowPopUp
-      </button>
+      {/* <button className="windowPopUp" onClick={windowPopUp}> */}
+      {/* windowPopUp */}
+      {/* </button> */}
       <pre className="jwtPre">{JSON.stringify(loggedData, null, 2)}</pre>
       <div>
         {/* <button onClick={connectWallet}>Connect Wallet</button> */}

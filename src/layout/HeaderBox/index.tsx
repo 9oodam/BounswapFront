@@ -1,6 +1,6 @@
 import React from "react";
 import WalletInfo from "./WalletInfo";
-import SearchBox from "./SearchBox";
+import SearchBox from "./SearchBar/index";
 import Navigation from "./Navigation";
 import LogoArea from "./LogoArea";
 

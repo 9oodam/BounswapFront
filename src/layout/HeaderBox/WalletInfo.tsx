@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/index";
 import axios from "../../utils/axiosConfig";
+import WalletConnectScreen from "./Sidebar/WalletConnectScreen";
 
 const WalletInfo: React.FC = () => {
   const navigate = useNavigate();
   const [showConnectOptions, setShowConnectOptions] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState("wallet");
 
   const toggleSidebar = async () => {
     // const data = await axios.get(
@@ -14,7 +16,6 @@ const WalletInfo: React.FC = () => {
     // );
     // console.log(data, "data");
 
-    console.log("?", isSidebarOpen);
     setSidebarOpen(!isSidebarOpen);
   };
 
@@ -52,12 +53,19 @@ const WalletInfo: React.FC = () => {
     <div className="relative w-[170px] h-[46px] ">
       <button
         onClick={toggleSidebar}
-        className="bg-lightGreen text-baseWhite p-10 rounded-coinLogogo hover:bg-deepGreen"
+        className="bg-lightGreen text-baseWhite py-[10px] px-[12px] rounded-[10px] hover:bg-deepGreen font-bold"
       >
         Connect
       </button>
       <Sidebar width={500} isOpen={isSidebarOpen} toggleMenu={toggleSidebar}>
-        <div>hi</div>
+        {currentScreen === "wallet" ? (
+          <WalletConnectScreen
+            toggleMenu={toggleSidebar}
+            isOpen={isSidebarOpen}
+          />
+        ) : (
+          <h1>wallet connect 됐을때 넣어주자</h1>
+        )}
       </Sidebar>
     </div>
   );

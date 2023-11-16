@@ -9,7 +9,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex w-[30%] justify-evenly">
+    <div className="flex w-[50%] header:w-[85%] justify-evenly">
       <Link
         to="/swap"
         className={` left-0 font-bold text-[22px] ${getTabStyle("/swap")}`}
@@ -39,6 +39,14 @@ const Navigation = () => {
         )}`}
       >
         Stake
+      </Link>
+      <Link
+        to="/governance"
+        className={` left-[281px] font-bold text-[22px] ${getTabStyle(
+          "/governance"
+        )}`}
+      >
+        Governance
       </Link>
     </div>
   );
