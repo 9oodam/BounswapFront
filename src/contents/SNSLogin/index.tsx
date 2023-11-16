@@ -11,19 +11,15 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
   };
 
   useEffect(() => {
-    console.log("현재 URL:", window.location.href);
+    // console.log("현재 URL:", window.location.href);
     const url = new URL(window.location.href);
     const accessToken = url.searchParams.get("access_token");
     const refreshToken = url.searchParams.get("refresh_token");
-
-    console.log("accessToken:", accessToken);
 
     if (accessToken && refreshToken) {
       // 토큰이 유효한 경우, 로컬 스토리지에 저장
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-
-      console.log("토큰 검증 완료 및 저장");
 
       // 로그인 성공 처리
       onLoginSuccess();
