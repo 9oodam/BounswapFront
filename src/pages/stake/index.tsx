@@ -2,33 +2,24 @@ import React, { useState } from "react";
 import Container from "../../components/container";
 import StakeDashboard from "../../contents/Stake/Dashboard";
 import { useQueryClient } from "react-query";
+
 const Stake = () => {
   const [visible, setVisible] = useState(10);
   const queryClient = useQueryClient();
 
-  // * ------- 타임스탬프 값. 실제로는 컨트랙트에서 타임스탬프 값이 바로 넘어올 것이다. -------------
-  const timeSP = 1700132400;
-
-  const time = new Date(timeSP * 1000);
-  const year = time.getFullYear().toString();
-  const month = ("0" + (time.getMonth() + 1)).slice(-2);
-  const day = ("0" + time.getDate()).slice(-2);
-
-  const date = `${year}-${month}-${day}`;
-
   const data = [
     {
+      // ! 스테이킹을 구별할 수 있는 요소는 CA가 아닌 poolId 값이 될 것!
       tokenCA: "0x1aaaaa123123213213213123213213123",
       tokenName: "Stake",
       tokenSymbol: "STK",
       tokenImg: "/images/LPToken_Steake2.png",
       totalStaked: 12345678,
-      startTime: date,
-      endTime: date,
-      //! volume - 그래프를 위한 값이었는데, volume이 아닌 하루마다 누적된 토큰의 값이 배열 형태로 들어올 예정
       volume: 12000,
       APR: 2.33,
       your: 1234,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x2bbbbbb123123213213213123213213123",
@@ -37,11 +28,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 124453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x3aaaaa123123213213213123213213123",
@@ -50,11 +41,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x4aaaaa123123213213213123213213123",
@@ -63,11 +54,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x5aaaaa123123213213213123213213123",
@@ -76,11 +67,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x6aaaaa123123213213213123213213123",
@@ -89,11 +80,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x7aaaaa123123213213213123213213123",
@@ -102,11 +93,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x8aaaaa123123213213213123213213123",
@@ -115,11 +106,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x9aaaaa123123213213213123213213123",
@@ -128,11 +119,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x10aaaaa123123213213213123213213123",
@@ -141,11 +132,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x11aaaaa123123213213213123213213123",
@@ -154,11 +145,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -167,11 +158,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -180,11 +171,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -193,11 +184,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -206,11 +197,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -219,11 +210,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -232,11 +223,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -245,11 +236,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -258,11 +249,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -271,11 +262,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
     {
       tokenCA: "0x23j4bk4hjb34243242kj124324341j",
@@ -284,11 +275,11 @@ const Stake = () => {
       tokenImg:
         "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
       totalStaked: 23449453,
-      startTime: date,
-      endTime: date,
       volume: 6578,
       APR: 3.53,
       your: 786,
+      startTime: 1700100000,
+      endTime: 1704452400,
     },
   ];
   queryClient.setQueryData("lpTokens", data);
@@ -297,7 +288,6 @@ const Stake = () => {
     setVisible((prevValue) => prevValue + 10);
   };
   return (
-    // ! 대시보드 타이틀 / show more 수정 / 클릭 이벤트. 클릭 시 토큰 CA값 파라미더로 전달
     <>
       <Container>
         <div className="flex flex-col items-center">

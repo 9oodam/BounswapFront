@@ -21,6 +21,7 @@ const StakeDashboard: React.FC<{ data: DataArray }> = ({ data }) => {
           <tbody>
             {data.map((data, index) => (
               <tr
+                key={index}
                 className="border-t-2 border-b-2 cursor-pointer hover:bg-opercityBlack rounded-full h-16"
                 onClick={(e) => {
                   nav(`/stake/${data.tokenCA}`);
