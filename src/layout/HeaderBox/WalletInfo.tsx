@@ -57,7 +57,7 @@ const WalletInfo: React.FC = () => {
       >
         Connect
       </button>
-      <Sidebar width={500} isOpen={isSidebarOpen} toggleMenu={toggleSidebar}>
+      <Sidebar isOpen={isSidebarOpen} toggleMenu={toggleSidebar}>
         {currentScreen === "wallet" ? (
           <WalletConnectScreen
             toggleMenu={toggleSidebar}

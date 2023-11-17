@@ -47,6 +47,10 @@ module.exports = {
       textShadow: {
         cardTitle: "0px 4px 4px #00000040",
       },
+
+      height: {
+        custom: "calc(100% - 16px)",
+      },
     },
     screens: {
       mobile: { min: "0px", max: "1259px" },
