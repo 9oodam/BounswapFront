@@ -9,6 +9,7 @@ const Stake = () => {
 
   const data = [
     {
+      // ! 스테이킹을 구별할 수 있는 요소는 CA가 아닌 poolId 값이 될 것!
       tokenCA: "0x1aaaaa123123213213213123213213123",
       tokenName: "Stake",
       tokenSymbol: "STK",

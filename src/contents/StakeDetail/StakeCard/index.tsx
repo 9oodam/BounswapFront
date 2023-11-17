@@ -38,7 +38,8 @@ const StakeCard: React.FC<Timestamp> = ({ timestamp }) => {
     setClick(target.id);
   };
   return (
-    <div className=" w-full flex flex-col items-center">
+    // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것!
+    <div className=" w-full flex flex-col items-center m-5 pc:h-[550px]">
       <div className="flex flex-row justify-evenly pc:w-[85%] mobile:w-full min-w-[340px] ">
         <Tap
           backgroundColor={stakeColor}
@@ -59,7 +60,7 @@ const StakeCard: React.FC<Timestamp> = ({ timestamp }) => {
           Unstake
         </Tap>
       </div>
-      <div className="min-w-[340px] pc:w-[85%] mobile:w-full pc:p-5 bg-cardWhite rounded-xl: rounded-bodyBackRadius">
+      <div className="min-w-[340px] pc:w-[85%] mobile:w-full pc:p-5 bg-cardWhite rounded-xl: rounded-bodyBackRadius h-[470px]">
         {click == "stake" ? <Stake /> : <Unstake timestamp={timestamp} />}
       </div>
     </div>

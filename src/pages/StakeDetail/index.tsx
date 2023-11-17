@@ -16,6 +16,7 @@ import EarlyCard from "src/contents/StakeDetail/EarlyCard";
 import { EarlyArray } from "../../Interface/Token.interface";
 import StakeCard from "src/contents/StakeDetail/StakeCard";
 import { getTime } from "src/features/getTime";
+import MyInfoCard from "src/contents/StakeDetail/MyInfoCard";
 
 const StakeDetail = () => {
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
@@ -179,9 +180,11 @@ const StakeDetail = () => {
             )}
             {withdrawal && <EarlyCard data={withdrawal} />}
           </div>
-          <div className="border-2 flex flex-col items-center pc:w-full mobile:w-[85%] mobile:mt-5">
+          <div className={Divstyles.flexCol}>
+            {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
             {selectToken && <StakeCard timestamp={selectToken.endTime} />}
-            <Card>sd</Card>
+            {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
+            <MyInfoCard />
           </div>
         </div>
       </Container>

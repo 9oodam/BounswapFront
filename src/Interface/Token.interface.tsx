@@ -74,3 +74,11 @@ export type EarlyArray = EarlyInfo[];
 export interface Timestamp {
   timestamp: number;
 }
+
+export interface MyFee {
+  token: number;
+  time: number;
+  totalfee: number;
+  dailyfee: number;
+  earlyfee: number;
+}
