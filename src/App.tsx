@@ -1,6 +1,7 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Poolpair from "./pages/poolpair";
+import TopPoolpair from "./pages/TopPoolpair";
+import MyPoolpair from "./pages/MyPoolpair";
 import HeaderBox from "./layout/HeaderBox";
 import Footer from "./layout/FooterBox";
 import { Divstyle } from "./App.style";
@@ -11,6 +12,8 @@ import StakeDetail from "./pages/StakeDetail";
 import { QueryClient, QueryClientProvider } from "react-query";
 import SNSLogin from "./contents/SNSLogin";
 import React, { useEffect, useState } from "react";
+import Tokens from "./pages/Tokens";
+import Governance from "./pages/Governance";
 
 const queryClient = new QueryClient();
 
@@ -46,10 +49,13 @@ const App: React.FC = () => {
               <ToggleBtn />
               <HeaderBox />
               <Routes>
-                <Route path="/poolpair" element={<Poolpair />} />
+                <Route path="/poolpair/top" element={<TopPoolpair />} />
+                <Route path="/poolpair/my" element={<MyPoolpair />} />
+                <Route path="/tokens" element={<Tokens />} />
                 <Route path="/tokendetail" element={<TokenDetail />} />
                 <Route path="/stake" element={<Stake />} />
                 <Route path="/stake/:id" element={<StakeDetail />} />
+                <Route path="/governance" element={<Governance />} />
               </Routes>
             </div>
             <Footer />

@@ -9,7 +9,6 @@ const Unstake: React.FC<Timestamp> = ({ timestamp }) => {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [nowTime, setNowTime] = useState<number | null>(null);
   const [deadline, setDeadline] = useState<boolean>(false);
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (timestamp) {

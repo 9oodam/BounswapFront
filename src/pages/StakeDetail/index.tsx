@@ -178,13 +178,23 @@ const StakeDetail = () => {
                 startTime={getTime(selectToken.startTime)}
               />
             )}
-            {withdrawal && <EarlyCard data={withdrawal} />}
+            <div className="w-full mobile:hidden flex justify-center">
+              {withdrawal && <EarlyCard data={withdrawal} />}
+            </div>
+            <div className="w-full pc:hidden flex justify-center">
+              <MyInfoCard />
+            </div>
           </div>
           <div className={Divstyles.flexCol}>
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
             {selectToken && <StakeCard timestamp={selectToken.endTime} />}
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
-            <MyInfoCard />
+            <div className="w-full mobile:hidden flex justify-center">
+              <MyInfoCard />
+            </div>
+            <div className="pc:hidden w-full flex justify-center">
+              {withdrawal && <EarlyCard data={withdrawal} />}
+            </div>
           </div>
         </div>
       </Container>

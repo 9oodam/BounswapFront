@@ -5,23 +5,22 @@ import "./EarlyCard.style.css";
 
 const EarlyCard: React.FC<{ data: EarlyArray }> = ({ data }) => {
   return (
-    <div className="w-[85%] text-baseWhite p-7">
+    <div className="pc:w-[85%] mobile:w-full text-baseWhite pc:p-7 mobile:mt-5">
       <h3
-        className="font-bold text-[25px] text-left mb-5 "
-        style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+        className="font-bold text-[25px] text-left mb-5 [text-shadow:0px_4px_4px_#00000040] "
       >
         Early Withdrawal History
       </h3>
-      <div className="grid grid-cols-3 w-full text-baseWhite font-bold text-[20px] border-b-2 mb-3">
+      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite font-bold text-[20px] border-b-2 mb-3 items-center justify-center">
         <div>Timestamp</div>
-        <div>Token Amount</div>
+        <div className="mobile:hidden">Token Amount</div>
         <div>Unclaimed Rewards</div>
       </div>
       <div className="grid grid-cols-1 gap-2 overflow-auto scrollbar overflow-y-scroll w-full h-60 text-baseWhite">
         {data.map((el, index) => (
           <div key={index} className="w-full flex justify-around">
             <span className="w-[30%]">{el.time}</span>
-            <span className="w-[30%]">
+            <span className="w-[30%] mobile:hidden">
               {el.LPtoken} {el.symbol}
             </span>
             <span className="w-[30%]">{el.reword}</span>
