@@ -7,8 +7,8 @@ const WalletConnectScreen: React.FC<WalletConnectScreenProps> = ({
   isOpen,
 }) => {
   return (
-    <div className="w-full h-full flex flex-col border-4 border-blue-800">
-      <div className=" w-full flex flex-wrap justify-between border-2 border-[#e2e750] text-center mb-[16px]">
+    <div className="w-full h-full flex flex-col">
+      <div className=" w-full flex flex-wrap justify-between text-center mb-[16px] font-bold">
         <div>Connect Wallet</div>
 
         <button
@@ -27,9 +27,9 @@ const WalletConnectScreen: React.FC<WalletConnectScreenProps> = ({
           )}
         </button>
       </div>
-      <div className="grid auto-rows-auto gap-y-4 border-2 border-[#56db4c]">
+      <div className="grid auto-rows-auto gap-y-4">
         {/* wallet 연결 관련 UI 추가하기 */}
-        <div className="grid gap-[2px] radius-[12px] overflow-hidden">
+        <div className="grid gap-[2px] rounded-[12px] overflow-hidden">
           <WalletBox></WalletBox>
           <WalletBox></WalletBox>
         </div>
