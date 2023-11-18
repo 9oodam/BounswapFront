@@ -14,6 +14,9 @@ import { useNavigate } from "react-router-dom";
 import VolumeCotainer from "src/contents/StakeDetail/VolumeCotainer";
 import EarlyCard from "src/contents/StakeDetail/EarlyCard";
 import { EarlyArray } from "../../Interface/Token.interface";
+import StakeCard from "src/contents/StakeDetail/StakeCard";
+import { getTime } from "src/features/getTime";
+import MyInfoCard from "src/contents/StakeDetail/MyInfoCard";
 
 const StakeDetail = () => {
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
@@ -138,11 +141,7 @@ const StakeDetail = () => {
     ];
     if (EarlyData) {
       const editData = EarlyData.map((el, index) => {
-        const time = new Date(el.time * 1000);
-        const year = time.getFullYear().toString();
-        const month = ("0" + (time.getMonth() + 1)).slice(-2);
-        const day = ("0" + time.getDate()).slice(-2);
-        const date = `${year}-${month}-${day}`;
+        const date = getTime(el.time);
 
         return {
           LPtoken: el.LPtoken,
@@ -156,7 +155,6 @@ const StakeDetail = () => {
     }
   }, [selectToken]);
 
-  useEffect(() => {}, [withdrawal]);
   return (
     <>
       {selectToken && (
@@ -176,15 +174,17 @@ const StakeDetail = () => {
             {selectToken && (
               <VolumeCotainer
                 totalvolum={selectToken?.totalStaked}
-                endTime={selectToken.endTime}
-                startTime={selectToken.startTime}
+                endTime={getTime(selectToken.endTime)}
+                startTime={getTime(selectToken.startTime)}
               />
             )}
             {withdrawal && <EarlyCard data={withdrawal} />}
           </div>
-          <div>
-            <Card>sd</Card>
-            <Card>sd</Card>
+          <div className={Divstyles.flexCol}>
+            {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
+            {selectToken && <StakeCard timestamp={selectToken.endTime} />}
+            {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
+            <MyInfoCard />
           </div>
         </div>
       </Container>

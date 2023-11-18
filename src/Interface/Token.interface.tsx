@@ -47,8 +47,8 @@ export interface DataItem {
   tokenSymbol: string;
   tokenImg: string;
   totalStaked: number;
-  startTime: string;
-  endTime: string;
+  startTime: number;
+  endTime: number;
   volume: number;
   APR: number;
   your: number;
@@ -70,3 +70,15 @@ export interface EarlyInfo {
 }
 
 export type EarlyArray = EarlyInfo[];
+
+export interface Timestamp {
+  timestamp: number;
+}
+
+export interface MyFee {
+  token: number;
+  time: number;
+  totalfee: number;
+  dailyfee: number;
+  earlyfee: number;
+}

@@ -19,7 +19,7 @@ const EarlyCard: React.FC<{ data: EarlyArray }> = ({ data }) => {
       </div>
       <div className="grid grid-cols-1 gap-2 overflow-auto scrollbar overflow-y-scroll w-full h-60 text-baseWhite">
         {data.map((el, index) => (
-          <div className="w-full flex justify-around">
+          <div key={index} className="w-full flex justify-around">
             <span className="w-[30%]">{el.time}</span>
             <span className="w-[30%]">
               {el.LPtoken} {el.symbol}

@@ -17,7 +17,7 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
           <div className="m-5 p-5 items-end flex flex-col justify-end text-deepBlack">
             <div>Staking Period</div>
             <div className="font-bold">
-              {endTime} ~ {startTime}
+              {startTime} ~ {endTime}
             </div>
           </div>
         </div>
