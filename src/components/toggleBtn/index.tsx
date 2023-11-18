@@ -39,7 +39,7 @@ const Index = () => {
   }
 
   return (
-    <div className="w-full flex justify-end mt-20">
+    <div className="w-full flex justify-end mt-32">
       <label className="relative inline-flex items-center cursor-pointer">
         <input
           onChange={Click}
