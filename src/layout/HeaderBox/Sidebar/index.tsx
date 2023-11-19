@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const Sidebar: React.FC<{
-  // width?: number;
-  children?: React.ReactNode;
+  title?: React.ReactNode;
+  button?: React.ReactNode;
   isOpen: boolean;
   toggleMenu: () => void;
-}> = ({ children, isOpen, toggleMenu }) => {
+  children?: React.ReactNode;
+}> = ({ title, button, isOpen, toggleMenu, children }) => {
   return (
     <>
       <div
@@ -14,6 +15,10 @@ const Sidebar: React.FC<{
         }`}
       >
         <div className="w-full h-full pt-[14px] pr-[16px] pb-[16px] pl-[16px] rounded-[12px]">
+          <div className=" w-full flex flex-wrap justify-between text-center mb-[16px] font-bold">
+            <div>{title}</div>
+            <div className="flex items-center">{button}</div>
+          </div>
           {children}
         </div>
       </div>

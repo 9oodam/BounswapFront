@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import WalletInfo from "./WalletInfo";
+import ConnectBox from "./ConnectBox/index";
 import SearchBox from "./SearchBar/index";
 import Navigation from "./Navigation/index";
 import LogoArea from "./LogoArea/index";
@@ -31,10 +31,9 @@ const HeaderBox = (): JSX.Element => {
         }`}
       >
         <div className="w-full h-full flex justify-center items-center mobile:flex mobile:justify-evenly ">
-          <LogoArea />
           <Navigation />
           <SearchBox />
-          <WalletInfo />
+          <ConnectBox />
         </div>
       </div>
     </>
