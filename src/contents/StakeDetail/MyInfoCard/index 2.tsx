@@ -23,8 +23,8 @@ const MyInfoCard = () => {
     <div className=" min-w-[340px] pc:w-[85%] mobile:w-[85%] p-5 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center m-5 mt-16 shadow-md">
       {myFee && (
         <div className={Divstyles.flexCol}>
-          <div className="flex pc:w-[85%] mobile:w-[90%] justify-between pc:items-center">
-            <div className="pc:w-[30%]">
+          <div className="flex w-[85%] justify-between items-center">
+            <div className="w-[30%]">
               <div className="text-lightBlack w-full text-left">
                 Your tokens
               </div>
@@ -42,18 +42,18 @@ const MyInfoCard = () => {
               </div>
             </div>
           </div>
-          <div className=" pc:w-[90%] mobile:w-[95%] p-5 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center m-5 shadow-md">
+          <div className="min-w-[340px] w-[90%] p-5 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center m-5 shadow-md">
             <div className={Divstyles.flexCol}>
               <div className={`${Divstyles.flexRow}`}>
-                <div className="pc:text-left mobile:text-right w-full text-lightBlack">
+                <div className="text-left w-full text-lightBlack flex items-start">
                   Total Fees
                 </div>
-                <div className="text-[28px] w-full text-deepGreen font-bold pc:text-right mobile:text-right">
+                <div className="text-[28px] text-deepGreen font-bold ">
                   {myFee.totalfee}
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center mt-3 mobile:flex-col">
-                <div className="min-w-[120px] pc:w-[95%] mobile:w-[95%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
+              <div className="w-full flex justify-between items-center mt-3">
+                <div className="min-w-[150px] w-[85%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
                   <div className=" text-left text-lightBlack">
                     Fee per Block
                   </div>
@@ -61,10 +61,8 @@ const MyInfoCard = () => {
                     {myFee.dailyfee}
                   </div>
                 </div>
-                <div className="font-extrabold text-[30px] mx-3 text-deepBlack">
-                  +
-                </div>
-                <div className="min-w-[120px] pc:w-[95%] mobile:w-[95%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
+                <div className="font-extrabold text-[30px] mx-3">+</div>
+                <div className="min-w-[150px] pc:w-[85%] mobile:w-[85%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
                   <div className="text-left text-lightBlack">Bonus Fee</div>
                   <div className="text-right text-deepGreen text-[23px] font-bold">
                     {myFee.earlyfee}

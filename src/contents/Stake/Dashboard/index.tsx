@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DataArray } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
-import CardTitle from "src/components/Card/CardTitle";
 
 const StakeDashboard: React.FC<{ data: DataArray }> = ({ data }) => {
   const nav = useNavigate();

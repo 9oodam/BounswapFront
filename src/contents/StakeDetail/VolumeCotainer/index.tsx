@@ -12,10 +12,10 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
   return (
     <Card>
       <div className={Divstyles.flexCol}>
-        <div className="border-2 w-full flex justify-between">
+        <div className="w-full flex justify-between mobile:flex-col">
           <VolumeCard title="Total Staked" value={totalvolum} />
-          <div className="m-5 p-5 items-end flex flex-col justify-end text-deepBlack">
-            <div>Staking Period</div>
+          <div className="pc:m-5 mobile:mt-5 pc:p-5 mobile:pr-5 items-end flex flex-col justify-end text-deepBlack">
+            <div className="mobile:hidden">Staking Period</div>
             <div className="font-bold">
               {startTime} ~ {endTime}
             </div>

@@ -46,10 +46,6 @@ module.exports = {
         coinBox: "15px",
       },
 
-      textShadow: {
-        cardTitle: "0px 4px 4px #00000040",
-      },
-
       height: {
         custom: "calc(100% - 16px)",
       },

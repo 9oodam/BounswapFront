@@ -9,7 +9,7 @@ import DivCard from "../../components/Card";
 import ChartDiv from "../../components/Card/Chart";
 import Pairname from "../../components/Pairname";
 
-const Poolpair: React.FC = () => {
+const TopPoolpair: React.FC = () => {
   return (
     // <div className={Divstyle.w_90}>
     <>
@@ -33,4 +33,4 @@ const Poolpair: React.FC = () => {
   );
 };
 
-export default Poolpair;
+export default TopPoolpair;

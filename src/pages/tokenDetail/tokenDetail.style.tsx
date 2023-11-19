@@ -1,4 +1,4 @@
-import { Divstyle } from "../poolpair/poolpair.styled";
+import { Divstyle } from "../TopPoolpair/poolpair.styled";
 
 export const Divstyles = {
   flexRow: `${Divstyle.flexRow}`,
