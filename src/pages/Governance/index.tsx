@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Divstyle } from "src/App.style";
 import Card from "src/components/Card";
 import Container from "src/components/container";
+import { getTime } from "src/features/getTime";
+
 const Governance = () => {
-  //   const [w, setW] = useState(false);
-  const [pop, setPop] = useState<Record<number, boolean>>({}); // 상태의 타입을 Record<number, boolean>로 선언
+  const [pop, setPop] = useState<Record<number, boolean>>({});
+  const [nowTime, setNowTime] = useState<number>(0);
+
+  useEffect(() => {
+    var date = Date.now();
+    var timestamp = date / 1000; // 형식화된 날짜 및 시간
+    setNowTime(timestamp);
+  }, []);
   /*
     uint id;             // 제안 id
     address proposer;    // 제출자 address
@@ -14,7 +23,7 @@ const Governance = () => {
     uint againstVotes;   // 반대 투표수
     uint startTime;      // 의제 제출 시간
     uint endTime;        // 투표 마감 시간
-    ProposalState state; // 제안서 상태(0 : 투표중, 1 : 투표 통과 X, 2 : 투표 통과됨)
+    ProposalState state; // 제안서 상태(0 : 투표중 / PENDING, 1 : 투표 통과 X / DEFEATED, 2 : 투표 통과됨 / EXECUTED)
 */
   const data = [
     {
@@ -24,9 +33,9 @@ const Governance = () => {
       description: "논산 육군훈련소에서 만난 고구려의 흥망성쇠 이대로 괜찮은가",
       quorumVotes: 1000,
       forVotes: 100,
-      againstVotes: 30,
+      againstVotes: 100,
       startTime: 1699668671,
-      endTime: 1700532671,
+      endTime: 1703479365,
       state: 0,
     },
     {
@@ -210,54 +219,109 @@ const Governance = () => {
 
   return (
     <Container>
-      <Card>
-        <table className="w-full">
-          <thead>
-            <tr>
-              <th className="border-2 w-[70%]">Proposals</th>
-              <th className="border-2 w-[30%]">Proposer</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* {data.map((el, index) => (
-              <tr
-                className="w-full"
-                onClick={() => {
-                  setW((preW) => !preW);
-                }}
-              >
-                <td className="border-2 h-[100px] w-[70%]">{el.title}</td>
-                <td className="border-2 h-[200px] w-[30%]">{el.proposer}</td>
-
-                {w ? (
-                  <div className="border-2 h-[200px]">{el.description}</div>
-                ) : null}
+      <div className="w-full flex flex-col justify-center items-center">
+        <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
+          Governance
+        </div>
+        <Card>
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th className="text-[20px] text-deepBlack w-[60%]">
+                  Proposals
+                </th>
+                <th className="text-[20px] text-deepBlack w-[20%]">state</th>
+                <th className="text-[20px] text-deepBlack w-[25%]">deadline</th>
               </tr>
-            ))} */}
-            {data.map((el, index) => (
-              <>
-                <tr
-                  className="w-full"
-                  onClick={() => {
-                    setPop((pop) => ({ ...pop, [index]: !pop[index] })); // 행의 인덱스를 키로 사용하여 펼침 상태를 관리
-                  }}
-                >
-                  <td className="border-2 h-[100px] w-[70%]">{el.title}</td>
-                  <td className="border-2 h-[200px] w-[30%]">{el.proposer}</td>
-                </tr>
-
-                {pop[index] ? ( // 각 행의 펼침 상태를 기반으로 내용 행을 표시
-                  <tr>
-                    <td colSpan={2} className="border-2 h-[200px]">
-                      {el.description}
+            </thead>
+            <tbody>
+              {data.map((el, index) => (
+                <>
+                  <tr
+                    className="w-full text-deepBlack cursor-pointer hover:bg-opercityBlack"
+                    onClick={() => {
+                      setPop((pop) => ({ ...pop, [index]: !pop[index] })); // 행의 인덱스를 키로 사용하여 펼침 상태를 관리
+                    }}
+                  >
+                    <td className=" h-[50px] w-[60%] text-left pl-5 font-bold">
+                      {el.title}
                     </td>
+                    {el.state == 0 ? (
+                      <td className=" h-[50px] w-[20%]">
+                        <div className="border-2 border-blue-400 text-blue-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                          PENDING
+                        </div>
+                      </td>
+                    ) : el.state == 1 ? (
+                      <td className=" h-[50px] w-[20%]">
+                        <div className="border-2 border-red-400 text-red-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                          DEFEATED
+                        </div>
+                      </td>
+                    ) : (
+                      <td className=" h-[50px] w-[20%]">
+                        <div className="border-2 border-green-400 text-green-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                          EXECUTED
+                        </div>
+                      </td>
+                    )}
+                    <td className=" h-[50px] w-[20%]">{getTime(el.endTime)}</td>
                   </tr>
-                ) : null}
-              </>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+
+                  {pop[index] ? ( // 각 행의 펼침 상태를 기반으로 내용 행을 표시
+                    <tr>
+                      <td colSpan={3} className="border-2">
+                        <div className="border-2 w-full flex flex-row p-5">
+                          <div className="w-3/5">
+                            <div className="border-2 w-full min-h-[200px] p-2 text-left">
+                              {el.description}
+                            </div>
+                            <div className="w-full text-left p-2 ">
+                              proposer by. <span>{el.proposer}</span>
+                            </div>
+                          </div>
+                          <div className="w-2/5">
+                            <div className="w-full flex flex-row justify-evenly">
+                              <div>
+                                찬성
+                                {Math.round(
+                                  (el.forVotes /
+                                    (el.forVotes + el.againstVotes)) *
+                                    100
+                                )}
+                                %
+                              </div>
+                              <div>
+                                반대
+                                {Math.round(
+                                  (el.againstVotes /
+                                    (el.forVotes + el.againstVotes)) *
+                                    100
+                                )}
+                                %
+                              </div>
+                            </div>
+                            <div>
+                              투표 상황 멘트
+                              {el.endTime < nowTime ? (
+                                <div>투표기간 종료</div>
+                              ) : el.forVotes < el.quorumVotes ? (
+                                <div>방금 얻은 그 표. 나에게 주게.</div>
+                              ) : (
+                                <div>최소 투표 충족.</div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : null}
+                </>
+              ))}
+            </tbody>
+          </table>
+        </Card>
+      </div>
     </Container>
   );
 };
