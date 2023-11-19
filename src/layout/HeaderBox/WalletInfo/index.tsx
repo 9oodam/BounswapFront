@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./Sidebar/index";
-import axios from "../../utils/axiosConfig";
-import WalletConnectScreen from "./Sidebar/WalletConnectScreen";
+import Sidebar from "../Sidebar/index";
+import axios from "../../../utils/axiosConfig";
+import WalletConnectScreen from "../Sidebar/WalletConnectScreen";
 
 const WalletInfo: React.FC = () => {
   const navigate = useNavigate();
