@@ -25,19 +25,21 @@ const Governance = () => {
     uint endTime;        // 투표 마감 시간
     ProposalState state; // 제안서 상태(0 : 투표중 / PENDING, 1 : 투표 통과 X / DEFEATED, 2 : 투표 통과됨 / EXECUTED)
 */
+
+  // const text = {
+  //   id: 1n,
+  //   proposer: "0x3422j2hg2i342lh43u343b2j24231kb3mko3b",
+  //   title: "0x7366",
+  //   description: "0x786c6b766a666b6c73",
+  //   quorumVotes: 19900000000000000000n,
+  //   forVotes: 0n,
+  //   againstVotes: 0n,
+  //   startTime: 1700182548n,
+  //   endTime: 1700182668n,
+  //   state: 0n,
+  // };
+
   const data = [
-    {
-      id: 1,
-      proposer: "0x3422j2hg2i342lh43u343b2j24231kb3mko3b",
-      title: "고구려의 흥망성쇠",
-      description: "논산 육군훈련소에서 만난 고구려의 흥망성쇠 이대로 괜찮은가",
-      quorumVotes: 1000,
-      forVotes: 100,
-      againstVotes: 100,
-      startTime: 1699668671,
-      endTime: 1703479365,
-      state: 0,
-    },
     {
       id: 2,
       proposer: "0x3422j2hg2i342lh43u343b2j24231kb3mko3b",
@@ -220,106 +222,104 @@ const Governance = () => {
   return (
     <Container>
       <div className="w-full flex flex-col justify-center items-center">
-        <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
+        <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
           Governance
         </div>
         <Card>
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="text-[20px] text-deepBlack w-[60%]">
-                  Proposals
-                </th>
-                <th className="text-[20px] text-deepBlack w-[20%]">state</th>
-                <th className="text-[20px] text-deepBlack w-[25%]">deadline</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((el, index) => (
-                <>
-                  <tr
-                    className="w-full text-deepBlack cursor-pointer hover:bg-opercityBlack"
-                    onClick={() => {
-                      setPop((pop) => ({ ...pop, [index]: !pop[index] })); // 행의 인덱스를 키로 사용하여 펼침 상태를 관리
-                    }}
-                  >
-                    <td className=" h-[50px] w-[60%] text-left pl-5 font-bold">
-                      {el.title}
-                    </td>
+          <div className="grid w-full gap-y-4">
+            {/* 헤더 */}
+            <div className="grid grid-cols-5 text-[20px] text-deepBlack">
+              <div className="col-span-3">Proposals</div>
+              <div>state</div>
+              <div>deadline</div>
+            </div>
+            {/* 데이터 */}
+            {data.map((el, index) => (
+              <div className="flex flex-col">
+                <div
+                  className={`grid grid-cols-5 items-center text-deepBlack cursor-pointer hover:bg-opercityBlack h-[60px]
+              ${
+                pop[index]
+                  ? "border-t-4 border-r-4 border-l-4 rounded-t-3xl border-deepGreen"
+                  : ""
+              }`}
+                  onClick={(e) => {
+                    setPop((pop) => ({ ...pop, [index]: !pop[index] })); // 행의 인덱스를 키로 사용하여 펼침 상태를 관리
+                  }}
+                >
+                  <div className="col-span-3 text-left pl-5 font-bold">
+                    {el.title}
+                  </div>
+                  <div>
+                    {/* 상태 처리 */}
                     {el.state == 0 ? (
-                      <td className=" h-[50px] w-[20%]">
-                        <div className="border-2 border-blue-400 text-blue-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
-                          PENDING
-                        </div>
-                      </td>
+                      <div className="border-2 border-blue-400 text-blue-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                        PENDING
+                      </div>
                     ) : el.state == 1 ? (
-                      <td className=" h-[50px] w-[20%]">
-                        <div className="border-2 border-red-400 text-red-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
-                          DEFEATED
-                        </div>
-                      </td>
+                      <div className="border-2 border-red-400 text-red-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                        DEFEATED
+                      </div>
                     ) : (
-                      <td className=" h-[50px] w-[20%]">
-                        <div className="border-2 border-green-400 text-green-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
-                          EXECUTED
-                        </div>
-                      </td>
+                      <div className="border-2 border-green-400 text-green-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                        EXECUTED
+                      </div>
                     )}
-                    <td className=" h-[50px] w-[20%]">{getTime(el.endTime)}</td>
-                  </tr>
+                  </div>
+                  <div>{getTime(el.endTime)}</div>
+                </div>
 
-                  {pop[index] ? ( // 각 행의 펼침 상태를 기반으로 내용 행을 표시
-                    <tr>
-                      <td colSpan={3} className="border-2">
-                        <div className="border-2 w-full flex flex-row p-5">
-                          <div className="w-3/5">
-                            <div className="border-2 w-full min-h-[200px] p-2 text-left">
-                              {el.description}
-                            </div>
-                            <div className="w-full text-left p-2 ">
-                              proposer by. <span>{el.proposer}</span>
-                            </div>
+                {/* 펼침 내용 */}
+                {pop[index] && (
+                  <div className="col-span-5 text-deepBlack border-deepGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
+                    <div className="w-full flex flex-row p-5">
+                      <div className="w-3/5">
+                        <div className="bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius shadow-md w-full min-h-[200px] p-2 text-left">
+                          {el.description}
+                        </div>
+                        <div className="w-full text-left p-2 font-bold text-[20px]">
+                          proposer.{" "}
+                          <span className="font-normal text-[15px]">
+                            {el.proposer}
+                          </span>
+                        </div>
+                      </div>
+                      <div className=" border-2 w-2/5 flex flex-col justify-start items-center">
+                        <div className="w-full flex flex-row justify-evenly">
+                          <div className="bg-green-300 text-baseWhite w-[130px] h-[50px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer">
+                            찬성
+                            {Math.round(
+                              (el.forVotes / (el.forVotes + el.againstVotes)) *
+                                100
+                            )}
+                            %
                           </div>
-                          <div className="w-2/5">
-                            <div className="w-full flex flex-row justify-evenly">
-                              <div>
-                                찬성
-                                {Math.round(
-                                  (el.forVotes /
-                                    (el.forVotes + el.againstVotes)) *
-                                    100
-                                )}
-                                %
-                              </div>
-                              <div>
-                                반대
-                                {Math.round(
-                                  (el.againstVotes /
-                                    (el.forVotes + el.againstVotes)) *
-                                    100
-                                )}
-                                %
-                              </div>
-                            </div>
-                            <div>
-                              투표 상황 멘트
-                              {el.endTime < nowTime ? (
-                                <div>투표기간 종료</div>
-                              ) : el.forVotes < el.quorumVotes ? (
-                                <div>방금 얻은 그 표. 나에게 주게.</div>
-                              ) : (
-                                <div>최소 투표 충족.</div>
-                              )}
-                            </div>
+                          <div className="bg-red-300 text-baseWhite w-[130px] h-[50px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-red-500 cursor-pointer">
+                            반대
+                            {Math.round(
+                              (el.againstVotes /
+                                (el.forVotes + el.againstVotes)) *
+                                100
+                            )}
+                            %
                           </div>
                         </div>
-                      </td>
-                    </tr>
-                  ) : null}
-                </>
-              ))}
-            </tbody>
-          </table>
+                        <div className="">
+                          {el.endTime < nowTime ? (
+                            <div>투표기간 종료</div>
+                          ) : el.forVotes < el.quorumVotes ? (
+                            <div>방금 얻은 그 표. 나에게 주게.</div>
+                          ) : (
+                            <div>최소 투표 충족.</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </Card>
       </div>
     </Container>
