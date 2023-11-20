@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../Sidebar/index";
+import Sidebar from "../ConnectBox/Sidebar";
 import axios from "../../../utils/axiosConfig";
-import WalletConnectScreen from "../Sidebar/WalletConnect/ConnectScreen";
-import WalletInfo from "../Sidebar/WalletInfo/index";
-import InfoScreen from "../Sidebar/WalletInfo/InfoScreen";
-import WalletConnect from "../Sidebar/WalletConnect";
+import WalletConnectScreen from "../ConnectBox/Sidebar/WalletConnect/ConnectScreen";
+import WalletInfo from "../ConnectBox/Sidebar/WalletInfo/index";
+import InfoScreen from "../ConnectBox/Sidebar/WalletInfo/InfoScreen";
+import WalletConnect from "../ConnectBox/Sidebar/WalletConnect";
+import { WalletAddressButton, ConnectButton } from "./ConnectBox.Style";
 
 const ConnectBox: React.FC = () => {
   const navigate = useNavigate();
@@ -48,21 +49,12 @@ const ConnectBox: React.FC = () => {
   return (
     <div className=" w-[10%] h-[46px] ">
       {walletAddress ? (
-        <div onClick={toggleSidebar} className="flex items-center">
-          <img
-            src="/path/to/avatar.jpg"
-            alt="User Avatar"
-            className="w-[46px] h-[46px] rounded-full"
-          />
-          <span className="ml-2">{walletAddress.slice(0, 10)}...</span>
-        </div>
-      ) : (
-        <button
+        <WalletAddressButton
           onClick={toggleSidebar}
-          className="bg-lightGreen text-baseWhite py-[10px] px-[12px] rounded-[10px] hover:bg-deepGreen font-bold"
-        >
-          Connect
-        </button>
+          walletAddress={walletAddress}
+        />
+      ) : (
+        <ConnectButton onClick={toggleSidebar}>Connect</ConnectButton>
       )}
       <Sidebar
         title={
