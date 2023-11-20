@@ -57,7 +57,7 @@ module.exports = {
 
       stakDash: { max: "850px" },
 
-      header: { max: "1500px" },
+      header: { min: "1260px", max: "1500px" },
     },
   },
   variants: {
