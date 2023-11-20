@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LoadingIndicator from "src/components/LoadingIndicator";
-import { verifyToken, getLoginUrl } from "src/Service/authService";
+import { getLoginUrl } from "src/Service/authService";
 import { SNSLoginProps } from "src/Interface/SNSLoginProps";
 
 const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {

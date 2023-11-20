@@ -3,6 +3,7 @@ import React from "react";
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
   tokenName: string;
+  // onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
 
 // * 소유하고 있는 토큰의 정보를 설정하는 interface => Deposite
@@ -81,4 +82,8 @@ export interface MyFee {
   totalfee: number;
   dailyfee: number;
   earlyfee: number;
+}
+
+export interface testBtn {
+  onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../ConnectBox/Sidebar";
-import axios from "../../../utils/axiosConfig";
 import WalletConnectScreen from "../ConnectBox/Sidebar/WalletConnect/ConnectScreen";
 import WalletInfo from "../ConnectBox/Sidebar/WalletInfo/index";
 import InfoScreen from "../ConnectBox/Sidebar/WalletInfo/InfoScreen";

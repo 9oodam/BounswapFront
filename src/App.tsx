@@ -14,11 +14,21 @@ import SNSLogin from "./contents/SNSLogin";
 import React, { useEffect, useState } from "react";
 import Tokens from "./pages/Tokens";
 import Governance from "./pages/Governance";
+import useWeb3 from "./hooks/web3.hook";
+// import BounsGetWallet from "./hooks/BounsGetWallet";
 
 const queryClient = new QueryClient();
 
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+
 // function App() {
 const App: React.FC = () => {
+  const { user, web3 } = useWeb3(window.ethereum);
+  console.log("user", user, "web3", web3);
   const [isSNSLoggedIn, setIsSNSLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -37,6 +47,9 @@ const App: React.FC = () => {
     setIsSNSLoggedIn(true);
     navigate("/poolpair"); // 로그인 성공 후 리다이렉트할 경로
   };
+
+  // const address = BounsGetWallet();
+  // console.log(address,"address");
 
   return (
     <QueryClientProvider client={queryClient}>
