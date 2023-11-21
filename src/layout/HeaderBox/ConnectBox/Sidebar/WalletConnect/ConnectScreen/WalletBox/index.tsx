@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { WalletBoxProps } from "src/Interface/WalletBox.interface";
 import useWeb3 from "src/hooks/web3.hook";
 
