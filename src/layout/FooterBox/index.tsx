@@ -1,9 +1,21 @@
 import React from "react";
+import LogoArea from "../HeaderBox/LogoArea";
+import ToggleBtn from "src/components/toggleBtn";
+import GithubArea from "./GithubArea";
 
 const Footer = (): JSX.Element => {
   return (
-    <footer className="relative w-4/5 mx-auto h-[129px] border-t border-[#6b7d63cc] p-4 mt-[150px]">
-      <div className="flex justify-between items-start">
+    <footer className="flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] p-4 mt-[150px]">
+      <LogoArea />
+      <div className="flex items-center justify-between">
+        <GithubArea name="9oodam" address="https://github.com/9oodam" />
+        <GithubArea name="ahyeona" address="https://github.com/ahyeona" />
+        <GithubArea name="wijiwon" address="https://github.com/wijiwon" />
+        <GithubArea name="youdonghee" address="https://github.com/youdonghee" />
+        <GithubArea name="Jisub_Hwang" address="https://github.com/jisub12" />
+      </div>
+      <ToggleBtn />
+      {/* <div className="flex justify-between items-start">
         <p className="text-left text-[#6b7d63cc] text-[12px]">
           상호: 주식회사 바운스코드
           <br />
@@ -23,7 +35,7 @@ const Footer = (): JSX.Element => {
           </a>
         </p>
         <img className="w-[102px] h-[49px]" src="icon-box.png" alt="Icon box" />
-      </div>
+      </div> */}
     </footer>
   );
 };

@@ -7,6 +7,8 @@ import { getTime } from "src/features/getTime";
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
   const [nowTime, setNowTime] = useState<number>(0);
+  const [forPercent, setForPercent] = useState<number>(0);
+  const [againstPercent, setAgainstPercent] = useState<number>(0);
 
   useEffect(() => {
     var date = Date.now();
@@ -111,7 +113,7 @@ const Governance = () => {
       description:
         "영국 문학 : 명예를 위해 죽겠다. 프랑스 문학: 사랑을 위해 죽겠다. 미국 문학: 자유를 위해 죽겠다. 조선 왕실 문학: 죽여보던가.",
       quorumVotes: 1000,
-      forVotes: 100,
+      forVotes: 180,
       againstVotes: 30,
       startTime: 1699668671,
       endTime: 1700532671,
@@ -123,7 +125,7 @@ const Governance = () => {
       title: "엄청난 김장감이 무엇인가요?",
       description: "아주 큰 배추인것 같습니다.",
       quorumVotes: 1000,
-      forVotes: 100,
+      forVotes: 200,
       againstVotes: 30,
       startTime: 1699668671,
       endTime: 1700532671,
@@ -228,7 +230,7 @@ const Governance = () => {
         <Card>
           <div className="grid w-full gap-y-4">
             {/* 헤더 */}
-            <div className="grid grid-cols-5 text-[20px] text-deepBlack">
+            <div className="grid grid-cols-5 text-[20px] text-deepBlack font-bold">
               <div className="col-span-3">Proposals</div>
               <div>state</div>
               <div>deadline</div>
@@ -253,7 +255,7 @@ const Governance = () => {
                   <div>
                     {/* 상태 처리 */}
                     {el.state == 0 ? (
-                      <div className="border-2 border-blue-400 text-blue-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
+                      <div className="border-2 border-gray-400 text-gray-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
                         PENDING
                       </div>
                     ) : el.state == 1 ? (
@@ -273,7 +275,7 @@ const Governance = () => {
                 {pop[index] && (
                   <div className="col-span-5 text-deepBlack border-deepGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
                     <div className="w-full flex flex-row p-5">
-                      <div className="w-3/5">
+                      <div className="w-3/5 mx-3">
                         <div className="bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius shadow-md w-full min-h-[200px] p-2 text-left">
                           {el.description}
                         </div>
@@ -284,7 +286,7 @@ const Governance = () => {
                           </span>
                         </div>
                       </div>
-                      <div className=" border-2 w-2/5 flex flex-col justify-start items-center">
+                      <div className=" w-2/5 flex flex-col justify-start items-center rounded-bodyBackRadius bg-cardWhite p-7 mx-3">
                         <div className="w-full flex flex-row justify-evenly">
                           <div className="bg-green-300 text-baseWhite w-[130px] h-[50px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer">
                             찬성
@@ -304,14 +306,25 @@ const Governance = () => {
                             %
                           </div>
                         </div>
-                        <div className="">
-                          {el.endTime < nowTime ? (
-                            <div>투표기간 종료</div>
-                          ) : el.forVotes < el.quorumVotes ? (
-                            <div>방금 얻은 그 표. 나에게 주게.</div>
-                          ) : (
-                            <div>최소 투표 충족.</div>
-                          )}
+                        <div className=" w-[80%] mt-5 p-5">
+                          <div className="">
+                            <div className="w-full text-left">찬성</div>
+                            <div className="w-full text-right font-bold text-[17px]">
+                              <span className="text-deepGreen">
+                                {el.forVotes}
+                              </span>{" "}
+                              /{" "}
+                              <span className="text-lightBlack">
+                                {el.quorumVotes}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="w-full mt-4">
+                            <div className="w-full text-left">반대</div>
+                            <div className="w-full text-right text-red-500 font-bold text-[17px]">
+                              {el.againstVotes}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

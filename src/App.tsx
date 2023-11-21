@@ -59,7 +59,6 @@ const App: React.FC = () => {
         ) : (
           <>
             <div className={Divstyle.header_body}>
-              <ToggleBtn />
               <HeaderBox />
               <Routes>
                 <Route path="/poolpair/top" element={<TopPoolpair />} />

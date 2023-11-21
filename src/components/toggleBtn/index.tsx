@@ -38,7 +38,7 @@ const Index = () => {
   }
 
   return (
-    <div className="w-full flex justify-end mt-32">
+    <div className="flex justify-end mt-0">
       <label className="relative inline-flex items-center cursor-pointer">
         <input
           onChange={Click}
@@ -46,7 +46,7 @@ const Index = () => {
           checked={isChecked}
           className="sr-only peer"
         />
-        <div className="w-20 h-10 items-center bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-lightBlack dark:peer-focus:ring-deepBlack rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[8.5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-8 after:w-8 after:transition-all dark:border-gray-600 peer-checked:bg-lightBlack">
+        <div className="w-20 h-10 items-center bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-lightBlack dark:peer-focus:ring-deepBlack rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[15px] after:left-[8.5px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-8 after:w-8 after:transition-all dark:border-gray-600 peer-checked:bg-lightBlack">
           <div
             className={`ransform -translate-y-1/2 top-1/2 absolute ${
               isChecked ? `left-1` : `right-1`

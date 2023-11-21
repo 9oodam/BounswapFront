@@ -5,3 +5,8 @@ export interface ButtonProps {
   children?: React.ReactNode;
   walletAddress?: string;
 }
+
+export interface github {
+  name: string;
+  address: string;
+}
