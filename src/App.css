@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   /* width: 100%; */
   display: flex;
   flex-direction: column;
@@ -49,17 +49,18 @@
   padding: 24px;
 }
 
-.loginButton {
-  width: 100%;
+/* .loginButton {
+  width: 20%;
   height: 40px;
-  background-color: #1976d2;
+  background-color: #75e090;
   color: #fff;
   border: none;
   outline: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 30px;
+  font-size: 25px;
+  font: bold;
   cursor: pointer;
-}
+} */
 
 .jwtPre {
   border-top: 1px solid #eee;

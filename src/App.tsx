@@ -54,6 +54,7 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
+
         {!isSNSLoggedIn ? (
           <SNSLogin onLoginSuccess={handleLoginSuccess} />
         ) : (
