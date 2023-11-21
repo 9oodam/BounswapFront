@@ -7,8 +7,14 @@ const WalletConnectScreen: React.FC = () => {
       <div className="grid auto-rows-auto gap-y-4">
         {/* wallet 연결 관련 UI 추가하기 */}
         <div className="grid gap-[2px] rounded-[12px] overflow-hidden">
-          <WalletBox></WalletBox>
-          <WalletBox></WalletBox>
+          <WalletBox
+            walletName="BounsWallet"
+            walletImg="images/BNC_Icon.png"
+          ></WalletBox>
+          <WalletBox
+            walletName="MetaMask"
+            walletImg="images/BNC_Icon.png"
+          ></WalletBox>
         </div>
         <div>
           By connecting a wallet, you agree to BounSwap Labs' Terms of Service

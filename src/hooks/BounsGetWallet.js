@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import useVerifyToken from "./useVerifyToken";
+import useVerifyToken from "./useVerifyToken";
 import { verifyToken } from "src/Service/authService";
 
 const BounsGetWallet = () => {
   //   const { resSuccess, token } = useVerifyToken();
-  const [accessToken, setAccessToken] = useState(null);
+  // const [accessToken, setAccessToken] = useState(null);
+  // const accessToken = localStorage.getItem("accessToken");
   const [didToken, setDidToken] = useState();
   const [address, setAddress] = useState(null);
 
@@ -17,8 +18,9 @@ const BounsGetWallet = () => {
     const test = await verifyToken();
     console.log("test 6767", test);
     if (test.testTrue) {
-      setAccessToken(test.accessToken);
-    //   createDidToken();
+      const accessToken = test.accessToken;
+
+      createDidToken(accessToken);
     }
   };
 
@@ -27,7 +29,9 @@ const BounsGetWallet = () => {
   }, []);
 
   // DID 토큰 생성 로직 추가
-  const createDidToken = () => {
+  const createDidToken = (accessToken) => {
+    console.log("accessToken?", accessToken);
+
     fetch(`https://bouns.io/api/create-did-token`, {
       method: "POST",
       headers: {
@@ -37,11 +41,13 @@ const BounsGetWallet = () => {
         token: accessToken,
       }),
     }).then(async (res) => {
+      // console.log("asdfasdf", await res.json());
       const result = await res.json();
       console.log("result", result);
       //   alert(result);
       if (res.status == 200) {
         setDidToken(result);
+        console.log("didToken", didToken); // undefined
         // verifyDidToken();
       }
     });

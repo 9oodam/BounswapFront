@@ -4,7 +4,7 @@ const projectId = "6e9c40d1-1236-42c4-8a13-586e7df92327";
 const accessToken = localStorage.getItem("accessToken");
 
 // 토큰 검증
-export const verifyToken = async (token: string) => {
+export const verifyToken = async () => {
   return fetch(
     `https://bouns.io/api/jwt-verify?token=${accessToken}&projectId=${projectId}`,
 
@@ -15,9 +15,13 @@ export const verifyToken = async (token: string) => {
       },
     }
   ).then(async (res) => {
+    console.log("res", res);
+
     const result = await res.json();
     if (res.status == 200) {
       // res.status = 200
+      console.log("??");
+
       return { testTrue: res.status == 200, accessToken };
 
       // createDidToken();

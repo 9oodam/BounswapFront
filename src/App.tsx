@@ -49,7 +49,7 @@ const App: React.FC = () => {
   };
 
   // const address = BounsGetWallet();
-  // console.log(address,"address");
+  // console.log(address, "address");
 
   return (
     <QueryClientProvider client={queryClient}>

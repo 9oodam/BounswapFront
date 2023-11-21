@@ -12,7 +12,7 @@ interface UseWeb3Result {
   governanceContract: Contract<any> | null;
 }
 
-const useWeb3 = (provider: string) => {
+const useWeb3 = (provider: string | null) => {
   const [user, setUser] = useState({ account: "", balance: "" });
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [network, setNetwork] = useState(null);
@@ -21,6 +21,26 @@ const useWeb3 = (provider: string) => {
   const [governanceContract, setGovernanceContract] =
     useState<Contract<any> | null>(null);
   const [pairContract, setPairContract] = useState(null);
+  const [connectStatus, SetconnectStatus] = useState(false);
+
+  useEffect(() => {
+    console.log("?🙄?", connectStatus);
+  }, [connectStatus]);
+
+  useEffect(() => {
+    SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+  }, []);
+
+  const connectMetaMask = async () => {
+    if (window.ethereum) {
+      Boolean(localStorage.getItem("connectStatus"));
+      SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+      // // await window.ethereum.request({ method: "eth_requestAccounts" });
+      // getAccounts(window.ethereum);
+    } else {
+      alert("MetaMask 를 설치해주세요");
+    }
+  };
 
   const getAccounts = (web3Provider: Web3) => {
     let webProvider: Web3;
@@ -41,9 +61,13 @@ const useWeb3 = (provider: string) => {
         });
       });
   };
+
   useEffect(() => {
+    if (!connectStatus) {
+      return;
+    }
     if (window.ethereum) {
-      const web3Provider = new Web3(provider);
+      const web3Provider = new Web3(window.ethereum);
       setWeb3(web3Provider);
       getAccounts(web3Provider);
       window.ethereum.on("chainChanged", () => {
@@ -52,7 +76,7 @@ const useWeb3 = (provider: string) => {
     } else {
       alert("메타마스크 설치");
     }
-  }, []);
+  }, [connectStatus]);
 
   // ! 0x4798 === 바운스네트워크
   useEffect(() => {
@@ -72,6 +96,24 @@ const useWeb3 = (provider: string) => {
   }, [network]);
 
   useEffect(() => {
+    console.log("dd");
+  }, [user]);
+
+  if (web3 !== null) {
+    window.ethereum.on("accountsChanged", async (accounts: string[]) => {
+      const updatedAccount = accounts[0];
+
+      setUser({
+        account: updatedAccount,
+        balance: web3.utils.fromWei(
+          await web3.eth.getBalance(updatedAccount),
+          "ether"
+        ),
+      });
+    });
+  }
+
+  useEffect(() => {
     if (web3 !== null) {
       if (dataContract || governanceContract) return;
       const token = new web3.eth.Contract(
@@ -88,7 +130,8 @@ const useWeb3 = (provider: string) => {
       setGovernanceContract(governance);
     }
   }, [web3]);
-  return { user, web3, governanceContract, dataContract };
+
+  return { user, web3, governanceContract, dataContract, connectMetaMask };
 };
 
 export default useWeb3;

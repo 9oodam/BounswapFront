@@ -6,6 +6,7 @@ import WalletInfo from "../ConnectBox/Sidebar/WalletInfo/index";
 import InfoScreen from "../ConnectBox/Sidebar/WalletInfo/InfoScreen";
 import WalletConnect from "../ConnectBox/Sidebar/WalletConnect";
 import { WalletAddressButton, ConnectButton } from "./ConnectBox.Style";
+// import useWeb3 from "src/hooks/web3.hook";
 
 const ConnectBox: React.FC = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const ConnectBox: React.FC = () => {
 
     const randomWalletAddress = "0x123...abc"; // 예시 주소
     setWalletAddress(randomWalletAddress);
+    // 🚀 Localstorage true 값이면
 
     setSidebarOpen(!isSidebarOpen);
   };
