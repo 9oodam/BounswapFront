@@ -287,7 +287,7 @@ const Governance = () => {
                         </div>
                       </div>
                       <div className=" w-2/5 flex flex-col justify-start items-center rounded-bodyBackRadius bg-cardWhite p-7 mx-3">
-                        <div className="w-full flex flex-row justify-evenly">
+                        <div className=" w-full flex flex-row justify-evenly">
                           <div className="bg-green-300 text-baseWhite w-[130px] h-[50px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer">
                             찬성
                             {Math.round(
@@ -306,9 +306,9 @@ const Governance = () => {
                             %
                           </div>
                         </div>
-                        <div className=" w-[80%] mt-5 p-5">
-                          <div className="">
-                            <div className="w-full text-left">찬성</div>
+                        <div className="w-[80%] mt-5 p-5 ">
+                          <div className="flex flex-col">
+                            <div className=" w-full text-left">찬성</div>
                             <div className="w-full text-right font-bold text-[17px]">
                               <span className="text-deepGreen">
                                 {el.forVotes}
@@ -319,6 +319,7 @@ const Governance = () => {
                               </span>
                             </div>
                           </div>
+
                           <div className="w-full mt-4">
                             <div className="w-full text-left">반대</div>
                             <div className="w-full text-right text-red-500 font-bold text-[17px]">
