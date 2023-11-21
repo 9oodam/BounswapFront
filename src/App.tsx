@@ -16,6 +16,7 @@ import Tokens from "./pages/Tokens";
 import Governance from "./pages/Governance";
 import useWeb3 from "./hooks/web3.hook";
 // import BounsGetWallet from "./hooks/BounsGetWallet";
+import Swap from "./pages/Swap";
 
 const queryClient = new QueryClient();
 
@@ -45,7 +46,7 @@ const App: React.FC = () => {
   const handleLoginSuccess = () => {
     localStorage.setItem("loggedIn", "true");
     setIsSNSLoggedIn(true);
-    navigate("/poolpair"); // 로그인 성공 후 리다이렉트할 경로
+    navigate("/swap"); // 로그인 성공 후 리다이렉트할 경로
   };
 
   // const address = BounsGetWallet();
@@ -62,6 +63,7 @@ const App: React.FC = () => {
               <ToggleBtn />
               <HeaderBox />
               <Routes>
+                <Route path="/swap" element={<Swap />} />
                 <Route path="/poolpair/top" element={<TopPoolpair />} />
                 <Route path="/poolpair/my" element={<MyPoolpair />} />
                 <Route path="/tokens" element={<Tokens />} />

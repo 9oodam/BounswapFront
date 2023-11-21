@@ -1,5 +1,5 @@
 import React from "react";
-import { WalletConnectScreenProps } from "src/Interface/\bWalletConnect.interface";
+import { WalletConnectScreenProps } from "src/Interface/WalletConnect.interface";
 
 const WalletInfo: React.FC<WalletConnectScreenProps> = ({ walletAddress }) => {
   const handleDisconnect = () => {
