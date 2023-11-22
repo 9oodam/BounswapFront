@@ -15,7 +15,7 @@ type Token = {
 const Swap = () => {
   const [selectedToken, setSelectedToken] = useState<Token | null>(null);
 
-  console.log("selectedToken", selectedToken);
+  console.log("selectedToken", selectedToken?.balance);
 
   const [tokens, setTokens] = useState<Token[]>([]);
 
@@ -26,7 +26,7 @@ const Swap = () => {
       symbol: "STK",
       uri: "/images/LPToken_Steake2.png",
       tvl: 500000000000000n,
-      balance: 500000000000000n,
+      balance: 600000000000000n,
     },
     {
       tokenAddress: "0x3aaaaa123123213213213123213213123",
@@ -42,7 +42,7 @@ const Swap = () => {
       symbol: "STK",
       uri: "/images/LPToken_Steake2.png",
       tvl: 500000000000000n,
-      balance: 500000000000000n,
+      balance: 700000000000000n,
     },
   ];
 
