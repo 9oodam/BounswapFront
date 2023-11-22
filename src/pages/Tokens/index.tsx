@@ -14,9 +14,9 @@ const Tokens = () => {
 
   const titles = {
     tokenName: "Token Name",
-    tvl: "TVL",
-    volume: "Volume",
-    volume7D: "Volume(7D)",
+    tokenTvl: "TVL",
+    tokenVolume: "Volume",
+    tokenVolume7D: "Volume(7D)",
   };
 
   const data = [
@@ -32,11 +32,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1111aaaaaaaaaaaaaaaaaa",
-      name: "Ether",
-      Symbol: "ETH",
-      uri: "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "Ether",
+      tokenSymbol: "ETH",
+      tokenUri:
+        "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -50,11 +51,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x2222aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -68,11 +70,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x3333aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -86,11 +89,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x4444aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -104,11 +108,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x5555aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -122,11 +127,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x6666aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -140,11 +146,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x7777aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -158,11 +165,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x8888aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -176,11 +184,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x9999aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -194,11 +203,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1010aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -212,11 +222,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1212aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -230,11 +241,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1313aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -248,11 +260,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1414aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -266,11 +279,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1515aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -284,11 +298,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1616aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -302,11 +317,12 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1717aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
     {
       0: 2n,
@@ -320,23 +336,24 @@ const Tokens = () => {
       8: 1700182668n,
       9: 0n,
       tokenAddress: "0x1818aaaaaaaaaaaaaaaaaa",
-      name: "JIIIIIIP",
-      Symbol: "JIP",
-      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
-      tvl: 19900000000000000000n,
-      balance: 19900000000000000000n,
+      tokenName: "JIIIIIIP",
+      tokenSymbol: "JIP",
+      tokenUri:
+        "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tokenTvl: 19900000000000000000n,
+      tokenBalance: 19900000000000000000n,
     },
   ];
 
   const token = data.map((el, index) => {
     return {
       tokenAddress: el.tokenAddress,
-      name: el.name,
-      symbol: el.Symbol,
-      uri: el.uri,
-      tvl: Number(el.tvl) / 10 ** 18,
+      tokenName: el.tokenName,
+      tokenSymbol: el.tokenSymbol,
+      tokenUri: el.tokenUri,
+      tokenTvl: Number(el.tokenTvl) / 10 ** 18,
       tokenVolume: 100,
-      balance: Number(el.balance) / 10 ** 18,
+      tokenBalance: Number(el.tokenBalance) / 10 ** 18,
     };
   });
 
@@ -348,6 +365,7 @@ const Tokens = () => {
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
+
   return (
     <Container>
       <div className="flex flex-col items-center">
@@ -356,7 +374,7 @@ const Tokens = () => {
         </div>
         <Dashboard arr={token.slice(0, visible)} url="token" title={titles} />
 
-        <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer">
+        <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer flex justify-center items-center">
           {visible < data.length ? (
             <button onClick={showMore}>show more</button>
           ) : (

@@ -19,6 +19,7 @@ import AppFooter from "./layout/FooterBox/AppFooter";
 // import BounsGetWallet from "./hooks/BounsGetWallet";
 import Swap from "./pages/Swap";
 import TopDiv from "./components/container/TopDiv";
+import Pool from "./pages/Pool";
 
 const queryClient = new QueryClient();
 
@@ -66,8 +67,9 @@ const App: React.FC = () => {
               <TopDiv />
               <Routes>
                 <Route path="/swap" element={<Swap />} />
-                <Route path="/poolpair/top" element={<TopPoolpair />} />
-                <Route path="/poolpair/my" element={<MyPoolpair />} />
+                <Route path="/pool" element={<Pool />} />
+                <Route path="/pool/top/:id" element={<TopPoolpair />} />
+                <Route path="/pool/my/:id" element={<MyPoolpair />} />
                 <Route path="/token" element={<Tokens />} />
                 <Route path="/token:id" element={<TokenDetail />} />
                 <Route path="/stake" element={<Stake />} />
@@ -76,8 +78,8 @@ const App: React.FC = () => {
               </Routes>
             </div>
             {/* AppFooter 추가(맨 아래 반응형) */}
-                <Footer />
-                <AppFooter />
+            <Footer />
+            <AppFooter />
           </>
         )}
       </div>
