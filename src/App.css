@@ -69,3 +69,13 @@
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+
+.slide-in {
+  transition: transform 0.3s ease-out;
+  transform: translateX(0);
+}
+
+.slide-out {
+  transition: transform 0.3s ease-in;
+  transform: translateX(100%);
+}
