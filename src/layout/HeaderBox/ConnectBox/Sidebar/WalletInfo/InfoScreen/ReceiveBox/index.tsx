@@ -7,7 +7,7 @@ const ReceiveBox = () => {
     const [copied, setCopied] = useState(false);
     const [isClickable, setIsClickable] = useState(true);
 
-    const pairA = (address: string) => {
+    const userAddress = (address: string) => {
         return (
           address.substring(0, 6) + "..." + address.substring(address.length - 4)
         );
@@ -17,7 +17,6 @@ const ReceiveBox = () => {
     const copy = () => {
         if (!isClickable) return;
         navigator.clipboard.writeText(user.account);
-        // alert("복사 완료");
         setCopied(true);
         setIsClickable(false);
 
@@ -37,7 +36,7 @@ const ReceiveBox = () => {
                 onClick={copy}>
                 
                 <div className={copied ? ` text-baseWhite` : `text-deepBlack`}>
-                    {copied ? "복사 완료" : pairA(user.account)}
+                    {copied ? "복사 완료" : userAddress(user.account)}
                 </div>
 
                 {!copied && (
