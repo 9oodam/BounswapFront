@@ -33,13 +33,13 @@ const SendBox = () => {
 
 
     return (
-        <div>
+        <>
             <label>금액</label>
             <input onChange={(e)=>{setAmount(e.target.value)}} defaultValue={""} /><br />
             <label>보낼 주소</label>
             <input onChange={(e)=>{setSendAddress(e.target.value)}} defaultValue={""} /><br />
-            <button onClick={send} style={{backgroundColor:"white"}}>send</button>
-        </div>
+            <button onClick={send} className="w-[80px] bg-green-200 p-2 rounded-md">send</button>
+        </>
     )
 }
 

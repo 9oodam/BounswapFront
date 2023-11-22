@@ -26,9 +26,9 @@ const ReceiveBox = () => {
     }, 1000);
   };
 
-  return (
-    <div>
-      <QRCodeCanvas value={user.account} />
+    return (
+        <>
+            <QRCodeCanvas value={user.account} />
 
       <div
         className={`border-2 w-[170px] border-deepBlack rounded-full cursor-pointer flex items-center justify-evenly ${
@@ -40,12 +40,13 @@ const ReceiveBox = () => {
           {copied ? "복사 완료" : userAddress(user.account)}
         </div>
 
-        {!copied && (
-          <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
-        )}
-      </div>
-    </div>
-  );
-};
+                {!copied && (
+                    <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
+                )}
+            </div>
+
+        </>
+    )
+}
 
 export default ReceiveBox;
