@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useQueryClient } from "react-query";
 import { DataArray } from "src/Interface/Token.interface";
@@ -8,21 +8,38 @@ const CustomModal: React.FC<{ data: DataArray }> = ({ data }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  // const data = [
-  //   {
-  //     tokenCA: "0x1aaaaa123123213213213123213213123",
-  //     tokenName: "Stake",
-  //     tokenSymbol: "STK",
-  //     tokenImg: "/images/LPToken_Steake2.png",
-  //     totalStaked: 12345678,
-  //     volume: 12000,
-  //     APR: 2.33,
-  //     your: 1234,
-  //     startTime: 1700100000,
-  //     endTime: 1704452400,
-  //   },
-  //   // 다른 토큰 데이터들...
-  // ];
+  const [tokens, setTokens] = useState<
+    {
+      uri: string;
+      symbol: string;
+      balance: bigint;
+    }[]
+  >([]);
+
+  const tokenData = [
+    {
+      tokenAddress: "0x1aaaaa123123213213213123213213123",
+      name: "Stake",
+      symbol: "STK",
+      uri: "/images/LPToken_Steake2.png",
+      tvl: 500000000000000n,
+      balance: 500000000000000n,
+    },
+  ];
+
+  const getData = async () => {
+    // const data = await (dataContract?.methods.getUserPools as any)(user.account).call();
+    // setPools(data);
+    setTokens(tokenData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    console.log("tokens:", tokens);
+  }, [tokens]);
 
   return (
     <div>
