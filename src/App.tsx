@@ -29,8 +29,8 @@ declare global {
 
 // function App() {
 const App: React.FC = () => {
-  const { user, web3 } = useWeb3(window.ethereum);
-  console.log("user", user, "web3", web3);
+  // const { user, web3 } = useWeb3(window.ethereum);
+  // console.log("user", user, "web3", web3);
   const [isSNSLoggedIn, setIsSNSLoggedIn] = useState(false);
   const navigate = useNavigate();
 
