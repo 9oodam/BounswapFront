@@ -6,12 +6,13 @@ import WalletInfo from "../ConnectBox/Sidebar/WalletInfo/index";
 import InfoScreen from "../ConnectBox/Sidebar/WalletInfo/InfoScreen";
 import WalletConnect from "../ConnectBox/Sidebar/WalletConnect";
 import { WalletAddressButton, ConnectButton } from "./ConnectBox.Style";
-// import useWeb3 from "src/hooks/web3.hook";
+import useWeb3 from "src/hooks/web3.hook";
 
 const ConnectBox: React.FC = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [walletAddress, setWalletAddress] = useState(""); // 지갑 주소 상태 변수
+  // const [walletAddress, setWalletAddress] = useState(""); // 지갑 주소 상태 변수
+  const { user } = useWeb3(null);
 
   const toggleSidebar = async () => {
     // const data = await axios.get(
@@ -19,8 +20,8 @@ const ConnectBox: React.FC = () => {
     // );
     // console.log(data, "data");
 
-    const randomWalletAddress = "0x123...abc"; // 예시 주소
-    setWalletAddress(randomWalletAddress);
+    // const randomWalletAddress = "0x123...abc"; // 예시 주소
+    // setWalletAddress(randomWalletAddress);
     // 🚀 Localstorage true 값이면
 
     setSidebarOpen(!isSidebarOpen);
@@ -49,27 +50,27 @@ const ConnectBox: React.FC = () => {
 
   return (
     <div className=" w-[10%] h-[46px] ">
-      {walletAddress ? (
+      {user.account ? (
         <WalletAddressButton
           onClick={toggleSidebar}
-          walletAddress={walletAddress}
+          walletAddress={user.account}
         />
       ) : (
         <ConnectButton onClick={toggleSidebar}>Connect</ConnectButton>
       )}
       <Sidebar
         title={
-          walletAddress ? (
-            <WalletInfo walletAddress={walletAddress} />
+          user.account ? (
+            <WalletInfo walletAddress={user.account} />
           ) : (
             <WalletConnect />
           )
         }
-        button={walletAddress ? logoutButton : closeButton}
+        button={user.account ? logoutButton : closeButton}
         isOpen={isSidebarOpen}
         toggleMenu={toggleSidebar}
       >
-        {walletAddress ? <InfoScreen /> : <WalletConnectScreen />}
+        {user.account ? <InfoScreen /> : <WalletConnectScreen />}
       </Sidebar>
     </div>
   );
