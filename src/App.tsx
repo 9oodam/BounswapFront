@@ -72,7 +72,7 @@ const App: React.FC = () => {
                 <Route path="/governance" element={<Governance />} />
               </Routes>
             </div>
-            {/* AppFooter 추가(맨 아래 반응형 탭) */}
+            {/* AppFooter 추가(맨 아래 반응형) */}
                 <Footer />
                 <AppFooter />
           </>
