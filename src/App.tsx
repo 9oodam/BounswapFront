@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import Tokens from "./pages/Tokens";
 import Governance from "./pages/Governance";
 import useWeb3 from "./hooks/web3.hook";
+import AppFooter from "./layout/FooterBox/AppFooter";
 // import BounsGetWallet from "./hooks/BounsGetWallet";
 
 const queryClient = new QueryClient();
@@ -54,7 +55,6 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
-
         {!isSNSLoggedIn ? (
           <SNSLogin onLoginSuccess={handleLoginSuccess} />
         ) : (
@@ -72,7 +72,9 @@ const App: React.FC = () => {
                 <Route path="/governance" element={<Governance />} />
               </Routes>
             </div>
-            <Footer />
+            {/* AppFooter 추가(맨 아래 반응형 탭) */}
+                <Footer />
+                <AppFooter />
           </>
         )}
       </div>
