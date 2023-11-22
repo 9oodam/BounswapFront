@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Card from "src/components/Card";
 import Container from "src/components/container";
-import Dashboard from "src/contents/Stake/Dashboard";
+import Dashboard from "src/components/Dashboard";
 import index from "src/contents/poolpair/PoolDetail";
 
 const Tokens = () => {

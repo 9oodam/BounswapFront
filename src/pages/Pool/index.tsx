@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import Container from "src/components/container";
-import Dashboard from "src/contents/Stake/Dashboard";
+import Dashboard from "src/components/Dashboard";
 
 const Pool = () => {
   const [visible, setVisible] = useState(10);
+  const queryClient = useQueryClient();
 
   const titles = {
     PairName: "Pair Name",
@@ -21,7 +23,7 @@ const Pool = () => {
       token0Symbol: "ETH",
       token1Symbol: "USDT",
       pairTvl: 123000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 10000000000000000000n,
     },
     {
@@ -33,7 +35,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -45,7 +47,7 @@ const Pool = () => {
       token0Symbol: "CLV",
       token1Symbol: "LCK",
       pairTvl: 12345000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 100000000000000000000n,
     },
     {
@@ -57,7 +59,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -69,7 +71,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -81,7 +83,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -93,7 +95,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -105,7 +107,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -117,7 +119,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -129,7 +131,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -141,7 +143,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -153,7 +155,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -165,7 +167,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -177,7 +179,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
     {
@@ -189,7 +191,7 @@ const Pool = () => {
       token0Symbol: "AAA",
       token1Symbol: "BBB",
       pairTvl: 134000000000000000000n,
-      pairVolume : 40000000000000000000n,
+      pairVolume: 40000000000000000000n,
       pairBalance: 1000000000000000000n,
     },
   ];
@@ -207,6 +209,11 @@ const Pool = () => {
     };
   });
 
+  useQuery("pairs", async () => {
+    return pair;
+  });
+  queryClient.setQueryData("pairs", pair);
+
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
@@ -216,7 +223,7 @@ const Pool = () => {
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
           pools
         </div>
-        <Dashboard arr={pair.slice(0, visible)} url="token" title={titles} />
+        <Dashboard arr={pair.slice(0, visible)} url="pool/top" title={titles} />
 
         <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer flex justify-center items-center">
           {visible < data.length ? (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Container from "../../components/container";
-import Dashboard from "../../contents/Stake/Dashboard";
+import Dashboard from "../../components/Dashboard";
 import { useQueryClient } from "react-query";
 
 const Stake = () => {
