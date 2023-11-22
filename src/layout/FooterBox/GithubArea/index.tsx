@@ -10,14 +10,14 @@ const GithubArea: React.FC<github> = ({ name, address }) => {
         console.log("클릭은?", address);
         window.open(address, "_blank");
       }}
-      className="flex mx-4 cursor-pointer"
+      className="flex mx-4 cursor-pointer mobile:my-1"
     >
       <img
         src="/images/github-mark.png"
         alt="github"
-        className="w-[30px] h-[30px] opacity-80"
+        className="w-[30px] h-[30px] opacity-80 mobile:w-[20px] mobile:h-[20px] "
       />
-      <div className="text-deepBlack ml-2">{name}</div>
+      <div className="text-deepBlack ml-2 mobile:text-[14px]">{name}</div>
     </div>
   );
 };
