@@ -51,7 +51,6 @@ export interface DataItem {
   startTime: number;
   endTime: number;
   volume: number;
-  APR: number;
   your: number;
 }
 
@@ -87,3 +86,15 @@ export interface MyFee {
 export interface testBtn {
   onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
+
+export interface TokenItem {
+  tokenAddress: string;
+  name: string;
+  symbol: string;
+  uri: string;
+  tvl: number;
+  volume: number;
+  balance: number;
+}
+
+export type TokenArray = TokenItem[];

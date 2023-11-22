@@ -24,7 +24,7 @@ const Navigation = () => {
           Swap
         </Link>
         <Link
-          to="/tokens"
+          to="/token"
           className={`mr-[14px] left-[87px] font-bold text-[22px] ${getTabStyle(
             "/tokens"
           )}`}

@@ -11,9 +11,9 @@ const Footer = (): JSX.Element => {
 
     setPop(!pop);
   };
-  
+
   return (
-    <footer className="relative flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] p-4 mt-[150px]">
+    <footer className="relative flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] p-4 mt-[150px] mobile:hidden">
       <LogoArea />
       <div className="flex items-center justify-between mobile:hidden">
         <GithubArea name="9oodam" address="https://github.com/9oodam" />

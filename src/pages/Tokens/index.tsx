@@ -1,30 +1,366 @@
-import React from "react";
+import { url } from "inspector";
+import React, { useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Card from "src/components/Card";
+import Container from "src/components/container";
+import Dashboard from "src/contents/Stake/Dashboard";
+import index from "src/contents/poolpair/PoolDetail";
 
 const Tokens = () => {
+  const [visible, setVisible] = useState(10);
+
+  const queryClient = useQueryClient();
+
+  const titles = ["Token Name", "Total staked", "End Date", "Your tokens"];
+
+  const data = [
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1111aaaaaaaaaaaaaaaaaa",
+      name: "Ether",
+      Symbol: "ETH",
+      uri: "https://i.pinimg.com/564x/d1/48/bd/d148bda5524dfcae85b2a1cdac8e7308.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x2222aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x3333aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x4444aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x5555aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x6666aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x7777aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x8888aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x9999aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1010aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1212aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1313aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1414aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1515aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1616aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1717aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+    {
+      0: 2n,
+      1: "0x35BF335fef91E0ac59799850E59e598301dBC040",
+      2: "0x7366",
+      3: "0x786c6b766a666b6c73",
+      4: 19900000000000000000n,
+      5: 0n,
+      6: 0n,
+      7: 1700182548n,
+      8: 1700182668n,
+      9: 0n,
+      tokenAddress: "0x1818aaaaaaaaaaaaaaaaaa",
+      name: "JIIIIIIP",
+      Symbol: "JIP",
+      uri: "https://i.pinimg.com/564x/23/e0/8d/23e08d5e5441651967611d4ac224a4d3.jpg",
+      tvl: 19900000000000000000n,
+      balance: 19900000000000000000n,
+    },
+  ];
+
+  const token = data.map((el, index) => {
+    return {
+      tokenAddress: el.tokenAddress,
+      name: el.name,
+      symbol: el.Symbol,
+      uri: el.uri,
+      tvl: Number(el.tvl) / 10 ** 18,
+      volume: 100,
+      balance: Number(el.balance) / 10 ** 18,
+    };
+  });
+
+  useQuery("tokens", async () => {
+    return token;
+  });
+  queryClient.setQueryData("tokens", token);
+
+  console.log(token);
+  const showMore = () => {
+    setVisible((prevValue) => prevValue + 10);
+  };
   return (
-    <div>
-      <Card>
-        <table>
-          <thead>
-            <tr>
-              <th>Token Name</th>
-              <th>Price</th>
-              <th>TVL</th>
-              <th>Volume</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Ether</td>
-              <td>$1,943.70</td>
-              <td>$890</td>
-            </tr>
-          </tbody>
-        </table>
-      </Card>
-    </div>
+    <Container>
+      <div className="flex flex-col items-center">
+        <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
+          Stake
+        </div>
+        <Dashboard data={token.slice(0, visible)} url="token" title={titles} />
+
+        <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer">
+          {visible < data.length ? (
+            <button onClick={showMore}>show more</button>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+    </Container>
   );
 };
 

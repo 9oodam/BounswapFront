@@ -17,6 +17,7 @@ import Governance from "./pages/Governance";
 import useWeb3 from "./hooks/web3.hook";
 // import BounsGetWallet from "./hooks/BounsGetWallet";
 import Swap from "./pages/Swap";
+import TopDiv from "./components/container/TopDiv";
 
 const queryClient = new QueryClient();
 
@@ -61,12 +62,13 @@ const App: React.FC = () => {
           <>
             <div className={Divstyle.header_body}>
               <HeaderBox />
+              <TopDiv />
               <Routes>
                 <Route path="/swap" element={<Swap />} />
                 <Route path="/poolpair/top" element={<TopPoolpair />} />
                 <Route path="/poolpair/my" element={<MyPoolpair />} />
-                <Route path="/tokens" element={<Tokens />} />
-                <Route path="/tokendetail" element={<TokenDetail />} />
+                <Route path="/token" element={<Tokens />} />
+                <Route path="/token:id" element={<TokenDetail />} />
                 <Route path="/stake" element={<Stake />} />
                 <Route path="/stake/:id" element={<StakeDetail />} />
                 <Route path="/governance" element={<Governance />} />

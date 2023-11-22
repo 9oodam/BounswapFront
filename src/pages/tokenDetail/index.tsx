@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "src/components/container";
 import { Divstyles } from "./tokenDetail.style";
 import DivCard from "../../components/Card";
@@ -7,9 +7,19 @@ import ChartDiv from "../../components/Card/Chart";
 import Information from "../../contents/tokenDetail/information";
 import TokenName from "src/components/TokenName";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import { TokenArray } from "src/Interface/Token.interface";
 
 const TokenDetail: React.FC = () => {
+  const [tokens, setTokens] = useState<TokenArray | null>(null);
   const nav = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  useEffect(()=>{
+    
+  },[tokens])
+
   return (
     <>
       <TokenName
