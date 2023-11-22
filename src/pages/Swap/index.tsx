@@ -80,8 +80,8 @@ const Swap = () => {
             {selectedToken && (
               <div className="pt-8px text-right">
                 {/* 나중에 balance query 로 가져올예정 */}
-                {/* Balance : {selectedToken.balance} */}
-                <div>Balance : 111111</div>
+                <div>{`Balance : ${Number(selectedToken.balance)}`}</div>
+                {/* <div>Balance : 111111</div> */}
               </div>
             )}
           </div>
