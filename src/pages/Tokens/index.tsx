@@ -12,7 +12,12 @@ const Tokens = () => {
 
   const queryClient = useQueryClient();
 
-  const titles = ["Token Name", "Total staked", "End Date", "Your tokens"];
+  const titles = {
+    tokenName: "Token Name",
+    tvl: "TVL",
+    volume: "Volume",
+    volume7D: "Volume(7D)",
+  };
 
   const data = [
     {
@@ -330,7 +335,7 @@ const Tokens = () => {
       symbol: el.Symbol,
       uri: el.uri,
       tvl: Number(el.tvl) / 10 ** 18,
-      volume: 100,
+      tokenVolume: 100,
       balance: Number(el.balance) / 10 ** 18,
     };
   });
@@ -340,7 +345,6 @@ const Tokens = () => {
   });
   queryClient.setQueryData("tokens", token);
 
-  console.log(token);
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
@@ -348,9 +352,9 @@ const Tokens = () => {
     <Container>
       <div className="flex flex-col items-center">
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
-          Stake
+          Token
         </div>
-        <Dashboard data={token.slice(0, visible)} url="token" title={titles} />
+        <Dashboard arr={token.slice(0, visible)} url="token" title={titles} />
 
         <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer">
           {visible < data.length ? (

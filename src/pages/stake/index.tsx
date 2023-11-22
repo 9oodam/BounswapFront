@@ -7,7 +7,12 @@ const Stake = () => {
   const [visible, setVisible] = useState(10);
   const queryClient = useQueryClient();
 
-  const titles = ["Token Name", "Total staked", "End Date", "Your tokens"];
+  const titles = {
+    stakeName: "Token Name",
+    stake: "Total staked",
+    end: "End Date",
+    yours: "Your tokens",
+  };
   const data = [
     {
       // ! 스테이킹을 구별할 수 있는 요소는 CA가 아닌 poolId 값이 될 것!
@@ -265,7 +270,6 @@ const Stake = () => {
       endTime: 1704452400,
     },
   ];
-  console.log("############", data);
 
   queryClient.setQueryData("lpTokens", data);
 
@@ -278,7 +282,7 @@ const Stake = () => {
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
           Stake
         </div>
-        <Dashboard data={data.slice(0, visible)} url="stake" title={titles} />
+        <Dashboard arr={data.slice(0, visible)} url="stake" title={titles} />
 
         <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer">
           {visible < data.length ? (

@@ -93,8 +93,22 @@ export interface TokenItem {
   symbol: string;
   uri: string;
   tvl: number;
-  volume: number;
+  tokenVolume: number;
   balance: number;
 }
 
 export type TokenArray = TokenItem[];
+
+export interface TokenTitle {
+  tokenName: string;
+  tvl: string;
+  volume: string;
+  volume7D: string;
+}
+
+export interface StakeTitle {
+  stakeName: string;
+  stake: string;
+  end: string;
+  yours: string;
+}

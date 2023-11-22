@@ -1,54 +1,72 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  DataArray,
-  TokenArray,
   DataItem,
   TokenItem,
+  TokenTitle,
+  StakeTitle,
 } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
+import { getTime } from "src/features/getTime";
 
 const Dashboard: React.FC<{
-  data: (DataItem | TokenItem)[];
+  arr: (DataItem | TokenItem)[];
   url: string;
-  title: string[];
-}> = ({ data, url, title }) => {
+  title: TokenTitle | StakeTitle;
+}> = ({ arr, url, title }) => {
   const nav = useNavigate();
   return (
     <div className="flex justify-center w-full">
       <Card>
         <table className="w-full text-deepBlack">
           <thead>
-            <tr className="border-t-2 border-b-2 h-[50px] text-[18px] ">
-              {title.map((el)=>(
-                <>
-                <th>Token name</th>
-                <th>Total staked</th>
-                <th className="stakDash:hidden">End Date</th>
-                <th className="mobile:hidden">Your tokens</th>
-                </>
-
-              ))}
+            <tr className=" border-b-2 h-[50px] text-[18px] ">
+              <th className="w-[55%] text-left pl-7">
+                {"tokenName" in title ? title.tokenName : title.stakeName}
+              </th>
+              <th
+                className={
+                  "tvl" in title ? "stakDash:hidden w-[15%]" : "pc:w-[15%] "
+                }
+              >
+                {"tvl" in title ? title.tvl : title.stake}
+              </th>
+              <th
+                className={
+                  "volume" in title ? "w-[15%]" : "stakDash:hidden pc:w-[15%]"
+                }
+              >
+                {"volume" in title ? title.volume : title.end}
+              </th>
+              <th
+                className={
+                  `volume7D` in title
+                    ? `mobile:hidden w-[15%]`
+                    : `mobile:hidden w-[15%]`
+                }
+              >
+                {"volume7D" in title ? title.volume7D : title.yours}
+              </th>
             </tr>
           </thead>
           <tbody>
-            {data.map((data, index) => (
+            {arr.map((data, index) => (
               <tr
                 key={index}
                 className="border-t-2 border-b-2 cursor-pointer hover:bg-opercityBlack rounded-full h-16"
                 onClick={(e) => {
-                  if ("tokenCA" in data) {
-                    nav(`/${url}/${data.tokenCA}`);
-                  } else if ("tokenAddress" in data) {
+                  if ("tokenAddress" in data) {
                     nav(`/${url}/${data.tokenAddress}`);
+                  } else if ("tokenCA" in data) {
+                    nav(`/${url}/${data.tokenCA}`);
                   }
                 }}
               >
                 <td>
-                  <div className="flex justify-start items-center pl-5 ">
-                    <div className="w-[50px] h-[50px] rounded-full">
+                  <div className="flex justify-start items-center pl-7 ">
+                    <div className="w-[40px] h-[40px] rounded-full">
                       <img
-                        src={"tokenImg" in data ? data.tokenImg : data.uri}
+                        src={"uri" in data ? data.uri : data.tokenImg}
                         alt="Logo"
                         className="w-full rounded-full "
                       />
@@ -56,24 +74,30 @@ const Dashboard: React.FC<{
                     <div>
                       <div className="ml-2">
                         <span className="stakDash:hidden">
-                          {"tokenName" in data ? data.tokenName : data.name}
+                          {"name" in data ? data.name : data.tokenName}
                         </span>
                         <span className="stakDash:hidden"> / </span>
                         <span>
-                          {"tokenSymbol" in data
-                            ? data.tokenSymbol
-                            : data.symbol}
+                          {"symbol" in data ? data.symbol : data.tokenSymbol}
                         </span>
                       </div>
                     </div>
                   </div>
                 </td>
-                <td>{"totalStaked" in data ? data.totalStaked : data.tvl}</td>
-                <td className="stakDash:hidden">
-                  {"endTime" in data ? data.endTime : data.volume}
+                <td className={"tvl" in data ? "stakDash:hidden" : ""}>
+                  {"tvl" in data ? data.tvl : data.totalStaked}
                 </td>
-                <td className="mobile:hidden">
-                  {"your" in data ? data.your : data.volume}
+                <td className={"tokenVolume" in data ? "" : "stakDash:hidden"}>
+                  {"tokenVolume" in data
+                    ? data.tokenVolume
+                    : getTime(data.endTime)}
+                </td>
+                <td
+                  className={
+                    "tokenVolume" in data ? "mobile:hidden" : "mobile:hidden"
+                  }
+                >
+                  {"tokenVolume" in data ? data.tokenVolume : data.your}
                 </td>
               </tr>
             ))}
