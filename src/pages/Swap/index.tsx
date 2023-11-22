@@ -15,7 +15,7 @@ const Swap = () => {
           <div className="flex-row items-center">
             <div className="flex">
               <input className="w-[80%] h-[40px] text-xl"></input>
-              <CustomModal />
+              <CustomModal data={[]} />
             </div>
           </div>
         </Card>

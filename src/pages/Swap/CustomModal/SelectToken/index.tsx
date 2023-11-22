@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { InputTokenProps } from "src/Interface/Token.interface";
+import { DataArray } from "src/Interface/Token.interface";
 
-const SelectToken: React.FC<InputTokenProps> = ({ tokenName }) => {
+const SelectToken: React.FC<{ data: DataArray }> = ({ data }) => {
   return (
     <div className="w-full h-56px top-0 left-0">
       <div className="w-[36px] h-[36px]">
-        <img src={tokenName} alt="" />
+        {/* <img src={data.tokenImg} alt="" /> */}
+        {/* <div>{data.tokenSymbol}</div> */}
       </div>
     </div>
   );
