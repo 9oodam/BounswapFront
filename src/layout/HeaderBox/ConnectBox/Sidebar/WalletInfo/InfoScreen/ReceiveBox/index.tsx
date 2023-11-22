@@ -27,7 +27,7 @@ const ReceiveBox = () => {
     }
 
     return (
-        <div>
+        <>
             <QRCodeCanvas value={user.account} />
 
             <div
@@ -44,7 +44,7 @@ const ReceiveBox = () => {
                 )}
             </div>
 
-        </div>
+        </>
     )
 }
 
