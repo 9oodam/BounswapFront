@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import Tokens from "./pages/Tokens";
 import Governance from "./pages/Governance";
 import useWeb3 from "./hooks/web3.hook";
+import AppFooter from "./layout/FooterBox/AppFooter";
 // import BounsGetWallet from "./hooks/BounsGetWallet";
 import Swap from "./pages/Swap";
 import TopDiv from "./components/container/TopDiv";
@@ -74,7 +75,9 @@ const App: React.FC = () => {
                 <Route path="/governance" element={<Governance />} />
               </Routes>
             </div>
-            <Footer />
+            {/* AppFooter 추가(맨 아래 반응형) */}
+                <Footer />
+                <AppFooter />
           </>
         )}
       </div>
