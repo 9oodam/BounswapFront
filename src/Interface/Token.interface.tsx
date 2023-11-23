@@ -87,3 +87,8 @@ export interface MyFee {
 export interface testBtn {
   onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
+
+export interface SearchTokenInfo {
+  symbol : string,
+  address : string
+}
