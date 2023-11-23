@@ -114,9 +114,8 @@ export interface PairContract {
   token1Uri: string;
   token0Symbol: string;
   token1Symbol: string;
-  pairTvl: number;
-  pairVolume: number;
-  pairBalance: number;
+  tvl: bigint;
+  balance: bigint;
 }
 
 export type PairArray = PairItem[];

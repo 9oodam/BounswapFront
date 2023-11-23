@@ -12,6 +12,7 @@ import index from "src/contents/poolpair/PoolDetail";
 import Card from "src/components/Card";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
+import { getAllTokens } from "src/features/data/dataGetAllTokens";
 
 const Tokens = () => {
   const {web3, dataContract} = useWeb3('');
@@ -369,42 +370,57 @@ const Tokens = () => {
 
  
 
-  useEffect(() => {
-    if(dataContract) {
-      const fetchTokenData = async () => {
-        const Arr : TokenContract[] = await dataContract.methods.getAllTokens().call();
-        console.log(Arr)
-        console.log('?')
-        setArr(Arr);
-      }
-      fetchTokenData();
-    }
-  }, [dataContract])
+  // useEffect(() => {
+  //   if(dataContract) {
+  //     const fetchTokenData = async () => {
+  //       const Arr : TokenContract[] = await dataContract.methods.getAllTokens().call();
+  //       console.log(Arr)
+  //       console.log('?')
+  //       setArr(Arr);
+  //     }
+  //     fetchTokenData();
+  //   }
+  // }, [dataContract])
 
-  useEffect(() => {
-    if(arr) {
-      const token = arr.map((el, index) => {
-        console.log(el);
-        return {
-          tokenAddress: el.tokenAddress,
-          tokenName: el.name,
-          tokenSymbol: el.symbol,
-          tokenUri: el.uri,
-          tokenTvl: Number(el.tvl) / 10 ** 18,
-          tokenVolume: 100,
-          tokenVolume7D: 100,
-          tokenBalance: Number(el.balance) / 10 ** 18,
-        };
-      });
-      token.splice(1, 1); // govToken 제외
-      setTokenArr(token);
-    }
-  }, [arr])
+  // useEffect(() => {
+  //   if(arr) {
+  //     const token = arr.map((el, index) => {
+  //       console.log(el);
+  //       return {
+  //         tokenAddress: el.tokenAddress,
+  //         tokenName: el.name,
+  //         tokenSymbol: el.symbol,
+  //         tokenUri: el.uri,
+  //         tokenTvl: Number(el.tvl) / 10 ** 18,
+  //         tokenVolume: 100,
+  //         tokenVolume7D: 100,
+  //         tokenBalance: Number(el.balance) / 10 ** 18,
+  //       };
+  //     });
+  //     token.splice(1, 1); // govToken 제외
+  //     setTokenArr(token);
+  //   }
+  // }, [arr])
 
-  // useQuery(["tokens"], async () => {
-  //   return token;
-  // });
-  queryClient.setQueryData(["tokens"], tokenArr);
+  // // useQuery(["tokens"], async () => {
+  // //   return token;
+  // // });
+  // queryClient.setQueryData(["tokens"], tokenArr);
+
+  useEffect(()=>{
+    if (!dataContract) return;
+    const getTokensTest = async () => {
+      const data = await getAllTokens({dataContract, queryClient});
+      (data as TokenArray).splice(1, 1);
+  
+      setTokenArr(data as TokenArray);
+      console.log("getTokensTest", data);
+      return data;
+    }
+    getTokensTest();
+  }, [dataContract]);
+
+
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
