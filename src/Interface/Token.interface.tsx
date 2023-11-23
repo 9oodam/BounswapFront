@@ -83,18 +83,6 @@ export interface TokenItem {
   tokenVolume7D: number;
   tokenBalance: number;
 }
-
-export interface TokenItem {
-  tokenAddress: string;
-  tokenName: string;
-  tokenSymbol: string;
-  tokenUri: string;
-  tokenTvl: number;
-  tokenVolume: number;
-  tokenVolume7D: number;
-  tokenBalance: number;
-}
-
 export interface TokenContract {
   tokenAddress: string;
   name: string;
@@ -103,10 +91,20 @@ export interface TokenContract {
   tvl: number;
   balance: number;
 }
-
 export type TokenArray = TokenItem[];
 
+
 export interface PairItem {
+  pairAddress: string;
+  token0Uri: string;
+  token1Uri: string;
+  token0Symbol: string;
+  token1Symbol: string;
+  pairTvl: number;
+  pairVolume: number;
+  pairBalance: number;
+}
+export interface PairContract {
   pairAddress: string;
   token0Uri: string;
   token1Uri: string;
