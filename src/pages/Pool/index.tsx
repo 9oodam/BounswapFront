@@ -1,14 +1,20 @@
+import useWeb3 from "src/hooks/web3.hook";
+
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 
 const Pool = () => {
+  const {web3, dataContract} = useWeb3('');
+
   const [visible, setVisible] = useState(10);
+
   const queryClient = useQueryClient();
 
   const titles = {
-    PairName: "Pair Name",
+    PairName: "Pool Name",
     PairTvl: "TVL",
     PairVolume: "Volume",
     PairVolume7D: "Volume(7D)",
