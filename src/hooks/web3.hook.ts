@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 import dataAbi from "src/abi/Data.abi.json";
-import govAbi from "src/abi/Governance.abi.json";
+import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
 import stakingAbi from "src/abi/Staking.abi.json";
 
