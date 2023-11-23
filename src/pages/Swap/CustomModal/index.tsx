@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import ModalComponent from "src/components/Modal";
 import ButtonComponent from "src/components/Modal/ModalButton";
 import SelectTokenBody from "src/contents/Swap/SelectTokenBody";
