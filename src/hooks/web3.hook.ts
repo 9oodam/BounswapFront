@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
-import tokenAbi from "src/abi/token.abi.json";
-import governanceAbi from "src/abi/governance.abi.json";
+import dataAbi from "src/abi/Data.abi.json";
+import govAbi from "src/abi/Governance.abi.json";
+import pairAbi from "src/abi/Pair.abi.json";
+import stakingAbi from "src/abi/Staking.abi.json";
 
 import { Contract } from "web3-eth-contract";
 
@@ -9,22 +11,25 @@ interface UseWeb3Result {
   user: any; // user의 실제 타입으로 교체해야 합니다.
   web3: Web3 | null;
   dataContract: Contract<any> | null;
+  pairContract: Contract<any> | null;
   governanceContract: Contract<any> | null;
+  stakingContract: Contract<any> | null;
 }
 
 const useWeb3 = (provider: string | null) => {
   const [user, setUser] = useState({ account: "", balance: "" });
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [network, setNetwork] = useState(null);
-  const [stakingContract, setStakingContract] = useState(null);
+
   const [dataContract, setDataContract] = useState<Contract<any> | null>(null);
-  const [governanceContract, setGovernanceContract] =
-    useState<Contract<any> | null>(null);
-  const [pairContract, setPairContract] = useState(null);
+  const [pairContract, setPairContract] = useState<Contract<any> | null>(null);
+  const [governanceContract, setGovernanceContract] = useState<Contract<any> | null>(null);
+  const [stakingContract, setStakingContract] = useState<Contract<any> | null>(null);
+  
   const [connectStatus, SetconnectStatus] = useState(false);
 
   useEffect(() => {
-    console.log("?🙄?", connectStatus);
+    // console.log("?🙄?", connectStatus);
   }, [connectStatus]);
 
   useEffect(() => {
@@ -96,7 +101,7 @@ const useWeb3 = (provider: string | null) => {
   }, [network]);
 
   useEffect(() => {
-    console.log("dd");
+    // console.log("User : ", user);
   }, [user]);
 
   if (web3 !== null) {
@@ -115,23 +120,35 @@ const useWeb3 = (provider: string | null) => {
 
   useEffect(() => {
     if (web3 !== null) {
-      if (dataContract || governanceContract) return;
-      const token = new web3.eth.Contract(
-        tokenAbi as any,
-        "0x260c168573b8196523d98800FA5BFF1C1930712d",
+      if (dataContract && pairContract && governanceContract && stakingContract) return;
+      const dataCon = new web3.eth.Contract(
+        dataAbi as any,
+        "0x8728bEf28c07A5483C848F879C414662fF5f7f34",
         { data: "" }
       );
-      const governance = new web3.eth.Contract(
-        governanceAbi as any,
-        "0x050Ade3854C7493dD67271f85Fc40459674F737C",
+      const pairCon = new web3.eth.Contract(
+        pairAbi as any,
+        "0x59c80D908D35dFdc351C37CE8Da8eba5Cd3336DA",
         { data: "" }
       );
-      setDataContract(token);
-      setGovernanceContract(governance);
+      const govCon = new web3.eth.Contract(
+        govAbi as any,
+        "0xeb392e612CFeB2eFef9810Eb0b786B02D9B4C635",
+        { data: "" }
+      );
+      const stakingCon = new web3.eth.Contract(
+        stakingAbi as any,
+        "0x39A9B4456651db823Ff19fB341E591ae153AdB17",
+        { data: "" }
+      );
+      setDataContract(dataCon);
+      setPairContract(pairCon);
+      setGovernanceContract(govCon);
+      setStakingContract(stakingCon);
     }
   }, [web3]);
 
-  return { user, web3, governanceContract, dataContract, connectMetaMask };
+  return { user, web3, dataContract, pairContract, governanceContract, stakingContract, connectMetaMask };
 };
 
 export default useWeb3;
