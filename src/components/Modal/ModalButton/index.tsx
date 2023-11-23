@@ -20,7 +20,7 @@ const ButtonComponent: React.FC<ModalButtonProps> = ({
           <span>{selectedToken.symbol}</span>
         </div>
       ) : (
-        <div className="w-full h-full bg-[#9CE084] rounded-coinLogo text-[14px] font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">
+        <div className="w-[120px] h-[40px] bg-[#9CE084] rounded-coinLogo font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md pl-[10px] pr-[10px]">
           Select token
         </div>
       )}
