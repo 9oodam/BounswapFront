@@ -1,10 +1,9 @@
 import SwapContainer from "../../components/SwapContainer";
 import React, { useEffect, useState } from "react";
 import Card from "src/components/Card";
-import CustomModal from "./CustomModal";
 import TokenInput from "src/contents/Swap/TokenInput";
-import SwapBtn from "src/contents/poolpair/Liquidity/LiquidiityBtn/SwapBtn";
 import SwapFetchingCard from "src/components/Card/SwapFetchingCard";
+import SwapButton from "src/contents/Swap/SwapButton";
 
 type Token = {
   tokenAddress: string;
@@ -54,6 +53,8 @@ const Swap = () => {
     },
   ];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const getData = async () => {
     // const data = await (dataContract?.methods.getUserPools as any)(user.account).call();
     // setPools(data);
@@ -90,10 +91,10 @@ const Swap = () => {
             setSelectedToken={(token) => setOutputSelectedToken(token)}
           />
         </Card>
-        <SwapFetchingCard>
-          <div>fetching best price...</div>
-        </SwapFetchingCard>
-        <SwapBtn tokenName={"Select Token"} />
+        <SwapFetchingCard children={<div>fetching best price...</div>} />
+
+        <SwapButton />
+
         {/* 조건 1.지갑연동 안됐을때 wallet 연결 유도 2. 토큰 두개다 골랐는데 Input or Output 입력안됐을때 "Enter an amount" 3. Input or Output 이 입력됐을때 계산실행해주기 "fetching best price 표시 -> 입력됐을때 얼마로 바꿔줄수있는지 표시 "1UNI = 3.234 WETH" 4. 내가 보유한 첫번째 TokenInput 의 balance 가 InputValue 보다 높을때는 "Insufficient WETH balance" 띄어주고 swap 막기 5.위의 조건을 다 피해가면 그때 "Swap"가능 */}
       </div>
     </SwapContainer>
