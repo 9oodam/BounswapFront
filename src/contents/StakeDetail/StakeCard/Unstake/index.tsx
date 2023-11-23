@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputAmount from "../Stake/InputAmount";
 import StakeBtn from "../Stake/StakeBtn";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { DataArray, Timestamp } from "src/Interface/Token.interface";
 import { getTime } from "src/features/getTime";
 

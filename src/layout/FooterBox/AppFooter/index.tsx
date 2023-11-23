@@ -21,7 +21,7 @@ const AppFooter: React.FC = () => {
           Swap
         </Link>
         <Link
-          to="/tokens"
+          to="/token"
           className={`mr-[14px] left-[87px] font-bold text-[22px] ${getTabStyle(
             "/tokens"
           )}`}
@@ -30,7 +30,7 @@ const AppFooter: React.FC = () => {
           Tokens
         </Link>
         <Link
-          to="/poolpair"
+          to="/pool"
           className={`mr-[14px] left-[193px] font-bold text-[22px] ${getTabStyle(
             "/poolpair"
           )}`}

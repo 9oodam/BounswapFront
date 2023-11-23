@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import {
-  DataItem,
+  StakeItem,
   DataArray,
   EarlyInfo,
   TokenArray,
@@ -21,7 +21,7 @@ import MyInfoCard from "src/contents/StakeDetail/MyInfoCard";
 
 const StakeDetail = () => {
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
-  const [selectToken, setSelectTokens] = useState<DataItem | null>(null);
+  const [selectToken, setSelectTokens] = useState<StakeItem | null>(null);
   const [withdrawal, setWithdrawal] = useState<EarlyArray | null>(null);
   const params = useParams<{ id: string }>();
 
@@ -32,10 +32,10 @@ const StakeDetail = () => {
 
   useEffect(() => {
     const getLptokens = async () => {
-      const data = await queryClient.getQueryData<DataArray>("lpTokens");
+      const data = await queryClient.getQueryData<DataArray>(["lpTokens"]);
       // console.log("❗️data", data);
       setLptokens(data ? data : null);
-      // console.log("@@lptokens", lptokens);
+      console.log("@@lptokens", lptokens);
     };
     getLptokens();
   }, [lptokens]);
@@ -46,7 +46,7 @@ const StakeDetail = () => {
   useEffect(() => {
     if (lptokens) {
       const find = async () => {
-        const select = await lptokens.find((el: DataItem) => {
+        const select = await lptokens.find((el: StakeItem) => {
           // console.log("el", el);
           return el.tokenCA == params.id;
         });
@@ -65,79 +65,79 @@ const StakeDetail = () => {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 34,
         reword: 0.034,
         time: 1700123200,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 1,
         reword: 0.001,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
       {
         LPtoken: 11,
         reword: 0.011,
         time: 1700132400,
-        symbol: selectToken?.tokenSymbol || "",
+        symbol: selectToken?.stakeSymbol || "",
       },
     ];
     if (EarlyData) {
@@ -160,9 +160,9 @@ const StakeDetail = () => {
     <>
       {selectToken && (
         <TokenName
-          tokenImg={selectToken.tokenImg}
-          tokenName={selectToken.tokenName}
-          tokenSymbol={selectToken.tokenSymbol}
+          tokenImg={selectToken.stakeImg}
+          tokenName={selectToken.stakeName}
+          tokenSymbol={selectToken.stakeSymbol}
           onClick={() => {
             console.log("click????");
             nav(-1);

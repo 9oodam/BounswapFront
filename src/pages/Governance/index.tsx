@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Divstyle } from "src/App.style";
 import Card from "src/components/Card";
 import Container from "src/components/container";
+import { getAllTokens } from "src/features/AllTokens";
 import { getTime } from "src/features/getTime";
+import useWeb3 from "src/hooks/web3.hook";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
@@ -40,6 +43,49 @@ const Governance = () => {
   //   endTime: 1700182668n,
   //   state: 0n,
   // };
+
+  const { governanceContract } = useWeb3(null);
+  const queryClient = useQueryClient();
+  // if (governanceContract !== null) {
+  //   getAllTokens({ governanceContract, queryClient });
+  // }
+
+  const [gover, setGover] = useState();
+
+  // useEffect(() => {
+  //   if (governanceContract)
+  //     const test = () => {
+  //       setGover(governanceContract);
+  //     };
+  //   test();
+  // }, [gover]);
+
+  const test = async () => {
+    console.log("governanceContract..", governanceContract);
+    if (governanceContract) {
+      return await getAllTokens({ governanceContract, queryClient });
+    } else {
+      return null;
+    }
+  };
+
+  const {
+    data: data2,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["proposals"],
+    // queryFn: fetchData,
+    queryFn: test,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!governanceContract,
+  });
+
+  // queryClient.setQueryData(["proposals"], data2);
+
+  console.log("🥲🥲🥲🥲", data2);
 
   const data = [
     {
