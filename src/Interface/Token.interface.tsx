@@ -5,6 +5,10 @@ export interface InputTokenProps {
   tokenName: string;
   // onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
+export interface SelectTokenProps {
+  tokenName: string;
+  onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
+}
 
 // * 소유하고 있는 토큰의 정보를 설정하는 interface => Deposite
 // export interface TokenBalance {
