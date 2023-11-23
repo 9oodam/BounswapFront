@@ -73,7 +73,7 @@ const App: React.FC = () => {
                 <Route path="/pool/top/:id" element={<TopPoolpair />} />
                 <Route path="/pool/my/:id" element={<MyPoolpair />} />
                 <Route path="/tokens" element={<Tokens />} />
-                <Route path="/token:id" element={<TokenDetail />} />
+                <Route path="/tokens:id" element={<TokenDetail />} />
                 <Route path="/stake" element={<Stake />} />
                 <Route path="/stake/:id" element={<StakeDetail />} />
                 <Route path="/governance" element={<Governance />} />

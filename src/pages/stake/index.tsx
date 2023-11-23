@@ -273,7 +273,36 @@ const Stake = () => {
     },
   ];
 
- 
+  const { governanceContract } = useWeb3(null);
+
+  const test = async () => {
+    console.log("governanceContract..", governanceContract);
+    if (governanceContract) {
+      return await getAllTokens({ governanceContract, queryClient });
+    } else {
+      return null;
+    }
+  };
+
+  const {
+    data: data2,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["proposals"],
+    // queryFn: fetchData,
+    queryFn: test,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!governanceContract,
+  });
+
+  queryClient.setQueryData(["lpTokens"], data);
+  const asd = queryClient.getQueryData(["proposals"]);
+  console.log("adbajshbfgnisadnbhfkjs", asd);
+  // queryClient.(["lpTokens"], data);
+
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
