@@ -17,14 +17,21 @@ const AddLiquidity = () => {
   const minting = async () => {
     if (web3 && dataContract) {
       const amountEth = web3.utils.toWei("5", "ether");
-      const data = await (dataContract.methods._mint as any)(user.account, amountEth).send({ from: user.account });
+      const data = await (dataContract.methods._mint as any)(
+        user.account,
+        amountEth
+      ).send({ from: user.account });
 
-
-      console.log(await (dataContract.methods.balanceOf as any)(user.account).call());
+      console.log(
+        await (dataContract.methods.balanceOf as any)(user.account).call()
+      );
     }
   };
 
-  console.log("10000000000000000000n", web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether"));
+  console.log(
+    "10000000000000000000n",
+    web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether")
+  );
   return (
     // <div className={`${display} flex-col items-center p-5`}>
     <div className={Divstyle.flex}>
