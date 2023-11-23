@@ -155,3 +155,87 @@ export interface StakeTitle {
   end: string;
   yours: string;
 }
+
+export interface TokenItem {
+  tokenAddress: string;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenUri: string;
+  tokenTvl: number;
+  tokenVolume: number;
+  tokenVolume7D: number;
+  tokenBalance: number;
+}
+export interface TokenContract {
+  tokenAddress: string;
+  name: string;
+  symbol: string;
+  uri: string;
+  tvl: number;
+  balance: number;
+}
+export type TokenArray = TokenItem[];
+
+
+export interface PairItem {
+  pairAddress: string;
+  token0Uri: string;
+  token1Uri: string;
+  token0Symbol: string;
+  token1Symbol: string;
+  pairTvl: number;
+  pairVolume: number;
+  pairBalance: number;
+}
+export interface PairContract {
+  pairAddress: string;
+  token0Uri: string;
+  token1Uri: string;
+  token0Symbol: string;
+  token1Symbol: string;
+  pairTvl: number;
+  pairVolume: number;
+  pairBalance: number;
+}
+
+export type PairArray = PairItem[];
+
+export interface StakeItem {
+  tokenCA: string;
+  stakeName: string;
+  stakeSymbol: string;
+  stakeImg: string;
+  totalStaked: number;
+  startTime: number;
+  endTime: number;
+  StakeVolume: number;
+  your: number;
+}
+
+export type DataArray = StakeItem[];
+
+export interface TokenTitle {
+  tokenName: string;
+  tokenTvl: string;
+  tokenVolume: string;
+  tokenVolume7D: string;
+}
+
+export interface PairTitle {
+  PairName: string;
+  PairTvl: string;
+  PairVolume: string;
+  PairVolume7D: string;
+}
+
+export interface StakeTitle {
+  stakeName: string;
+  stake: string;
+  end: string;
+  yours: string;
+}
+
+export interface SearchTokenInfo {
+  symbol : string,
+  address : string
+}
