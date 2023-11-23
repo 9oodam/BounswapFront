@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 
@@ -209,10 +209,10 @@ const Pool = () => {
     };
   });
 
-  useQuery("pairs", async () => {
-    return pair;
-  });
-  queryClient.setQueryData("pairs", pair);
+  // useQuery("pairs", async () => {
+  //   return pair;
+  // });
+  queryClient.setQueryData(["pairs"], pair);
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);

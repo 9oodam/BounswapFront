@@ -9,7 +9,8 @@ import ToggleBtn from "./components/toggleBtn";
 import TokenDetail from "./pages/tokenDetail";
 import Stake from "./pages/stake";
 import StakeDetail from "./pages/StakeDetail";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SNSLogin from "./contents/SNSLogin";
 import React, { useEffect, useState } from "react";
 import Tokens from "./pages/Tokens";
@@ -57,6 +58,7 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
       <div className="App">
         {!isSNSLoggedIn ? (
           <SNSLogin onLoginSuccess={handleLoginSuccess} />

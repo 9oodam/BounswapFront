@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Container from "../../components/container";
 import Dashboard from "../../components/Dashboard";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import useWeb3 from "src/hooks/web3.hook";
+import { getAllTokens } from "src/features/AllTokens";
 
 const Stake = () => {
   const [visible, setVisible] = useState(10);
@@ -271,11 +273,58 @@ const Stake = () => {
     },
   ];
 
-  queryClient.setQueryData("lpTokens", data);
+  const { governanceContract } = useWeb3(null);
+
+  const test = async () => {
+    console.log("governanceContract..", governanceContract);
+    if (governanceContract) {
+      return await getAllTokens({ governanceContract, queryClient });
+    } else {
+      return null;
+    }
+  };
+
+  const {
+    data: data2,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["proposals"],
+    // queryFn: fetchData,
+    queryFn: test,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!governanceContract,
+  });
+
+  queryClient.setQueryData(["lpTokens"], data);
+  const asd = queryClient.getQueryData(["proposals"]);
+  console.log("adbajshbfgnisadnbhfkjs", asd);
+  // queryClient.(["lpTokens"], data);
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
+
+  // const { governanceContract } = useWeb3(null);
+  // if (governanceContract !== null) {
+  //   getAllTokens({ governanceContract, queryClient });
+  // }
+
+  // const {
+  //   data: data2,
+  //   isLoading,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["proposals"],
+  //   // queryFn: fetchData,
+  //   queryFn: ()=>{getAllTokens({ governanceContract, queryClient })},
+  //   gcTime: 0,
+  //   staleTime: Infinity,
+  //   refetchOnWindowFocus: false,
+  // });
+
   return (
     <Container>
       <div className="flex flex-col items-center">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import {
   StakeItem,
@@ -32,10 +32,10 @@ const StakeDetail = () => {
 
   useEffect(() => {
     const getLptokens = async () => {
-      const data = await queryClient.getQueryData<DataArray>("lpTokens");
+      const data = await queryClient.getQueryData<DataArray>(["lpTokens"]);
       // console.log("❗️data", data);
       setLptokens(data ? data : null);
-      // console.log("@@lptokens", lptokens);
+      console.log("@@lptokens", lptokens);
     };
     getLptokens();
   }, [lptokens]);

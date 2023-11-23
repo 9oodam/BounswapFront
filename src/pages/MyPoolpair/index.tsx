@@ -6,12 +6,40 @@ import Card from "../../components/Card";
 import CircleChart from "../../components/Card/CircleChart";
 import Pairname from "../../components/Pairname";
 import DepositeCard from "src/contents/poolpair/DepositeCard";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { DataArray } from "src/Interface/Token.interface";
 
 const MyPoolpair: React.FC = () => {
+  const [pairs, setPairs] = useState<DataArray | null>(null);
   const queryClient = useQueryClient();
-  const pairs = queryClient.getQueryData("tokens");
-  console.log("🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️", pairs);
+  // const pairs = queryClient.getQueryData("tokens");
+  // const { data: pairs } = useQuery('tokens', () => {}, { enabled: false });
+
+  // useEffect(() => {
+  //   setPairs(queryClient.getQueryData("lpTokens"));
+  //   console.log("🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️", pairs);
+  // }, [queryClient]);
+
+  useEffect(() => {
+    const getLptokens = async () => {
+      const data = await queryClient.getQueryData<DataArray>(["lpTokens"]);
+      console.log("❗️data", data);
+      setPairs(data ? data : null);
+      // console.log("@@lptokens", lptokens);
+      console.log("🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️", pairs);
+    };
+    getLptokens();
+  }, [queryClient]);
+
+  useEffect(() => {
+    console.log("진짜 제발료", pairs);
+  }, [pairs]);
+
+  // if (!pairs) {
+  //   return <div>fheldwnd</div>;
+  // }
+
   return (
     // <div className={Divstyle.w_90}>
     <>

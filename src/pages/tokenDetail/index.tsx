@@ -7,7 +7,7 @@ import ChartDiv from "../../components/Card/Chart";
 import Information from "../../contents/tokenDetail/information";
 import TokenName from "src/components/TokenName";
 import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { TokenArray } from "src/Interface/Token.interface";
 
 const TokenDetail: React.FC = () => {

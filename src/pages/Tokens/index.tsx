@@ -1,6 +1,6 @@
 import { url } from "inspector";
 import React, { useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Card from "src/components/Card";
 import Container from "src/components/container";
@@ -357,10 +357,22 @@ const Tokens = () => {
     };
   });
 
-  useQuery("tokens", async () => {
+  const fetchData = () => {
     return token;
+  };
+
+  const {
+    data: data2,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["tokens"],
+    queryFn: fetchData,
+    gcTime: 0,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
-  queryClient.setQueryData("tokens", token);
+  // queryClient.setQueryData(["tokens"], token);
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
