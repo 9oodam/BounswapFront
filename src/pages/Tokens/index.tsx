@@ -2,7 +2,7 @@ import { url } from "inspector";
 import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { TokenArray,TokenContract } from "src/Interface/Token.interface";
+import { TokenArray, TokenContract } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";

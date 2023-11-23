@@ -21,7 +21,7 @@ const AppFooter: React.FC = () => {
           Swap
         </Link>
         <Link
-          to="/token"
+          to="/tokens"
           className={`mr-[14px] left-[87px] font-bold text-[22px] ${getTabStyle(
             "/tokens"
           )}`}

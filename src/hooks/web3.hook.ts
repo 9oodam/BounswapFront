@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
+// import tokenAbi from "src/abi/token.abi.json";
+import governanceAbi from "src/abi/governance.abi.json";
+import stakingAbi from "src/abi/staking.abi.json";
+import wbncAbi from "src/abi/wbnc.abi.json";
+import lpTokenAbi from "src/abi/lpToken.abi.json";
 import dataAbi from "src/abi/Data.abi.json";
 import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
-import stakingAbi from "src/abi/Staking.abi.json";
 
 import { Contract } from "web3-eth-contract";
 
@@ -14,23 +18,24 @@ interface UseWeb3Result {
   pairContract: Contract<any> | null;
   governanceContract: Contract<any> | null;
   stakingContract: Contract<any> | null;
+  wbncContract: Contract<any> | null;
+  LPTokenContract: Contract<any> | null;
+
 }
 
 const useWeb3 = (provider: string | null) => {
   const [user, setUser] = useState({ account: "", balance: "" });
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [network, setNetwork] = useState(null);
-
-  const [dataContract, setDataContract] = useState<Contract<any> | null>(null);
-  const [pairContract, setPairContract] = useState<Contract<any> | null>(null);
-  const [governanceContract, setGovernanceContract] = useState<Contract<any> | null>(null);
   const [stakingContract, setStakingContract] = useState<Contract<any> | null>(null);
-  
+  const [wbncContract, setWbncContract] = useState<Contract<any> | null>(null);
+  const [dataContract,setDataContract ] = useState<Contract<any> | null>(null);
+  const [LPTokenContract, setLPTokenContract] = useState<Contract<any> | null>(null);
+
+  const [pairContract, setPairContract] = useState<Contract<any> | null>(null);
+  const [governanceContract, setGovernanceContract] = useState<Contract<any> | null>(null);  
   const [connectStatus, SetconnectStatus] = useState(false);
 
-  useEffect(() => {
-    // console.log("?🙄?", connectStatus);
-  }, [connectStatus]);
 
   useEffect(() => {
     SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
@@ -141,14 +146,26 @@ const useWeb3 = (provider: string | null) => {
         "0x39A9B4456651db823Ff19fB341E591ae153AdB17",
         { data: "" }
       );
+      const wbnc = new web3.eth.Contract(
+        wbncAbi as any,
+        "0x19C466b19A30A85f4E3C3b291D820823E858D6c6",
+        { data: ""}
+      );
+      const lpToken = new web3.eth.Contract(
+        lpTokenAbi as any,
+        "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
+        {data: ""}
+      )
       setDataContract(dataCon);
-      setPairContract(pairCon);
       setGovernanceContract(govCon);
+      setPairContract(pairCon)
       setStakingContract(stakingCon);
+      setWbncContract(wbnc);
+      setLPTokenContract(lpToken)
     }
   }, [web3]);
 
-  return { user, web3, dataContract, pairContract, governanceContract, stakingContract, connectMetaMask };
+  return { user, web3, dataContract, pairContract, governanceContract, stakingContract, connectMetaMask ,wbncContract, LPTokenContract};
 };
 
 export default useWeb3;

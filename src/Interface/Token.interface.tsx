@@ -72,22 +72,6 @@ export interface MyFee {
   dailyfee: number;
   earlyfee: number;
 }
-
-export interface testBtn {
-  onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
-}
-
-export interface TokenItem {
-  tokenAddress: string;
-  tokenName: string;
-  tokenSymbol: string;
-  tokenUri: string;
-  tokenTvl: number;
-  tokenVolume: number;
-  tokenVolume7D: number;
-  tokenBalance: number;
-}
-
 export interface TokenItem {
   tokenAddress: string;
   tokenName: string;
@@ -156,4 +140,13 @@ export interface StakeTitle {
   stake: string;
   end: string;
   yours: string;
+}
+
+export interface testBtn {
+  onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
+}
+
+export interface SearchTokenInfo {
+  symbol: string;
+  address: string;
 }
