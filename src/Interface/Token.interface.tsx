@@ -2,11 +2,11 @@ import React from "react";
 
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
-  tokenName: string;
+  tokenName?: string;
   value?: string;
   onClick?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setTokenAmount?: (value: string) => void;
+  setInputAmount?: (value: string) => void;
   clickFn?: () => void;
 }
 export interface SelectTokenProps {

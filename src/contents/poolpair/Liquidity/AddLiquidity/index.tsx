@@ -8,7 +8,6 @@ import { Divstyle, Textstyle } from "./AddLiquidity.style";
 import InputToken from "./InputToken";
 import LiquidiityBtn from "../LiquidiityBtn";
 import { PairItem } from "src/Interface/Token.interface";
-import { toBigInt } from "ethers";
 
 const AddLiquidity:React.FC<{data : PairItem}> = ({data}) => {
   const queryClient = useQueryClient();
@@ -106,12 +105,12 @@ const AddLiquidity:React.FC<{data : PairItem}> = ({data}) => {
       <div className={Divstyle.box}>
         Balance: <span className={Textstyle.balance}>0</span>
       </div>
-      <InputToken tokenName={data.token0Symbol} value={token0Amount} setTokenAmount={setToken0Amount} />
+      <InputToken tokenName={data.token0Symbol} value={token0Amount} setInputAmount={setToken0Amount} />
       {/* <Balance></Balance> */}
       <div className={Divstyle.box}>
         Balance: <span className={Textstyle.balance}>0</span>
       </div>
-      <InputToken tokenName={data.token1Symbol} value={token1Amount} setTokenAmount={setToken1Amount} />
+      <InputToken tokenName={data.token1Symbol} value={token1Amount} setInputAmount={setToken1Amount} />
       <LiquidiityBtn tokenName={"Add Liquidity"} clickFn={tryAddLiquidity} ></LiquidiityBtn>
     </div>
   );
