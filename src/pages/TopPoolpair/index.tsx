@@ -10,6 +10,7 @@ import ChartDiv from "../../components/Card/Chart";
 import Pairname from "../../components/Pairname";
 
 const TopPoolpair: React.FC = () => {
+
   return (
     // <div className={Divstyle.w_90}>
     <>
@@ -26,7 +27,7 @@ const TopPoolpair: React.FC = () => {
               <PoolDetail></PoolDetail>
             </DivCard>
           </div>
-          <AddRemoveLiquidity />
+          <AddRemoveLiquidity token0="ETH" token1="USDT" />
         </div>
       </Container>
     </>
