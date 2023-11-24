@@ -6,12 +6,16 @@ import { getAllTokens } from "src/features/AllTokens";
 import { getTime } from "src/features/getTime";
 import useWeb3 from "src/hooks/web3.hook";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
+import DashTitle from "src/contents/governance/DashTitle";
+import DashText from "src/contents/governance/DashText";
 
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
   const [nowTime, setNowTime] = useState<number>(0);
   const [forPercent, setForPercent] = useState<number>(0);
   const [againstPercent, setAgainstPercent] = useState<number>(0);
+  // const nav = useNavigate();
 
   useEffect(() => {
     var date = Date.now();
@@ -273,16 +277,20 @@ const Governance = () => {
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
           Governance
         </div>
+        <div className="w-[85%] flex justify-end">
+          <Link
+            to="/createProposal"
+            className="pc:w-[20%] mobile:w-[10%] min-w-[200px] h-[50px] bg-[#9CE084] rounded-full mt-5 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md"
+          >
+            Create propsal
+          </Link>
+        </div>
         <Card>
-          <div className="grid w-full gap-y-4">
-            {/* 헤더 */}
-            <div className="grid grid-cols-5 text-[20px] text-deepBlack font-bold">
-              <div className="col-span-3">Proposals</div>
-              <div>state</div>
-              <div>deadline</div>
-            </div>
+          <div className="pc:grid w-full pc:gap-y-4">
+            <DashTitle/>
             {/* 데이터 */}
-            {data.map((el, index) => (
+            <DashText data={data}/>
+            {/* {data.map((el, index) => (
               <div className="flex flex-col">
                 <div
                   className={`grid grid-cols-5 items-center text-deepBlack cursor-pointer hover:bg-opercityBlack h-[60px]
@@ -298,9 +306,9 @@ const Governance = () => {
                   <div className="col-span-3 text-left pl-5 font-bold">
                     {el.title}
                   </div>
-                  <div>
+                  <div> */}
                     {/* 상태 처리 */}
-                    {el.state == 0 ? (
+                    {/* {el.state == 0 ? (
                       <div className="border-2 border-gray-400 text-gray-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
                         PENDING
                       </div>
@@ -315,10 +323,10 @@ const Governance = () => {
                     )}
                   </div>
                   <div>{getTime(el.endTime)}</div>
-                </div>
+                </div> */}
 
                 {/* 펼침 내용 */}
-                {pop[index] && (
+                {/* {pop[index] && (
                   <div className="col-span-5 text-deepBlack border-deepGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
                     <div className="w-full flex flex-row p-5">
                       <div className="w-3/5 mx-3">
@@ -376,9 +384,9 @@ const Governance = () => {
                       </div>
                     </div>
                   </div>
-                )}
-              </div>
-            ))}
+                )} */}
+              {/* </div>
+            ))} */}
           </div>
         </Card>
       </div>
