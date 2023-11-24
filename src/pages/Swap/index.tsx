@@ -4,6 +4,7 @@ import Card from "src/components/Card";
 import TokenInput from "src/contents/Swap/TokenInput";
 import SwapFetchingCard from "src/components/Card/SwapFetchingCard";
 import SwapButton from "src/contents/Swap/SwapButton";
+import SwapCard from "src/components/Card/SwapCard";
 
 type Token = {
   tokenAddress: string;
@@ -75,22 +76,22 @@ const Swap = () => {
         <div className="w-[85%] text-baseWhite font-bold [text-shadow:0px_4px_4px_#00000040] text-left text-[35px] mt-7">
           Swap
         </div>
-        <Card>
+        <SwapCard>
           <div className="text-lightBlack text-left">You pay</div>
           <TokenInput
             tokens={tokens}
             selectedToken={InputSelectedToken}
             setSelectedToken={(token) => setInputSelectedToken(token)}
           />
-        </Card>
-        <Card>
+        </SwapCard>
+        <SwapCard>
           <div className="text-lightBlack text-left">You receive</div>
           <TokenInput
             tokens={tokens}
             selectedToken={OutputSelectedToken}
             setSelectedToken={(token) => setOutputSelectedToken(token)}
           />
-        </Card>
+        </SwapCard>
         <SwapFetchingCard children={<div>fetching best price...</div>} />
 
         <SwapButton />
