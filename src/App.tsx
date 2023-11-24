@@ -21,6 +21,7 @@ import AppFooter from "./layout/FooterBox/AppFooter";
 import Swap from "./pages/Swap";
 import TopDiv from "./components/container/TopDiv";
 import Pool from "./pages/Pool";
+import CreateProposal from "./pages/Governance/CreateProposal";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +78,7 @@ const App: React.FC = () => {
                 <Route path="/stake" element={<Stake />} />
                 <Route path="/stake/:id" element={<StakeDetail />} />
                 <Route path="/governance" element={<Governance />} />
+                <Route path="/createProposal" element={<CreateProposal />} />
               </Routes>
             </div>
             {/* AppFooter 추가(맨 아래 반응형) */}
