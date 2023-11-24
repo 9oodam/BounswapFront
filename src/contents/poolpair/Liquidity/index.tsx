@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Tap from "./Tap";
 import AddLiquidity from "./AddLiquidity";
 import RemoveLiquidity from "./RemoveLiquidity";
-import { TokenPair } from "src/Interface/Token.interface";
+import { PairItem } from "src/Interface/Token.interface";
 
-const AddRemoveLiquidity:React.FC<TokenPair> = ({token0, token1}) => {
+const AddRemoveLiquidity:React.FC<{data: PairItem}> = ({data}) => {
   const [addColor, setAddColor] = useState("bg-[rgba(255,255,255,0.85)]");
   const [removeColor, setRemoveColor] = useState("bg-[#A9AAA6]");
   const [addTextColor, setAddTextColor] = useState("text-[#338415]");
@@ -60,7 +60,7 @@ const AddRemoveLiquidity:React.FC<TokenPair> = ({token0, token1}) => {
         </Tap>
       </div>
       <div className="min-w-[340px] pc:w-[85%] mobile:w-full pc:p-5 bg-cardWhite rounded-xl: rounded-bodyBackRadius">
-        {click == "Add" ? <AddLiquidity token0={token0} token1={token1} /> : <RemoveLiquidity token0={token0} token1={token1} />}
+        {click == "Add" ? <AddLiquidity data={data} /> : <RemoveLiquidity data={data} />}
         <div></div>
       </div>
     </div>

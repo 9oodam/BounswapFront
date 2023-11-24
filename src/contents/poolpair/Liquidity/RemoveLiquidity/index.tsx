@@ -10,9 +10,9 @@ import PercentBtnWarp from "./PercentBtnWarp";
 import { Divstyle, Textstyle, Imgstyle } from "./RemoveLiquidity.styled";
 import MyLiquidity from "./PercentBtnWarp/MyLiquidity";
 import Price from "./PercentBtnWarp/Price";
-import { TokenPair } from "src/Interface/Token.interface";
+import { PairItem } from "src/Interface/Token.interface";
 
-const RemoveLiquidity:React.FC<TokenPair> = ({token0, token1}) => {
+const RemoveLiquidity:React.FC<{data : PairItem}> = ({data}) => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract } = useWeb3(
     window.ethereum
@@ -35,11 +35,11 @@ const RemoveLiquidity:React.FC<TokenPair> = ({token0, token1}) => {
     setTokens({
       token1: {
         amount: 0,
-        symbol: "ETH",
+        symbol: data.token0Symbol,
       },
       token2: {
-        amount: 20,
-        symbol: "USDT",
+        amount: 0,
+        symbol: data.token1Symbol,
       },
     });
   };
