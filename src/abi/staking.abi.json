@@ -653,6 +653,98 @@
           "internalType": "uint256",
           "name": "_pid",
           "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "getNinjaInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "totalLPToken",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalNinjaReward",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "stakingLeftTime",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Staking.NinjaInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pid",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPoolInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "lpToken",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "allocPoint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastRewardBlock",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accBNCPerShare",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "stakingPoolEndTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "stakingPoolStartTime",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Staking.PoolInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pid",
+          "type": "uint256"
         }
       ],
       "name": "getStakingUsers",
@@ -661,6 +753,71 @@
           "internalType": "address[]",
           "name": "",
           "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pid",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTotalLPToken",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pid",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "exactRewardCal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pendingReward",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "stakingStartTime",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Staking.UserInfo",
+          "name": "",
+          "type": "tuple"
         }
       ],
       "stateMutability": "view",
