@@ -2,6 +2,11 @@ import React from "react";
 import { Divstyle } from "./PercentBtnWarp.style";
 
 const index = () => {
+
+  const percentArr = [25, 50, 75, 100];
+
+  
+
   return (
     <>
       <div className={Divstyle.Btns}>
