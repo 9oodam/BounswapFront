@@ -129,21 +129,29 @@ const useWeb3 = (provider: string | null) => {
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
         "0xE8f4D0D81C39243466D42726F4e527F0AA5629C6",
+        "0xE8f4D0D81C39243466D42726F4e527F0AA5629C6",
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
+        "0x848D3b8D0E2a54Ef4E2d21857700e658B8fbA41A",
         "0x848D3b8D0E2a54Ef4E2d21857700e658B8fbA41A",
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
         "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
         "0x85C1c5194f0952333F5FD51aF69bAeA4316A1D56",
+        { data: "" }
+      );
+      const staking = new web3.eth.Contract(
+        stakingAbi as any,
+        "0xbe5405e632457042cCf17d55d87CCf0428575F7b",
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(

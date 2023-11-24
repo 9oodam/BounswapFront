@@ -1,5 +1,9 @@
+import React, { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import useWeb3 from "src/hooks/web3.hook";
+
+
 import SwapContainer from "../../components/SwapContainer";
-import React, { useEffect, useState } from "react";
 import Card from "src/components/Card";
 import CustomModal from "./CustomModal";
 import TokenInput from "src/contents/Swap/TokenInput";
@@ -16,6 +20,11 @@ type Token = {
 };
 
 const Swap = () => {
+  const queryClient = useQueryClient();
+  const { user, web3, pairContract } = useWeb3(
+    window.ethereum
+  );
+
   const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(
     null
   );
@@ -69,6 +78,7 @@ const Swap = () => {
   useEffect(() => {
     console.log("tokens:", tokens);
   }, [tokens]);
+
 
   return (
     <SwapContainer>
