@@ -3,9 +3,11 @@ import React from "react";
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
   tokenName: string;
-  // value: string;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // setTokenAmount: React.Dispatch<React.SetStateAction<string>>;
+  value?: string;
+  onClick?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setTokenAmount?: (value: string) => void;
+  clickFn?: () => void;
 }
 export interface SelectTokenProps {
   tokenName: string;
@@ -169,10 +171,4 @@ export interface testBtn {
 export interface SearchTokenInfo {
   symbol: string;
   address: string;
-}
-
-// Add/Remove Liquidity에 props로 내려줄 토큰 주소
-export interface TokenPair{
-  token0: string;
-  token1: string;
 }

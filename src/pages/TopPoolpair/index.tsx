@@ -36,7 +36,7 @@ const TopPoolpair: React.FC = () => {
   return (
     // <div className={Divstyle.w_90}>
     <>
-      <Pairname />
+      <Pairname data={pool} />
       <Container>
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
@@ -49,7 +49,7 @@ const TopPoolpair: React.FC = () => {
               <PoolDetail></PoolDetail>
             </DivCard>
           </div>
-          <AddRemoveLiquidity token0="ETH" token1="USDT" />
+          <AddRemoveLiquidity data={pool} />
         </div>
       </Container>
     </>
