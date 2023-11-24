@@ -73,7 +73,7 @@ const Swap = () => {
   return (
     <SwapContainer>
       <div className="flex flex-col items-center">
-        <div className="w-[85%] text-baseWhite font-bold [text-shadow:0px_4px_4px_#00000040] text-left text-[35px] mt-7">
+        <div className="w-[85%] text-baseWhite font-bold  text-left text-[35px] mt-7">
           Swap
         </div>
         <SwapCard>

@@ -7,6 +7,7 @@ import { getTime } from "src/features/getTime";
 import useWeb3 from "src/hooks/web3.hook";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
+import CustomLinkButton from "src/components/\bCustomLinkButton";
 
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
@@ -275,12 +276,10 @@ const Governance = () => {
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
           Governance
         </div>
-        <Link
-          to="/createProposal"
-          className="w-[85%] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md"
-        >
-          Create propsal
-        </Link>
+        <CustomLinkButton
+          to={"/governance/create"}
+          children={"Create propsal"}
+        />
         <Card>
           <div className="grid w-full gap-y-4">
             {/* 헤더 */}
