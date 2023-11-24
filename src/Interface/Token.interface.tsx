@@ -92,14 +92,16 @@ export interface TokenContract {
   name: string;
   symbol: string;
   uri: string;
-  tvl: number;
-  balance: number;
+  tvl: bigint;
+  balance: bigint;
 }
 export type TokenArray = TokenItem[];
 
 
 export interface PairItem {
   pairAddress: string;
+  token0Address: string;
+  token1Address: string;
   token0Uri: string;
   token1Uri: string;
   token0Symbol: string;
@@ -110,6 +112,8 @@ export interface PairItem {
 }
 export interface PairContract {
   pairAddress: string;
+  token0: string;
+  token1: string;
   token0Uri: string;
   token1Uri: string;
   token0Symbol: string;

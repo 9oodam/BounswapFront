@@ -1,27 +1,28 @@
 import { QueryClient } from "@tanstack/react-query";
-import { Contract } from "web3";
+import Web3, { Contract } from "web3";
 import { PairContract } from "src/Interface/Token.interface";
 
 interface Params {
     dataContract: Contract<any>;
     pairAddress: string;
     userAddress: string;
+    web3: Web3;
 }
 
-export const getEachPool =async ({dataContract, pairAddress, userAddress} : Params) => {
+export const getEachPool =async ({dataContract, pairAddress, userAddress, web3} : Params) => {
     const data = await (dataContract.methods.getEachPool as any)(pairAddress, userAddress).call();
-    const pool = data?.map((el : PairContract) => {
-        return {
-            pairAddress: el.pairAddress,
-            token0Uri: el.token0Uri,
-            token1Uri: el.token1Uri,
-            token0Symbol: el.token0Symbol,
-            token1Symbol: el.token1Symbol,
-            pairTvl: el.tvl,
+    const pool = {
+            pairAddress: data.pairAddress,
+            token0Address: data.token0,
+            token1Address: data.token1,
+            token0Uri: data.token0Uri,
+            token1Uri: data.token1Uri,
+            token0Symbol: data.token0Symbol,
+            token1Symbol: data.token1Symbol,
+            pairTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
             pairVolume: 0,
-            pairBalance: el.balance
+            pairBalance: Number(web3.utils.fromWei(data.balance, "ether")) 
         }
-    });
 
     return pool;
 }
