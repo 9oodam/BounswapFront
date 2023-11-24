@@ -5,31 +5,31 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserTokens } from 'src/features/data/dataGetUserTokens';
 import { TokenArray, TokenItem } from 'src/Interface/Token.interface';
 
-const TokenBox = () => {
+const TokenBox:React.FC<{tokens : TokenArray}> = ({tokens}) => {
     const { user, web3, dataContract } = useWeb3(null);
 
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
 
-    const getData = async () => {
-        if (!dataContract || !web3 || user.account == "") return null;
-        const data = await getUserTokens({ dataContract, queryClient, userAddress: user.account, web3 });
+    // const getData = async () => {
+    //     if (!dataContract || !web3 || user.account == "") return null;
+    //     const data = await getUserTokens({ dataContract, queryClient, userAddress: user.account, web3 });
 
-        console.log("getUserTokens", data);
-        return data;
-    }
+    //     console.log("getUserTokens", data);
+    //     return data;
+    // }
 
-    const { data: tokens, isLoading, error } = useQuery({
-        queryKey: ["userTokens"],
-        queryFn: getData,
-        gcTime: 100000,
-        staleTime: 100000,
-        refetchOnWindowFocus: "always",
-        enabled: !!dataContract && !!web3 && !!user
-    });
+    // const { data: tokens, isLoading, error } = useQuery({
+    //     queryKey: ["userTokens"],
+    //     queryFn: getData,
+    //     gcTime: 0,
+    //     staleTime: 0,
+    //     refetchOnWindowFocus: "always",
+    //     enabled: !!dataContract && !!web3 && !!user
+    // });
 
-    if (!tokens) {
-        return <>loading</>
-    } 
+    // if (!tokens) {
+    //     return <>loading</>
+    // } 
 
     return (
         <div>

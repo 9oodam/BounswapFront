@@ -5,11 +5,15 @@ import ReceiveBox from "./ReceiveBox";
 import TokenBox from "./TokenBox";
 import PoolBox from "./PoolBox";
 import ActivityBox from "./ActivityBox";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import { getUserPools } from "src/features/data/dataGetUserPools";
 
 const InfoScreen = () => {
-  const { user } = useWeb3(null);
+  const { user, web3, dataContract } = useWeb3(null);
   const [sendReceive, setSendReceive] = useState("");
   const [history, setHistory] = useState("Tokens");
+  const queryClient = useQueryClient();
 
   // send, receive 영역 출력 여부 설정하는 함수
   const setShowSendReceive = (name: string) => {
@@ -18,6 +22,48 @@ const InfoScreen = () => {
     } else {
       setSendReceive("")
     }
+  }
+
+  const getTokens = async () => {
+    if (!dataContract || !web3 || user.account == "") return null;
+    const data = await getUserTokens({ dataContract, queryClient, userAddress: user.account, web3 });
+    
+    console.log("getUserTokens", data);
+    return data;
+  }
+  
+  const getPools =async () => {
+    if (!dataContract || !web3 || user.account == "") return null;
+    const data = await getUserPools({dataContract, queryClient, userAddress : user.account, web3});
+    return data;
+  }
+
+  const { data: tokens } = useQuery({
+    queryKey: ["userTokens"],
+    queryFn: getTokens,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!dataContract && !!web3 && !!user,
+  });
+
+  const { data: pools } = useQuery({
+    queryKey: ["userPairs"],
+    queryFn: getPools,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!dataContract && !!web3 && !!user
+  });
+
+  useEffect(()=>{
+    console.log("tokens", tokens);
+    console.log("pools", pools);
+  }, [tokens, pools]);
+
+
+  if (!tokens || !pools) {
+    return <>loading</>
   }
 
   return (
@@ -48,7 +94,7 @@ const InfoScreen = () => {
                 :
                 <></>
             }
-            </div>
+          </div>
         </div>
 
 
@@ -67,9 +113,9 @@ const InfoScreen = () => {
         <div className="bg-yellow-200 h-[100%] rounded">
           {
             history == "Tokens" ?
-              <TokenBox /> :
-              <PoolBox />
-                // <ActivityBox />
+              <TokenBox tokens={tokens} /> :
+              <PoolBox pools={pools} />
+            // <ActivityBox />
           }
         </div>
 

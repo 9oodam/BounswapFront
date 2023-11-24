@@ -46,7 +46,7 @@ const TopPoolpair: React.FC = () => {
             </DivCard>
             <DivCard>
               <CardTitle>Pool Details</CardTitle>
-              <PoolDetail></PoolDetail>
+              <PoolDetail data={pool}></PoolDetail>
             </DivCard>
           </div>
           <AddRemoveLiquidity data={pool} />
