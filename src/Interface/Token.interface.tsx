@@ -3,7 +3,9 @@ import React from "react";
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
   tokenName: string;
-  // onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
+  // value: string;
+  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // setTokenAmount: React.Dispatch<React.SetStateAction<string>>;
 }
 export interface SelectTokenProps {
   tokenName: string;
@@ -72,6 +74,11 @@ export interface MyFee {
   dailyfee: number;
   earlyfee: number;
 }
+
+export interface testBtn {
+  onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
+}
+
 export interface TokenItem {
   tokenAddress: string;
   tokenName: string;
@@ -82,20 +89,22 @@ export interface TokenItem {
   tokenVolume7D: number;
   tokenBalance: number;
 }
-
 export interface TokenContract {
   tokenAddress: string;
   name: string;
   symbol: string;
   uri: string;
-  tvl: number;
-  balance: number;
+  tvl: bigint;
+  balance: bigint;
 }
-
 export type TokenArray = TokenItem[];
+
+
 
 export interface PairItem {
   pairAddress: string;
+  token0Address: string;
+  token1Address: string;
   token0Uri: string;
   token1Uri: string;
   token0Symbol: string;
@@ -103,6 +112,17 @@ export interface PairItem {
   pairTvl: number;
   pairVolume: number;
   pairBalance: number;
+}
+export interface PairContract {
+  pairAddress: string;
+  token0: string;
+  token1: string;
+  token0Uri: string;
+  token1Uri: string;
+  token0Symbol: string;
+  token1Symbol: string;
+  tvl: bigint;
+  balance: bigint;
 }
 
 export type PairArray = PairItem[];
@@ -149,4 +169,10 @@ export interface testBtn {
 export interface SearchTokenInfo {
   symbol: string;
   address: string;
+}
+
+// Add/Remove Liquidity에 props로 내려줄 토큰 주소
+export interface TokenPair{
+  token0: string;
+  token1: string;
 }
