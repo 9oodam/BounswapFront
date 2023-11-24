@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import useWeb3 from "src/hooks/web3.hook";
+
+import { getRemoveAmount } from "src/features/pair/poolSendFeatures";
+
 import InputToken from "../AddLiquidity/InputToken";
 import LiquidiityBtn from "../LiquidiityBtn";
 import PercentBtnWarp from "./PercentBtnWarp";
 import { Divstyle, Textstyle, Imgstyle } from "./RemoveLiquidity.styled";
 import MyLiquidity from "./PercentBtnWarp/MyLiquidity";
 import Price from "./PercentBtnWarp/Price";
+import { TokenPair } from "src/Interface/Token.interface";
 
-const RemoveLiquidity = () => {
+const RemoveLiquidity:React.FC<TokenPair> = ({token0, token1}) => {
+  const queryClient = useQueryClient();
+  const { user, web3, pairContract } = useWeb3(
+    window.ethereum
+  );
+
+  const [percentage, setPercentage] = useState<number>(0);
+
   const [tokens, setTokens] = useState({
     token1: {
       amount: 0,
@@ -30,6 +43,18 @@ const RemoveLiquidity = () => {
       },
     });
   };
+
+  const getRemoveAmountData = async () => {
+    if(pairContract) {
+      const amount = await getRemoveAmount(
+        pairContract,
+        '',
+        25,
+        user.account
+      )
+      console.log(amount);
+    }
+  }
 
   useEffect(() => {
     Test();

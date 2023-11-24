@@ -88,7 +88,7 @@ const MyPoolpair: React.FC = () => {
               </div>
             </Card>
           </div>
-          <AddRemoveLiquidity />
+          <AddRemoveLiquidity token0="ETH" token1="USDT"/>
         </div>
       </Container>
     </>

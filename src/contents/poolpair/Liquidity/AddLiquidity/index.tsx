@@ -1,37 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import useWeb3 from "src/hooks/web3.hook";
+
+import { getPairAmount } from "src/features/pair/poolSendFeatures";
+
 import { Divstyle, Textstyle } from "./AddLiquidity.style";
 import InputToken from "./InputToken";
 import LiquidiityBtn from "../LiquidiityBtn";
-import useWeb3 from "src/hooks/web3.hook";
+import { TokenPair } from "src/Interface/Token.interface";
 
-// const AddLiquidity:React.FC<Display> = ({display}) => {
-const AddLiquidity = () => {
-  const { user, web3, dataContract, governanceContract } = useWeb3(
+const AddLiquidity:React.FC<TokenPair> = ({token0, token1}) => {
+  const queryClient = useQueryClient();
+  const { user, web3, pairContract } = useWeb3(
     window.ethereum
   );
-  console.log("dataContract:", dataContract);
-  if (dataContract) {
-    console.log("💔💔💔💔💔💔💔💔💔💔", dataContract.methods);
+
+  const [tokenInputAmount, setTokenInputAmount] = useState<string>('');
+  const [tokenOutputAmount, setTokenOutputAmount] = useState<string>('');
+  const [token0Amount, setToken0Amount] = useState<BigInt>(0n);
+  const [token1Amount, setToken1Amount] = useState<BigInt>(0n);
+
+  const getPairAmountData = async () => {
+    if(pairContract) {
+      const amount = await getPairAmount(
+        pairContract,
+        '0xE10af94a19364BcA10C80c454938BfFD9FF453c7',
+        '0x5AD8ee81F79b04DCCEb954b6695b1e38E2c60fE8',
+        200000000000000000000n
+      )
+      console.log(amount);
+    }
   }
 
-  const minting = async () => {
-    if (web3 && dataContract) {
-      const amountEth = web3.utils.toWei("5", "ether");
-      const data = await (dataContract.methods._mint as any)(
-        user.account,
-        amountEth
-      ).send({ from: user.account });
+  useEffect(() => {
+    console.log(tokenInputAmount)
+  }, [tokenInputAmount])
 
-      console.log(
-        await (dataContract.methods.balanceOf as any)(user.account).call()
-      );
-    }
-  };
 
-  console.log(
-    "10000000000000000000n",
-    web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether")
-  );
+  // console.log(
+  //   "10000000000000000000n",
+  //   web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether")
+  // );
   return (
     // <div className={`${display} flex-col items-center p-5`}>
     <div className={Divstyle.flex}>
@@ -39,14 +48,14 @@ const AddLiquidity = () => {
       <div className={Divstyle.box}>
         Balance: <span className={Textstyle.balance}>0</span>
       </div>
-      <InputToken tokenName={"ETH"} />
+      <InputToken tokenName={token0} />
       {/* <Balance></Balance> */}
       <div className={Divstyle.box}>
         Balance: <span className={Textstyle.balance}>0</span>
       </div>
-      <InputToken tokenName={"USDT"} />
+      <InputToken tokenName={token1} />
       <LiquidiityBtn tokenName={"Add Liquidity"}></LiquidiityBtn>
-      <div onClick={minting}>minting</div>
+      <div onClick={() => {getPairAmountData()}}>chk</div>
     </div>
   );
 };
