@@ -7,7 +7,7 @@ import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 import { getAllPools } from "src/features/data/dataGetAllPools";
 import { PairArray, PairItem } from "src/Interface/Token.interface";
-import CustomLinkButton from "src/components/\bCustomLinkButton";
+import CustomLinkButton from "src/components/CustomLinkButton";
 
 const Pool = () => {
   const { web3, dataContract } = useWeb3("");

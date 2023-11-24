@@ -9,7 +9,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DashTitle from "src/contents/governance/DashTitle";
 import DashText from "src/contents/governance/DashText";
 import { Link, useNavigate } from "react-router-dom";
-import CustomLinkButton from "src/components/\bCustomLinkButton";
+import CustomLinkButton from "src/components/CustomLinkButton";
 
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
