@@ -7,6 +7,7 @@ export interface InputTokenProps {
   onClick?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setTokenAmount?: (value: string) => void;
+  clickFn?: () => void;
 }
 export interface SelectTokenProps {
   tokenName: string;

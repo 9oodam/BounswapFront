@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
 
-import { getPairAmount } from "src/features/pair/poolSendFeatures";
+import { addLiquidity, addLiquidityBNC, getPairAmount } from "src/features/pair/poolSendFeatures";
 
 import { Divstyle, Textstyle } from "./AddLiquidity.style";
 import InputToken from "./InputToken";
@@ -19,7 +19,35 @@ const AddLiquidity:React.FC<{data : PairItem}> = ({data}) => {
   const [token0Amount, setToken0Amount] = useState<string>('');
   const [token1Amount, setToken1Amount] = useState<string>('');
 
-  const 
+  const tryAddLiquidity = async () => {
+    if(token0Amount == '' || token1Amount == '') return;
+    if(pairContract) {
+      const amountADesired = web3?.utils.toBigInt(web3?.utils.toWei(token0Amount, 'ether'));
+      const amountBDesired = web3?.utils.toBigInt(web3?.utils.toWei(token1Amount, 'ether'));
+      if(amountADesired != undefined && amountBDesired != undefined) {
+        if(data.token0Symbol == 'BNC' || data.token1Symbol == 'BNC') {
+          console.log('addLiquidityBNC 실행')
+          let tokenAddress = (data.token0Symbol == 'BNC') ? data.token1Address : data.token0Address;
+          let amountTokenDesired = (data.token0Symbol == 'BNC') ? amountBDesired : amountADesired;
+          let amountBNCDesired = (data.token0Symbol == 'BNC') ? amountADesired : amountBDesired;
+          const result = await addLiquidityBNC(
+            pairContract, tokenAddress,
+            amountTokenDesired, amountBNCDesired,
+            user.account
+          )
+          console.log(result);
+        }else {
+          console.log('addLiquidity 실행')
+          const result = await addLiquidity(
+            pairContract, data.token0Address, data.token1Address,
+            amountADesired, amountBDesired,
+            user.account
+          )
+          console.log(result);
+        }
+      }
+    }
+  }
 
   const getPairAmountData = async (inputToken: string, outputToken: string, inputAmount: bigint) => {
     if(pairContract) {
@@ -84,7 +112,7 @@ const AddLiquidity:React.FC<{data : PairItem}> = ({data}) => {
         Balance: <span className={Textstyle.balance}>0</span>
       </div>
       <InputToken tokenName={data.token1Symbol} value={token1Amount} setTokenAmount={setToken1Amount} />
-      <LiquidiityBtn tokenName={"Add Liquidity"} ></LiquidiityBtn>
+      <LiquidiityBtn tokenName={"Add Liquidity"} clickFn={tryAddLiquidity} ></LiquidiityBtn>
     </div>
   );
 };
