@@ -35,7 +35,7 @@ const Navigation = () => {
         <Link
           to="/pool"
           className={`mr-[14px] left-[193px] font-bold text-[22px] ${getTabStyle(
-            "/poolpair"
+            "/pool"
           )}`}
           // style={getTextShadowStyle("/poolpair")}
         >

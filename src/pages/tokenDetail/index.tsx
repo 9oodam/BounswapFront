@@ -54,7 +54,7 @@ const TokenDetail: React.FC = () => {
             <Information />
           </div>
           <DivCard>
-            <CardTitle>Swap</CardTitle>
+            {/* <Swap/> */}
           </DivCard>
         </div>
       </Container>
