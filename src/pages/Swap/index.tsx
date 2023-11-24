@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
 
-
 import SwapContainer from "../../components/SwapContainer";
 import Card from "src/components/Card";
 import CustomModal from "./CustomModal";
@@ -23,9 +22,7 @@ type Token = {
 
 const Swap = () => {
   const queryClient = useQueryClient();
-  const { user, web3, pairContract } = useWeb3(
-    window.ethereum
-  );
+  const { user, web3, pairContract } = useWeb3(window.ethereum);
 
   const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(
     null
@@ -81,11 +78,10 @@ const Swap = () => {
     console.log("tokens:", tokens);
   }, [tokens]);
 
-
   return (
     <SwapContainer>
       <div className="flex flex-col items-center">
-        <div className="w-[85%] text-baseWhite font-bold [text-shadow:0px_4px_4px_#00000040] text-left text-[35px] mt-7">
+        <div className="w-[85%] text-baseWhite font-bold  text-left text-[35px] mt-7">
           Swap
         </div>
         <SwapCard>
@@ -104,7 +100,7 @@ const Swap = () => {
             setSelectedToken={(token) => setOutputSelectedToken(token)}
           />
         </SwapCard>
-        <SwapFetchingCard children={<div>fetching best price...</div> } />
+        <SwapFetchingCard children={<div>fetching best price...</div>} />
 
         <SwapButton />
 

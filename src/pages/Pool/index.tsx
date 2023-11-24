@@ -7,9 +7,10 @@ import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 import { getAllPools } from "src/features/data/dataGetAllPools";
 import { PairArray, PairItem } from "src/Interface/Token.interface";
+import CustomLinkButton from "src/components/CustomLinkButton";
 
 const Pool = () => {
-  const {web3, dataContract} = useWeb3('');
+  const { web3, dataContract } = useWeb3("");
   const [visible, setVisible] = useState(10);
   // const [pair, setPair] = useState<PairArray | null>(null);
 
@@ -22,23 +23,22 @@ const Pool = () => {
     PairVolume7D: "Volume(7D)",
   };
 
-  const getData =async () => {
+  const getData = async () => {
     if (!dataContract || !web3) return;
-    const pools = await getAllPools({dataContract, queryClient, web3});
+    const pools = await getAllPools({ dataContract, queryClient, web3 });
     console.log(pools);
     // setPair(pools as PairArray);
     return pools;
-  }
+  };
 
   const { data, isLoading, error } = useQuery({
-    queryKey : ["pairs"], 
-    queryFn : getData,
-    gcTime : 0,
-    staleTime : 0,
-    refetchOnWindowFocus : "always",  
-    enabled : !!dataContract && !!web3
+    queryKey: ["pairs"],
+    queryFn: getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!dataContract && !!web3,
   });
-
 
   if (!data) {
     return <>loading</>;

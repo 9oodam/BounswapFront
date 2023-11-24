@@ -22,6 +22,7 @@ import Swap from "./pages/Swap";
 import TopDiv from "./components/container/TopDiv";
 import Pool from "./pages/Pool";
 import CreateProposal from "./pages/Governance/CreateProposal";
+import PoolCreate from "./pages/Pool/PoolCreate";
 
 const queryClient = new QueryClient();
 
@@ -71,6 +72,7 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="/swap" element={<Swap />} />
                 <Route path="/pool" element={<Pool />} />
+                <Route path="/pool/create" element={<PoolCreate />} />
                 <Route path="/pool/top/:id" element={<TopPoolpair />} />
                 <Route path="/pool/my/:id" element={<MyPoolpair />} />
                 <Route path="/tokens" element={<Tokens />} />
@@ -78,7 +80,7 @@ const App: React.FC = () => {
                 <Route path="/stake" element={<Stake />} />
                 <Route path="/stake/:id" element={<StakeDetail />} />
                 <Route path="/governance" element={<Governance />} />
-                <Route path="/createProposal" element={<CreateProposal />} />
+                <Route path="/governance/create" element={<CreateProposal />} />
               </Routes>
             </div>
             {/* AppFooter 추가(맨 아래 반응형) */}
