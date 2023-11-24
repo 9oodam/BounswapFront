@@ -156,6 +156,7 @@ const useWeb3 = (provider: string | null) => {
         "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
         {data: ""}
       )
+      console.log('contract 연결 완료');
       setDataContract(dataCon);
       setGovernanceContract(govCon);
       setPairContract(pairCon)

@@ -9,6 +9,7 @@ import TokenName from "src/components/TokenName";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { TokenArray } from "src/Interface/Token.interface";
+import Swap from "../Swap";
 
 const TokenDetail: React.FC = () => {
   const [tokens, setTokens] = useState<TokenArray | null>(null);
@@ -38,7 +39,7 @@ const TokenDetail: React.FC = () => {
             <Information />
           </div>
           <DivCard>
-            <CardTitle>Swap</CardTitle>
+            {/* <Swap/> */}
           </DivCard>
         </div>
       </Container>
