@@ -11,6 +11,8 @@ module.exports = {
       backgroundImage: (theme) => ({
         headerBack:
           "linear-gradient(90deg, rgba(162,231,158,0.8) 0%, rgba(224,250,150,0.8) 100%);",
+        AppFooterBack:
+          "linear-gradient(90deg, rgba(213,246,151,1) 0%, rgba(245,255,148,1) 100%)",
         "green-yellow":
           "linear-gradient(125deg, #B2FF96 38.14%, #FFFB88 77.5%);",
         "red-pink": "linear-gradient(125deg, #FF96B2 38.14%, #FF88FB 77.5%)",
@@ -20,6 +22,7 @@ module.exports = {
 
       colors: {
         opercityBlack: "#37373740",
+        opercityAppFooter: "#373737cc",
         deepBlack: "#454545",
         lightBlack: "#7C7C7C",
         cardWhite: "#ffffffd9",

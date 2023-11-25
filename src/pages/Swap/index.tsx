@@ -100,7 +100,7 @@ const Swap = () => {
             setSelectedToken={(token) => setOutputSelectedToken(token)}
           />
         </SwapCard>
-        <SwapFetchingCard children={<div>fetching best price...</div> } />
+        <SwapFetchingCard children={<div>fetching best price...</div>} />
 
         <SwapButton />
 
