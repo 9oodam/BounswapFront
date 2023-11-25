@@ -99,20 +99,20 @@ const Dashboard: React.FC<{
                               : ""
                           }
                           alt="Logo"
-                          className="w-full rounded-full "
+                          className="w-full rounded-full border-[1px] border-gray-300 "
                         />
                       </div>
                     ) : (
-                      <div className=" w-[70px] h-[40px] flex relative">
+                      <div className=" w-[70px] h-[40px] flex relative ">
                         <img
                           src={data.token0Uri}
                           alt="Logo"
-                          className="absolute w-[40px] h-[40px] rounded-full"
+                          className="absolute w-[40px] h-[40px] rounded-full border-[1px] border-gray-300"
                         />
                         <img
                           src={data.token1Uri}
                           alt="Logo"
-                          className=" absolute w-[40px] h-[40px] rounded-full left-6"
+                          className=" absolute w-[40px] h-[40px] rounded-full left-6 border-[1px] border-gray-300"
                         />
                       </div>
                     )}
