@@ -8,18 +8,24 @@ interface Params {
     web3: Web3;
 }
 
-export const getEachToken =async ({dataContract, tokenAddress, web3} : Params) => {
+export const getEachToken = async ({ dataContract, tokenAddress, web3 }: Params) => {
     const data = await (dataContract.methods.getEachToken as any)(tokenAddress, 0).call();
+    let uri;
+    if (data.symbol != "GOV") {
+        uri = data.uri;
+    } else {
+        uri = "images/BounsIo_LOGO.png";
+    }
     const token = {
-            tokenAddress: data.tokenAddress,
-            tokenName: data.name,
-            tokenSymbol: data.symbol,
-            tokenUri: data.uri,
-            tokenTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
-            tokenVolume: 0,
-            tokenVolume7D: 0,
-            tokenBalance: Number(web3.utils.fromWei(data.balance, "ether"))
-        }
+        tokenAddress: data.tokenAddress,
+        tokenName: data.name,
+        tokenSymbol: data.symbol,
+        tokenUri: uri,
+        tokenTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
+        tokenVolume: 0,
+        tokenVolume7D: 0,
+        tokenBalance: Number(web3.utils.fromWei(data.balance, "ether"))
+    }
 
     return token;
 }

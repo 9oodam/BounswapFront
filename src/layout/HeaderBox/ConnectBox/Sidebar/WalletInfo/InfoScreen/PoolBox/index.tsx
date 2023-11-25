@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PairArray } from 'src/Interface/Token.interface';
 import useWeb3 from 'src/hooks/web3.hook';
 
 const PoolBox: React.FC<{ pools: PairArray }> = ({ pools }) => {
     const { web3 } = useWeb3(null);
+    const nav = useNavigate();
 
     return (
         <div>
@@ -24,7 +26,7 @@ const PoolBox: React.FC<{ pools: PairArray }> = ({ pools }) => {
                 <div className="grid grid-cols-1 overflow-auto scrollbar overflow-y-scroll w-full h-full">
                     {pools.map((el, index) => (
                         // <div key={index} className="w-full flex justify-around">
-                        <div key={index} className="w-full flex justify-around item-center">
+                        <div key={index} onClick={()=>{nav(`/pool/my/${el.pairAddress}`)}} className="w-full flex justify-around item-center">
                             <img className="w-[30%]" src={el.token0Uri} />
                             <span className="w-[30%] mobile:hidden">
                                 {el.token0Symbol} - {el.token1Symbol}

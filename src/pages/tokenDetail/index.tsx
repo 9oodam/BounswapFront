@@ -20,7 +20,6 @@ const TokenDetail: React.FC = () => {
   const queryClient = useQueryClient();
   const { id } = useParams();
 
-  // 컨트랙트 호출 테스트
   useEffect(()=>{
     if (!dataContract || !id || !web3) return;
     const getData =async () => {
@@ -34,7 +33,6 @@ const TokenDetail: React.FC = () => {
   if (!token) {
       return <>loading</>;
   }
-
 
   return (
     <>
