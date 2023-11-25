@@ -20,12 +20,12 @@ const RemoveLiquidity:React.FC<{data : PairItem}> = ({data}) => {
 
   const [percentage, setPercentage] = useState<string>('');
   const [tokens, setTokens] = useState({
-    token1: {amount: 0, symbol: "",},
-    token2: {amount: 0, symbol: "",},
+    token1: {amount: "", symbol: "",},
+    token2: {amount: "", symbol: "",},
   });
 
   const tryRemoveLiquidity = async () => {
-    if(tokens.token1.amount == 0 || tokens.token2.amount == 0) return;
+    if(!tokens.token1.amount  || !tokens.token2.amount) return;
     if(pairContract) {
       if(percentage != '') {
         let percent = Number(percentage);
@@ -54,14 +54,14 @@ const RemoveLiquidity:React.FC<{data : PairItem}> = ({data}) => {
   }
 
   // ! 현재 페어 심볼과 내가 가진 페어의 양을 테스트하는 함수
-  const changeRemoveAmount = (amount0: number, amount1: number) => {
+  const changeRemoveAmount = (amount0: string, amount1: string) => {
     setTokens({
       token1: {
-        amount: 0,
+        amount: amount0,
         symbol: data.token0Symbol,
       },
       token2: {
-        amount: 0,
+        amount: amount1,
         symbol: data.token1Symbol,
       },
     });
@@ -75,8 +75,10 @@ const RemoveLiquidity:React.FC<{data : PairItem}> = ({data}) => {
         percent,
         user.account
       )
-      console.log(amount0, amount1);
-      changeRemoveAmount(amount0, amount1)
+      const amount0Str = web3?.utils.fromWei(amount0, 'ether').toString();
+      const amount1Str = web3?.utils.fromWei(amount1, 'ether').toString();
+      if(!amount0Str || !amount1Str) return;
+      changeRemoveAmount(amount0Str, amount1Str)
     }
   }
 

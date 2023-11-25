@@ -2,9 +2,11 @@ import { Contract } from "web3";
 
 // 유저가 공급 중인 예치량 반환
 export const getUserLiquidity = async (pairContract: Contract<any>, pairAddress: string, user: string) => {
-  const {amount0, amount1} = await (pairContract?.methods.poolGetUserLiquidity as any)(pairAddress).call({
+  const data = await (pairContract?.methods.poolGetUserLiquidity as any)(pairAddress).call({
     from: user
   });
+  const amount0 = data[0];
+  const amount1 = data[1];
   console.log('유저 예치량 : ', amount0, amount1)
   return {amount0, amount1};
 }
@@ -17,7 +19,9 @@ export const getPairAmount = async (pairContract: Contract<any>, tokenA: string,
 }
 // 유동성 제거시 퍼센테이지 계산
 export const getRemoveAmount = async (pairContract: Contract<any>, pairAddress: string, percentage: number, to: string) => {
-  const {amount0, amount1} = await (pairContract?.methods.poolGetRemoveAmount as any)(pairAddress, percentage, to).call();
+  const data = await (pairContract?.methods.poolGetRemoveAmount as any)(pairAddress, percentage, to).call();
+  const amount0 = data[0];
+  const amount1 = data[1];
   console.log('token0Amount : ', amount0);
   console.log('token1Amount : ', amount1);
   return {amount0, amount1};

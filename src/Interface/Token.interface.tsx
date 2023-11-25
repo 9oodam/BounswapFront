@@ -4,9 +4,11 @@ import React from "react";
 export interface InputTokenProps {
   tokenName?: string;
   value?: string;
+  exact?: boolean;
   onClick?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setInputAmount?: (value: string) => void;
+  setExact?: (bool: boolean) => void;
   clickFn?: () => void;
 }
 export interface SelectTokenProps {
@@ -29,11 +31,11 @@ export interface RemovePercent {
 // * 페어에 대해 소유하고 있는 토큰의 양과 심볼을 받는다.
 export interface LiquidityToken {
   token1: {
-    amount: number;
+    amount: string;
     symbol: string;
   };
   token2: {
-    amount: number;
+    amount: string;
     symbol: string;
   };
 }

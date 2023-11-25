@@ -3,14 +3,16 @@ import { Contract } from "web3";
 export const getAmountOut = async (pairContract: Contract<any>, pairAddress: string, inputAmount: BigInt, inputToken: string, outputToken: string) => {
     const amountOut = await (pairContract?.methods.swapGetAmountOut as any)(pairAddress, inputAmount, inputToken, outputToken).call();
     console.log('amountOut : ', amountOut);
-    const minToken = await amountOut * 995 / 1000;
+    const amountOutBigInt = BigInt(amountOut)
+    const minToken = amountOutBigInt * BigInt(995) / BigInt(1000);
     console.log('minToken : ', minToken)
     return {amountOut, minToken};
 }
 export const getAmountIn = async (pairContract: Contract<any>, pairAddress: string, outputAmount: BigInt, inputToken: string, outputToken: string) => {
     const amountIn = await (pairContract?.methods.swapGetAmountIn as any)(pairAddress, outputAmount, inputToken, outputToken).call();
     console.log('amountIn : ', amountIn);
-    const maxToken = amountIn / 995 * 1000;
+    const amountInBigInt = BigInt(amountIn);
+    const maxToken = amountInBigInt / BigInt(995) * BigInt(1000);
     console.log('maxToken : ', maxToken)
     return {amountIn, maxToken};
 }
