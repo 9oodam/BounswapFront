@@ -49,6 +49,9 @@ module.exports = {
       height: {
         custom: "calc(100% - 16px)",
       },
+      aspectRatio: {
+        "1/1": "1 / 1",
+      },
     },
     screens: {
       mobile: { min: "0px", max: "1259px" },
