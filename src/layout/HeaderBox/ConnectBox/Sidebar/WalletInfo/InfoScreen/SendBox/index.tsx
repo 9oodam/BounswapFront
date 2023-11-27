@@ -17,7 +17,7 @@ const SendBox = () => {
             const confirm = window.confirm(`${sendAddress}로 ${amount}bnc 송금하시겠습니까?`);
             if (!confirm) return;
     
-            await window.ethereum.enable();
+            // await window.ethereum.enable();
     
             const result = await web3?.eth.sendTransaction({
                 from : user.account,

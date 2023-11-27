@@ -85,8 +85,8 @@ const InfoScreen = () => {
   //     // const data1 = await bNCForExactTokens(pairContract, "0x0459A3045Fe91e9Cf42D1A74bf391d0EA22E080D", 100000n, 150000n, "0x28125d2d7450F4837d030186c2076cC53af03dae", "0x0967FddEc5370F42218A8b0f898BcfF45F941084", user.account)
   //     // console.log("data1", data1);
 
-  //     const data = await addLiquidityBNC(pairContract, "0x0967FddEc5370F42218A8b0f898BcfF45F941084", 10n, 1000n, user.account);
-  //     console.log("testsetstets", data);
+  //     // const data = await addLiquidityBNC(pairContract, "0x0967FddEc5370F42218A8b0f898BcfF45F941084", 10n, 1000n, user.account);
+  //     // console.log("testsetstets", data);
       
   //   } catch (error) {
   //     alert(error);

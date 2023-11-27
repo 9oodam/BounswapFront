@@ -15,7 +15,7 @@ const DepositeCard:React.FC<{pool : PairItem, userLiquidity : UserLiquidity}> = 
         </div>
         <div className="pc:w-[60%] mobile:w-[100%] flex flex-col items-center ">
           <div className=" pc:pl-5 pc:mb-12 mobile:mt-10 text-left font-bold text-[30px] pc:w-full mobile:w-[85%] text-deepBlack">
-            $ 맞는지 확인 부탁 {userLiquidity.token0Liquidity + userLiquidity.token1Liquidity}
+            $ {pool.pairBalance}
           </div>
           <div className="pc:w-[85%] mobile:w-[85%] p-5 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center pc:m-5 mobile:mt-3 shadow-md ">
             <div className="flex flex-col">
@@ -30,7 +30,7 @@ const DepositeCard:React.FC<{pool : PairItem, userLiquidity : UserLiquidity}> = 
                 <div className="flex items-center text-deepBlack">
                   <div className="mr-3">{userLiquidity.token0Liquidity}</div>
                   <div className="bg-lightBlack rounded-lg text-baseWhite text-center p-1 text-[13px] header:hidden">
-                    {userLiquidity.token0Liquidity + userLiquidity.token1Liquidity!=0 ? userLiquidity.token0Liquidity / (userLiquidity.token0Liquidity + userLiquidity.token1Liquidity) * 100 : 0} %
+                    {userLiquidity.token0Percent} %
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@ const DepositeCard:React.FC<{pool : PairItem, userLiquidity : UserLiquidity}> = 
                 <div className="flex items-center text-deepBlack">
                   <div className="mr-3">{userLiquidity.token1Liquidity}</div>
                   <div className="bg-lightBlack rounded-lg text-baseWhite text-center p-1 text-[13px] header:hidden">
-                    {userLiquidity.token0Liquidity + userLiquidity.token1Liquidity!=0 ? userLiquidity.token0Liquidity / (userLiquidity.token0Liquidity + userLiquidity.token1Liquidity) * 100 : 0} %
+                    {userLiquidity.token1Percent} %
                   </div>
                 </div>
               </div>
