@@ -92,6 +92,7 @@ export interface TokenItem {
   tokenVolume: number;
   tokenVolume7D: number;
   tokenBalance: number;
+  tokenPriceArr: number[];
 }
 export interface TokenContract {
   tokenAddress: string;
@@ -115,7 +116,9 @@ export interface PairItem {
   token1Symbol: string;
   pairTvl: number;
   pairVolume: number;
+  pairLiquidity: number;
   pairBalance: number;
+  pairLiquidityArr: number[];
 }
 export interface PairContract {
   pairAddress: string;

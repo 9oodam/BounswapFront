@@ -15,14 +15,14 @@ import { getEachPool } from "src/features/data/dataGetEachPool";
 import { PairItem } from "src/Interface/Token.interface";
 
 const TopPoolpair: React.FC = () => {
-  const { web3, user, dataContract } = useWeb3(null);
+  const { web3, user, dataContract, pairContract } = useWeb3(null);
   const { id } = useParams();
   const [pool, setPool] = useState<PairItem>();
   
   useEffect(()=>{
-    if (!dataContract || !id || user.account == "" || !web3) return;
+    if (!pairContract || !dataContract || !id || user.account == "" || !web3) return;
     const getData = async () => {
-      const pool = await getEachPool({dataContract, pairAddress: id, userAddress: user.account, web3});
+      const pool = await getEachPool({pairContract, dataContract, pairAddress: id, userAddress: user.account, web3});
       console.log("pool 테스트",pool);
       setPool(pool);
     }
