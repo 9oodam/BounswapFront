@@ -174,3 +174,13 @@ export interface SearchTokenInfo {
   symbol: string;
   address: string;
 }
+
+export interface UnclaimedFeeData {
+  token0FeeAmount : number;
+  token1FeeAmount : number;
+}
+
+export interface UserLiquidity {
+  token0Liquidity : number;
+  token1Liquidity : number;
+}

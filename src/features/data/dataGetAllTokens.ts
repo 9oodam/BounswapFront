@@ -11,11 +11,17 @@ interface Params {
 export const getAllTokens =async ({dataContract, queryClient, web3} : Params) => {
     const data = await dataContract.methods.getAllTokens().call();
     const tokens = data?.map((el : TokenContract) => {
+        let uri;
+        if (el.symbol != "GOV") {
+            uri = el.uri;
+        } else {
+            uri = "images/BounsIo_LOGO.png";
+        }
         return {
             tokenAddress: el.tokenAddress,
             tokenName: el.name,
             tokenSymbol: el.symbol,
-            tokenUri: el.uri,
+            tokenUri: uri,
             tokenTvl: Number(web3.utils.fromWei(el.tvl, "ether")),
             tokenVolume: 0,
             tokenVolume7D: 0,

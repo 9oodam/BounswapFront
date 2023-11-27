@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { PairItem, UnclaimedFeeData } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
 import CardTitle from "src/components/Card/CardTitle";
+import useWeb3 from "src/hooks/web3.hook";
 
-const UnclaimedFeesCard = () => {
+const UnclaimedFeesCard:React.FC<{pool : PairItem, fee : UnclaimedFeeData}> = ({pool, fee}) => {
   return (
     <Card>
       <CardTitle>Unclaimed fees</CardTitle>
       <div className="flex mobile:flex-col">
         <div className=" flex flex-col pc:w-[40%] items-center pc:mt-3 mobile:mt-8 mobile:mb-10">
-          <div className="font-bold text-[30px] w-full mobile:mb-5 ">$ {0.2357}</div>
+          <div className="font-bold text-[30px] w-full mobile:mb-5 ">$ 맞는지 확인 {fee.token0FeeAmount + fee.token1FeeAmount}</div>
           <div className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">
             collect fees
           </div>
@@ -19,22 +21,22 @@ const UnclaimedFeesCard = () => {
               <div className="flex justify-between mb-4">
                 <div className="flex items-center text-deepBlack">
                   <img
-                    src="https://i.pinimg.com/564x/d2/4b/37/d24b37e0823cd08001cfd4dc728c0d54.jpg"
+                    src={pool.token0Uri}
                     className="w-[30px] rounded-full mr-3"
                   />
-                  <div>ETH</div>
+                  <div>{pool.token0Symbol}</div>
                 </div>
-                <div className="mr-3 text-deepBlack">0.0057</div>
+                <div className="mr-3 text-deepBlack">{fee.token0FeeAmount}</div>
               </div>
               <div className="flex justify-between">
                 <div className="flex items-center text-deepBlack">
                   <img
-                    src="https://i.pinimg.com/564x/d2/4b/37/d24b37e0823cd08001cfd4dc728c0d54.jpg"
+                    src={pool.token1Uri}
                     className="w-[30px] rounded-full mr-3"
                   />
-                  <div>USDT</div>
+                  <div>{pool.token1Symbol}</div>
                 </div>
-                <div className="mr-3 text-deepBlack">0.23</div>
+                <div className="mr-3 text-deepBlack">{fee.token1FeeAmount}</div>
               </div>
             </div>
           </div>
