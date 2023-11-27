@@ -59,6 +59,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
           autoCorrect="off"
           type="number"
           placeholder="0"
+          value={inputValue}
+          onChange={handleInputChange}
         />
 
         <CustomModal
