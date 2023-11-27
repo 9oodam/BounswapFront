@@ -80,8 +80,8 @@ const Swap = () => {
 
   // 1) 토큰 데이터
   const getData = async () => {
-    if (!dataContract || !web3) return null;
-    const data = await getAllTokens({ dataContract, queryClient, web3 });
+    if (!pairContract || !dataContract || !web3) return null;
+    const data = await getAllTokens({ pairContract, dataContract, queryClient, web3 });
     (data as TokenArray).splice(1, 1);
     // setTokens(data as Token[]);
     setTokens(tokenData); // type을 Token?? TokenItem??
