@@ -6,16 +6,10 @@ import { getAllTokens } from "src/features/AllTokens";
 import { getTime } from "src/features/getTime";
 import useWeb3 from "src/hooks/web3.hook";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import DashTitle from "src/contents/governance/DashTitle";
 import DashText from "src/contents/governance/DashText";
-=======
-import DashTitle from "src/contents/governance/DashTitle";
-import DashText from "src/contents/governance/DashText";
-import { Link, useNavigate } from "react-router-dom";
-import CustomLinkButton from "src/components/CustomLinkButton";
->>>>>>> you
+
 
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
@@ -284,7 +278,6 @@ const Governance = () => {
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
           Governance
         </div>
-<<<<<<< HEAD
         <div className="w-[85%] flex justify-end">
           <Link
             to="/createProposal"
@@ -293,114 +286,10 @@ const Governance = () => {
             Create propsal
           </Link>
         </div>
-=======
-        <CustomLinkButton
-          to={"/governance/create"}
-          children={"Create propsal"}
-        />
->>>>>>> you
         <Card>
           <div className="pc:grid w-full pc:gap-y-4">
             <DashTitle />
-            {/* 데이터 */}
             <DashText data={data} />
-            {/* {data.map((el, index) => (
-              <div className="flex flex-col">
-                <div
-                  className={`grid grid-cols-5 items-center text-deepBlack cursor-pointer hover:bg-opercityBlack h-[60px]
-              ${
-                pop[index]
-                  ? "border-t-4 border-r-4 border-l-4 rounded-t-3xl border-deepGreen"
-                  : ""
-              }`}
-                  onClick={(e) => {
-                    setPop((pop) => ({ ...pop, [index]: !pop[index] })); // 행의 인덱스를 키로 사용하여 펼침 상태를 관리
-                  }}
-                >
-                  <div className="col-span-3 text-left pl-5 font-bold">
-                    {el.title}
-                  </div>
-                  <div> */}
-            {/* 상태 처리 */}
-            {/* {el.state == 0 ? (
-                      <div className="border-2 border-gray-400 text-gray-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
-                        PENDING
-                      </div>
-                    ) : el.state == 1 ? (
-                      <div className="border-2 border-red-400 text-red-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
-                        DEFEATED
-                      </div>
-                    ) : (
-                      <div className="border-2 border-green-400 text-green-400 font-bold inline-flex justify-center items-center p-2 rounded-xl">
-                        EXECUTED
-                      </div>
-                    )}
-                  </div>
-                  <div>{getTime(el.endTime)}</div>
-                </div> */}
-
-            {/* 펼침 내용 */}
-            {/* {pop[index] && (
-                  <div className="col-span-5 text-deepBlack border-deepGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
-                    <div className="w-full flex flex-row p-5">
-                      <div className="w-3/5 mx-3">
-                        <div className="bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius shadow-md w-full min-h-[200px] p-2 text-left">
-                          {el.description}
-                        </div>
-                        <div className="w-full text-left p-2 font-bold text-[20px]">
-                          proposer.{" "}
-                          <span className="font-normal text-[15px]">
-                            {el.proposer}
-                          </span>
-                        </div>
-                      </div>
-                      <div className=" w-2/5 flex flex-col justify-start items-center rounded-bodyBackRadius bg-cardWhite p-7 mx-3">
-                        <div className=" w-full flex flex-row justify-evenly">
-                          <div className="bg-green-300 text-baseWhite w-[130px] h-[50px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer">
-                            찬성
-                            {Math.round(
-                              (el.forVotes / (el.forVotes + el.againstVotes)) *
-                                100
-                            )}
-                            %
-                          </div>
-                          <div className="bg-red-300 text-baseWhite w-[130px] h-[50px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-red-500 cursor-pointer">
-                            반대
-                            {Math.round(
-                              (el.againstVotes /
-                                (el.forVotes + el.againstVotes)) *
-                                100
-                            )}
-                            %
-                          </div>
-                        </div>
-                        <div className="w-[80%] mt-5 p-5 ">
-                          <div className="flex flex-col">
-                            <div className=" w-full text-left">찬성</div>
-                            <div className="w-full text-right font-bold text-[17px]">
-                              <span className="text-deepGreen">
-                                {el.forVotes}
-                              </span>{" "}
-                              /{" "}
-                              <span className="text-lightBlack">
-                                {el.quorumVotes}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="w-full mt-4">
-                            <div className="w-full text-left">반대</div>
-                            <div className="w-full text-right text-red-500 font-bold text-[17px]">
-                              {el.againstVotes}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )} */}
-            {/* </div>
-            ))} */}
           </div>
         </Card>
       </div>

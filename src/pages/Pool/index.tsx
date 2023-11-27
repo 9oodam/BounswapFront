@@ -7,11 +7,7 @@ import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 import { getAllPools } from "src/features/data/dataGetAllPools";
 import { PairArray, PairItem } from "src/Interface/Token.interface";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
-=======
-import CustomLinkButton from "src/components/CustomLinkButton";
->>>>>>> you
 
 const Pool = () => {
   const { web3, dataContract } = useWeb3("");

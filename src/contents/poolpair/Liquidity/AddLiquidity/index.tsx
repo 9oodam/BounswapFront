@@ -17,7 +17,6 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   const [token0Amount, setToken0Amount] = useState<string>('');
   const [token1Amount, setToken1Amount] = useState<string>('');
 
-  const 
 
   const getPairAmountData = async (
     inputToken: string,

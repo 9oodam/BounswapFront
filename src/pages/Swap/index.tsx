@@ -100,12 +100,7 @@ const Swap = () => {
             setSelectedToken={(token) => setOutputSelectedToken(token)}
           />
         </SwapCard>
-<<<<<<< HEAD
-        <SwapFetchingCard children={<div>fetching best price...</div> } />
-=======
         <SwapFetchingCard children={<div>fetching best price...</div>} />
->>>>>>> you
-
         <SwapButton />
 
         {/* 조건 
