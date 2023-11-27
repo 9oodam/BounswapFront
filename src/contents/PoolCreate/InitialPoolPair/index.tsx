@@ -12,16 +12,25 @@ type Token = {
 interface InitialPoolProps {
   firstData: Token | null;
   secondData: Token | null;
-  // selectedToken: Token | null;
+  inputValue: string; // A 토큰의 입력값
+  outputValue: string; // B 토큰의 입력값
 }
 
 const InitialPoolPair: React.FC<InitialPoolProps> = ({
   firstData,
   secondData,
+  inputValue,
+  outputValue,
 }) => {
-  const firstDataBalance = firstData
-    ? Number(firstData.balance) / 10 ** 18
-    : "-";
+  // const firstDataBalance = firstData
+  //   ? Number(firstData.balance) / 10 ** 18
+  //   : "-";
+  const firstDataValue = inputValue ? parseFloat(inputValue) : 0;
+  const secondDataValue = outputValue ? parseFloat(outputValue) : 0;
+  const firstRatio =
+    secondDataValue && firstDataValue ? secondDataValue / firstDataValue : "-";
+  const secondRatio =
+    secondDataValue && firstDataValue ? firstDataValue / secondDataValue : "-";
 
   console.log("firstData?", firstData);
 
@@ -35,16 +44,27 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
         <div className="grid auto-rows-auto gap-[12px]">
           <div className="flex flex-wrap m-[-px] justify-around">
             <div className="grid-flow-row auto-rows-auto justify-center">
-              <div className="font-semibold">{firstDataBalance}</div>
+              <div className="font-semibold">
+                {typeof firstRatio === "number"
+                  ? firstRatio.toFixed(4)
+                  : firstRatio}
+              </div>
               <div>
                 {secondData ? secondData.symbol : "-"} per{" "}
                 {firstData ? firstData.symbol : "-"}
-                {/* {secondData} per {firstData} */}
               </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
-              <div className="font-semibold">-</div>
-              <div className="">{/* {firstData} per {secondData} */}</div>
+              <div className="font-semibold">
+                {typeof secondRatio === "number"
+                  ? secondRatio.toFixed(4)
+                  : secondRatio}
+              </div>
+              <div className="">
+                {" "}
+                {firstData ? firstData.symbol : "-"} per{" "}
+                {secondData ? secondData.symbol : "-"}
+              </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
               <div className="font-semibold">-</div>

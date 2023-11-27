@@ -28,9 +28,10 @@ const PoolCreate = () => {
   const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(
     null
   );
+  const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
+  const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
 
   const [tokens, setTokens] = useState<Token[]>([]);
-
   const tokenData = [
     {
       tokenAddress: "0x1aaaaa123123213213213123213213123",
@@ -91,6 +92,8 @@ const PoolCreate = () => {
               tokens={tokens}
               selectedToken={InputSelectedToken}
               setSelectedToken={(token) => setInputSelectedToken(token)}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
             />
           </SwapCard>
           <div className="text-lightBlack text-4xl">+</div>
@@ -99,11 +102,15 @@ const PoolCreate = () => {
               tokens={tokens}
               selectedToken={OutputSelectedToken}
               setSelectedToken={(token) => setOutputSelectedToken(token)}
+              inputValue={outputValue}
+              setInputValue={setOutputValue}
             />
           </SwapCard>
           <InitialPoolPair
             firstData={InputSelectedToken}
             secondData={OutputSelectedToken}
+            inputValue={inputValue}
+            outputValue={outputValue}
           />
 
           <div className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">

@@ -14,13 +14,34 @@ type TokenInputProps = {
   tokens: Token[];
   selectedToken: Token | null;
   setSelectedToken: (token: Token) => void;
+  inputValue: string;
+  setInputValue: (value: string) => void;
 };
 
 const TokenInput: React.FC<TokenInputProps> = ({
   tokens,
   selectedToken,
   setSelectedToken,
+  inputValue,
+  setInputValue,
 }) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    const valueInBigInt = BigInt(Math.floor(parseFloat(value) * 10 ** 18));
+
+    if (
+      selectedToken &&
+      selectedToken.balance &&
+      valueInBigInt <= selectedToken.balance
+    ) {
+      setInputValue(event.target.value);
+    } else {
+      alert("Input value 는 해당토큰의 balance 보다 작아야합니다");
+      console.error("handleInputChange error");
+    }
+  };
+
   return (
     <div className="flex flex-col justify-around h-[100px] min-h-[44px]">
       <div className="flex items-center justify-between ">
@@ -31,6 +52,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
           autoCorrect="off"
           type="number"
           placeholder="0"
+          value={inputValue}
+          onChange={handleInputChange}
         />
 
         <CustomModal

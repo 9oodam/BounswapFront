@@ -30,6 +30,8 @@ const Swap = () => {
   const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(
     null
   );
+  const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
+  const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
 
   // console.log("selectedToken", selectedToken?.balance);
 
@@ -90,6 +92,8 @@ const Swap = () => {
             tokens={tokens}
             selectedToken={InputSelectedToken}
             setSelectedToken={(token) => setInputSelectedToken(token)}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
           />
         </SwapCard>
         <SwapCard>
@@ -98,6 +102,8 @@ const Swap = () => {
             tokens={tokens}
             selectedToken={OutputSelectedToken}
             setSelectedToken={(token) => setOutputSelectedToken(token)}
+            inputValue={outputValue}
+            setInputValue={setOutputValue}
           />
         </SwapCard>
         <SwapFetchingCard children={<div>fetching best price...</div>} />
