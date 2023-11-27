@@ -24,10 +24,10 @@ export const getEachPool =async ({pairContract, dataContract, pairAddress, userA
             token1Uri: data.token1Uri,
             token0Symbol: data.token0Symbol,
             token1Symbol: data.token1Symbol,
-            pairTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
-            pairVolume: Number(web3.utils.fromWei(volume, "ether")),
-            pairLiquidity: Number(web3.utils.fromWei(liquidityData.liquidity, "ether")),
-            pairBalance: Number(web3.utils.fromWei(data.balance, "ether")),
+            pairTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
+            pairVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+            pairLiquidity: Number(Number(web3.utils.fromWei(liquidityData.liquidity, "ether")).toFixed(5)),
+            pairBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
             pairLiquidityArr: liquidityData.liquidityArr
         }
 

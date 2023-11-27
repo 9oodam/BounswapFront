@@ -27,10 +27,10 @@ export const getEachToken = async ({ pairContract, dataContract, tokenAddress, w
             tokenName: data.name,
             tokenSymbol: data.symbol,
             tokenUri: uri,
-            tokenTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
-            tokenVolume: Number(web3.utils.fromWei(volume, "ether")),
-            tokenVolume7D: Number(web3.utils.fromWei(volume, "ether")),
-            tokenBalance: Number(web3.utils.fromWei(data.balance, "ether")),
+            tokenTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
+            tokenVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+            tokenVolume7D: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+            tokenBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
             tokenPriceArr: priceArr
     }
     console.log(token);

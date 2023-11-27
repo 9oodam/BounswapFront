@@ -16,10 +16,10 @@ const tokenData = async (web3: Web3, el: TokenContract, volume: bigint) => {
         tokenName: el.name,
         tokenSymbol: el.symbol,
         tokenUri: el.uri,
-        tokenTvl: Number(web3.utils.fromWei(el.tvl, "ether")),
-        tokenVolume: Number(web3.utils.fromWei(volume, "ether")),
-        tokenVolume7D: Number(web3.utils.fromWei(volume, "ether")),
-        tokenBalance: Number(web3.utils.fromWei(el.balance, "ether")),
+        tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
+        tokenVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+        tokenVolume7D: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+        tokenBalance: Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(5)),
         tokenPriceArr: [0]
     }
 }
