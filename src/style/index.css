@@ -1,4 +1,0 @@
-/* tailwindcss의 base, components, utilities 스타일들이 사용될 수 있도록 import한다. */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
