@@ -20,22 +20,18 @@ export const getUserTokens =async ({pairContract, dataContract, queryClient, use
             uri = "images/BounsIo_LOGO.png";
         }
 
-        console.log("tokenBalance", parseFloat(web3.utils.fromWei(el.balance, "ether").replace(/[^\d.]/g, '')) );
-        // console.log("tokenBalance", +web3.utils.fromWei(el.balance, "ether"));
-
         return {
             tokenAddress: el.tokenAddress,
             tokenName: el.name,
             tokenSymbol: el.symbol,
             tokenUri: uri,
-            tokenTvl: Number(web3.utils.fromWei(el.tvl, "ether")),
+            tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
             tokenVolume: 0,
             tokenVolume7D: 0,
-            tokenBalance: Number(web3.utils.fromWei(el.balance, "ether"))
+            tokenBalance: Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(5))
         }
     });
     userTokens.splice(0,1);
-    console.log("features getUserTokens,", userTokens);
     queryClient.setQueryData(["userTokens"], userTokens);
     return userTokens;
 }

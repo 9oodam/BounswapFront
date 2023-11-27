@@ -22,10 +22,10 @@ export const getEachToken = async ({ pairContract, dataContract, tokenAddress, w
         tokenName: data.name,
         tokenSymbol: data.symbol,
         tokenUri: uri,
-        tokenTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
+        tokenTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
         tokenVolume: 0,
         tokenVolume7D: 0,
-        tokenBalance: Number(web3.utils.fromWei(data.balance, "ether"))
+        tokenBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5))
     }
 
     return token;

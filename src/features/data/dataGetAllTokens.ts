@@ -23,10 +23,10 @@ export const getAllTokens =async ({pairContract, dataContract, queryClient, web3
             tokenName: el.name,
             tokenSymbol: el.symbol,
             tokenUri: uri,
-            tokenTvl: Number(web3.utils.fromWei(el.tvl, "ether")),
+            tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
             tokenVolume: 0,
             tokenVolume7D: 0,
-            tokenBalance: Number(web3.utils.fromWei(el.balance, "ether"))
+            tokenBalance: Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(5))
         }
     });
     console.log("features getAlltokens");

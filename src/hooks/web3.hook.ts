@@ -142,7 +142,8 @@ const useWeb3 = (provider: string | null) => {
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        // "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        "0x050Ade3854C7493dD67271f85Fc40459674F737C",
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(

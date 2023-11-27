@@ -20,9 +20,9 @@ export const getEachPool =async ({pairContract, dataContract, pairAddress, userA
             token1Uri: data.token1Uri,
             token0Symbol: data.token0Symbol,
             token1Symbol: data.token1Symbol,
-            pairTvl: Number(web3.utils.fromWei(data.tvl, "ether")),
+            pairTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
             pairVolume: 0,
-            pairBalance: Number(web3.utils.fromWei(data.balance, "ether")) 
+            pairBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)) 
         }
 
     return pool;
