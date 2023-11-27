@@ -31,7 +31,7 @@ const RemoveLiquidity:React.FC<{data : PairItem}> = ({data}) => {
         let percent = Number(percentage);
         if(data.token0Symbol == 'BNC' || data.token1Symbol) {
           console.log('removeLiquidityBNC 실행')
-          let tokenAddress = (data.token0Symbol == 'BNC') ? data.token0Address : data.token1Address;
+          let tokenAddress = (data.token0Symbol == 'BNC') ? data.token1Address : data.token0Address;
           const result = await removeLiquidityBNC(
             pairContract,
             tokenAddress,

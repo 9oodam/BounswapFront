@@ -30,49 +30,74 @@ export const getRemoveAmount = async (pairContract: Contract<any>, pairAddress: 
 
 // 유동성 공급 (token-token)
 export const addLiquidity = async (pairContract: Contract<any>, tokenA: string, tokenB: string, amountADesired: BigInt, amountBDesired: BigInt, user: string) => {
-  const block = await (pairContract?.methods.poolAddLiquidity as any)(tokenA, tokenB, amountADesired, amountBDesired).send({
-    from: user
-  });
-  console.log(block);
-  // block에 문제 있으면 error 처리할 수 있는 문구 내보내기
-  if(block) return('succeed');
-  if(!block) return('failed');
+  try {
+    const block = await (pairContract?.methods.poolAddLiquidity as any)(tokenA, tokenB, amountADesired, amountBDesired).send({
+      from: user
+    });
+    console.log(block);
+    // block에 문제 있으면 error 처리할 수 있는 문구 내보내기
+    if(block) return('succeed');
+    if(!block) return('failed');
+  } catch (error) {
+    console.log(error)
+    return ('error');
+  }
 }
 // 유동성 공급 (bnc-token)
 export const addLiquidityBNC = async (pairContract: Contract<any>, token: string, amountTokenDesired: BigInt, amountBNCDesired: BigInt, user: string) => {
-  const block = await (pairContract?.methods.poolAddLiquidityBNC as any)(token, amountTokenDesired).send({
-    from: user,
-    value: amountBNCDesired
-  });
-  console.log(block);
-  if(block) return('succeed');
-  if(!block) return('failed');
+  try {
+    const block = await (pairContract?.methods.poolAddLiquidityBNC as any)(token, amountTokenDesired).send({
+      from: user,
+      value: amountBNCDesired
+    });
+    console.log(block);
+    if(block) return('succeed');
+    if(!block) return('failed');
+  } catch (error) {
+    console.log(error)
+    return ('error');
+  }
 }
 // 유동성 제거 (token-token)
 export const removeLiquidity = async (pairContract: Contract<any>, tokenA: string, tokenB: string, percentage: number, user: string) => {
-  const block = await (pairContract?.methods.poolRemoveLiquidity as any)(tokenA, tokenB, percentage).send({
-    from: user
-  });
-  console.log(block);
-  if(block) return('succeed');
-  if(!block) return('failed');
+  try {
+    const block = await (pairContract?.methods.poolRemoveLiquidity as any)(tokenA, tokenB, percentage).send({
+      from: user
+    });
+    console.log(block);
+    if(block) return('succeed');
+    if(!block) return('failed');
+  } catch (error) {
+    console.log(error)
+    return ('error');
+  }
 }
 // 유동성 제거 (bnc-token)
 export const removeLiquidityBNC = async (pairContract: Contract<any>, token: string, percentage: number, user: string) => {
-  const block = await (pairContract?.methods.poolRemoveLiquidityBNC as any)(token, percentage).send({
-    from: user
-  });
-  console.log(block);
-  if(block) return('succeed');
-  if(!block) return('failed');
+  try {
+    const block = await (pairContract?.methods.poolRemoveLiquidityBNC as any)(token, percentage).send({
+      from: user
+    });
+    console.log(block);
+    if(block) return('succeed');
+    if(!block) return('failed');
+  } catch (error) {
+    console.log(error)
+    return ('error');
+  }
 }
 
 // 유저 미청구 수수료 청구
 export const claimFee = async (pairContract: Contract<any>, pairAddress: string, user: string) => {
-  const block = await (pairContract?.methods.poolClaimFee as any)(pairAddress).call({
-    from: user
-  });
-  console.log(block);
-  if(block) return('succeed');
-  if(!block) return('failed');
+  try {
+    const block = await (pairContract?.methods.poolClaimFee as any)(pairAddress).call({
+      from: user
+    });
+    console.log(block);
+    if(block) return('succeed');
+    if(!block) return('failed');
+  } catch (error) {
+    console.log(error)
+    return ('error');
+  }
 }
