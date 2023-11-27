@@ -145,7 +145,7 @@ const AppFooter: React.FC = () => {
           )}
         </div>
         <div
-          className={`bg-opercityAppFooter dark:bg-baseWhite w-full h-[200px] absolute bottom-[80px] p-7 flex-col justify-center rounded-t-3xl ${
+          className={`bg-opercityAppFooter dark:bg-[#ffffffCC] w-full h-[250px] absolute bottom-[80px] p-7 flex-col justify-center rounded-t-3xl ${
             infoPop ? `` : `hidden`
           }`}
         >

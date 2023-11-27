@@ -10,6 +10,7 @@ export interface InputTokenProps {
   setInputAmount?: (value: string) => void;
   setExact?: (bool: boolean) => void;
   clickFn?: () => void;
+  regex?: RegExp;
 }
 export interface SelectTokenProps {
   tokenName: string;
@@ -103,8 +104,6 @@ export interface TokenContract {
 }
 export type TokenArray = TokenItem[];
 
-
-
 export interface PairItem {
   pairAddress: string;
   token0Address: string;
@@ -176,13 +175,13 @@ export interface SearchTokenInfo {
 }
 
 export interface UnclaimedFeeData {
-  token0FeeAmount : number;
-  token1FeeAmount : number;
+  token0FeeAmount: number;
+  token1FeeAmount: number;
 }
 
 export interface UserLiquidity {
-  token0Liquidity : string;
-  token1Liquidity : string;
-  token0Percent : string | number;
-  token1Percent : string | number;
+  token0Liquidity: string;
+  token1Liquidity: string;
+  token0Percent: string | number;
+  token1Percent: string | number;
 }
