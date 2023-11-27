@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import Web3, { Contract } from "web3";
-import { TokenContract } from "src/Interface/Token.interface";
+import { TokenArray, TokenContract, TokenItem } from "src/Interface/Token.interface";
+import { getTokenVolumeFromEvent } from "../event/volume";
 
 interface Params {
     pairContract: Contract<any>;
@@ -9,26 +10,32 @@ interface Params {
     web3 : Web3;
 }
 
-export const getAllTokens =async ({pairContract, dataContract, queryClient, web3} : Params) => {
-    const data = await dataContract.methods.getAllTokens().call();
-    const tokens = data?.map((el : TokenContract) => {
-        let uri;
-        if (el.symbol != "GOV") {
-            uri = el.uri;
-        } else {
-            uri = "images/BounsIo_LOGO.png";
+const tokenData = async (web3: Web3, el: TokenContract, volume: bigint) => {
+    return {
+        tokenAddress: el.tokenAddress,
+        tokenName: el.name,
+        tokenSymbol: el.symbol,
+        tokenUri: el.uri,
+        tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
+        tokenVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+        tokenVolume7D: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+        tokenBalance: Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(5)),
+        tokenPriceArr: [0]
+    }
+}
+
+export const getAllTokens = async ({pairContract, dataContract, queryClient, web3} : Params) => {
+    const data: TokenContract[] = await dataContract.methods.getAllTokens().call();
+    let tokens: TokenArray = [];
+
+    if(data) {
+        for (let i = 0; i < data.length; i++) {
+            let volume = await getTokenVolumeFromEvent(pairContract, data[i].tokenAddress);
+            let token = await tokenData(web3, data[i], volume);        
+            tokens.push(token);
         }
-        return {
-            tokenAddress: el.tokenAddress,
-            tokenName: el.name,
-            tokenSymbol: el.symbol,
-            tokenUri: uri,
-            tokenTvl: Number(web3.utils.fromWei(el.tvl, "ether")),
-            tokenVolume: 0,
-            tokenVolume7D: 0,
-            tokenBalance: Number(web3.utils.fromWei(el.balance, "ether"))
-        }
-    });
+    }
+
     console.log("features getAlltokens");
     queryClient.setQueryData(["allTokens"], tokens);
     return tokens;

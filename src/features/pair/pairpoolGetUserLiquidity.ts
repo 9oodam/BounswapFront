@@ -18,8 +18,8 @@ export const poolGetUserLiquidity = async ({ pairContract, userAddress, pairAddr
     });
     const userLiquidity =
     {
-        token0Liquidity: web3.utils.fromWei(data[0], "ether"),
-        token1Liquidity: web3.utils.fromWei(data[1], "ether"),
+        token0Liquidity: Number(web3.utils.fromWei(data[0], "ether")).toFixed(5),
+        token1Liquidity: Number(web3.utils.fromWei(data[1], "ether")).toFixed(5),
         token0Percent: getPercent(Number(web3.utils.fromWei(data[0], "ether")), Number(web3.utils.fromWei(data[0], "ether")), Number(web3.utils.fromWei(data[1], "ether")) ),
         token1Percent: getPercent(Number(web3.utils.fromWei(data[1], "ether")), Number(web3.utils.fromWei(data[0], "ether")), Number(web3.utils.fromWei(data[1], "ether")) ),
     }

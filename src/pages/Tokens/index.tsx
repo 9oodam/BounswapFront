@@ -32,7 +32,7 @@ const Tokens = () => {
 
   // useEffect(()=>{
   const getData = async () => {
-    if (!dataContract || !web3 || !pairContract) return null;
+    if (!pairContract || !dataContract || !web3) return null;
     const data = await getAllTokens({pairContract, dataContract, queryClient, web3});
     (data as TokenArray).splice(1, 1);
 

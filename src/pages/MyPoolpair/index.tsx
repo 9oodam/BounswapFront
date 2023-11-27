@@ -22,10 +22,11 @@ const MyPoolpair: React.FC = () => {
   const { id } = useParams();
   const [pool, setPool] = useState<PairItem>();
   const [fee, setFee] = useState<UnclaimedFeeData>();
-  const [userLiquidity, setUserLiquidity] = useState<UserLiquidity>();
+  const [userLiquidity, setUserLiquidity] = useState<UserLiquidity>()
 
-  useEffect(() => {
-    if (!dataContract || !pairContract || !id || user.account == "" || !web3) return;
+
+  useEffect(()=>{
+    if (!pairContract|| !dataContract || !id || user.account == "" || !web3) return;
     const getData = async () => {
       const pool = await getEachPool({
         pairContract,

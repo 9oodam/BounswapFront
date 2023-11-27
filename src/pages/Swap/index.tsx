@@ -4,17 +4,7 @@ import useWeb3 from "src/hooks/web3.hook";
 
 import { getAllTokens } from "src/features/data/dataGetAllTokens";
 import { getPairAddress } from "src/features/pair/factorySendFeatures";
-import {
-  bNCForExactTokens,
-  exactBNCForTokens,
-  exactTokensForBNC,
-  exactTokensForTokens,
-  getAmountIn,
-  getAmountOut,
-  getOutputReserve,
-  tokensForExactBNC,
-  tokensForExactTokens,
-} from "src/features/pair/swapSendFeatures";
+import { bNCForExactTokens, exactBNCForTokens, exactTokensForBNC, exactTokensForTokens, getAmountIn, getAmountOut, getOutputReserve, tokensForExactBNC, tokensForExactTokens } from "src/features/pair/swapSendFeatures";
 
 import SwapContainer from "../../components/SwapContainer";
 import Card from "src/components/Card";
@@ -22,9 +12,9 @@ import CustomModal from "./CustomModal";
 import TokenInput from "src/contents/Swap/TokenInput";
 import SwapBtn from "src/contents/poolpair/Liquidity/LiquidiityBtn/SwapBtn";
 import SwapFetchingCard from "src/components/Card/SwapFetchingCard";
-import { TokenArray } from "src/Interface/Token.interface";
 import SwapButton from "src/contents/Swap/SwapButton";
 import SwapCard from "src/components/Card/SwapCard";
+import { TokenArray, TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
   tokenAddress: string;
@@ -61,241 +51,203 @@ const Swap = () => {
     },
   ];
   // 선택된 토큰, 수량
-  const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(
-    null
-  );
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(
-    null
-  );
-  const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
-  const [OutputTokenAmount, setOutputTokenAmount] = useState<string>("");
-  const [minToken, setMinToken] = useState<string>("");
-  const [maxToken, setMaxToken] = useState<string>("");
+  const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(null);
+  const [InputTokenAmount, setInputTokenAmount] = useState<string>('');
+  const [OutputTokenAmount, setOutputTokenAmount] = useState<string>('');
+  const [minToken, setMinToken] = useState<string>('');
+  const [maxToken, setMaxToken] = useState<string>('');
   // input을 입력했는지, ouput을 입력했는지
   // const [isExactInput, setIsExactInput] = useState<boolean>(false);
   // const [isExactOutput, setIsExactOutput] = useState<boolean>(false);
   const [isExact, setIsExact] = useState<boolean>(true);
   // 페어 주소
-  const [pairAddress, setPairAddress] = useState<string>("");
+  const [pairAddress, setPairAddress] = useState<string>('');
 
   // 1) 토큰 데이터
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const data = await getAllTokens({ pairContract, dataContract, queryClient, web3 });
+    const data = await getAllTokens({pairContract, dataContract, queryClient, web3});
     (data as TokenArray).splice(1, 1);
     // setTokens(data as Token[]);
     setTokens(tokenData); // type을 Token?? TokenItem??
     console.log("getTokensTest", data);
     return data;
-  };
+  }
   // const { data : tokenArr, isLoading, error } = useQuery({
-  //   queryKey : ["allTokens"],
+  //   queryKey : ["allTokens"], 
   //   queryFn : getData,
   //   gcTime : 0,
   //   staleTime : 0,
-  //   refetchOnWindowFocus : "always",
+  //   refetchOnWindowFocus : "always",  
   //   enabled : !!dataContract && !!web3
   // });
 
   // 2) 페어 주소
   const getPairAddressData = async () => {
-    if (!pairContract) return;
-    if (!InputSelectedToken || !OutputSelectedToken) return;
-    const data = await getPairAddress(
-      pairContract,
-      InputSelectedToken.tokenAddress,
-      OutputSelectedToken.tokenAddress
-    );
+    if(!pairContract) return;
+    if(!InputSelectedToken || !OutputSelectedToken) return;
+    const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
     return data;
-  };
+  }
   useEffect(() => {
     const fetchPairAddress = async () => {
       const pairAddress = await getPairAddressData();
-      console.log("pairAddress : ", pairAddress);
-      if (pairAddress != null) setPairAddress(pairAddress);
-    };
-    if (InputSelectedToken && OutputSelectedToken) {
-      if (InputSelectedToken.tokenAddress == OutputSelectedToken.tokenAddress)
-        return;
+      console.log('pairAddress : ', pairAddress);
+      if(pairAddress != null) setPairAddress(pairAddress);
+    }
+    if(InputSelectedToken && OutputSelectedToken) {
+      if(InputSelectedToken.tokenAddress == OutputSelectedToken.tokenAddress) return;
       fetchPairAddress();
     }
-  }, [InputSelectedToken, OutputSelectedToken]);
+  }, [InputSelectedToken, OutputSelectedToken])
 
   // 3) amount 계산
   const getAmountOutData = async (inputAmount: bigint) => {
     console.log(inputAmount);
-    if (!pairContract) return;
-    if (!InputSelectedToken || !OutputSelectedToken) return;
-    const { amountOut, minToken } = await getAmountOut(
-      pairContract,
-      pairAddress,
-      inputAmount,
+    if(!pairContract) return;
+    if(!InputSelectedToken || !OutputSelectedToken) return;
+    const {amountOut, minToken} = await getAmountOut(
+      pairContract, pairAddress, inputAmount,
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
-    );
-    const amountOutStr = web3?.utils.fromWei(amountOut, "ether").toString();
-    const minTokenStr = web3?.utils.fromWei(minToken, "ether").toString();
-    if (!amountOutStr || !minTokenStr) return;
+    )
+    const amountOutStr = web3?.utils.fromWei(amountOut, 'ether').toString();
+    const minTokenStr = web3?.utils.fromWei(minToken, 'ether').toString();
+    if(!amountOutStr || !minTokenStr) return;
     setOutputTokenAmount(amountOutStr);
     setMinToken(minTokenStr);
-  };
+  }
   useEffect(() => {
     // if(isExactOutput == true) return;
-    if (isExact == false) return;
-    console.log(parseFloat(InputTokenAmount));
-    const inputAmount = web3?.utils.toBigInt(
-      web3?.utils.toWei(InputTokenAmount, "ether")
-    );
+    if(isExact == false) return;
+    console.log(parseFloat(InputTokenAmount))
+    const inputAmount = web3?.utils.toBigInt(web3?.utils.toWei(InputTokenAmount, 'ether'));
     console.log(inputAmount);
-    if (inputAmount != undefined) getAmountOutData(inputAmount);
+    if(inputAmount != undefined) getAmountOutData(inputAmount);
     // setIsExactInput(true);
     // setIsExactOutput(false);
-  }, [InputTokenAmount]);
+  }, [InputTokenAmount])
   const getAmountInData = async (outputAmount: bigint) => {
     console.log(outputAmount);
-    if (!pairContract) return;
-    if (!InputSelectedToken || !OutputSelectedToken) return;
-    const { amountIn, maxToken } = await getAmountIn(
-      pairContract,
-      pairAddress,
-      outputAmount,
+    if(!pairContract) return;
+    if(!InputSelectedToken || !OutputSelectedToken) return;
+    const {amountIn, maxToken} = await getAmountIn(
+      pairContract, pairAddress, outputAmount,
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
-    );
-    const amountInStr = web3?.utils.fromWei(amountIn, "ether").toString();
-    const maxTokenStr = web3?.utils.fromWei(maxToken, "ether").toString();
-    if (!amountInStr || !maxTokenStr) return;
+    )
+    const amountInStr = web3?.utils.fromWei(amountIn, 'ether').toString();
+    const maxTokenStr = web3?.utils.fromWei(maxToken, 'ether').toString();
+    if(!amountInStr || !maxTokenStr) return;
     setInputTokenAmount(amountInStr);
     setMaxToken(maxTokenStr);
-  };
+  }
   useEffect(() => {
     // if(isExactInput == true) return;
-    if (isExact == true) return;
-    console.log(parseFloat(OutputTokenAmount));
-    const outputAmount = web3?.utils.toBigInt(
-      web3?.utils.toWei(OutputTokenAmount, "ether")
-    );
+    if(isExact == true) return;
+    console.log(parseFloat(OutputTokenAmount))
+    const outputAmount = web3?.utils.toBigInt(web3?.utils.toWei(OutputTokenAmount, 'ether'));
     console.log(outputAmount);
-    if (outputAmount != undefined) getAmountInData(outputAmount);
+    if(outputAmount != undefined) getAmountInData(outputAmount);
     // setIsExactInput(false);
     // setIsExactOutput(true);
-  }, [OutputTokenAmount]);
+  }, [OutputTokenAmount])
 
   // 4) 사용자의 보유량이 충분한지 & 풀의 예치량이 충분한지 확인
   const getOutputReserveData = async () => {
-    if (!pairContract) return;
-    if (!OutputSelectedToken) return;
+    if(!pairContract) return;
+    if(!OutputSelectedToken) return;
     const reserve = await getOutputReserve(
-      pairContract,
-      pairAddress,
-      OutputSelectedToken?.tokenAddress
-    );
+      pairContract, pairAddress, OutputSelectedToken?.tokenAddress
+    )
     return reserve;
-  };
+  }
 
   // 5) swap
   const trySwap = async () => {
-    if (!pairContract) return;
-    if (!InputSelectedToken || !OutputSelectedToken) return;
-    if (!InputTokenAmount || !OutputTokenAmount) return;
-    console.log("swap 시작");
+    if(!pairContract) return;
+    if(!InputSelectedToken || !OutputSelectedToken) return;
+    if(!InputTokenAmount || !OutputTokenAmount) return;
+    console.log('swap 시작')
 
-    if (isExact == true) {
-      const inputAmountBigInt = web3?.utils.toBigInt(
-        web3?.utils.toWei(InputTokenAmount, "ether")
-      );
-      const minTokenBigInt = web3?.utils.toBigInt(
-        web3.utils.toWei(minToken, "ether")
-      );
-      if (!inputAmountBigInt || !minTokenBigInt) return;
-      if (InputSelectedToken.symbol == "BNC") {
+    if(isExact == true) {
+      const inputAmountBigInt = web3?.utils.toBigInt(web3?.utils.toWei(InputTokenAmount, 'ether'));
+      const minTokenBigInt = web3?.utils.toBigInt(web3.utils.toWei(minToken, 'ether'));
+      if(!inputAmountBigInt || !minTokenBigInt) return;
+      if(InputSelectedToken.symbol == 'BNC') {
         // iii) Exact bnc -> token
         const result = await exactBNCForTokens(
-          pairContract,
-          pairAddress,
-          inputAmountBigInt,
-          minTokenBigInt,
+          pairContract, pairAddress,
+          inputAmountBigInt, minTokenBigInt,
           InputSelectedToken.tokenAddress,
           OutputSelectedToken.tokenAddress,
           user.account
-        );
+        )
         console.log(result);
-      } else if (OutputSelectedToken.symbol == "BNC") {
+      }else if(OutputSelectedToken.symbol == 'BNC') {
         // ii) Exact token -> bnc
         const result = await exactTokensForBNC(
-          pairContract,
-          pairAddress,
-          inputAmountBigInt,
-          minTokenBigInt,
+          pairContract, pairAddress,
+          inputAmountBigInt, minTokenBigInt,
           InputSelectedToken.tokenAddress,
           OutputSelectedToken.tokenAddress,
           user.account
-        );
+        )
         console.log(result);
-      } else {
+      }else {
         // i) Exact token -> token
         const result = await exactTokensForTokens(
-          pairContract,
-          pairAddress,
-          inputAmountBigInt,
-          minTokenBigInt,
+          pairContract, pairAddress,
+          inputAmountBigInt, minTokenBigInt,
           InputSelectedToken.tokenAddress,
           OutputSelectedToken.tokenAddress,
           user.account
-        );
+        )
         console.log(result);
       }
-    } else if (isExact == false) {
-      const outputAmountBigInt = web3?.utils.toBigInt(
-        web3?.utils.toWei(OutputTokenAmount, "ether")
-      );
-      const maxTokenBigInt = web3?.utils.toBigInt(
-        web3.utils.toWei(maxToken, "ether")
-      );
-      if (!outputAmountBigInt || !maxTokenBigInt) return;
-      if (InputSelectedToken.symbol == "BNC") {
+    }else if(isExact == false) {
+      const outputAmountBigInt = web3?.utils.toBigInt(web3?.utils.toWei(OutputTokenAmount, 'ether'));
+      const maxTokenBigInt = web3?.utils.toBigInt(web3.utils.toWei(maxToken, 'ether'));
+      if(!outputAmountBigInt || !maxTokenBigInt) return;
+      if(InputSelectedToken.symbol == 'BNC') {
         // vi) bnc -> Exact token
         const result = await bNCForExactTokens(
-          pairContract,
-          pairAddress,
-          outputAmountBigInt,
-          maxTokenBigInt,
+          pairContract, pairAddress,
+          outputAmountBigInt, maxTokenBigInt,
           InputSelectedToken.tokenAddress,
           OutputSelectedToken.tokenAddress,
           user.account
-        );
+        )
         console.log(result);
-      } else if (OutputSelectedToken.symbol == "BNC") {
+      }else if(OutputSelectedToken.symbol == 'BNC') {
         // v) token -> Exact bnc
         const result = await tokensForExactBNC(
-          pairContract,
-          pairAddress,
-          outputAmountBigInt,
-          maxTokenBigInt,
+          pairContract, pairAddress,
+          outputAmountBigInt, maxTokenBigInt,
           InputSelectedToken.tokenAddress,
           OutputSelectedToken.tokenAddress,
           user.account
-        );
+        )
         console.log(result);
-      } else {
+      }else {
         // iv) token -> Exact token
         const result = await tokensForExactTokens(
-          pairContract,
-          pairAddress,
-          outputAmountBigInt,
-          maxTokenBigInt,
+          pairContract, pairAddress,
+          outputAmountBigInt, maxTokenBigInt,
           InputSelectedToken.tokenAddress,
           OutputSelectedToken.tokenAddress,
           user.account
-        );
+        )
         console.log(result);
       }
     }
-  };
+  }
+
 
   useEffect(() => {
     // getData();
-    setTokens(tokenData);
+    setTokens(tokenData)
   }, []);
 
   // useEffect(() => {

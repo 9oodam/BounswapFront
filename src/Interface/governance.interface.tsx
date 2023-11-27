@@ -1,4 +1,4 @@
-import { type } from "os";
+import { Bytes } from "web3";
 
 export interface proposals {
   id: number;
@@ -11,9 +11,23 @@ export interface proposals {
   startTime: number;
   endTime: number;
   state: number;
+  forPercent : string | number;
+  againstPercent : string | number;
 }
-
 
 export interface ProposalsArr {
   data: proposals[];
+}
+
+export interface ProposalContract {
+  id : bigint;
+  proposer : string;
+  title : Bytes;
+  description : Bytes;
+  quorumVotes : bigint;
+  forVotes : bigint;
+  againstVotes : bigint;
+  startTime : bigint;
+  endTime : bigint;
+  state : bigint;
 }

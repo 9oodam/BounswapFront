@@ -24,30 +24,30 @@ const Pool = () => {
     PairVolume7D: "Volume(7D)",
   };
 
-  const getData = async () => {
+  const getData =async () => {
     if (!pairContract || !dataContract || !web3) return;
-    const pools = await getAllPools({ pairContract, dataContract, queryClient, web3 });
+    const pools = await getAllPools({pairContract, dataContract, queryClient, web3});
     console.log(pools);
     // setPair(pools as PairArray);
     return pools;
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["pairs"],
-    queryFn: getData,
-    gcTime: 0,
-    staleTime: 0,
-    refetchOnWindowFocus: "always",
-    enabled: !!dataContract && !!web3 && !!pairContract,
+  const { data: poolArr, isLoading, error, isSuccess } = useQuery({
+    queryKey : ["pairs"], 
+    queryFn : getData,
+    gcTime : 0,
+    staleTime : 0,
+    refetchOnWindowFocus : "always",  
+    enabled : !!dataContract && !!web3
   });
-
-  if (!data) {
-    return <>loading</>;
-  }
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
+
+  if (!poolArr) {
+    return <>loading</>;
+  }
 
   return (
     <Container>
@@ -63,10 +63,10 @@ const Pool = () => {
             New Position
           </div>
         </div>
-        <Dashboard arr={data.slice(0, visible)} url="pool/top" title={titles} />
+        <Dashboard arr={poolArr.slice(0, visible)} url="pool/top" title={titles} />
 
         <div className="pc:w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer flex justify-center items-center">
-          {visible < data.length ? (
+          {visible < poolArr.length ? (
             <button onClick={showMore}>show more</button>
           ) : (
             <></>

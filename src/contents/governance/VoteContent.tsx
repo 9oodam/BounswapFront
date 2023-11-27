@@ -8,19 +8,13 @@ const VoteContent: React.FC<{ data: proposals }> = ({ data }) => {
         <div className="bg-green-300 text-baseWhite w-[130px] pc:h-[50px] mobile:h-[40px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer mx-1">
           찬성
           <span className="font-medium text-[14px]">
-            {Math.round(
-              (data.forVotes / (data.forVotes + data.againstVotes)) * 100
-            )}
-            %
+            {data.forPercent}%
           </span>
         </div>
         <div className="bg-red-300 text-baseWhite w-[130px] pc:h-[50px] mobile:h-[40px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-red-500 cursor-pointer mx-1">
           반대
           <span className="font-medium text-[14px]">
-            {Math.round(
-              (data.againstVotes / (data.forVotes + data.againstVotes)) * 100
-            )}
-            %
+            {data.againstPercent}%
           </span>
         </div>
       </div>
