@@ -7,11 +7,13 @@ import {
   StakeTitle,
   PairItem,
   PairTitle,
+
 } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
 import { getTime } from "src/features/getTime";
 
 const Dashboard: React.FC<{
+  // arr:TokenArray | PairArray;
   arr: (StakeItem | TokenItem | PairItem)[];
   url: string;
   title: TokenTitle | StakeTitle | PairTitle;
