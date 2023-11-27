@@ -25,7 +25,7 @@ const poolData = async (web3: Web3, el: PairContract, volume: bigint, liquidityD
         token1Uri: el.token1Uri,
         token0Symbol: el.token0Symbol,
         token1Symbol: el.token1Symbol,
-        pairTvl: Number(web3.utils.fromWei(el.tvl, "ether")),
+        pairTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
         pairVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
         pairLiquidity: Number(Number(web3.utils.fromWei(liquidityData.liquidity, "ether")).toFixed(5)),
         pairBalance: Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(5)),

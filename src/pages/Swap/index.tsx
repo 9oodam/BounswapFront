@@ -12,7 +12,6 @@ import CustomModal from "./CustomModal";
 import TokenInput from "src/contents/Swap/TokenInput";
 import SwapBtn from "src/contents/poolpair/Liquidity/LiquidiityBtn/SwapBtn";
 import SwapFetchingCard from "src/components/Card/SwapFetchingCard";
-import { TokenArray } from "src/Interface/Token.interface";
 import SwapButton from "src/contents/Swap/SwapButton";
 import SwapCard from "src/components/Card/SwapCard";
 import { TokenArray, TokenItem } from "src/Interface/Token.interface";
@@ -284,7 +283,7 @@ const Swap = () => {
             setExact={setIsExact}
             value={OutputTokenAmount}
           />
-        </SwapCard>
+        </Card>
         <SwapFetchingCard>
           <div>fetching best price...</div>
         </SwapFetchingCard>

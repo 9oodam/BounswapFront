@@ -19,33 +19,14 @@ import { poolGetUserLiquidity } from "src/features/pair/pairpoolGetUserLiquidity
 
 const MyPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
-  const { web3, user, dataContract, pairContract } = useWeb3(null);
   const { id } = useParams();
   const [pool, setPool] = useState<PairItem>();
   const [fee, setFee] = useState<UnclaimedFeeData>();
-  const [userLiquidity, setUserLiquidity] = useState<UserLiquidity>();
+  const [userLiquidity, setUserLiquidity] = useState<UserLiquidity>()
 
-  useEffect(() => {
-    const getLptokens = async () => {
-      const data = await queryClient.getQueryData<DataArray>(["lpTokens"]);
-      console.log("❗️data", data);
-      setPairs(data ? data : null);
-      // console.log("@@lptokens", lptokens);
-      console.log("🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️🤷‍♀️", pairs);
-    };
-    getLptokens();
-  }, [queryClient]);
-
-  useEffect(() => {
-    console.log("진짜 제발료", pairs);
-  }, [pairs]);
-
-  // if (!pairs) {
-  //   return <div>fheldwnd</div>;
-  // }
 
   useEffect(()=>{
-    if (!dataContract || !id || user.account == "" || !web3) return;
+    if (!pairContract|| !dataContract || !id || user.account == "" || !web3) return;
     const getData = async () => {
       const pool = await getEachPool({
         pairContract,

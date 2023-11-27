@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import Web3, { Contract } from "web3";
+import Web3, { Contract, ContractCodeNotStoredError } from "web3";
 import { PairContract } from "src/Interface/Token.interface";
 import { getPoolVolumeFromEvent } from "../event/volume";
 import { getPoolLiquidityFromEvent } from "../event/liquidity";
@@ -30,6 +30,6 @@ export const getEachPool =async ({pairContract, dataContract, pairAddress, userA
             pairBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
             pairLiquidityArr: liquidityData.liquidityArr
         }
-
+        
     return pool;
 }
