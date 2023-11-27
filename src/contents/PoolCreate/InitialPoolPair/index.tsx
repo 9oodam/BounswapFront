@@ -32,6 +32,9 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
   const secondRatio =
     secondDataValue && firstDataValue ? firstDataValue / secondDataValue : "-";
 
+  const isCalculationComplete =
+    typeof firstRatio === "number" && typeof secondRatio === "number";
+
   console.log("firstData?", firstData);
 
   return (
@@ -50,8 +53,9 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
                   : firstRatio}
               </div>
               <div>
-                {secondData ? secondData.symbol : "-"} per{" "}
-                {firstData ? firstData.symbol : "-"}
+                {isCalculationComplete && secondData ? secondData.symbol : "-"}{" "}
+                per{" "}
+                {isCalculationComplete && firstData ? firstData.symbol : "-"}
               </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
@@ -62,8 +66,11 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
               </div>
               <div className="">
                 {" "}
-                {firstData ? firstData.symbol : "-"} per{" "}
-                {secondData ? secondData.symbol : "-"}
+                {isCalculationComplete && firstData
+                  ? firstData.symbol
+                  : "-"}{" "}
+                per{" "}
+                {isCalculationComplete && secondData ? secondData.symbol : "-"}
               </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
