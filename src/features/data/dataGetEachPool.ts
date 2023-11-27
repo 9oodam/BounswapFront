@@ -3,13 +3,14 @@ import Web3, { Contract } from "web3";
 import { PairContract } from "src/Interface/Token.interface";
 
 interface Params {
+    pairContract: Contract<any>;
     dataContract: Contract<any>;
     pairAddress: string;
     userAddress: string;
     web3: Web3;
 }
 
-export const getEachPool =async ({dataContract, pairAddress, userAddress, web3} : Params) => {
+export const getEachPool =async ({pairContract, dataContract, pairAddress, userAddress, web3} : Params) => {
     const data = await (dataContract.methods.getEachPool as any)(pairAddress, userAddress).call();
     const pool = {
             pairAddress: data.pairAddress,

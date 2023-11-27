@@ -181,6 +181,8 @@ export interface UnclaimedFeeData {
 }
 
 export interface UserLiquidity {
-  token0Liquidity : number;
-  token1Liquidity : number;
+  token0Liquidity : string;
+  token1Liquidity : string;
+  token0Percent : string | number;
+  token1Percent : string | number;
 }
