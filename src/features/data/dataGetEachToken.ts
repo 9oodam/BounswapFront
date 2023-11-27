@@ -3,12 +3,13 @@ import Web3, { Contract } from "web3";
 import { TokenContract } from "src/Interface/Token.interface";
 
 interface Params {
+    pairContract: Contract<any>;
     dataContract: Contract<any>;
     tokenAddress: string;
     web3: Web3;
 }
 
-export const getEachToken = async ({ dataContract, tokenAddress, web3 }: Params) => {
+export const getEachToken = async ({ pairContract, dataContract, tokenAddress, web3 }: Params) => {
     const data = await (dataContract.methods.getEachToken as any)(tokenAddress, 0).call();
     let uri;
     if (data.symbol != "GOV") {

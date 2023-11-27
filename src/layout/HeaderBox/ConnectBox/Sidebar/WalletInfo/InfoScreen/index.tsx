@@ -30,15 +30,15 @@ const InfoScreen = () => {
   }
 
   const getTokens = async () => {
-    if (!dataContract || !web3 || user.account == "") return null;
-    const data = await getUserTokens({ dataContract, queryClient, userAddress: user.account, web3 });    
+    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
+    const data = await getUserTokens({ pairContract, dataContract, queryClient, userAddress: user.account, web3 });    
     setTokens(data);
     return data;
   }
   
   const getPools =async () => {
-    if (!dataContract || !web3 || user.account == "") return null;
-    const data = await getUserPools({dataContract, queryClient, userAddress : user.account, web3});
+    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
+    const data = await getUserPools({ pairContract, dataContract, queryClient, userAddress : user.account, web3});
     setPools(data);
     return data;
   }

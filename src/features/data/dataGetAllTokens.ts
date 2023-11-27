@@ -3,12 +3,13 @@ import Web3, { Contract } from "web3";
 import { TokenContract } from "src/Interface/Token.interface";
 
 interface Params {
+    pairContract: Contract<any>;
     dataContract: Contract<any>;
     queryClient: QueryClient;
     web3 : Web3;
 }
 
-export const getAllTokens =async ({dataContract, queryClient, web3} : Params) => {
+export const getAllTokens =async ({pairContract, dataContract, queryClient, web3} : Params) => {
     const data = await dataContract.methods.getAllTokens().call();
     const tokens = data?.map((el : TokenContract) => {
         let uri;

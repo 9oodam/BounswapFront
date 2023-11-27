@@ -28,6 +28,7 @@ const MyPoolpair: React.FC = () => {
     if (!dataContract || !pairContract || !id || user.account == "" || !web3) return;
     const getData = async () => {
       const pool = await getEachPool({
+        pairContract,
         dataContract,
         pairAddress: id,
         userAddress: user.account,

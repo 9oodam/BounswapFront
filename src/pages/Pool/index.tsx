@@ -10,7 +10,7 @@ import { PairArray, PairItem } from "src/Interface/Token.interface";
 import CustomLinkButton from "src/components/CustomLinkButton";
 
 const Pool = () => {
-  const { web3, dataContract } = useWeb3("");
+  const { web3, dataContract, pairContract } = useWeb3("");
   const [visible, setVisible] = useState(10);
   // const [pair, setPair] = useState<PairArray | null>(null);
 
@@ -24,8 +24,8 @@ const Pool = () => {
   };
 
   const getData = async () => {
-    if (!dataContract || !web3) return;
-    const pools = await getAllPools({ dataContract, queryClient, web3 });
+    if (!pairContract || !dataContract || !web3) return;
+    const pools = await getAllPools({ pairContract, dataContract, queryClient, web3 });
     console.log(pools);
     // setPair(pools as PairArray);
     return pools;
@@ -37,7 +37,7 @@ const Pool = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !!dataContract && !!web3,
+    enabled: !!dataContract && !!web3 && !!pairContract,
   });
 
   if (!data) {
