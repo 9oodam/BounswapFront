@@ -88,6 +88,7 @@ const Swap = () => {
     if(!pairContract) return;
     if(!InputSelectedToken || !OutputSelectedToken) return;
     const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
+  
     return data;
   }
   useEffect(() => {

@@ -22,7 +22,7 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   const [isExact, setIsExact] = useState<boolean>(true);
 
   // 0-9까지의 정수만.
-  const Ref = /^([0-9]*\.?[0-9]*)$/;
+  const Ref = /^(-?)([0-9]*)(\.?)([^0-9]*)([0-9]*)([^0-9]*)/;
   const errMsg = () => {
     return alert("AddLiquidity 실패");
   };
@@ -102,7 +102,11 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   };
 
   useEffect(() => {
-    console.log(parseFloat(token0Amount));
+    // console.log(parseFloat(token0Amount));
+    if (Number(token0Amount.replace(".", "")) == 0) {
+      return;
+    }
+
     const numIn = web3?.utils.toBigInt(
       web3?.utils.toWei(token0Amount, "ether")
     );
@@ -113,7 +117,10 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   }, [token0Amount]);
 
   useEffect(() => {
-    console.log(parseFloat(token1Amount));
+    // console.log(parseFloat(token1Amount));
+    if (Number(token1Amount.replace(".", "")) == 0) {
+      return;
+    }
     const numIn = web3?.utils.toBigInt(
       web3?.utils.toWei(token1Amount, "ether")
     );
