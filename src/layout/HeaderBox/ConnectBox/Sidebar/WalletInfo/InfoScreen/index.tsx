@@ -15,8 +15,8 @@ const InfoScreen = () => {
   const { user, web3, dataContract, pairContract } = useWeb3(null);
   const [sendReceive, setSendReceive] = useState("");
   const [history, setHistory] = useState("Tokens");
-  const [tokens, setTokens] = useState();
-  const [pools, setPools] = useState();
+  const [tokens, setTokens] = useState<any[]>([]);
+  const [pools, setPools] = useState<any[]>([]);
   const [isData, setIsData] = useState(false);
   const queryClient = useQueryClient();
 
@@ -39,8 +39,8 @@ const InfoScreen = () => {
       userAddress: user.account,
       web3,
     });
-    setTokens(data);
-    return data;
+    setTokens(data.userTokens);
+    return data.userTokens;
   };
 
   const getPools = async () => {
