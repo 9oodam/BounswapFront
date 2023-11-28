@@ -20,9 +20,11 @@ export const getUserTokens =async ({pairContract, dataContract, queryClient, use
             uri = "images/BounsIo_LOGO.png";
         }
 
+        console.log("??", el.balance);
+
         return {
             tokenAddress: el.tokenAddress,
-            tokenName: el.name,
+            tokenName: el.name, 
             tokenSymbol: el.symbol,
             tokenUri: uri,
             tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
@@ -32,6 +34,7 @@ export const getUserTokens =async ({pairContract, dataContract, queryClient, use
         }
     });
     userTokens.splice(0,1);
+    queryClient.setQueryData(["gov"], userTokens[0]);
     queryClient.setQueryData(["userTokens"], userTokens);
-    return userTokens;
+    return {userTokens, gov : userTokens[0]};
 }

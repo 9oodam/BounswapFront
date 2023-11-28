@@ -11,6 +11,7 @@ import DashText from "src/contents/governance/DashText";
 import { Link, useNavigate } from "react-router-dom";
 import CustomLinkButton from "src/components/CustomLinkButton";
 import { getProposals } from "src/features/governance/govGetProposals";
+import { bNCForExactTokens } from "src/features/pair/swapSendFeatures";
 
 const Governance = () => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
@@ -24,7 +25,8 @@ const Governance = () => {
     setNowTime(timestamp);
   }, []);
 
-  const { web3, governanceContract } = useWeb3(null);
+  // const { web3, governanceContract } = useWeb3(null);
+  const { web3, governanceContract, pairContract, user } = useWeb3(null); // test
   const queryClient = useQueryClient();
 
   const getData = async () => {
@@ -46,12 +48,31 @@ const Governance = () => {
     enabled: !!governanceContract,
   });
 
+  
+  const test = async () => {
+    if (!pairContract || !web3) {
+      return; 
+    }
+
+    const outputAmount = web3?.utils.toBigInt(web3.utils.toWei("0.001", "ether"));
+    const maxToken = web3?.utils.toBigInt(web3.utils.toWei("0.002", "ether"));
+    const inputToken = "0x28125d2d7450F4837d030186c2076cC53af03dae";
+    const outputToken = "0xa7bA02d72f104D0bea144d5Bd2B3657b5020d00A";
+
+    const data = await bNCForExactTokens(pairContract, "0xA621711708c4767edE6e199C824780453aC9bC4d", outputAmount, maxToken, inputToken, outputToken, user.account);
+    console.log("data", data);
+  }
+
+
+
+
   if (!data) {
     return <>loading</>;
   }
 
   return (
     <Container>
+
       <div className="w-full flex flex-col justify-center items-center">
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
           Governance
