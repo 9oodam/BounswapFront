@@ -10,6 +10,7 @@ import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
 
 import { Contract } from "web3-eth-contract";
+import { error } from "console";
 
 interface UseWeb3Result {
   user: any; // user의 실제 타입으로 교체해야 합니다.
@@ -42,12 +43,17 @@ const useWeb3 = (provider: string | null) => {
 
   useEffect(() => {
     SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
-  }, []);
+
+    // console.log("accountsChanged", connectStatus);
+    // console.log("sdfsdf", window.ethereum.selectedAddress);
+    
+  }, [connectStatus]);
 
   const connectMetaMask = async () => {
     if (window.ethereum) {
       Boolean(localStorage.getItem("connectStatus"));
       SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+      // SetconnectStatus(true);
       // // await window.ethereum.request({ method: "eth_requestAccounts" });
       // getAccounts(window.ethereum);
     } else {
@@ -72,6 +78,10 @@ const useWeb3 = (provider: string | null) => {
             "ether"
           ),
         });
+      })
+      .catch(() => {
+        // alert("dsfsdfs");
+        // SetconnectStatus(false);
       });
   };
 
@@ -79,6 +89,12 @@ const useWeb3 = (provider: string | null) => {
     if (!connectStatus) {
       return;
     }
+
+    // if (!window.ethereum.selectedAddress) {
+    //   alert("메타마스크 로그인");
+    //   return;
+    // }
+
     if (window.ethereum) {
       const web3Provider = new Web3(window.ethereum);
       setWeb3(web3Provider);
@@ -95,7 +111,7 @@ const useWeb3 = (provider: string | null) => {
   useEffect(() => {
     window.ethereum.on("chainChanged", async (chainID: string) => {
       console.log("네트워크 변경");
-      if (chainID === "0xaa36a7" && web3 !== null) {
+      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
         getAccounts(web3);
       } else {
         const net = await window.ethereum.request({
@@ -185,3 +201,5 @@ const useWeb3 = (provider: string | null) => {
 };
 
 export default useWeb3;
+
+// 커넥트가 되어있다고 하는데 메타마스크 로그인이 안되어있어서 뜨는 에러로 보임
