@@ -1,4 +1,5 @@
 import React from "react";
+import { TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
   tokenAddress: string;
@@ -10,8 +11,8 @@ type Token = {
 };
 
 interface InitialPoolProps {
-  firstData: Token | null;
-  secondData: Token | null;
+  firstData: TokenItem | null;
+  secondData: TokenItem | null;
   inputValue: string; // A 토큰의 입력값
   outputValue: string; // B 토큰의 입력값
 }
@@ -53,9 +54,13 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
                   : firstRatio}
               </div>
               <div>
-                {isCalculationComplete && secondData ? secondData.symbol : "-"}{" "}
+                {isCalculationComplete && secondData
+                  ? secondData.tokenSymbol
+                  : "-"}{" "}
                 per{" "}
-                {isCalculationComplete && firstData ? firstData.symbol : "-"}
+                {isCalculationComplete && firstData
+                  ? firstData.tokenSymbol
+                  : "-"}
               </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
@@ -67,10 +72,12 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
               <div className="">
                 {" "}
                 {isCalculationComplete && firstData
-                  ? firstData.symbol
+                  ? firstData.tokenSymbol
                   : "-"}{" "}
                 per{" "}
-                {isCalculationComplete && secondData ? secondData.symbol : "-"}
+                {isCalculationComplete && secondData
+                  ? secondData.tokenSymbol
+                  : "-"}
               </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">

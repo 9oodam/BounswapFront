@@ -39,18 +39,16 @@ const Swap = () => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
-  const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(
-    null
-  );
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(
-    null
-  );
+  const [InputSelectedToken, setInputSelectedToken] =
+    useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] =
+    useState<TokenItem | null>(null);
   const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
   const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
 
   // console.log("selectedToken", selectedToken?.balance);
 
-  const [tokens, setTokens] = useState<Token[]>([]);
+  const [tokens, setTokens] = useState<TokenItem[]>([]);
   const tokenData = [
     {
       tokenAddress: "0x28125d2d7450F4837d030186c2076cC53af03dae",
@@ -70,12 +68,7 @@ const Swap = () => {
     },
   ];
   // 선택된 토큰, 수량
-  const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(
-    null
-  );
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(
-    null
-  );
+
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
   const [OutputTokenAmount, setOutputTokenAmount] = useState<string>("");
   const [minToken, setMinToken] = useState<string>("");
@@ -98,8 +91,8 @@ const Swap = () => {
     });
     (data as TokenArray).splice(1, 1);
     // setTokens(data as Token[]);
-    setTokens(tokenData); // type을 Token?? TokenItem??
-    console.log("getTokensTest", data);
+    setTokens(data); // type을 Token?? TokenItem??
+    console.log("getTokensTest?2?", data);
     return data;
   };
   // const { data : tokenArr, isLoading, error } = useQuery({
@@ -222,7 +215,7 @@ const Swap = () => {
         web3.utils.toWei(minToken, "ether")
       );
       if (!inputAmountBigInt || !minTokenBigInt) return;
-      if (InputSelectedToken.symbol == "BNC") {
+      if (InputSelectedToken.tokenSymbol == "BNC") {
         // iii) Exact bnc -> token
         const result = await exactBNCForTokens(
           pairContract,
@@ -234,7 +227,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
-      } else if (OutputSelectedToken.symbol == "BNC") {
+      } else if (OutputSelectedToken.tokenSymbol == "BNC") {
         // ii) Exact token -> bnc
         const result = await exactTokensForBNC(
           pairContract,
@@ -267,7 +260,7 @@ const Swap = () => {
         web3.utils.toWei(maxToken, "ether")
       );
       if (!outputAmountBigInt || !maxTokenBigInt) return;
-      if (InputSelectedToken.symbol == "BNC") {
+      if (InputSelectedToken.tokenSymbol == "BNC") {
         // vi) bnc -> Exact token
         const result = await bNCForExactTokens(
           pairContract,
@@ -279,7 +272,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
-      } else if (OutputSelectedToken.symbol == "BNC") {
+      } else if (OutputSelectedToken.tokenSymbol == "BNC") {
         // v) token -> Exact bnc
         const result = await tokensForExactBNC(
           pairContract,
@@ -307,9 +300,25 @@ const Swap = () => {
     }
   };
 
+  // useEffect(() => {
+  //   getData();
+  //   // setTokens(tokenData);
+  // }, []);
   useEffect(() => {
-    // getData();
-    setTokens(tokenData);
+    console.log("??");
+
+    const fetchData = async () => {
+      try {
+        const data = await getData();
+        if (data) {
+          setTokens(data);
+        }
+      } catch (error) {
+        console.error("데이터를 가져오는 중 에러가 발생했습니다:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   // useEffect(() => {
@@ -332,6 +341,8 @@ const Swap = () => {
             exact={true}
             setExact={setIsExact}
             value={InputTokenAmount}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
           />
         </Card>
         <Card>

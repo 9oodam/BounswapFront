@@ -1,5 +1,6 @@
 import React from "react";
 import CustomModal from "src/pages/Swap/CustomModal";
+import { TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
   tokenAddress: string;
@@ -11,9 +12,9 @@ type Token = {
 };
 
 type TokenInputProps = {
-  tokens: Token[];
-  selectedToken: Token | null;
-  setSelectedToken: (token: Token) => void;
+  tokens: TokenItem[];
+  selectedToken: TokenItem | null;
+  setSelectedToken: (token: TokenItem) => void;
   inputValue: string;
   setInputValue: (value: string) => void;
   setInputAmount?: (value: string) => void;
@@ -40,8 +41,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
 
     if (
       selectedToken &&
-      selectedToken.balance &&
-      valueInBigInt <= selectedToken.balance
+      selectedToken.tokenBalance &&
+      valueInBigInt <= selectedToken.tokenBalance
     ) {
       setInputValue(event.target.value);
     } else {
@@ -67,8 +68,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
           autoCorrect="off"
           type="number"
           placeholder="0"
-          value={inputValue}
-          onChange={handleInputChange}
+          // value={inputValue}
+          // onChange={handleInputChange}
         />
 
         <CustomModal
@@ -80,7 +81,9 @@ const TokenInput: React.FC<TokenInputProps> = ({
       <div>
         {selectedToken && (
           <div className="pt-8px flex justify-end">
-            <div>{`Balance : ${Number(selectedToken.balance) / 10 ** 18}`}</div>
+            <div>{`Balance : ${
+              Number(selectedToken.tokenBalance) / 10 ** 18
+            }`}</div>
           </div>
         )}
       </div>
