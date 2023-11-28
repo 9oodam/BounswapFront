@@ -47,7 +47,7 @@ const DashText: React.FC<ProposalsArr> = ({ data }) => {
                 </div>
               )}
             </div>
-            <div className="mobile:hidden">{getTime(el.endTime)}</div>
+            <div className="mobile:hidden">{getTime(Number(el.endTime))}</div>
           </div>
 
           {/* 펼침 내용 */}

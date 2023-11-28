@@ -13,18 +13,17 @@ import { getEachToken } from "src/features/data/dataGetEachToken";
 import useWeb3 from "src/hooks/web3.hook";
 
 const TokenDetail: React.FC = () => {
-  const { web3, dataContract } = useWeb3(null);
+  const { web3, dataContract, pairContract } = useWeb3(null);
   const [token, setToken] = useState<TokenItem | null>(null);
   const nav = useNavigate();
 
   const queryClient = useQueryClient();
   const { id } = useParams();
 
-  // 컨트랙트 호출 테스트
   useEffect(()=>{
-    if (!dataContract || !id || !web3) return;
+    if (!pairContract || !dataContract || !id || !web3) return;
     const getData =async () => {
-      const data = await getEachToken({dataContract, tokenAddress : id, web3});
+      const data = await getEachToken({pairContract, dataContract, tokenAddress : id, web3});
       setToken(data);
       console.log("getData, getEachToken", data);
     }
@@ -34,7 +33,6 @@ const TokenDetail: React.FC = () => {
   if (!token) {
       return <>loading</>;
   }
-
 
   return (
     <>

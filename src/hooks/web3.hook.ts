@@ -20,22 +20,25 @@ interface UseWeb3Result {
   stakingContract: Contract<any> | null;
   wbncContract: Contract<any> | null;
   LPTokenContract: Contract<any> | null;
-
 }
 
 const useWeb3 = (provider: string | null) => {
   const [user, setUser] = useState({ account: "", balance: "" });
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [network, setNetwork] = useState(null);
-  const [stakingContract, setStakingContract] = useState<Contract<any> | null>(null);
+  const [stakingContract, setStakingContract] = useState<Contract<any> | null>(
+    null
+  );
   const [wbncContract, setWbncContract] = useState<Contract<any> | null>(null);
-  const [dataContract,setDataContract ] = useState<Contract<any> | null>(null);
-  const [LPTokenContract, setLPTokenContract] = useState<Contract<any> | null>(null);
+  const [dataContract, setDataContract] = useState<Contract<any> | null>(null);
+  const [LPTokenContract, setLPTokenContract] = useState<Contract<any> | null>(
+    null
+  );
 
   const [pairContract, setPairContract] = useState<Contract<any> | null>(null);
-  const [governanceContract, setGovernanceContract] = useState<Contract<any> | null>(null);  
+  const [governanceContract, setGovernanceContract] =
+    useState<Contract<any> | null>(null);
   const [connectStatus, SetconnectStatus] = useState(false);
-
 
   useEffect(() => {
     SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
@@ -84,7 +87,7 @@ const useWeb3 = (provider: string | null) => {
         window.location.reload();
       });
     } else {
-      alert("메타마스크 설치");
+      alert("MetaMask를 설치 해주세요!");
     }
   }, [connectStatus]);
 
@@ -125,7 +128,8 @@ const useWeb3 = (provider: string | null) => {
 
   useEffect(() => {
     if (web3 !== null) {
-      if (dataContract && pairContract && governanceContract && stakingContract) return;
+      if (dataContract && pairContract && governanceContract && stakingContract)
+        return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
         "0xE8f4D0D81C39243466D42726F4e527F0AA5629C6",
@@ -139,6 +143,7 @@ const useWeb3 = (provider: string | null) => {
       const govCon = new web3.eth.Contract(
         govAbi as any,
         "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        // "0x050Ade3854C7493dD67271f85Fc40459674F737C",
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
@@ -149,24 +154,34 @@ const useWeb3 = (provider: string | null) => {
       const wbnc = new web3.eth.Contract(
         wbncAbi as any,
         "0x19C466b19A30A85f4E3C3b291D820823E858D6c6",
-        { data: ""}
+        { data: "" }
       );
       const lpToken = new web3.eth.Contract(
         lpTokenAbi as any,
         "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
-        {data: ""}
-      )
-      console.log('contract 연결 완료');
+        { data: "" }
+      );
+      console.log("contract 연결 완료");
       setDataContract(dataCon);
       setGovernanceContract(govCon);
-      setPairContract(pairCon)
+      setPairContract(pairCon);
       setStakingContract(stakingCon);
       setWbncContract(wbnc);
-      setLPTokenContract(lpToken)
+      setLPTokenContract(lpToken);
     }
   }, [web3]);
 
-  return { user, web3, dataContract, pairContract, governanceContract, stakingContract, connectMetaMask ,wbncContract, LPTokenContract};
+  return {
+    user,
+    web3,
+    dataContract,
+    pairContract,
+    governanceContract,
+    stakingContract,
+    connectMetaMask,
+    wbncContract,
+    LPTokenContract,
+  };
 };
 
 export default useWeb3;

@@ -15,7 +15,7 @@ import Dashboard from "src/components/Dashboard";
 import { getAllTokens } from "src/features/data/dataGetAllTokens";
 
 const Tokens = () => {
-  const {web3, dataContract} = useWeb3('');
+  const {web3, dataContract, pairContract} = useWeb3('');
 
   const [visible, setVisible] = useState(10);
   // const [arr, setArr] = useState<TokenContract[]>([]);
@@ -32,8 +32,8 @@ const Tokens = () => {
 
   // useEffect(()=>{
   const getData = async () => {
-    if (!dataContract || !web3) return null;
-    const data = await getAllTokens({dataContract, queryClient, web3});
+    if (!pairContract || !dataContract || !web3) return null;
+    const data = await getAllTokens({pairContract, dataContract, queryClient, web3});
     (data as TokenArray).splice(1, 1);
 
     // setTokenArr(data as TokenArray);
@@ -50,7 +50,7 @@ const Tokens = () => {
     gcTime : 0,
     staleTime : 0,
     refetchOnWindowFocus : "always",  
-    enabled : !!dataContract && !!web3
+    enabled : !!dataContract && !!web3 && !!pairContract
   });
 
 

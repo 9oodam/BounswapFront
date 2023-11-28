@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { github } from "src/Interface/Button.interface";
 
 const GithubArea: React.FC<github> = ({ name, address }) => {
-  const nav = useNavigate();
   return (
     <div
       onClick={() => {
@@ -17,7 +15,9 @@ const GithubArea: React.FC<github> = ({ name, address }) => {
         alt="github"
         className="w-[30px] h-[30px] opacity-80 mobile:w-[20px] mobile:h-[20px] "
       />
-      <div className="text-deepBlack ml-2 mobile:text-[14px]">{name}</div>
+      <div className="text-baseWhite dark:text-lightBlack ml-2 mobile:text-[14px]">
+        {name}
+      </div>
     </div>
   );
 };
