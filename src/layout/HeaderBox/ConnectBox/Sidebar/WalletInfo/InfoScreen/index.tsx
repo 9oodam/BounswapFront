@@ -64,7 +64,7 @@ const InfoScreen = () => {
   };
 
   const getBoxClass = () => {
-    return `w-[80%] m-auto ${sendReceive ? "" : "bg-blue"}`;
+    return `w-[80%] m-auto ${sendReceive ? "border-4" : "bg-blue"}`;
   };
 
   const { data: tokens, refetch : tokenRefetch } = useQuery({
