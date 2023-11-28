@@ -16,7 +16,7 @@ const AreaChart = () => {
     },
     stroke: { curve: "smooth" as const, width: 4 },
     grid: { show: false },
-    yaxis: { show: false },
+    yaxis: { show: true },
     xaxis: {
       labels: { show: false },
       axisTicks: { show: false },
@@ -26,9 +26,9 @@ const AreaChart = () => {
     },
     fill: {
       type: "gradient",
-      gradient: { gradientToColors: ["blue"], stops: [0, 100] },
+      gradient: { gradientToColors: ["yellow"], stops: [0, 100] },
     },
-    colors: ["red"],
+    colors: ["green"],
     tooltip: {
       y: { formatter: (value: number) => `$ ${value.toFixed(2)}` },
     },
