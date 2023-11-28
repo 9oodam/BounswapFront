@@ -28,20 +28,29 @@ const ConnectBox: React.FC = () => {
   };
 
   // 로그아웃 toggleSidebar 대신에 로그아웃 시켜줘야함!
-  const logoutButton = (
-    <button onClick={toggleSidebar} className="w-[32px] h-[32px]">
-      <img
-        src="images/moon_toggle.png"
-        alt="logout button"
-        className="w-full h-full"
-      />
-    </button>
+  const logoutCloseButton = (
+    <>
+      <button onClick={toggleSidebar} className="w-[25px] h-[25px] mr-[10px]">
+        <img
+          src="images/logout-icon.png"
+          alt="logout button"
+          className="w-full h-full"
+        />
+      </button>
+      <button onClick={toggleSidebar} className="w-[23px] h-[23px] ml-[10px]">
+        <img
+          src="images/x-letter-icon.png"
+          alt="exit button"
+          className="w-full h-full"
+        />
+      </button>
+    </>
   );
 
   const closeButton = (
-    <button onClick={toggleSidebar} className="w-[32px] h-[32px]">
+    <button onClick={toggleSidebar} className="w-[25px] h-[25px]">
       <img
-        src="images/sun_toggle.png"
+        src="images/x-letter-icon.png"
         alt="exit button"
         className="w-full h-full"
       />
@@ -49,7 +58,7 @@ const ConnectBox: React.FC = () => {
   );
 
   return (
-    <div className=" w-[10%] h-[46px] ">
+    <div className=" w-[12%] h-[46px] ">
       {user.account ? (
         <WalletAddressButton
           onClick={toggleSidebar}
@@ -66,7 +75,7 @@ const ConnectBox: React.FC = () => {
             <WalletConnect />
           )
         }
-        button={user.account ? logoutButton : closeButton}
+        button={user.account ? logoutCloseButton : closeButton}
         isOpen={isSidebarOpen}
         toggleMenu={toggleSidebar}
       >

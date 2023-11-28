@@ -8,12 +8,35 @@ import PoolDetail from "src/contents/poolpair/PoolDetail";
 import DivCard from "../../components/Card";
 import ChartDiv from "../../components/Card/Chart";
 import Pairname from "../../components/Pairname";
+import useWeb3 from "src/hooks/web3.hook";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getEachPool } from "src/features/data/dataGetEachPool";
+import { PairItem } from "src/Interface/Token.interface";
 
 const TopPoolpair: React.FC = () => {
+  const { web3, user, dataContract, pairContract } = useWeb3(null);
+  const { id } = useParams();
+  const [pool, setPool] = useState<PairItem>();
+  
+  useEffect(()=>{
+    if (!pairContract || !dataContract || !id || user.account == "" || !web3) return;
+    const getData = async () => {
+      const pool = await getEachPool({pairContract, dataContract, pairAddress: id, userAddress: user.account, web3});
+      console.log("pool 테스트",pool);
+      setPool(pool);
+    }
+    getData();
+  },[dataContract, user])
+
+  if (!pool) {
+    return <>loading</>
+  }
+
   return (
     // <div className={Divstyle.w_90}>
     <>
-      <Pairname />
+      <Pairname data={pool} />
       <Container>
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
@@ -23,10 +46,10 @@ const TopPoolpair: React.FC = () => {
             </DivCard>
             <DivCard>
               <CardTitle>Pool Details</CardTitle>
-              <PoolDetail></PoolDetail>
+              <PoolDetail data={pool}></PoolDetail>
             </DivCard>
           </div>
-          <AddRemoveLiquidity />
+          <AddRemoveLiquidity data={pool} />
         </div>
       </Container>
     </>

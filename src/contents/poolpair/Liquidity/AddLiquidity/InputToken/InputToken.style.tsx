@@ -4,5 +4,5 @@ export const Divstyle = {
 };
 
 export const Inputstyle = {
-  size: `w-[80%] h-[40px] text-xl`,
+  size: `w-[80%] h-[40px] text-xl p-2`,
 };

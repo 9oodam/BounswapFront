@@ -22,7 +22,7 @@ export const WalletAddressButton: React.FC<ButtonProps> = ({
       className={`${baseButtonStyle} cursor-pointer flex items-center`}
     >
       <img
-        src="/path/to/avatar.jpg"
+        src="/images/user.jpeg"
         alt="User Avatar"
         className="w-[24px] h-[24px] rounded-full"
       />

@@ -1,11 +1,12 @@
 import { type } from "os";
 import React, { useState } from "react";
 import { Divstyle } from "./Pairname.style";
+import { PairItem } from "src/Interface/Token.interface";
+import { useNavigate } from "react-router-dom";
 
-const Pairname = () => {
-  const [address, setAddress] = useState(
-    "0xf744Fc00ac7C180167eddfB77D1E808384Aa0a3D"
-  );
+const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
+  const nav = useNavigate();
+  const [address, setAddress] = useState(data.pairAddress);
   const [copied, setCopied] = useState(false);
   const [isClickable, setIsClickable] = useState(true);
 
@@ -28,30 +29,32 @@ const Pairname = () => {
   }
   return (
     <>
-      <img src="/images/backArrow.png" className={Divstyle.arrowsize}></img>
+      <img
+        src="/images/backArrow.png"
+        className={Divstyle.arrowsize}
+        onClick={() => nav(-1)}
+      ></img>
       <div className={Divstyle.Titlesize}>
-        <div className={Divstyle.LogoPair}>
-          <img
-            src="https://i.pinimg.com/564x/d2/4b/37/d24b37e0823cd08001cfd4dc728c0d54.jpg"
-            className={Divstyle.LogoLeft}
-          ></img>
-          <img
-            src="https://i.pinimg.com/564x/d2/4b/37/d24b37e0823cd08001cfd4dc728c0d54.jpg"
-            className={Divstyle.LogoRight}
-          ></img>
+        <div className="flex flex-row items-center">
+          <div className={Divstyle.LogoPair}>
+            <img src={data.token0Uri} className={Divstyle.LogoLeft}></img>
+            <img src={data.token1Uri} className={Divstyle.LogoRight}></img>
+          </div>
+          <div className={Divstyle.title}>
+            {data.token0Symbol} - {data.token1Symbol}
+          </div>
         </div>
-        <div className={Divstyle.title}>ETH - USDT</div>
         <div
-          className={`border-2 w-[170px] border-deepBlack rounded-full cursor-pointer flex items-center justify-evenly ${
+          className={`border-2 pc:w-[170px] mobile:w-[120px] border-deepBlack rounded-full cursor-pointer flex items-center justify-evenly mobile:text-[13px] ${
             copied ? `bg-deepBlack` : ``
           }`}
           onClick={handleCopy}
         >
           <div className={copied ? ` text-baseWhite` : `text-deepBlack`}>
-            {copied ? "복사 완료" : pairA(address)}
+            {copied ? "Copied" : pairA(address)}
           </div>
           {!copied && (
-            <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
+            <img src="/images/copy icon.png" className="pc:w-[20px] pc:h-[20px] mobile:w-[14px] mobile:h-[14px]" />
           )}
         </div>
       </div>

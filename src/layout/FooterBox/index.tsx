@@ -13,7 +13,7 @@ const Footer = (): JSX.Element => {
   };
 
   return (
-    <footer className="relative flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] p-4 mt-[150px] mobile:hidden">
+    <footer className="relative flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] dark:bg-[#ffffffcc] p-4 mt-[150px] mobile:hidden">
       <LogoArea />
       <div className="flex items-center justify-between mobile:hidden">
         <GithubArea name="9oodam" address="https://github.com/9oodam" />

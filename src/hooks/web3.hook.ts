@@ -10,6 +10,7 @@ import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
 
 import { Contract } from "web3-eth-contract";
+import { error } from "console";
 
 interface UseWeb3Result {
   user: any; // user의 실제 타입으로 교체해야 합니다.
@@ -20,7 +21,7 @@ interface UseWeb3Result {
   stakingContract: Contract<any> | null;
   wbncContract: Contract<any> | null;
   LPTokenContract: Contract<any> | null;
-};
+}
 
 const useWeb3 = (provider: string | null) => {
   const [user, setUser] = useState({ account: "", balance: "" });
@@ -42,12 +43,16 @@ const useWeb3 = (provider: string | null) => {
 
   useEffect(() => {
     SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
-  }, []);
+
+    // console.log("accountsChanged", connectStatus);
+    // console.log("sdfsdf", window.ethereum.selectedAddress);
+  }, [connectStatus]);
 
   const connectMetaMask = async () => {
     if (window.ethereum) {
       Boolean(localStorage.getItem("connectStatus"));
       SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+      // SetconnectStatus(true);
       // // await window.ethereum.request({ method: "eth_requestAccounts" });
       // getAccounts(window.ethereum);
     } else {
@@ -72,6 +77,10 @@ const useWeb3 = (provider: string | null) => {
             "ether"
           ),
         });
+      })
+      .catch(() => {
+        // alert("dsfsdfs");
+        // SetconnectStatus(false);
       });
   };
 
@@ -79,6 +88,12 @@ const useWeb3 = (provider: string | null) => {
     if (!connectStatus) {
       return;
     }
+
+    // if (!window.ethereum.selectedAddress) {
+    //   alert("메타마스크 로그인");
+    //   return;
+    // }
+
     if (window.ethereum) {
       const web3Provider = new Web3(window.ethereum);
       setWeb3(web3Provider);
@@ -87,7 +102,7 @@ const useWeb3 = (provider: string | null) => {
         window.location.reload();
       });
     } else {
-      alert("메타마스크 설치");
+      alert("MetaMask를 설치 해주세요!");
     }
   }, [connectStatus]);
 
@@ -95,7 +110,7 @@ const useWeb3 = (provider: string | null) => {
   useEffect(() => {
     window.ethereum.on("chainChanged", async (chainID: string) => {
       console.log("네트워크 변경");
-      if (chainID === "0xaa36a7" && web3 !== null) {
+      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
         getAccounts(web3);
       } else {
         const net = await window.ethereum.request({
@@ -132,17 +147,18 @@ const useWeb3 = (provider: string | null) => {
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0xE8f4D0D81C39243466D42726F4e527F0AA5629C6",
+        "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2",
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0x848D3b8D0E2a54Ef4E2d21857700e658B8fbA41A",
+        "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4",
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        "0xCF36B339BC1023D574F04582f891429273AF1461",
+        // "0x050Ade3854C7493dD67271f85Fc40459674F737C",
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
@@ -152,12 +168,12 @@ const useWeb3 = (provider: string | null) => {
       );
       const wbnc = new web3.eth.Contract(
         wbncAbi as any,
-        "0x5c0cCfA858Bf49840c6f4A69Db1D2DA3128161EA",
+        "0x19C466b19A30A85f4E3C3b291D820823E858D6c6",
         { data: "" }
       );
       const lpToken = new web3.eth.Contract(
         lpTokenAbi as any,
-        "0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4",
+        "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
         { data: "" }
       );
       console.log("contract 연결 완료");
@@ -184,3 +200,5 @@ const useWeb3 = (provider: string | null) => {
 };
 
 export default useWeb3;
+
+// 커넥트가 되어있다고 하는데 메타마스크 로그인이 안되어있어서 뜨는 에러로 보임

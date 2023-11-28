@@ -10,3 +10,8 @@ export interface github {
   name: string;
   address: string;
 }
+
+export interface CustomLinkProps {
+  to: string;
+  children: React.ReactNode;
+}

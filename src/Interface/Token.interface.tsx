@@ -2,8 +2,15 @@ import React from "react";
 
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
-  tokenName: string;
-  // onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
+  tokenName?: string;
+  value?: string;
+  exact?: boolean;
+  onClick?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setInputAmount?: (value: string) => void;
+  setExact?: (bool: boolean) => void;
+  clickFn?: () => void;
+  regex?: RegExp;
 }
 // LPToken Deposit 시 Input에 사용하는 interface
 export interface InputTokenDepositProps {
@@ -41,11 +48,11 @@ export interface RemovePercent {
 // * 페어에 대해 소유하고 있는 토큰의 양과 심볼을 받는다.
 export interface LiquidityToken {
   token1: {
-    amount: number;
+    amount: string;
     symbol: string;
   };
   token2: {
-    amount: number;
+    amount: string;
     symbol: string;
   };
 }
@@ -102,37 +109,42 @@ export interface TokenItem {
   tokenVolume: number;
   tokenVolume7D: number;
   tokenBalance: number;
+  tokenPriceArr: number[];
 }
 export interface TokenContract {
   tokenAddress: string;
   name: string;
   symbol: string;
   uri: string;
-  tvl: number;
-  balance: number;
+  tvl: bigint;
+  balance: bigint;
 }
 export type TokenArray = TokenItem[];
 
-
 export interface PairItem {
   pairAddress: string;
+  token0Address: string;
+  token1Address: string;
   token0Uri: string;
   token1Uri: string;
   token0Symbol: string;
   token1Symbol: string;
   pairTvl: number;
   pairVolume: number;
+  pairLiquidity: number;
   pairBalance: number;
+  pairLiquidityArr: number[];
 }
 export interface PairContract {
   pairAddress: string;
+  token0: string;
+  token1: string;
   token0Uri: string;
   token1Uri: string;
   token0Symbol: string;
   token1Symbol: string;
-  pairTvl: number;
-  pairVolume: number;
-  pairBalance: number;
+  tvl: bigint;
+  balance: bigint;
 }
 
 export type PairArray = PairItem[];
@@ -179,4 +191,16 @@ export interface testBtn {
 export interface SearchTokenInfo {
   symbol: string;
   address: string;
+}
+
+export interface UnclaimedFeeData {
+  token0FeeAmount: number;
+  token1FeeAmount: number;
+}
+
+export interface UserLiquidity {
+  token0Liquidity: string;
+  token1Liquidity: string;
+  token0Percent: string | number;
+  token1Percent: string | number;
 }
