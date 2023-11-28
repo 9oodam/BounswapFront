@@ -23,26 +23,45 @@ const InfoScreen = () => {
   // send, receive 영역 출력 여부 설정하는 함수
   const setShowSendReceive = (name: string) => {
     if (sendReceive != name) {
-      setSendReceive(name)
+      setSendReceive(name);
     } else {
-      setSendReceive("")
+      setSendReceive("");
     }
-  }
+  };
 
   const getTokens = async () => {
-    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
-    const data = await getUserTokens({ pairContract, dataContract, queryClient, userAddress: user.account, web3 });    
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserTokens({
+      pairContract,
+      dataContract,
+      queryClient,
+      userAddress: user.account,
+      web3,
+    });
     setTokens(data);
     return data;
-  }
-  
-  const getPools =async () => {
-    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
-    const data = await getUserPools({ pairContract, dataContract, queryClient, userAddress : user.account, web3});
+  };
+
+  const getPools = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      userAddress: user.account,
+      web3,
+    });
     setPools(data);
     return data;
-  }
+  };
 
+  const getButtonClass = (buttonType: string) => {
+    return `w-[120px] h-[40px] rounded-[10px] font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md pl-[10px] pr-[10px] ${
+      sendReceive === buttonType ? "bg-[#548941]" : "bg-[#9CE084]"
+    }`;
+  };
 
   // const { data: tokens } = useQuery({
   //   queryKey: ["userTokens"],
@@ -64,7 +83,7 @@ const InfoScreen = () => {
   //   enabled: !(!dataContract || !web3 || !user)
   // });
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!dataContract || !user || !web3) return;
     console.log("tokens", tokens);
     console.log("pools", pools);
@@ -73,11 +92,9 @@ const InfoScreen = () => {
     getPools();
   }, [dataContract, user, web3]);
 
-
   if (!tokens || !pools) {
-    return <>loading</>
+    return <>loading</>;
   }
-
 
   // const test =async () => {
   //   if (!pairContract) return;
@@ -87,44 +104,57 @@ const InfoScreen = () => {
 
   //     // const data = await addLiquidityBNC(pairContract, "0x0967FddEc5370F42218A8b0f898BcfF45F941084", 10n, 1000n, user.account);
   //     // console.log("testsetstets", data);
-      
+
   //   } catch (error) {
   //     alert(error);
   //   }
   // }
 
   return (
-    <div>      
+    <div className="w-full">
       {/* bnc 금액 */}
       <h3 className="font-bold text-[23px] mb-5">
-        {user.balance.split(".")[0] + "." + user.balance.split(".")[1]?.slice(0, 4)} BNC
+        {user.balance.split(".")[0] +
+          "." +
+          user.balance.split(".")[1]?.slice(0, 4)}{" "}
+        BNC
       </h3>
-
 
       {/* send, receive */}
       <div>
         <div className="flex justify-evenly">
-          <button onClick={() => { setShowSendReceive("send") }} className="w-[100px] bg-green-200 p-2 rounded-md">send</button>
-          <button onClick={() => { setShowSendReceive("receive") }} className="w-[100px] bg-green-200 p-2 rounded-md">receive</button>
+          <button
+            onClick={() => {
+              setShowSendReceive("send");
+            }}
+            className={getButtonClass("send")}
+          >
+            send
+          </button>
+          <button
+            onClick={() => {
+              setShowSendReceive("receive");
+            }}
+            className={getButtonClass("receive")}
+          >
+            receive
+          </button>
         </div>
-
 
         <div className="bg-gray-200">
-          <div className='bg-indigo-200 w-[80%] m-auto'>
+          <div className="bg-indigo-200 w-[80%] m-auto">
             {/* send 영역, receive 영역 */}
-            {
-              (sendReceive)?
-                sendReceive == "send" ?
-                  <SendBox />
-                  :
-                  <ReceiveBox />
-                :
-                <></>
-            }
+            {sendReceive ? (
+              sendReceive == "send" ? (
+                <SendBox />
+              ) : (
+                <ReceiveBox />
+              )
+            ) : (
+              <></>
+            )}
           </div>
         </div>
-
-
       </div>
 
       <div className="w-[100%] h-[1px] bg-gray-300 my-4"></div>
@@ -132,22 +162,40 @@ const InfoScreen = () => {
       {/* tokens, Pools, Activity */}
       <div>
         <div className="flex justify-evenly">
-          <button className={`bg-${history === "Tokens" ? "yellow" : "gray"}-200 w-[100px] p-2 rounded`} onClick={() => { setHistory("Tokens") }}>Tokens</button>
-          <button className={`bg-${history === "Tokens" ? "gray" : "yellow"}-200 w-[100px] p-2 rounded`} onClick={() => { setHistory("Pools") }} >Pools</button>
+          <button
+            className={`bg-${
+              history === "Tokens" ? "yellow" : "gray"
+            }-200 w-[100px] p-2 rounded`}
+            onClick={() => {
+              setHistory("Tokens");
+            }}
+          >
+            Tokens
+          </button>
+          <button
+            className={`bg-${
+              history === "Tokens" ? "gray" : "yellow"
+            }-200 w-[100px] p-2 rounded`}
+            onClick={() => {
+              setHistory("Pools");
+            }}
+          >
+            Pools
+          </button>
           {/* <button className="bg-yellow-200 p-2 rounded" onClick={(e) => { setShowHistory("Activity", e.target as Element) }} >Activity</button> */}
         </div>
 
         <div className="bg-yellow-200 h-[100%] rounded">
           {
-            history == "Tokens" ?
-              <TokenBox tokens={tokens} /> :
+            history == "Tokens" ? (
+              <TokenBox tokens={tokens} />
+            ) : (
               <PoolBox pools={pools} />
+            )
             // <ActivityBox />
           }
         </div>
-
       </div>
-
     </div>
   );
 };
