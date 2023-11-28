@@ -16,22 +16,21 @@ const index: React.FC<InputTokenProps> = ({
     <div className={Divstyle.box}>
       <input
         onChange={(e) => {
-          console.log("test",e.target.value== "0.0", regex?.test(e.target.value));
+          // console.log("test",e.target.value== "0.0", regex?.test(e.target.value));
           // console.log(isNaN(Number(e.target.value.replace(".", ""))), Number(e.target.value), e.target.value.replace(".", ""));
           // if (true) {
           if (regex?.test(e.target.value) || e.target.value == "") {
-
             setInputAmount?.(e.target.value);
             if (setExact) {
               if (exact == true || exact == false) {
                 setExact(exact);
               }
             }
-          } 
+          }
           // else if (e.target.value == "0.0") {
 
           // }
-           else {
+          else {
             alert("숫자만 입력해 주세요!");
           }
         }}
