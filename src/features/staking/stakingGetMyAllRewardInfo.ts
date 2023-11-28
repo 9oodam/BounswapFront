@@ -30,6 +30,7 @@ export const myAllRewardInfo = async ({
 }: Params) => {
   try {
     const data = await StakingData(stakingContract, user);
+    console.log("myReward", data);
     const myAllReward = data ? data : null;
 
     queryClient.setQueryData(["myAllReward"], myAllReward);

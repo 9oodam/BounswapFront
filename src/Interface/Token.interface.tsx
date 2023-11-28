@@ -5,6 +5,22 @@ export interface InputTokenProps {
   tokenName: string;
   // onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
+// LPToken Deposit 시 Input에 사용하는 interface
+export interface InputTokenDepositProps {
+  tokenName: string;
+  setInputValue: (value: string) => void;
+}
+// LPToken Deposit 시 Btn에 사용하는 interface
+export interface BtnTokenDepositProps {
+  tokenName: string;
+  tokenDepositAmount: string;
+}
+// LPToken wirhdraw 시 사용하는 interface
+export interface WithdrawProps {
+  tokenName: string;
+  unstakeDeadLine: boolean;
+}
+
 export interface SelectTokenProps {
   tokenName: string;
   onClick: (e: React.MouseEvent<HTMLImageElement>) => void;

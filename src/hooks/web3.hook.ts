@@ -147,7 +147,7 @@ const useWeb3 = (provider: string | null) => {
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0x85C1c5194f0952333F5FD51aF69bAeA4316A1D56",
+        "0xfd421f377227FE7E0971AB50C04d2980EF257460",
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
@@ -184,23 +184,3 @@ const useWeb3 = (provider: string | null) => {
 };
 
 export default useWeb3;
-
-// data contract :  0xE8f4D0D81C39243466D42726F4e527F0AA5629C6
-// pair contract :  0x848D3b8D0E2a54Ef4E2d21857700e658B8fbA41A
-// gov contract :  0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9
-// staking contract :  0x85C1c5194f0952333F5FD51aF69bAeA4316A1D56
-// tokenAddressArr :  Result(5) [
-//   '0x28125d2d7450F4837d030186c2076cC53af03dae',
-//   '0x26989289FCce632539a2daE0968612459fee901E',
-//   '0x0967FddEc5370F42218A8b0f898BcfF45F941084',
-//   '0xFB55e2bd1F5763B3E018A39DAA74E010Dbf7E112',
-//   '0xa7bA02d72f104D0bea144d5Bd2B3657b5020d00A'
-// ]
-// pairAddressArr :  Result(6) [
-//   '0x0459A3045Fe91e9Cf42D1A74bf391d0EA22E080D',
-//   '0x7A171bA42536dA9c0E43FB72ddDFea09Fdc33266',
-//   '0xA621711708c4767edE6e199C824780453aC9bC4d',
-//   '0x4f8EFf347299162308f57234AA1DA21d600F7E0c',
-//   '0x08b6DaA1388bAbA1a6b30aE49f8751748eAA04C0',
-//   '0x20054C17A64F8Cc88D2D65ECFB353f754cc25056'
-// ]

@@ -25,6 +25,7 @@ import { getUserInfo } from "src/features/staking/stakingGetUserInfo";
 import { myAllRewardInfo } from "src/features/staking/stakingGetMyAllRewardInfo";
 import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
 import { myPendingRewardUpdate } from "src/features/staking/stakingGetPendingReward";
+import { deposit } from "src/features/staking/stakingSendFeatures";
 
 const StakeDetail = () => {
   const { user, stakingContract, LPTokenContract, wbncContract } = useWeb3(
@@ -77,7 +78,7 @@ const StakeDetail = () => {
       // 1. pendingBNCValue : 쌓인 리워드 갯수
       // 2. userBlockRewardPerBlockValue : 블록당 받는 리워드 갯수
       // 3. estimatedUserRewardFromNinjsVlaue : 탈주자가 남기고간 리워드 중 내 몫
-      
+
       console.log("Fetched myAllReward Data", myAllRewardData);
 
       const myPendingRewardUpdateData = await myPendingRewardUpdate({
@@ -92,7 +93,6 @@ const StakeDetail = () => {
     };
     fetchData();
   }, [stakingContract, queryClient, user]);
-
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
 
