@@ -32,8 +32,8 @@ const InfoScreen = () => {
   const getTokens = async () => {
     if (!pairContract || !dataContract || !web3 || user.account == "") return null;
     const data = await getUserTokens({ pairContract, dataContract, queryClient, userAddress: user.account, web3 });    
-    setTokens(data);
-    return data;
+    setTokens(data.userTokens);
+    return data.userTokens;
   }
   
   const getPools =async () => {

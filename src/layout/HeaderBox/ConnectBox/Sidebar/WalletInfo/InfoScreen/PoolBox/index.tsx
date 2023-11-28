@@ -31,7 +31,7 @@ const PoolBox: React.FC<{ pools: PairArray }> = ({ pools }) => {
                             <span className="w-[30%] mobile:hidden">
                                 {el.token0Symbol} - {el.token1Symbol}
                             </span>
-                            <span className="w-[30%]">{web3?.utils.fromWei(el.pairTvl, "ether")}</span>
+                            <span className="w-[30%]">{el.pairBalance}</span>
                         </div>
                     ))}
                     {/* </div> */}
