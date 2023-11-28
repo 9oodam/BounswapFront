@@ -63,6 +63,10 @@ const InfoScreen = () => {
     }`;
   };
 
+  const getBoxClass = () => {
+    return `w-[80%] m-auto ${sendReceive ? "border-4" : "bg-blue"}`;
+  };
+
   // const { data: tokens } = useQuery({
   //   queryKey: ["userTokens"],
   //   queryFn: getTokens,
@@ -113,7 +117,7 @@ const InfoScreen = () => {
   return (
     <div className="w-full">
       {/* bnc 금액 */}
-      <h3 className="font-bold text-[23px] mb-5">
+      <h3 className="font-bold text-[23px] mb-5 ">
         {user.balance.split(".")[0] +
           "." +
           user.balance.split(".")[1]?.slice(0, 4)}{" "}
@@ -141,8 +145,8 @@ const InfoScreen = () => {
           </button>
         </div>
 
-        <div className="bg-gray-200">
-          <div className="bg-indigo-200 w-[80%] m-auto">
+        <div className="w-full">
+          <div className={getBoxClass()}>
             {/* send 영역, receive 영역 */}
             {sendReceive ? (
               sendReceive == "send" ? (
@@ -163,9 +167,9 @@ const InfoScreen = () => {
       <div>
         <div className="flex justify-evenly">
           <button
-            className={`bg-${
-              history === "Tokens" ? "yellow" : "gray"
-            }-200 w-[100px] p-2 rounded`}
+            className={`w-[100px] p-2 rounded ${
+              history === "Tokens" ? "font-bold" : "font-normal"
+            }`}
             onClick={() => {
               setHistory("Tokens");
             }}
@@ -173,9 +177,9 @@ const InfoScreen = () => {
             Tokens
           </button>
           <button
-            className={`bg-${
-              history === "Tokens" ? "gray" : "yellow"
-            }-200 w-[100px] p-2 rounded`}
+            className={`w-[100px] p-2 rounded ${
+              history === "Tokens" ? "font-normal" : "font-bold"
+            }`}
             onClick={() => {
               setHistory("Pools");
             }}
@@ -185,7 +189,7 @@ const InfoScreen = () => {
           {/* <button className="bg-yellow-200 p-2 rounded" onClick={(e) => { setShowHistory("Activity", e.target as Element) }} >Activity</button> */}
         </div>
 
-        <div className="bg-yellow-200 h-[100%] rounded">
+        <div className="h-[100%] rounded">
           {
             history == "Tokens" ? (
               <TokenBox tokens={tokens} />
