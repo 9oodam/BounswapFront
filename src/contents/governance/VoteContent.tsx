@@ -40,7 +40,7 @@ const VoteContent: React.FC<{ data: proposals }> = ({ data }) => {
     const result = await vote(governanceContract, data.id, user.account, support);
     console.log("result", result);
 
-    if (result == "succeed") {
+    if (result == true) {
       alert("succeed");
     } else if (result == "already voted") {
       alert("already voted");

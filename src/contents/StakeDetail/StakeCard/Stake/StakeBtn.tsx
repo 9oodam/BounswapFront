@@ -11,6 +11,7 @@ const StakeBtn: React.FC<BtnTokenDepositProps> = ({
   const [depositAmount, setDepositAmount] = useState("");
 
   const depositHandler = async () => {
+    
     await deposit({ stakingContract, user, amount: tokenDepositAmount, web3 });
   };
 
