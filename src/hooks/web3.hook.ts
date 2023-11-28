@@ -46,7 +46,6 @@ const useWeb3 = (provider: string | null) => {
 
     // console.log("accountsChanged", connectStatus);
     // console.log("sdfsdf", window.ethereum.selectedAddress);
-    
   }, [connectStatus]);
 
   const connectMetaMask = async () => {
@@ -148,36 +147,36 @@ const useWeb3 = (provider: string | null) => {
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0xE8f4D0D81C39243466D42726F4e527F0AA5629C6",
+        "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2",
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0x848D3b8D0E2a54Ef4E2d21857700e658B8fbA41A",
+        "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4",
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        "0xCF36B339BC1023D574F04582f891429273AF1461",
         // "0x050Ade3854C7493dD67271f85Fc40459674F737C",
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0x85C1c5194f0952333F5FD51aF69bAeA4316A1D56",
+        "0xD73865E343138f35C57EAc514257cDdD2FAa97aB",
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
         wbncAbi as any,
         "0x19C466b19A30A85f4E3C3b291D820823E858D6c6",
-        { data: ""}
+        { data: "" }
       );
       const lpToken = new web3.eth.Contract(
         lpTokenAbi as any,
         "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
-        {data: ""}
-      )
-      console.log('contract 연결 완료');
+        { data: "" }
+      );
+      console.log("contract 연결 완료");
       setDataContract(dataCon);
       setGovernanceContract(govCon);
       setPairContract(pairCon);
