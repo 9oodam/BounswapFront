@@ -147,7 +147,7 @@ const useWeb3 = (provider: string | null) => {
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0xfd421f377227FE7E0971AB50C04d2980EF257460",
+        "0xD73865E343138f35C57EAc514257cDdD2FAa97aB",
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
