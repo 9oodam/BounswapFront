@@ -12,12 +12,12 @@ const ButtonComponent: React.FC<ModalButtonProps> = ({
         <div className="flex items-center">
           <div className="w-[40px] h-[40px] ">
             <img
-              src={selectedToken.uri}
-              alt={selectedToken.name}
+              src={selectedToken.tokenUri}
+              alt={selectedToken.tokenName}
               className="rounded-[50%]"
             />
           </div>
-          <span>{selectedToken.symbol}</span>
+          <span>{selectedToken.tokenSymbol}</span>
         </div>
       ) : (
         <div className="w-[120px] h-[40px] bg-[#9CE084] rounded-coinLogo font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md pl-[10px] pr-[10px]">

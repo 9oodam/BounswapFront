@@ -6,6 +6,7 @@ import ButtonComponent from "src/components/Modal/ModalButton";
 import SelectTokenBody from "src/contents/Swap/SelectTokenBody";
 import SelectTokenHeader from "src/contents/Swap/SelectTokenHeader";
 import { CustomModalProps } from "src/Interface/Modal.interface";
+import { TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
   tokenAddress: string;
@@ -24,7 +25,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
   const [isOpen, setModalIsOpen] = useState(false);
   // const queryClient = useQueryClient();
 
-  const handleSelectToken = (token: Token) => {
+  const handleSelectToken = (token: TokenItem) => {
     setSelectedToken(token);
     setModalIsOpen(false);
   };

@@ -7,6 +7,7 @@ import SwapCard from "src/components/Card/SwapCard";
 import TokenInput from "src/contents/Swap/TokenInput";
 import SwapButton from "src/contents/Swap/SwapButton";
 import InitialPoolPair from "src/contents/PoolCreate/InitialPoolPair";
+import { TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
   tokenAddress: string;
@@ -22,39 +23,25 @@ const PoolCreate = () => {
   const backArrow = () => {
     navigate(-1);
   };
-  const [InputSelectedToken, setInputSelectedToken] = useState<Token | null>(
-    null
-  );
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<Token | null>(
-    null
-  );
+  const [InputSelectedToken, setInputSelectedToken] =
+    useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] =
+    useState<TokenItem | null>(null);
+  const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
+  const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
 
-  const [tokens, setTokens] = useState<Token[]>([]);
-
+  const [tokens, setTokens] = useState<TokenItem[]>([]);
   const tokenData = [
     {
       tokenAddress: "0x1aaaaa123123213213213123213213123",
-      name: "Stake",
-      symbol: "STK",
-      uri: "/images/LPToken_Steake2.png",
-      tvl: 500000000000000n,
-      balance: 600000000000000n,
-    },
-    {
-      tokenAddress: "0x3aaaaa123123213213213123213213123",
-      name: "Jipgagoshipda",
-      symbol: "JGD",
-      uri: "https://i.pinimg.com/564x/c6/ee/71/c6ee712799d7193ce735a727fd3e9296.jpg",
-      tvl: 500000000000000n,
-      balance: 500000000000000n,
-    },
-    {
-      tokenAddress: "0x1aaaaa123123213213213123213213123",
-      name: "Stake",
-      symbol: "STK",
-      uri: "/images/LPToken_Steake2.png",
-      tvl: 500000000000000n,
-      balance: 700000000000000n,
+      tokenName: "Stake",
+      tokenSymbol: "STK",
+      tokenUri: "/images/LPToken_Steake2.png",
+      tokenTvl: 5000000,
+      tokenVolume: 5000000,
+      tokenVolume7D: 5000000,
+      tokenBalance: 5000000,
+      tokenPriceArr: [5000000, 5000000],
     },
   ];
 
@@ -91,6 +78,8 @@ const PoolCreate = () => {
               tokens={tokens}
               selectedToken={InputSelectedToken}
               setSelectedToken={(token) => setInputSelectedToken(token)}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
             />
           </SwapCard>
           <div className="text-lightBlack text-4xl">+</div>
@@ -99,11 +88,15 @@ const PoolCreate = () => {
               tokens={tokens}
               selectedToken={OutputSelectedToken}
               setSelectedToken={(token) => setOutputSelectedToken(token)}
+              inputValue={outputValue}
+              setInputValue={setOutputValue}
             />
           </SwapCard>
           <InitialPoolPair
             firstData={InputSelectedToken}
             secondData={OutputSelectedToken}
+            inputValue={inputValue}
+            outputValue={outputValue}
           />
 
           <div className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">

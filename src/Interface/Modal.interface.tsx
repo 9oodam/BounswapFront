@@ -1,4 +1,6 @@
 // import { Token } from "src/pages/Swap/CustomModal/index";
+import { TokenItem } from "src/Interface/Token.interface";
+
 type Token = {
   tokenAddress: string;
   name: string;
@@ -17,16 +19,17 @@ export interface ModalComponentProps {
 
 export interface ModalButtonProps {
   onClick: () => void;
-  selectedToken: Token | null; // 또는 다른 적절한 타입
+  selectedToken: TokenItem | null; // 또는 다른 적절한 타입
 }
 
 export interface SelectTokenBodyProps {
-  tokens: Token[];
-  handleSelectToken: (token: Token) => void;
+  tokens: TokenItem[];
+  handleSelectToken: (token: TokenItem) => void;
 }
 
 export interface CustomModalProps {
-  tokens: Token[];
-  selectedToken: Token | null; // 또는 다른 적절한 타입
-  setSelectedToken: (token: Token) => void;
+  // tokens: Token[];
+  tokens: TokenItem[];
+  selectedToken: TokenItem | null; // 또는 다른 적절한 타입
+  setSelectedToken: (token: TokenItem) => void;
 }
