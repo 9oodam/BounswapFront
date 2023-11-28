@@ -92,7 +92,7 @@ const Swap = () => {
     (data as TokenArray).splice(1, 1);
     // setTokens(data as Token[]);
     setTokens(data); // type을 Token?? TokenItem??
-    console.log("getTokensTest?2?", data);
+    console.log("getTokensTesㅇt?22?", data);
     return data;
   };
   // const { data : tokenArr, isLoading, error } = useQuery({
@@ -103,6 +103,15 @@ const Swap = () => {
   //   refetchOnWindowFocus : "always",
   //   enabled : !!dataContract && !!web3
   // });
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["allTokens"],
+    queryFn: getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!pairContract && !!dataContract && !!web3,
+  });
 
   // 2) 페어 주소
   const getPairAddressData = async () => {
@@ -301,26 +310,6 @@ const Swap = () => {
   //   getData();
   //   // setTokens(tokenData);
   // }, []);
-  useEffect(() => {
-    console.log("??");
-
-    const fetchData = async () => {
-      try {
-        const data = await getData();
-        if (data) {
-          setTokens(data);
-        }
-      } catch (error) {
-        console.error("데이터를 가져오는 중 에러가 발생했습니다:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // useEffect(() => {
-  //   console.log("tokens:", tokens);
-  // }, [tokens]);
 
   return (
     <SwapContainer>
