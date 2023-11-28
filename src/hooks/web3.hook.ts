@@ -170,14 +170,14 @@ const useWeb3 = (provider: string | null) => {
       const wbnc = new web3.eth.Contract(
         wbncAbi as any,
         "0x19C466b19A30A85f4E3C3b291D820823E858D6c6",
-        { data: "" }
+        { data: ""}
       );
       const lpToken = new web3.eth.Contract(
         lpTokenAbi as any,
         "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
-        { data: "" }
-      );
-      console.log("contract 연결 완료");
+        {data: ""}
+      )
+      console.log('contract 연결 완료');
       setDataContract(dataCon);
       setGovernanceContract(govCon);
       setPairContract(pairCon);

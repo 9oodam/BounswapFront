@@ -7,6 +7,7 @@ const Stake: React.FC<Timestamp> = ({ timestamp }) => {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [nowTime, setNowTime] = useState<number | null>(null);
   const [deadline, setDeadline] = useState<boolean>(false);
+  const [depositValue, setDepositValue] = useState<string>("");
 
   useEffect(() => {
     if (timestamp) {
@@ -26,12 +27,16 @@ const Stake: React.FC<Timestamp> = ({ timestamp }) => {
     }
   }, [endTime, nowTime]);
 
+  useEffect(() => {
+    console.log(depositValue);
+  }, [depositValue]);
+
   return (
     <div className="p-5">
       <div className="w-full text-left text-deepBlack">enter Amount</div>
-      <InputAmount tokenName="JGD" />
+      <InputAmount tokenName="JGD" setInputValue={setDepositValue} />
       {deadline == false ? (
-        <StakeBtn tokenName="Stake" />
+        <StakeBtn tokenName="Stake" tokenDepositAmount={depositValue} />
       ) : (
         <div className="w-[100%] h-[60px] bg-lightBlack rounded-coinLogo mt-10 text-xl font-bold text-white flex items-center justify-center shadow-md">
           만료된 stake 입니다.

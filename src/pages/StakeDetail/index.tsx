@@ -18,8 +18,19 @@ import { EarlyArray } from "../../Interface/Token.interface";
 import StakeCard from "src/contents/StakeDetail/StakeCard";
 import { getTime } from "src/features/getTime";
 import MyInfoCard from "src/contents/StakeDetail/MyInfoCard";
+import useWeb3 from "src/hooks/web3.hook";
+import { getPoolInfo } from "src/features/staking/stakingGetPoolInfo";
+import { getNinjaInfo } from "src/features/staking/stakingGetNinjaInfo";
+import { getUserInfo } from "src/features/staking/stakingGetUserInfo";
+import { myAllRewardInfo } from "src/features/staking/stakingGetMyAllRewardInfo";
+import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
+import { myPendingRewardUpdate } from "src/features/staking/stakingGetPendingReward";
+import { deposit } from "src/features/staking/stakingSendFeatures";
 
 const StakeDetail = () => {
+  const { user, stakingContract, LPTokenContract, wbncContract } = useWeb3(
+    window.ethereum
+  );
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
   const [selectToken, setSelectTokens] = useState<StakeItem | null>(null);
   const [withdrawal, setWithdrawal] = useState<EarlyArray | null>(null);
@@ -29,6 +40,61 @@ const StakeDetail = () => {
   // const data = queryClient.getQueryData<DataArray>("lpTokens");
 
   const nav = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const PoolInfoData = await getPoolInfo({
+        stakingContract,
+        queryClient,
+      });
+      console.log("Fetched PoolInfo Data", PoolInfoData);
+
+      const NinjaInfoData = await getNinjaInfo({
+        stakingContract,
+        queryClient,
+        user,
+      });
+      console.log("Fetched NinjaInfo Data", NinjaInfoData);
+
+      const UserInfoData = await getUserInfo({
+        stakingContract,
+        queryClient,
+        user,
+      });
+      console.log("Fetched UserInfo Data", UserInfoData);
+      const getTotalLPTokenData = await getTotalLPToken({
+        stakingContract,
+        queryClient,
+      });
+      console.log("Fetched getTotalLPToken Data", getTotalLPTokenData);
+
+      const myAllRewardData = await myAllRewardInfo({
+        stakingContract,
+        queryClient,
+        user,
+      });
+      // 3개 숫자가 정보없이 연속으로 반환됌 순서대로
+
+      // 1. pendingBNCValue : 쌓인 리워드 갯수
+      // 2. userBlockRewardPerBlockValue : 블록당 받는 리워드 갯수
+      // 3. estimatedUserRewardFromNinjsVlaue : 탈주자가 남기고간 리워드 중 내 몫
+
+      console.log("Fetched myAllReward Data", myAllRewardData);
+
+      const myPendingRewardUpdateData = await myPendingRewardUpdate({
+        stakingContract,
+        queryClient,
+        user,
+      });
+      console.log(
+        "Fetched myPendingRewardUpdate Data",
+        myPendingRewardUpdateData
+      );
+    };
+    fetchData();
+  }, [stakingContract, queryClient, user]);
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
 
   useEffect(() => {
     const getLptokens = async () => {
@@ -42,7 +108,6 @@ const StakeDetail = () => {
   // console.log("LpTokens", data);
 
   // console.log("params", params.id);
-
   useEffect(() => {
     if (lptokens) {
       const find = async () => {
