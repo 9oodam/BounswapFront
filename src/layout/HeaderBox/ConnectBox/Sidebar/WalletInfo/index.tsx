@@ -11,9 +11,9 @@ const WalletInfo: React.FC<WalletConnectScreenProps> = ({ walletAddress }) => {
   return (
     <>
       <div className="flex w-full">
-        <div className=" w-[46px] h-[46px] rounded-full border-custom-accent border-2 overflow-hidden">
+        <div className=" w-[46px] h-[46px] rounded-full border-custom-accent border-4 overflow-hidden">
           <img
-            src="/images/user.jpeg"
+            src="/images/user.png"
             alt="User Avatar"
             className="object-cover w-full h-full"
           />
