@@ -55,7 +55,7 @@ const PoolCreate = () => {
     });
     return swapTokens;
   };
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["swapTokens"],
     queryFn: getData,
     gcTime: 0,
@@ -242,6 +242,10 @@ const PoolCreate = () => {
   useEffect(() => {
     console.log(isExact);
   }, [isExact]);
+
+  if (!data) {
+    refetch();
+  }
 
   if(!data) return <>loading</>;
 
