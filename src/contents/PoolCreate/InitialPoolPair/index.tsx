@@ -15,6 +15,7 @@ interface InitialPoolProps {
   secondData: TokenItem | null;
   inputValue: string; // A 토큰의 입력값
   outputValue: string; // B 토큰의 입력값
+  sharePercent: string;
 }
 
 const InitialPoolPair: React.FC<InitialPoolProps> = ({
@@ -22,6 +23,7 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
   secondData,
   inputValue,
   outputValue,
+  sharePercent
 }) => {
   // const firstDataBalance = firstData
   //   ? Number(firstData.balance) / 10 ** 18
@@ -56,7 +58,7 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
               <div>
                 {isCalculationComplete && secondData
                   ? secondData.tokenSymbol
-                  : "-"}{" "}
+                  : ""}{" "}
                 per{" "}
                 {isCalculationComplete && firstData
                   ? firstData.tokenSymbol
@@ -81,7 +83,12 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
               </div>
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
-              <div className="font-semibold">-</div>
+              <div className="font-semibold">
+              {sharePercent
+                  ? sharePercent
+                  : "-"}
+                -
+              </div>
               <div className="">Share of pool</div>
             </div>
           </div>

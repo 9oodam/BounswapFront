@@ -13,6 +13,8 @@ import InitialPoolPair from "src/contents/PoolCreate/InitialPoolPair";
 import { TokenItem } from "src/Interface/Token.interface";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getPairAddress } from "src/features/pair/factorySendFeatures";
+import { getAmountOut } from "src/features/pair/swapSendFeatures";
+import { poolGetSharePercent } from "src/features/pair/pairpoolGetUserLiquidity";
 
 const PoolCreate = () => {
   const navigate = useNavigate();
@@ -24,19 +26,18 @@ const PoolCreate = () => {
 
   const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
   const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
-  // const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
-  // const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
-
   const [tokens, setTokens] = useState<TokenItem[]>([]);
   // 선택된 토큰, 수량
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
   const [OutputTokenAmount, setOutputTokenAmount] = useState<string>("");
-  const [minToken, setMinToken] = useState<string>("");
-  const [maxToken, setMaxToken] = useState<string>("");
   // input을 입력했는지, ouput을 입력했는지
   const [isExact, setIsExact] = useState<boolean>(true);
   // 페어 주소
   const [pairAddress, setPairAddress] = useState<string>("");
+  // 1:1 계산
+  const [token0Match, setToken0Match] = useState<string>("");
+  const [token1Match, setToken1Match] = useState<string>("");
+  const [sharePercent, setSharePercent] = useState<string>("");
 
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
@@ -81,6 +82,50 @@ const PoolCreate = () => {
   }, [InputSelectedToken, OutputSelectedToken]);
 
   // 3)
+
+  // 정보 반환
+  const tokenMatch = async () => {
+    if (!pairContract) return;
+    if (!pairAddress) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
+    let inputAmount = BigInt(1 * 10 ** 18);
+    const { amountOut: amountOut0 } = await getAmountOut(
+      pairContract,
+      pairAddress,
+      inputAmount,
+      InputSelectedToken.tokenAddress,
+      OutputSelectedToken.tokenAddress
+    );
+    let amountOut0Str = Number(web3?.utils.fromWei(amountOut0, "ether")).toFixed(5);
+    if (amountOut0Str) setToken0Match(amountOut0Str);
+    const { amountOut: amountOut1 } = await getAmountOut(
+      pairContract,
+      pairAddress,
+      inputAmount,
+      OutputSelectedToken.tokenAddress,
+      InputSelectedToken.tokenAddress
+    );
+    let amountOut1Str = Number(web3?.utils.fromWei(amountOut1, "ether")).toFixed(5);
+    if (amountOut1Str) setToken1Match(amountOut1Str);
+  };
+  const getSharePercent = async () => {
+    if (!pairContract || !web3) return;
+    if (!pairAddress) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
+    const percent = await poolGetSharePercent(
+      pairContract,
+      InputSelectedToken.tokenAddress,
+      OutputSelectedToken.tokenAddress,
+      InputTokenAmount,
+      OutputTokenAmount,
+      web3
+    )
+    setSharePercent(percent);
+  }
+  useEffect(() => {
+    tokenMatch();
+  }, [pairAddress]);
+
 
   if(!data) return <>loading</>;
 
@@ -128,8 +173,9 @@ const PoolCreate = () => {
           <InitialPoolPair
             firstData={InputSelectedToken}
             secondData={OutputSelectedToken}
-            inputValue={''}
-            outputValue={''}
+            inputValue={token1Match}
+            outputValue={token0Match}
+            sharePercent={sharePercent}
           />
 
           <div className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">
