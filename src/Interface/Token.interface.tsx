@@ -187,10 +187,14 @@ export interface StakeTitle {
 export interface testBtn {
   onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
+export type SearchTokenArr = SearchTokenInfo[];
 
 export interface SearchTokenInfo {
-  symbol: string;
-  address: string;
+  tokenAddress: string;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenUri: string;
+  isPair: boolean;
 }
 
 export interface UnclaimedFeeData {
