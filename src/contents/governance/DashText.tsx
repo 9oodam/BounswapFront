@@ -4,7 +4,7 @@ import { getTime } from "src/features/getTime";
 import ProposalsContent from "./ProposalsContent";
 import VoteContent from "./VoteContent";
 
-const DashText: React.FC<ProposalsArr> = ({ data }) => {
+const DashText: React.FC<ProposalsArr> = ({ data, voteProposal }) => {
   const [pop, setPop] = useState<Record<number, boolean>>({});
 
   return (
@@ -55,7 +55,7 @@ const DashText: React.FC<ProposalsArr> = ({ data }) => {
             <div className="col-span-5 text-deepBlack border-deepGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
               <div className="w-full flex pc:flex-row mobile:flex-col p-5">
                 <ProposalsContent data={el} />
-                <VoteContent data={el} />
+                <VoteContent data={el} voteProposal={voteProposal} />
               </div>
             </div>
           )}

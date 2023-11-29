@@ -58,7 +58,7 @@ const Swap = () => {
     });
     return swapTokens;
   };
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["swapTokens"],
     queryFn: getData,
     gcTime: 0,
@@ -252,6 +252,8 @@ const Swap = () => {
         console.log(result);
       }
     }
+
+    refetch();
   };
 
   // useEffect(() => {
