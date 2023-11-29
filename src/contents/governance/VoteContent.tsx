@@ -13,8 +13,8 @@ const VoteContent: React.FC<{ data: proposals }> = ({ data }) => {
 
   const getData =async () => {
     if (!web3 || !dataContract || !pairContract || user.account == "") return null;
-    const data = await getUserTokens({pairContract, userAddress : user.account, queryClient, dataContract, web3})
-    return data.gov
+    const {gov} = await getUserTokens({pairContract, user : user, queryClient, dataContract, web3})
+    return gov
   }
 
   const { data : gov } = useQuery({ queryKey : ["gov"], queryFn : getData, enabled : !!web3 && !!dataContract && !!pairContract && !!user });

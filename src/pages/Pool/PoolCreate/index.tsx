@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import useWeb3 from "src/hooks/web3.hook";
+
 import { Divstyles } from "src/pages/StakeDetail/StakeDetail.style";
 import { Divstyle } from "src/components/Pairname/Pairname.style";
 import SwapContainer from "src/components/SwapContainer";
@@ -8,56 +11,78 @@ import TokenInput from "src/contents/Swap/TokenInput";
 import SwapButton from "src/contents/Swap/SwapButton";
 import InitialPoolPair from "src/contents/PoolCreate/InitialPoolPair";
 import { TokenItem } from "src/Interface/Token.interface";
-
-type Token = {
-  tokenAddress: string;
-  name: string;
-  symbol: string;
-  uri: string;
-  tvl: bigint;
-  balance: bigint;
-};
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import { getPairAddress } from "src/features/pair/factorySendFeatures";
 
 const PoolCreate = () => {
   const navigate = useNavigate();
   const backArrow = () => {
     navigate(-1);
   };
-  const [InputSelectedToken, setInputSelectedToken] =
-    useState<TokenItem | null>(null);
-  const [OutputSelectedToken, setOutputSelectedToken] =
-    useState<TokenItem | null>(null);
-  const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
-  const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
+  const queryClient = useQueryClient();
+  const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
+
+  const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
+  // const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
+  // const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
 
   const [tokens, setTokens] = useState<TokenItem[]>([]);
-  const tokenData = [
-    {
-      tokenAddress: "0x1aaaaa123123213213213123213213123",
-      tokenName: "Stake",
-      tokenSymbol: "STK",
-      tokenUri: "/images/LPToken_Steake2.png",
-      tokenTvl: 5000000,
-      tokenVolume: 5000000,
-      tokenVolume7D: 5000000,
-      tokenBalance: 5000000,
-      tokenPriceArr: [5000000, 5000000],
-    },
-  ];
+  // 선택된 토큰, 수량
+  const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
+  const [OutputTokenAmount, setOutputTokenAmount] = useState<string>("");
+  const [minToken, setMinToken] = useState<string>("");
+  const [maxToken, setMaxToken] = useState<string>("");
+  // input을 입력했는지, ouput을 입력했는지
+  const [isExact, setIsExact] = useState<boolean>(true);
+  // 페어 주소
+  const [pairAddress, setPairAddress] = useState<string>("");
 
+  // 1) 토큰 데이터 가져오기
   const getData = async () => {
-    // const data = await (dataContract?.methods.getUserPools as any)(user.account).call();
-    // setPools(data);
-    setTokens(tokenData);
+    if (!pairContract || !dataContract || !web3) return null;
+    const {swapTokens} = await getUserTokens({
+      pairContract,
+      dataContract,
+      user: user,
+      queryClient,
+      web3,
+    });
+    return swapTokens;
   };
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["swapTokens"],
+    queryFn: getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!pairContract && !!dataContract && !!web3,
+  });
 
+  // 2) 페어 주소
+  const getPairAddressData = async () => {
+    if(!pairContract) return;
+    if(!InputSelectedToken || !OutputSelectedToken) return;
+    const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
+  
+    return data;
+  };
   useEffect(() => {
-    getData();
-  }, []);
+    const fetchPairAddress = async () => {
+      const pairAddress = await getPairAddressData();
+      console.log("pairAddress : ", pairAddress);
+      if (pairAddress != null) setPairAddress(pairAddress);
+    };
+    if (InputSelectedToken && OutputSelectedToken) {
+      if (InputSelectedToken.tokenAddress == OutputSelectedToken.tokenAddress)
+        return;
+      fetchPairAddress();
+    }
+  }, [InputSelectedToken, OutputSelectedToken]);
 
-  useEffect(() => {
-    console.log("tokens:", tokens);
-  }, [tokens]);
+  // 3)
+
+  if(!data) return <>loading</>;
 
   return (
     <>
@@ -75,28 +100,36 @@ const PoolCreate = () => {
           </div>
           <SwapCard>
             <TokenInput
-              tokens={tokens}
-              selectedToken={InputSelectedToken}
-              setSelectedToken={(token) => setInputSelectedToken(token)}
-              inputValue={inputValue}
-              setInputValue={setInputValue}
+            tokens={data}
+            selectedToken={InputSelectedToken}
+            setSelectedToken={(token) => setInputSelectedToken(token)}
+            setInputAmount={setInputTokenAmount}
+            exact={true}
+            setExact={setIsExact}
+            value={InputTokenAmount}
+            // inputValue={inputValue}
+            // setInputValue={setInputValue}
             />
           </SwapCard>
           <div className="text-lightBlack text-4xl">+</div>
           <SwapCard>
             <TokenInput
-              tokens={tokens}
-              selectedToken={OutputSelectedToken}
-              setSelectedToken={(token) => setOutputSelectedToken(token)}
-              inputValue={outputValue}
-              setInputValue={setOutputValue}
+            tokens={data}
+            selectedToken={OutputSelectedToken}
+            setSelectedToken={(token) => setOutputSelectedToken(token)}
+            setInputAmount={setOutputTokenAmount}
+            exact={false}
+            setExact={setIsExact}
+            value={OutputTokenAmount}
+            // inputValue={outputValue}
+            // setInputValue={setOutputValue}
             />
           </SwapCard>
           <InitialPoolPair
             firstData={InputSelectedToken}
             secondData={OutputSelectedToken}
-            inputValue={inputValue}
-            outputValue={outputValue}
+            inputValue={''}
+            outputValue={''}
           />
 
           <div className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">

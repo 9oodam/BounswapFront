@@ -36,7 +36,7 @@ const InfoScreen = () => {
       pairContract,
       dataContract,
       queryClient,
-      userAddress: user.account,
+      user: user,
       web3,
     });
     setTokens(data.userTokens);
