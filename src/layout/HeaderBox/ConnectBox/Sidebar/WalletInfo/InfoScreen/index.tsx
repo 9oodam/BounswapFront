@@ -15,8 +15,8 @@ const InfoScreen = () => {
   const { user, web3, dataContract, pairContract } = useWeb3(null);
   const [sendReceive, setSendReceive] = useState("");
   const [history, setHistory] = useState("Tokens");
-  const [tokens, setTokens] = useState<any[]>([]);
-  const [pools, setPools] = useState<any[]>([]);
+  // const [tokens, setTokens] = useState<any[]>([]);
+  // const [pools, setPools] = useState<any[]>([]);
   const [isData, setIsData] = useState(false);
   const queryClient = useQueryClient();
 
@@ -39,7 +39,7 @@ const InfoScreen = () => {
       user: user,
       web3,
     });
-    setTokens(data.userTokens);
+    // setTokens(data.userTokens);
     return data.userTokens;
   };
 
@@ -53,7 +53,7 @@ const InfoScreen = () => {
       userAddress: user.account,
       web3,
     });
-    setPools(data);
+    // setPools(data);
     return data;
   };
 
@@ -63,34 +63,45 @@ const InfoScreen = () => {
     }`;
   };
 
-  // const { data: tokens } = useQuery({
-  //   queryKey: ["userTokens"],
-  //   queryFn: getTokens,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   // enabled: !!dataContract && !!web3 && !!user,
-  //   enabled: !(!dataContract || !web3 || !user)
-  // });
+  const { data: tokens, refetch : tokenRefetch } = useQuery({
+    queryKey: ["userTokens"],
+    queryFn: getTokens,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    // enabled: !!dataContract && !!web3 && !!user,
+    enabled: !(!dataContract || !web3 || !user)
+  });
 
-  // const { data: pools } = useQuery({
-  //   queryKey: ["userPairs"],
-  //   queryFn: getPools,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   // enabled: !!dataContract && !!web3 && !!user
-  //   enabled: !(!dataContract || !web3 || !user)
-  // });
+  const { data: pools, refetch : poolRefetch } = useQuery({
+    queryKey: ["userPairs"],
+    queryFn: getPools,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    // enabled: !!dataContract && !!web3 && !!user
+    enabled: !(!dataContract || !web3 || !user)
+  });
 
-  useEffect(() => {
-    if (!dataContract || !user || !web3) return;
-    console.log("tokens", tokens);
-    console.log("pools", pools);
+  useEffect(()=>{
+    if (!tokens) {
+      console.log("tokenrefetch");
+      tokenRefetch();
+    }
+    if (!pools) {
+      console.log("poolrefetch");
+      poolRefetch();
+    }
+  });
 
-    getTokens();
-    getPools();
-  }, [dataContract, user, web3]);
+  // useEffect(() => {
+  //   if (!dataContract || !user || !web3) return;
+  //   console.log("tokens", tokens);
+  //   console.log("pools", pools);
+
+  //   getTokens();
+  //   getPools();
+  // }, [dataContract, user, web3]);
 
   if (!tokens || !pools) {
     return <>loading</>;
