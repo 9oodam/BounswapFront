@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { WalletBoxProps } from "src/Interface/WalletBox.interface";
 import useWeb3 from "src/hooks/web3.hook";
+import BounsGetWallet from "src/hooks/BounsGetWallet";
 
 export const WalletBox: React.FC<WalletBoxProps> = ({
   walletName,
@@ -8,12 +9,18 @@ export const WalletBox: React.FC<WalletBoxProps> = ({
 }) => {
   const { user, web3, connectMetaMask } = useWeb3(null);
 
-  const ConnectBtn = () => {
+  const ConnectBtn = async () => {
     if (walletName == "MetaMask") {
       connectMetaMask();
-      localStorage.setItem("connectStatus", "true");
+      localStorage.setItem("connectStatus", "MetaMask");
     } else {
-      alert("아직 준비중");
+      // const address = await BounsGetWallet();
+      // console.log("address🧐", address);
+      // getBalance(String(address));
+
+      // alert("아직 준비중");
+      localStorage.setItem("connectStatus", "BounsWallet");
+      connectMetaMask();
     }
   };
 

@@ -10,7 +10,8 @@ import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
 
 import { Contract } from "web3-eth-contract";
-import { error } from "console";
+import { error, log } from "console";
+import BounsGetWallet from "./BounsGetWallet";
 
 interface UseWeb3Result {
   user: any; // user의 실제 타입으로 교체해야 합니다.
@@ -39,24 +40,72 @@ const useWeb3 = (provider: string | null) => {
   const [pairContract, setPairContract] = useState<Contract<any> | null>(null);
   const [governanceContract, setGovernanceContract] =
     useState<Contract<any> | null>(null);
-  const [connectStatus, SetconnectStatus] = useState(false);
+  const [connectStatus, SetconnectStatus] = useState(
+    String(localStorage.getItem("connectStatus"))
+  );
+  const [BounsAddress, SetBounsAddress] = useState("");
+
+  const getBousnsWallet = async () => {
+    console.log("BounsAddress?", BounsAddress);
+
+    const Bounswallet = await BounsGetWallet();
+    SetBounsAddress(String(Bounswallet));
+  };
+
+  // if (!BounsAddress) {
+  //   getBousnsWallet();
+  // }
 
   useEffect(() => {
-    SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+    console.log("apapap", !BounsAddress);
+    if (connectStatus == "BounsWallet") {
+      if (!BounsAddress) {
+        getBousnsWallet();
+      } else {
+        getBalance(BounsAddress);
+      }
+    }
+  }, [BounsAddress]);
 
-    // console.log("accountsChanged", connectStatus);
-    // console.log("sdfsdf", window.ethereum.selectedAddress);
+  useEffect(() => {
+    // SetconnectStatus(String(localStorage.getItem("connectStatus")));
+
+    if (connectStatus == "BounsWallet") {
+      getBalance(BounsAddress);
+      return;
+    }
+
+    console.log("accountsChanged", connectStatus);
   }, [connectStatus]);
 
   const connectMetaMask = async () => {
     if (window.ethereum) {
-      Boolean(localStorage.getItem("connectStatus"));
-      SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+      SetconnectStatus(String(localStorage.getItem("connectStatus")));
       // SetconnectStatus(true);
       // // await window.ethereum.request({ method: "eth_requestAccounts" });
       // getAccounts(window.ethereum);
     } else {
       alert("MetaMask 를 설치해주세요");
+    }
+  };
+
+  const getBalance = async (address: string) => {
+    const web3 = new Web3("https://network.bouncecode.net/");
+    console.log("BounsAddress ::", BounsAddress);
+
+    if (address) {
+      try {
+        // if (!BounsAddress) getBousnsWallet();
+
+        const balance = await web3.eth.getBalance(address);
+        console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
+        setUser({
+          account: address,
+          balance: web3.utils.fromWei(balance, "ether"),
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -85,14 +134,21 @@ const useWeb3 = (provider: string | null) => {
   };
 
   useEffect(() => {
-    if (!connectStatus) {
+    if (connectStatus == "null" || connectStatus == "") {
       return;
     }
 
+    // ! useEffect 실행될때마다 getbalance 실행 (wallet 주소 state 에 저장)
     // if (!window.ethereum.selectedAddress) {
     //   alert("메타마스크 로그인");
     //   return;
     // }
+
+    //// ! state 가 bounswallet 일때 return
+    if (connectStatus == "BounsWallet") {
+      // getBalance(BounsAddress);
+      return;
+    }
 
     if (window.ethereum) {
       const web3Provider = new Web3(window.ethereum);
@@ -108,10 +164,15 @@ const useWeb3 = (provider: string | null) => {
 
   // ! 0x4798 === 바운스네트워크
   useEffect(() => {
+    if (connectStatus == "BounsWallet") {
+      getBalance(BounsAddress);
+      return;
+    }
     window.ethereum.on("chainChanged", async (chainID: string) => {
       console.log("네트워크 변경");
       if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
-        getAccounts(web3);
+        // ! status가 Metamask 일때 실행
+        if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
         const net = await window.ethereum.request({
           jsonrpc: "2.0",
@@ -124,7 +185,11 @@ const useWeb3 = (provider: string | null) => {
   }, [network]);
 
   useEffect(() => {
-    // console.log("User : ", user);
+    if (connectStatus == "BounsWallet") {
+      // getBalance(BounsAddress);
+      return;
+    }
+    console.log("User : ", user);
   }, [user]);
 
   if (web3 !== null) {
@@ -142,6 +207,10 @@ const useWeb3 = (provider: string | null) => {
   }
 
   useEffect(() => {
+    if (connectStatus == "BounsWallet") {
+      // getBalance(BounsAddress);
+      return;
+    }
     if (web3 !== null) {
       if (dataContract && pairContract && governanceContract && stakingContract)
         return;
