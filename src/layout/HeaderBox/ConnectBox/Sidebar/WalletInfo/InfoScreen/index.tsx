@@ -178,7 +178,7 @@ const InfoScreen = () => {
       <div className="flex flex-col items-center w-full">
         <div className="flex justify-evenly">
           <button
-            className={`w-[100px] p-2 rounded ${
+            className={`w-[100px] p-2 rounded hover:scale-105 ${
               history === "Tokens" ? "font-bold" : "font-normal"
             }`}
             onClick={() => {
@@ -188,7 +188,7 @@ const InfoScreen = () => {
             Tokens
           </button>
           <button
-            className={`w-[100px] p-2 rounded ${
+            className={`w-[100px] p-2 rounded hover:scale-105 ${
               history === "Tokens" ? "font-normal" : "font-bold"
             }`}
             onClick={() => {

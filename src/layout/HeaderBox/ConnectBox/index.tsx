@@ -27,14 +27,14 @@ const ConnectBox: React.FC = () => {
   // 로그아웃 toggleSidebar 대신에 로그아웃 시켜줘야함!
   const logoutCloseButton = (
     <>
-      <button onClick={handleLogout} className="w-[25px] h-[25px] mr-[10px]">
+      <button onClick={handleLogout} className="w-[22px] h-[22px] mr-[10px] hover:scale-105">
         <img
           src="images/logout-icon.png"
           alt="logout button"
           className="w-full h-full"
         />
       </button>
-      <button onClick={toggleSidebar} className="w-[23px] h-[23px] ml-[10px]">
+      <button onClick={toggleSidebar} className="w-[18px] h-[18px] ml-[10px] mr-[10px] hover:scale-105">
         <img
           src="images/x-letter-icon.png"
           alt="exit button"
@@ -45,7 +45,7 @@ const ConnectBox: React.FC = () => {
   );
 
   const closeButton = (
-    <button onClick={toggleSidebar} className="w-[25px] h-[25px]">
+    <button onClick={toggleSidebar} className="w-[18px] h-[18px] ml-[10px] mr-[10px] hover:scale-105">
       <img
         src="images/x-letter-icon.png"
         alt="exit button"

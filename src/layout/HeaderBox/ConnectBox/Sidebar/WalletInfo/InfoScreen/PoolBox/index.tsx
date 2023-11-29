@@ -10,7 +10,7 @@ const PoolBox: React.FC<{ pools: PairArray }> = ({ pools }) => {
 
   return (
     <div>
-      <div className="w-full pc:p-7 mobile:mt-5">
+      <div className="w-full pc:p-5 mobile:mt-5">
         {/* <h3
                     className="font-bold text-[25px] text-left mb-5"
                 >

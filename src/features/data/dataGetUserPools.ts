@@ -12,6 +12,7 @@ interface Params {
 
 export const getUserPools =async ({pairContract, dataContract, queryClient, userAddress, web3} : Params) => {
     const data = await (dataContract.methods.getUserPools as any)(userAddress).call();
+    console.log('pool 몇개?', data);
     const userPools = data?.map((el : PairContract) => {
         return {
             pairAddress: el.pairAddress,
