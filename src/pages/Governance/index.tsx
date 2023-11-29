@@ -51,15 +51,15 @@ const Governance = () => {
   
   const test = async () => {
     if (!pairContract || !web3) {
-      return; 
+      return;
     }
 
-    const outputAmount = web3?.utils.toBigInt(web3.utils.toWei("0.001", "ether"));
-    const maxToken = web3?.utils.toBigInt(web3.utils.toWei("0.002", "ether"));
-    const inputToken = "0x28125d2d7450F4837d030186c2076cC53af03dae";
-    const outputToken = "0xa7bA02d72f104D0bea144d5Bd2B3657b5020d00A";
+    const outputAmount = web3?.utils.toBigInt(web3.utils.toWei("0.1", "ether"));
+    const maxToken = web3?.utils.toBigInt(web3.utils.toWei("0.2", "ether"));
+    const inputToken = "0x846757DC36B8CBB7A53d0A238272e57cEf0b4dDE";
+    const outputToken = "0x295bA6f9d3E1de3aDaf8d2260E4498c5Bf97BB69";
 
-    const data = await bNCForExactTokens(pairContract, "0xA621711708c4767edE6e199C824780453aC9bC4d", outputAmount, maxToken, inputToken, outputToken, user.account);
+    const data = await bNCForExactTokens(pairContract, "0xD845A0AB1edcfBE3251ACeBa271B6f78F4AEe77A", outputAmount, maxToken, inputToken, outputToken, user.account);
     console.log("data", data);
   }
 
@@ -72,7 +72,7 @@ const Governance = () => {
 
   return (
     <Container>
-
+      <button onClick={test}>test</button>
       <div className="w-full flex flex-col justify-center items-center">
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
           Governance
