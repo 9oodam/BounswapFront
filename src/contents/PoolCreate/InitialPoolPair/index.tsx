@@ -38,7 +38,7 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
   const isCalculationComplete =
     typeof firstRatio === "number" && typeof secondRatio === "number";
 
-  console.log("firstData?", firstData);
+  // console.log("firstData?", firstData);
 
   return (
     <div className="w-[85%]">
