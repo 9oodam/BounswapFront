@@ -54,12 +54,12 @@ const TokenBox: React.FC<{ tokens: TokenArray }> = ({ tokens }) => {
             //   className="w-full flex justify-between item-center mobile:flex mobile:justify-around"
             // >
             <div key={index}>
-              <div className="flex items-center h-[68px] pr-[10px] pl-[10px]">
+              <div className="flex justify-around items-center h-[68px] pr-[10px] pl-[10px]">
                 <div>
                   <img className="w-[40px] h-[40px] " src={el.tokenUri} />
                 </div>
-                <div className=" mobile:hidden">{el.tokenSymbol}</div>
-                <div className="">{el.tokenBalance}</div>
+                <div>{el.tokenSymbol}</div>
+                <div>{el.tokenBalance}</div>
               </div>
             </div>
           ))}

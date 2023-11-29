@@ -40,35 +40,43 @@ const SendBox = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <div>
+        <div className="text-[#548941] font-bold">
           <label>금액</label>
         </div>
-        <input
-          onChange={(e) => {
-            setAmount(e.target.value);
-          }}
-          value={amount}
-        />
+        <div className="flex items-center border-b border-[#548941] py-2">
+          <input
+            onChange={(e) => {
+              setAmount(e.target.value);
+            }}
+            value={amount}
+            className="appearance-none bg-transparent border-none text-[#548941] leading-tight focus:outline-none"
+          />
+        </div>
       </div>
       <div className="flex items-center justify-between mt-2">
-        <div>
+        <div className="text-[#548941] font-bold">
           <label>보낼 주소</label>
         </div>
-        <input
-          onChange={(e) => {
-            setSendAddress(e.target.value);
-          }}
-          value={sendAddress}
-        />
+        <div className="flex items-center border-b border-[#548941] py-2">
+          <input
+            onChange={(e) => {
+              setSendAddress(e.target.value);
+            }}
+            value={sendAddress}
+            className="appearance-none bg-transparent border-none text-[#548941] leading-tight focus:outline-none"
+          />
+        </div>
       </div>
-      <button
-        onClick={() => {
-          send();
-        }}
-        className="mt-4 w-[80px] bg-green-200 p-2 rounded-md"
-      >
-        send
-      </button>
+      <div className="flex justify-end">
+        <button
+          onClick={() => {
+            send();
+          }}
+          className="mt-4 w-[80px] bg-transparent border-[3px] border-[#548941] p-2 rounded-md text-[#548941] font-bold hover:bg-[#548941] hover:text-baseWhite"
+        >
+          send
+        </button>
+      </div>
     </>
   );
 };
