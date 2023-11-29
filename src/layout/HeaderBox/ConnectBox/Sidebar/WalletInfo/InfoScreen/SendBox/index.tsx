@@ -29,6 +29,9 @@ const SendBox = () => {
       if (result?.status == 1) {
         setAmount("");
         setSendAddress("");
+        alert("성공했습니다");
+      } else {
+        alert("실패");
       }
 
       console.log("result", result);

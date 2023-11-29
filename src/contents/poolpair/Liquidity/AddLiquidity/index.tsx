@@ -12,10 +12,11 @@ import { Divstyle, Textstyle } from "./AddLiquidity.style";
 import InputToken from "./InputToken";
 import LiquidiityBtn from "../LiquidiityBtn";
 import { PairItem } from "src/Interface/Token.interface";
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
 
 const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   const queryClient = useQueryClient();
-  const { user, web3, pairContract } = useWeb3(window.ethereum);
+  const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
   const [token0Amount, setToken0Amount] = useState<string>("");
   const [token1Amount, setToken1Amount] = useState<string>("");
@@ -26,6 +27,30 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   const errMsg = () => {
     return alert("AddLiquidity 실패");
   };
+
+
+  const getTokens = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserTokens({
+      pairContract,
+      dataContract,
+      queryClient,
+      user: user,
+      web3,
+    });
+    return data.tokensObj;
+  };
+
+  const { data: tokens, refetch } = useQuery({
+    queryKey: ["tokensObj"],
+    queryFn: getTokens,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!dataContract || !web3 || !user)
+  });
+
 
   const tryAddLiquidity = async () => {
     if (token0Amount == "" || token1Amount == "") return;
@@ -75,6 +100,8 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
         }else {
           setToken0Amount("")
           setToken1Amount("")
+
+          refetch();
         }
       }
     }
@@ -148,12 +175,19 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   //   "10000000000000000000n",
   //   web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether")
   // );
+  if (!tokens) {
+    refetch();
+  }
+
+  if (!tokens) {
+    return <>loading</>
+  }
   return (
     // <div className={`${display} flex-col items-center p-5`}>
     <div className={Divstyle.flex}>
       {/* <Balance></Balance> */}
       <div className={Divstyle.box}>
-        Balance: <span className={Textstyle.balance}>0</span>
+        Balance: <span className={Textstyle.balance}>{tokens[data.token0Address].tokenBalance}</span>
       </div>
       <InputToken
         tokenName={data.token0Symbol}
@@ -165,7 +199,7 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
       />
       {/* <Balance></Balance> */}
       <div className={Divstyle.box}>
-        Balance: <span className={Textstyle.balance}>0</span>
+        Balance: <span className={Textstyle.balance}>{tokens[data.token1Address].tokenBalance}</span>
       </div>
       <InputToken
         tokenName={data.token1Symbol}
