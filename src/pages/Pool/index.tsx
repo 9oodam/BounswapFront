@@ -2,18 +2,17 @@ import useWeb3 from "src/hooks/web3.hook";
 
 import React, { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+
+import { getAllPools } from "src/features/data/dataGetAllPools";
 
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
-import { getAllPools } from "src/features/data/dataGetAllPools";
 import { PairArray, PairItem } from "src/Interface/Token.interface";
-import { useNavigate } from "react-router-dom";
 
 const Pool = () => {
-  const { web3, dataContract, pairContract } = useWeb3("");
+  const {web3, dataContract, pairContract} = useWeb3('');
   const [visible, setVisible] = useState(10);
-  // const [pair, setPair] = useState<PairArray | null>(null);
-
   const queryClient = useQueryClient();
   const nav = useNavigate();
 
@@ -24,31 +23,19 @@ const Pool = () => {
     PairVolume7D: "Volume(7D)",
   };
 
-  const getData = async () => {
-    if (!pairContract || !dataContract || !web3) return;
-    const pools = await getAllPools({
-      pairContract,
-      dataContract,
-      queryClient,
-      web3,
-    });
-    console.log(pools);
-    // setPair(pools as PairArray);
-    return pools;
-  };
+  const getPoolData = async () => {
+    if (!pairContract || !dataContract || !web3) return null;
+    const data : PairArray = await getAllPools({pairContract, dataContract, queryClient, web3});
+    return data;
+  }
 
-  const {
-    data: poolArr,
-    isLoading,
-    error,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["pairs"],
-    queryFn: getData,
-    gcTime: 0,
-    staleTime: 0,
-    refetchOnWindowFocus: "always",
-    enabled: !!dataContract && !!web3,
+  const { data : poolArr, isLoading, error } = useQuery({
+    queryKey : ["allPools"], 
+    queryFn : getPoolData,
+    gcTime : 0,
+    staleTime : 0,
+    refetchOnWindowFocus : "always",  
+    enabled : !!dataContract && !!web3 && !!pairContract
   });
 
   const showMore = () => {

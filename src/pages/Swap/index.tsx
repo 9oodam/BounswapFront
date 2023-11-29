@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
 
-import { getAllTokens } from "src/features/data/dataGetAllTokens";
 import { getPairAddress } from "src/features/pair/factorySendFeatures";
 import {
   bNCForExactTokens,
@@ -25,87 +24,42 @@ import SwapFetchingCard from "src/components/Card/SwapFetchingCard";
 import SwapButton from "src/contents/Swap/SwapButton";
 import SwapCard from "src/components/Card/SwapCard";
 import { TokenArray, TokenItem } from "src/Interface/Token.interface";
-
-type Token = {
-  tokenAddress: string;
-  name: string;
-  symbol: string;
-  uri: string;
-  tvl: bigint;
-  balance: bigint;
-};
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
 
 const Swap = () => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
-  const [InputSelectedToken, setInputSelectedToken] =
-    useState<TokenItem | null>(null);
-  const [OutputSelectedToken, setOutputSelectedToken] =
-    useState<TokenItem | null>(null);
-  const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
-  const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
-
-  // console.log("selectedToken", selectedToken?.balance);
+  const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
+  // const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
+  // const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
 
   const [tokens, setTokens] = useState<TokenItem[]>([]);
-  const tokenData = [
-    {
-      tokenAddress: "0x28125d2d7450F4837d030186c2076cC53af03dae",
-      name: "Bounce Coin",
-      symbol: "BNC",
-      uri: "https://apricot-wrong-platypus-336.mypinata.cloud/ipfs/QmbinbebbvJdoEMe1hCfWoqLmSTh5kGD8h5RRd83wsd2Sd/BNC.png",
-      tvl: 600000000000000000000n,
-      balance: 0n,
-    },
-    {
-      tokenAddress: "0x0967FddEc5370F42218A8b0f898BcfF45F941084",
-      name: "Ether",
-      symbol: "ETH",
-      uri: "https://apricot-wrong-platypus-336.mypinata.cloud/ipfs/QmbinbebbvJdoEMe1hCfWoqLmSTh5kGD8h5RRd83wsd2Sd/ETH.png",
-      tvl: 600000000000000000000n,
-      balance: 0n,
-    },
-  ];
   // 선택된 토큰, 수량
-
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
   const [OutputTokenAmount, setOutputTokenAmount] = useState<string>("");
   const [minToken, setMinToken] = useState<string>("");
   const [maxToken, setMaxToken] = useState<string>("");
   // input을 입력했는지, ouput을 입력했는지
-  // const [isExactInput, setIsExactInput] = useState<boolean>(false);
-  // const [isExactOutput, setIsExactOutput] = useState<boolean>(false);
   const [isExact, setIsExact] = useState<boolean>(true);
   // 페어 주소
   const [pairAddress, setPairAddress] = useState<string>("");
 
-  // 1) 토큰 데이터
+  // 1) 토큰 데이터 가져오기
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const data = await getAllTokens({
+    const {swapTokens} = await getUserTokens({
       pairContract,
       dataContract,
+      user: user,
       queryClient,
       web3,
     });
-    (data as TokenArray).splice(1, 1);
-    // setTokens(data as Token[]);
-    setTokens(data); // type을 Token?? TokenItem??
-    console.log("getTokensTesㅇt?22?", data);
-    return data;
+    return swapTokens;
   };
-  // const { data : tokenArr, isLoading, error } = useQuery({
-  //   queryKey : ["allTokens"],
-  //   queryFn : getData,
-  //   gcTime : 0,
-  //   staleTime : 0,
-  //   refetchOnWindowFocus : "always",
-  //   enabled : !!dataContract && !!web3
-  // });
-
   const { data, isLoading, error } = useQuery({
-    queryKey: ["allTokens"],
+    queryKey: ["swapTokens"],
     queryFn: getData,
     gcTime: 0,
     staleTime: 0,
@@ -146,14 +100,13 @@ const Swap = () => {
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
     );
-    const amountOutStr = web3?.utils.fromWei(amountOut, "ether").toString();
-    const minTokenStr = web3?.utils.fromWei(minToken, "ether").toString();
+    const amountOutStr = Number(web3?.utils.fromWei(amountOut, "ether")).toFixed(5);
+    const minTokenStr = Number(web3?.utils.fromWei(minToken, "ether")).toFixed(5);
     if (!amountOutStr || !minTokenStr) return;
     setOutputTokenAmount(amountOutStr);
     setMinToken(minTokenStr);
   };
   useEffect(() => {
-    // if(isExactOutput == true) return;
     if (isExact == false) return;
     console.log(parseFloat(InputTokenAmount));
     const inputAmount = web3?.utils.toBigInt(
@@ -161,8 +114,6 @@ const Swap = () => {
     );
     console.log(inputAmount);
     if (inputAmount != undefined) getAmountOutData(inputAmount);
-    // setIsExactInput(true);
-    // setIsExactOutput(false);
   }, [InputTokenAmount]);
   const getAmountInData = async (outputAmount: bigint) => {
     console.log(outputAmount);
@@ -175,14 +126,13 @@ const Swap = () => {
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
     );
-    const amountInStr = web3?.utils.fromWei(amountIn, "ether").toString();
-    const maxTokenStr = web3?.utils.fromWei(maxToken, "ether").toString();
+    const amountInStr = Number(web3?.utils.fromWei(amountIn, "ether")).toFixed(5);
+    const maxTokenStr = Number(web3?.utils.fromWei(maxToken, "ether")).toFixed(5);
     if (!amountInStr || !maxTokenStr) return;
     setInputTokenAmount(amountInStr);
     setMaxToken(maxTokenStr);
   };
   useEffect(() => {
-    // if(isExactInput == true) return;
     if (isExact == true) return;
     console.log(parseFloat(OutputTokenAmount));
     const outputAmount = web3?.utils.toBigInt(
@@ -190,8 +140,6 @@ const Swap = () => {
     );
     console.log(outputAmount);
     if (outputAmount != undefined) getAmountInData(outputAmount);
-    // setIsExactInput(false);
-    // setIsExactOutput(true);
   }, [OutputTokenAmount]);
 
   // 4) 사용자의 보유량이 충분한지 & 풀의 예치량이 충분한지 확인
@@ -311,6 +259,12 @@ const Swap = () => {
   //   // setTokens(tokenData);
   // }, []);
 
+  if(!data) {
+    return (
+      <>loading</>
+    )
+  }
+
   return (
     <SwapContainer>
       <div className="flex flex-col items-center">
@@ -320,25 +274,29 @@ const Swap = () => {
         <Card>
           <div className="text-lightBlack text-left">You pay</div>
           <TokenInput
-            tokens={tokens}
+            tokens={data}
             selectedToken={InputSelectedToken}
             setSelectedToken={(token) => setInputSelectedToken(token)}
             setInputAmount={setInputTokenAmount}
             exact={true}
             setExact={setIsExact}
             value={InputTokenAmount}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
+            // inputValue={inputValue}
+            // setInputValue={setInputValue}
           />
         </Card>
         <Card>
           <div className="text-lightBlack text-left">You receive</div>
           <TokenInput
-            tokens={tokens}
+            tokens={data}
             selectedToken={OutputSelectedToken}
             setSelectedToken={(token) => setOutputSelectedToken(token)}
-            inputValue={outputValue}
-            setInputValue={setOutputValue}
+            setInputAmount={setOutputTokenAmount}
+            exact={false}
+            setExact={setIsExact}
+            value={OutputTokenAmount}
+            // inputValue={outputValue}
+            // setInputValue={setOutputValue}
           />
         </Card>
         <SwapFetchingCard>
