@@ -64,7 +64,7 @@ const InfoScreen = () => {
   };
 
   const getBoxClass = () => {
-    return `w-[80%] m-auto ${sendReceive ? "border-4" : "bg-blue"}`;
+    return `w-[80%] m-auto ${sendReceive ? "" : "bg-blue"}`;
   };
 
   // const { data: tokens } = useQuery({
@@ -117,7 +117,7 @@ const InfoScreen = () => {
   return (
     <div className="w-full">
       {/* bnc 금액 */}
-      <h3 className="font-bold text-[23px] mb-5 ">
+      <h3 className="font-bold text-[23px] mb-7 ">
         {user.balance.split(".")[0] +
           "." +
           user.balance.split(".")[1]?.slice(0, 4)}{" "}
@@ -125,7 +125,7 @@ const InfoScreen = () => {
       </h3>
 
       {/* send, receive */}
-      <div>
+      <div className="flex flex-col gap-4">
         <div className="flex justify-evenly">
           <button
             onClick={() => {
@@ -161,10 +161,10 @@ const InfoScreen = () => {
         </div>
       </div>
 
-      <div className="w-[100%] h-[1px] bg-gray-300 my-4"></div>
+      <div className="w-[100%] h-[1px] bg-gray-300 my-4" />
 
       {/* tokens, Pools, Activity */}
-      <div>
+      <div className="flex flex-col items-center w-full">
         <div className="flex justify-evenly">
           <button
             className={`w-[100px] p-2 rounded ${
@@ -189,7 +189,7 @@ const InfoScreen = () => {
           {/* <button className="bg-yellow-200 p-2 rounded" onClick={(e) => { setShowHistory("Activity", e.target as Element) }} >Activity</button> */}
         </div>
 
-        <div className="h-[100%] rounded">
+        <div className="w-[80%] h-[100%] rounded">
           {
             history == "Tokens" ? (
               <TokenBox tokens={tokens} />
