@@ -258,6 +258,15 @@ const Swap = () => {
         console.log(result);
       }
     }
+
+    // 초기화
+    setInputSelectedToken(null);
+    setOutputSelectedToken(null);
+    setInputTokenAmount("");
+    setOutputTokenAmount("");
+    setMinToken("");
+    setMaxToken("");
+    setBtnText("Select a token");
   };
 
   if(!data) return <>loading</>
