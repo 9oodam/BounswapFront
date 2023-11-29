@@ -13,7 +13,7 @@ const WalletConnectScreen: React.FC = () => {
           ></WalletBox>
           <WalletBox
             walletName="MetaMask"
-            walletImg="images/BNC_Icon.png"
+            walletImg="images/MetaMask.png"
           ></WalletBox>
         </div>
         <div>

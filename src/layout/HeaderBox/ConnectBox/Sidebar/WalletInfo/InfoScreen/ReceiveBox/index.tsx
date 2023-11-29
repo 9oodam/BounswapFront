@@ -26,27 +26,29 @@ const ReceiveBox = () => {
     }, 1000);
   };
 
-    return (
-        <>
-            <QRCodeCanvas value={user.account} />
+  return (
+    <>
+      <div className="flex justify-center mb-2">
+        <QRCodeCanvas value={user.account} />
+      </div>
+      <div className="flex justify-center">
+        <div
+          className={`border-[3px] w-[170px] border-[#548941] rounded-full cursor-pointer flex items-center justify-evenly ${
+            copied ? `bg-[#548941]` : ``
+          }`}
+          onClick={copy}
+        >
+          <div className={copied ? ` text-baseWhite` : `text-[#548941]`}>
+            {copied ? "복사 완료" : userAddress(user.account)}
+          </div>
 
-      <div
-        className={`border-2 w-[170px] border-deepBlack rounded-full cursor-pointer flex items-center justify-evenly ${
-          copied ? `bg-deepBlack` : ``
-        }`}
-        onClick={copy}
-      >
-        <div className={copied ? ` text-baseWhite` : `text-deepBlack`}>
-          {copied ? "복사 완료" : userAddress(user.account)}
+          {!copied && (
+            <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
+          )}
         </div>
-
-                {!copied && (
-                    <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
-                )}
-            </div>
-
-        </>
-    )
-}
+      </div>
+    </>
+  );
+};
 
 export default ReceiveBox;

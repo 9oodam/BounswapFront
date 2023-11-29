@@ -19,14 +19,16 @@ export const WalletAddressButton: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`${baseButtonStyle} cursor-pointer flex items-center`}
+      className={`${baseButtonStyle} cursor-pointer flex items-center `}
     >
       <img
         src="/images/user.jpeg"
         alt="User Avatar"
         className="w-[24px] h-[24px] rounded-full"
       />
-      <span className="ml-2">{walletAddress?.slice(0, 10)}...</span>
+      <span className={`ml-2 truncate text-base`}>
+        {walletAddress?.slice(0, 10)}...
+      </span>
     </button>
   );
 };
