@@ -40,7 +40,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
     if (pairContract) {
       if (percentage != "") {
         let percent = Number(percentage);
-        if (data.token0Symbol == "BNC" || data.token1Symbol) {
+        if (data.token0Symbol == "BNC" || data.token1Symbol == "BNC") {
           console.log("removeLiquidityBNC 실행");
           let tokenAddress =
             data.token0Symbol == "BNC"
@@ -55,6 +55,18 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
           console.log(result);
           if (result == "error") {
             errMsg();
+          }else {
+            setPercentage("");
+            setTokens({
+              token1: {
+                amount: "",
+                symbol: data.token0Symbol,
+              },
+              token2: {
+                amount: "",
+                symbol: data.token1Symbol,
+              },
+            });
           }
         } else {
           console.log("removeLiquidity 실행");
@@ -68,6 +80,18 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
           console.log(result);
           if (result == "error") {
             errMsg();
+          }else {
+            setPercentage("");
+            setTokens({
+              token1: {
+                amount: "",
+                symbol: data.token0Symbol,
+              },
+              token2: {
+                amount: "",
+                symbol: data.token1Symbol,
+              },
+            });
           }
         }
       }
