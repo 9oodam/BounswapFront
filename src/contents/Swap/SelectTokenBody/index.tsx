@@ -15,7 +15,7 @@ const SelectTokenBody: React.FC<SelectTokenBodyProps> = ({
             onClick={() => handleSelectToken(token)}
             className="flex items-center justify-start pt-[4px] pb-[4px] pr-[20px] pl-[20px] cursor-pointer  hover:bg-opercityBlack"
           >
-            <div key={index} className="w-[36px] h-[36px]">
+            <div key={index} className="w-[36px] h-[36px] pr-[8px]">
               <img
                 src={token.tokenUri}
                 alt={token.tokenSymbol}

@@ -32,9 +32,6 @@ const Swap = () => {
 
   const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
   const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
-  // const [inputValue, setInputValue] = useState(""); // A 토큰의 입력 값
-  // const [outputValue, setOutputValue] = useState(""); // B 토큰의 입력 값
-
   const [tokens, setTokens] = useState<TokenItem[]>([]);
   // 선택된 토큰, 수량
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
@@ -45,6 +42,8 @@ const Swap = () => {
   const [isExact, setIsExact] = useState<boolean>(true);
   // 페어 주소
   const [pairAddress, setPairAddress] = useState<string>("");
+  // 버튼 텍스트
+  const [btnText, setBtnText] = useState<string>("Select a token");
 
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
@@ -72,10 +71,12 @@ const Swap = () => {
     if(!pairContract) return;
     if(!InputSelectedToken || !OutputSelectedToken) return;
     const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
-  
     return data;
   };
   useEffect(() => {
+    if(InputSelectedToken == OutputSelectedToken) {
+      setOutputSelectedToken(null);
+    }
     const fetchPairAddress = async () => {
       const pairAddress = await getPairAddressData();
       console.log("pairAddress : ", pairAddress);
@@ -85,6 +86,7 @@ const Swap = () => {
       if (InputSelectedToken.tokenAddress == OutputSelectedToken.tokenAddress)
         return;
       fetchPairAddress();
+      setBtnText("Enter an amount");
     }
   }, [InputSelectedToken, OutputSelectedToken]);
 
@@ -105,6 +107,8 @@ const Swap = () => {
     if (!amountOutStr || !minTokenStr) return;
     setOutputTokenAmount(amountOutStr);
     setMinToken(minTokenStr);
+    setMaxToken("");
+    setBtnText("Swap");
   };
   useEffect(() => {
     if (isExact == false) return;
@@ -131,6 +135,8 @@ const Swap = () => {
     if (!amountInStr || !maxTokenStr) return;
     setInputTokenAmount(amountInStr);
     setMaxToken(maxTokenStr);
+    setMinToken("");
+    setBtnText("Swap");
   };
   useEffect(() => {
     if (isExact == true) return;
@@ -156,10 +162,10 @@ const Swap = () => {
 
   // 5) swap
   const trySwap = async () => {
+    console.log("swap 시작");
     if (!pairContract) return;
     if (!InputSelectedToken || !OutputSelectedToken) return;
     if (!InputTokenAmount || !OutputTokenAmount) return;
-    console.log("swap 시작");
 
     if (isExact == true) {
       const inputAmountBigInt = web3?.utils.toBigInt(
@@ -253,19 +259,17 @@ const Swap = () => {
       }
     }
 
-    refetch();
+    // 초기화
+    setInputSelectedToken(null);
+    setOutputSelectedToken(null);
+    setInputTokenAmount("");
+    setOutputTokenAmount("");
+    setMinToken("");
+    setMaxToken("");
+    setBtnText("Select a token");
   };
 
-  // useEffect(() => {
-  //   getData();
-  //   // setTokens(tokenData);
-  // }, []);
-
-  if(!data) {
-    return (
-      <>loading</>
-    )
-  }
+  if(!data) return <>loading</>
 
   return (
     <SwapContainer>
@@ -283,8 +287,6 @@ const Swap = () => {
             exact={true}
             setExact={setIsExact}
             value={InputTokenAmount}
-            // inputValue={inputValue}
-            // setInputValue={setInputValue}
           />
         </Card>
         <Card>
@@ -297,16 +299,20 @@ const Swap = () => {
             exact={false}
             setExact={setIsExact}
             value={OutputTokenAmount}
-            // inputValue={outputValue}
-            // setInputValue={setOutputValue}
           />
         </Card>
+        {minToken &&        
         <SwapFetchingCard>
-          <div>fetching best price...</div>
+          <div>minToken : {minToken}</div>
         </SwapFetchingCard>
-        <SwapBtn tokenName={"Select Token"} />
+        }
+        {maxToken &&        
+        <SwapFetchingCard>
+          <div>maxToken : {maxToken}</div>
+        </SwapFetchingCard>
+        }
+        <SwapBtn tokenName={btnText} onClick={trySwap} />
         {/* 조건 1.지갑연동 안됐을때 wallet 연결 유도 2. 토큰 두개다 골랐는데 Input or Output 입력안됐을때 "Enter an amount" 3. Input or Output 이 입력됐을때 계산실행해주기 "fetching best price 표시 -> 입력됐을때 얼마로 바꿔줄수있는지 표시 "1UNI = 3.234 WETH" 4. 내가 보유한 첫번째 TokenInput 의 balance 가 InputValue 보다 높을때는 "Insufficient WETH balance" 띄어주고 swap 막기 5.위의 조건을 다 피해가면 그때 "Swap"가능 */}
-        <div onClick={trySwap}>swap</div>
       </div>
     </SwapContainer>
   );

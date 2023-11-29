@@ -27,7 +27,7 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
             if(el.symbol == "BNC") {
                 balance = Number(user.balance);
             }else {
-                balance = Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(5));
+                balance = Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(4));
             }
     
             let token : TokenItem = {
@@ -35,7 +35,7 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
                 tokenName: el.name, 
                 tokenSymbol: el.symbol,
                 tokenUri: uri,
-                tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(5)),
+                tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(4)),
                 tokenVolume: 0,
                 tokenVolume7D: 0,
                 tokenBalance: balance,
