@@ -13,6 +13,7 @@ interface Params {
 export const getUserTokens = async ({pairContract, dataContract, queryClient, user, web3} : Params) => {
     const data = await (dataContract.methods.getUserTokens as any)(user.account).call();
     let tokens : TokenArray = [];
+    const tokensObj : { [key : string] : TokenItem} = {};
     if(data) {
         data?.map((el : TokenContract, index : number) => {
             let uri;
@@ -42,6 +43,7 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
                 tokenPriceArr: [0]
             }
             tokens.push(token);
+            tokensObj[el.tokenAddress] = token;
         });
     }
     const userTokens = [...tokens];
@@ -51,5 +53,6 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
     queryClient.setQueryData(["userTokens"], userTokens);
     queryClient.setQueryData(["gov"], gov);
     queryClient.setQueryData(["swapTokens"], swapTokens);
-    return {userTokens : userTokens, gov : gov, swapTokens : swapTokens};
+    queryClient.setQueryData(["tokensObj"], tokensObj);
+    return {userTokens : userTokens, gov : gov, swapTokens : swapTokens, tokensObj : tokensObj};
 }
