@@ -60,8 +60,8 @@ const Swap = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["swapTokens"],
     queryFn: getData,
-    gcTime: 0,
-    staleTime: 0,
+    gcTime: 100,
+    staleTime: 10000,
     refetchOnWindowFocus: "always",
     enabled: !!pairContract && !!dataContract && !!web3,
   });
@@ -269,7 +269,12 @@ const Swap = () => {
     setBtnText("Select a token");
   };
 
+  if (!data) {
+    refetch();
+  }
+
   if(!data) return <>loading</>
+  // if(!data) return <>loading</>
 
   return (
     <SwapContainer>
