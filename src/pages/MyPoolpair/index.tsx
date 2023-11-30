@@ -56,7 +56,7 @@ const MyPoolpair: React.FC = () => {
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
             <DepositeCard pool={data.pool} userLiquidity={data.userLiquidity}/>
-            <UnclaimedFeesCard pairCon={pairContract} user={user.account} pool={data.pool} fee={data.fee}/>
+            <UnclaimedFeesCard pairCon={pairContract} user={user.account} pool={data.pool} fee={data.fee} refetch={refetch} />
           </div>
           <AddRemoveLiquidity data={data.pool} refetch = {refetch} />
         </div>

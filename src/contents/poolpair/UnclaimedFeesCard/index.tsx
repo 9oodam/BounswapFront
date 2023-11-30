@@ -11,13 +11,15 @@ const UnclaimedFeesCard: React.FC<{
   user: string;
   pool: PairItem;
   fee: UnclaimedFeeData;
-}> = ({ pairCon, user, pool, fee }) => {
+  refetch : ()=>{}
+}> = ({ pairCon, user, pool, fee, refetch }) => {
 
   const tryClaimFee = async () => {
     const data = claimFee(
       pairCon, pool.pairAddress, user
     )
     console.log(tryClaimFee);
+    refetch();
   }
 
   return (
