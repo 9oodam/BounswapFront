@@ -45,16 +45,18 @@ const useWeb3 = (provider: string | null) => {
     SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
 
     // console.log("accountsChanged", connectStatus);
-    // console.log("sdfsdf", window.ethereum.selectedAddress);
+    console.log("sdfsdf",connectStatus,  window.ethereum.selectedAddress);
   }, [connectStatus]);
 
   const connectMetaMask = async () => {
     if (window.ethereum) {
       Boolean(localStorage.getItem("connectStatus"));
-      SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
+      SetconnectStatus(true);
+      // SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
       // SetconnectStatus(true);
       // // await window.ethereum.request({ method: "eth_requestAccounts" });
       // getAccounts(window.ethereum);
+      window.location.reload();
     } else {
       alert("MetaMask 를 설치해주세요");
     }
@@ -79,20 +81,22 @@ const useWeb3 = (provider: string | null) => {
         });
       })
       .catch(() => {
-        // alert("dsfsdfs");
+        // console.log("dsfsdfs");
         // SetconnectStatus(false);
       });
-  };
-
+    };
+    
   useEffect(() => {
     if (!connectStatus) {
       return;
     }
-
+    
     // if (!window.ethereum.selectedAddress) {
-    //   alert("메타마스크 로그인");
-    //   return;
-    // }
+      //   alert("메타마스크 로그인");
+      //   return;
+      // }
+      
+      console.log("?????dddddd?");
 
     if (window.ethereum) {
       const web3Provider = new Web3(window.ethereum);

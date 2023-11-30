@@ -90,26 +90,27 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
 
   return (
     <>
-    {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
-
-      <div className={DivStyle.SNSLoginBox}>
-        <img className="w-[125px] h-[125px]" src="/images/BounsIo_LOGO.png" />
-        <div className=" w-full h-[23px] top-[36px] left-0 [text-shadow:0px_4px_4px_#00000040] font-bold text-baseWhite text-[25px] tracking-[0] leading-[normal] whitespace-nowrap">
-          BounSwap
+      {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
+      <div className="w-full h-[100vh] flex justify-center items-center ">
+        <div className={DivStyle.SNSLoginBox}>
+          <img className="w-[125px] h-[125px]" src="/images/BounsIo_LOGO.png" />
+          <div className=" w-full h-[23px] top-[36px] left-0 [text-shadow:0px_4px_4px_#00000040] font-bold text-baseWhite text-[25px] tracking-[0] leading-[normal] whitespace-nowrap">
+            BounSwap
+          </div>
+          <button
+            className="w-[20%] h-11 mt-16 bg-[#75e090] shadow-lg hover:bg-[#25b14a] rounded-full text-baseWhite font-bold text-[25px] cursor-pointer"
+            onClick={onClickLogin}
+          >
+            Sign
+          </button>
         </div>
-        <button
-          className="w-[20%] h-11 mt-16 bg-[#75e090] shadow-lg hover:bg-[#25b14a] rounded-full text-baseWhite font-bold text-[25px] cursor-pointer"
-          onClick={onClickLogin}
-        >
-          Sign
-        </button>
       </div>
 
       {/* <button className="loginButton" onClick={verifyDidToken}>
             verifyDidToken
           </button> */}
       {/* <pre className="jwtPre">{JSON.stringify(loggedData, null, 2)}</pre> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
