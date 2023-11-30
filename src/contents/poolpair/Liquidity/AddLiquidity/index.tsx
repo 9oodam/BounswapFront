@@ -55,6 +55,9 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
         console.log("꺄르륵", result);
         if (result == "error") {
           errMsg();
+        }else {
+          setToken0Amount("")
+          setToken1Amount("")
         }
       } else {
         console.log("addLiquidity 실행");
@@ -69,6 +72,9 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
         console.log(result);
         if (result == "error") {
           errMsg();
+        }else {
+          setToken0Amount("")
+          setToken1Amount("")
         }
       }
     }

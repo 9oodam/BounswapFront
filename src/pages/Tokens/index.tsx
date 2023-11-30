@@ -6,21 +6,17 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-import { TokenArray,TokenContract } from "src/Interface/Token.interface";
+import { getAllTokens } from "src/features/data/dataGetAllTokens";
 
 import index from "src/contents/poolpair/PoolDetail";
 import Card from "src/components/Card";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
-import { getAllTokens } from "src/features/data/dataGetAllTokens";
+import { TokenArray,TokenContract } from "src/Interface/Token.interface";
 
 const Tokens = () => {
   const {web3, dataContract, pairContract} = useWeb3('');
-
   const [visible, setVisible] = useState(10);
-  // const [arr, setArr] = useState<TokenContract[]>([]);
-  // const [tokenArr, setTokenArr] = useState<TokenArray>([]);
-
   const queryClient = useQueryClient();
 
   const titles = {
@@ -30,19 +26,12 @@ const Tokens = () => {
     tokenVolume7D: "Volume(7D)",
   };
 
-  // useEffect(()=>{
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
     const data = await getAllTokens({pairContract, dataContract, queryClient, web3});
     (data as TokenArray).splice(1, 1);
-
-    // setTokenArr(data as TokenArray);
-    // console.log("getTokensTest", data);
     return data;
   }
-    // getData();
-  // }, [dataContract]);
-
 
   const { data : tokenArr, isLoading, error } = useQuery({
     queryKey : ["allTokens"], 
@@ -53,7 +42,6 @@ const Tokens = () => {
     enabled : !!dataContract && !!web3 && !!pairContract
   });
 
-
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
@@ -61,7 +49,6 @@ const Tokens = () => {
   if (!tokenArr) {
     return <>loading</>;
   }
-
 
   return (
     <Container>

@@ -27,3 +27,11 @@ export const poolGetUserLiquidity = async ({ pairContract, userAddress, pairAddr
 
     return userLiquidity;
 }
+
+export const poolGetSharePercent = async (pairContract : Contract<any>, tokenA : string, tokenB : string, amountA : string, amountB : string, web3 : Web3) => {
+    let amountABigInt = web3.utils.toWei(Number(amountA), "ether")
+    let amountBBigInt = web3.utils.toWei(Number(amountB), "ether")
+    const data = await (pairContract.methods.poolSharePercent as any)(tokenA, tokenB, amountABigInt, amountBBigInt).call();
+    console.log(data);
+    return data;
+}

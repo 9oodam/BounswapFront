@@ -1,4 +1,5 @@
 import { Bytes } from "web3";
+import { TokenItem } from "./Token.interface";
 
 export interface proposals {
   id: number;
@@ -15,8 +16,20 @@ export interface proposals {
   againstPercent : string | number;
 }
 
+type VoteProposalFunction = (
+  support: boolean,
+  id: number,
+  proposer: string
+) => Promise<void>;
+
+export interface PropoaslProps {
+  data : proposals;
+  voteProposal : VoteProposalFunction;
+}
+
 export interface ProposalsArr {
   data: proposals[];
+  voteProposal : VoteProposalFunction;
 }
 
 export interface ProposalContract {

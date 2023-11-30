@@ -9,9 +9,10 @@ const ProposalsContent: React.FC<{ data: proposals }> = ({ data }) => {
         <div className="pc:hidden text-right mb-3">
           {getTime(data.startTime)} ~ {getTime(data.endTime)}
         </div>
-        <div className="bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius shadow-md w-full min-h-[200px] p-2 text-left mobile:text-[14px]">
+        <textarea spellCheck={false} className="outline-none resize-none bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius shadow-md w-full min-h-[200px] p-2 text-left mobile:text-[14px]" value={data.description}></textarea>
+        {/* <div className="bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius shadow-md w-full min-h-[200px] p-2 text-left mobile:text-[14px]">
           {data.description}
-        </div>
+        </div> */}
         <div className="w-full text-left p-2 font-bold text-[20px]">
           proposer.{" "}
           <span className="font-normal text-[15px] mobile:hidden">

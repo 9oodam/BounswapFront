@@ -15,69 +15,101 @@ const InfoScreen = () => {
   const { user, web3, dataContract, pairContract } = useWeb3(null);
   const [sendReceive, setSendReceive] = useState("");
   const [history, setHistory] = useState("Tokens");
-  const [tokens, setTokens] = useState();
-  const [pools, setPools] = useState();
+  // const [tokens, setTokens] = useState<any[]>([]);
+  // const [pools, setPools] = useState<any[]>([]);
   const [isData, setIsData] = useState(false);
   const queryClient = useQueryClient();
 
   // send, receive 영역 출력 여부 설정하는 함수
   const setShowSendReceive = (name: string) => {
     if (sendReceive != name) {
-      setSendReceive(name)
+      setSendReceive(name);
     } else {
-      setSendReceive("")
+      setSendReceive("");
     }
-  }
+  };
 
   const getTokens = async () => {
-    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
-    const data = await getUserTokens({ pairContract, dataContract, queryClient, userAddress: user.account, web3 });    
-    setTokens(data.userTokens);
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserTokens({
+      pairContract,
+      dataContract,
+      queryClient,
+      user: user,
+      web3,
+    });
+    // setTokens(data.userTokens);
     return data.userTokens;
-  }
-  
-  const getPools =async () => {
-    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
-    const data = await getUserPools({ pairContract, dataContract, queryClient, userAddress : user.account, web3});
-    setPools(data);
+  };
+
+  const getPools = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      userAddress: user.account,
+      web3,
+    });
+    // setPools(data);
     return data;
-  }
+  };
 
+  const getButtonClass = (buttonType: string) => {
+    return `w-[120px] h-[40px] rounded-[10px] font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md pl-[10px] pr-[10px] ${
+      sendReceive === buttonType ? "bg-[#548941]" : "bg-[#9CE084]"
+    }`;
+  };
 
-  // const { data: tokens } = useQuery({
-  //   queryKey: ["userTokens"],
-  //   queryFn: getTokens,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   // enabled: !!dataContract && !!web3 && !!user,
-  //   enabled: !(!dataContract || !web3 || !user)
-  // });
+  const getBoxClass = () => {
+    return `w-[80%] m-auto ${sendReceive ? "" : "bg-blue"}`;
+  };
 
-  // const { data: pools } = useQuery({
-  //   queryKey: ["userPairs"],
-  //   queryFn: getPools,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   // enabled: !!dataContract && !!web3 && !!user
-  //   enabled: !(!dataContract || !web3 || !user)
-  // });
+  const { data: tokens, refetch : tokenRefetch } = useQuery({
+    queryKey: ["userTokens"],
+    queryFn: getTokens,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    // enabled: !!dataContract && !!web3 && !!user,
+    enabled: !(!dataContract || !web3 || !user)
+  });
+
+  const { data: pools, refetch : poolRefetch } = useQuery({
+    queryKey: ["userPairs"],
+    queryFn: getPools,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    // enabled: !!dataContract && !!web3 && !!user
+    enabled: !(!dataContract || !web3 || !user)
+  });
 
   useEffect(()=>{
-    if (!dataContract || !user || !web3) return;
-    console.log("tokens", tokens);
-    console.log("pools", pools);
+    if (!tokens) {
+      console.log("tokenrefetch");
+      tokenRefetch();
+    }
+    if (!pools) {
+      console.log("poolrefetch");
+      poolRefetch();
+    }
+  });
 
-    getTokens();
-    getPools();
-  }, [dataContract, user, web3]);
+  // useEffect(() => {
+  //   if (!dataContract || !user || !web3) return;
+  //   console.log("tokens", tokens);
+  //   console.log("pools", pools);
 
+  //   getTokens();
+  //   getPools();
+  // }, [dataContract, user, web3]);
 
   if (!tokens || !pools) {
-    return <>loading</>
+    return <>loading</>;
   }
-
 
   // const test =async () => {
   //   if (!pairContract) return;
@@ -87,67 +119,98 @@ const InfoScreen = () => {
 
   //     // const data = await addLiquidityBNC(pairContract, "0x0967FddEc5370F42218A8b0f898BcfF45F941084", 10n, 1000n, user.account);
   //     // console.log("testsetstets", data);
-      
+
   //   } catch (error) {
   //     alert(error);
   //   }
   // }
 
   return (
-    <div>      
+    <div className="w-full">
       {/* bnc 금액 */}
-      <h3 className="font-bold text-[23px] mb-5">
-        {user.balance.split(".")[0] + "." + user.balance.split(".")[1]?.slice(0, 4)} BNC
+      <h3 className="font-bold text-[23px] mb-7 ">
+        {user.balance.split(".")[0] +
+          "." +
+          user.balance.split(".")[1]?.slice(0, 4)}{" "}
+        BNC
       </h3>
 
-
       {/* send, receive */}
-      <div>
+      <div className="flex flex-col gap-4">
         <div className="flex justify-evenly">
-          <button onClick={() => { setShowSendReceive("send") }} className="w-[100px] bg-green-200 p-2 rounded-md">send</button>
-          <button onClick={() => { setShowSendReceive("receive") }} className="w-[100px] bg-green-200 p-2 rounded-md">receive</button>
+          <button
+            onClick={() => {
+              setShowSendReceive("send");
+            }}
+            className={getButtonClass("send")}
+          >
+            send
+          </button>
+          <button
+            onClick={() => {
+              setShowSendReceive("receive");
+            }}
+            className={getButtonClass("receive")}
+          >
+            receive
+          </button>
         </div>
 
-
-        <div className="bg-gray-200">
-          <div className='bg-indigo-200 w-[80%] m-auto'>
+        <div className="w-full">
+          <div className={getBoxClass()}>
             {/* send 영역, receive 영역 */}
-            {
-              (sendReceive)?
-                sendReceive == "send" ?
-                  <SendBox />
-                  :
-                  <ReceiveBox />
-                :
-                <></>
-            }
+            {sendReceive ? (
+              sendReceive == "send" ? (
+                <SendBox />
+              ) : (
+                <ReceiveBox />
+              )
+            ) : (
+              <></>
+            )}
           </div>
         </div>
-
-
       </div>
 
-      <div className="w-[100%] h-[1px] bg-gray-300 my-4"></div>
+      <div className="w-[100%] h-[1px] bg-gray-300 my-4" />
 
       {/* tokens, Pools, Activity */}
-      <div>
+      <div className="flex flex-col items-center w-full">
         <div className="flex justify-evenly">
-          <button className={`bg-${history === "Tokens" ? "yellow" : "gray"}-200 w-[100px] p-2 rounded`} onClick={() => { setHistory("Tokens") }}>Tokens</button>
-          <button className={`bg-${history === "Tokens" ? "gray" : "yellow"}-200 w-[100px] p-2 rounded`} onClick={() => { setHistory("Pools") }} >Pools</button>
+          <button
+            className={`w-[100px] p-2 rounded ${
+              history === "Tokens" ? "font-bold" : "font-normal"
+            }`}
+            onClick={() => {
+              setHistory("Tokens");
+            }}
+          >
+            Tokens
+          </button>
+          <button
+            className={`w-[100px] p-2 rounded ${
+              history === "Tokens" ? "font-normal" : "font-bold"
+            }`}
+            onClick={() => {
+              setHistory("Pools");
+            }}
+          >
+            Pools
+          </button>
           {/* <button className="bg-yellow-200 p-2 rounded" onClick={(e) => { setShowHistory("Activity", e.target as Element) }} >Activity</button> */}
         </div>
 
-        <div className="bg-yellow-200 h-[100%] rounded">
+        <div className="w-[80%] h-[100%] rounded">
           {
-            history == "Tokens" ?
-              <TokenBox tokens={tokens} /> :
+            history == "Tokens" ? (
+              <TokenBox tokens={tokens} />
+            ) : (
               <PoolBox pools={pools} />
+            )
             // <ActivityBox />
           }
         </div>
-
       </div>
-
     </div>
   );
 };

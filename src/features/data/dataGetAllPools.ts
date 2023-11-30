@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import Web3, { Contract } from "web3";
-import { PairArray, PairContract } from "src/Interface/Token.interface";
+import { PairArray, PairContract, PairItem } from "src/Interface/Token.interface";
 import { getPoolVolumeFromEvent } from "../event/volume";
 import { getPoolLiquidityFromEvent } from "../event/liquidity";
 
@@ -33,25 +33,22 @@ const poolData = async (web3: Web3, el: PairContract, volume: bigint, liquidityD
     }
 }
 
-export const getAllPools =async ({pairContract, dataContract, queryClient, web3} : Params) => {
+export const getAllPools = async ({pairContract, dataContract, queryClient, web3} : Params) => {
     const data: PairContract[] = await dataContract.methods.getAllPools().call();
-    const pools: PairArray = [];
+    let pools: PairArray = [];
 
     if(data) {
         for (let i = 0; i < data.length; i++) {
-            let volume = await getPoolVolumeFromEvent(pairContract, data[i].pairAddress);
-            let liquidityData = await getPoolLiquidityFromEvent(pairContract, data[i].pairAddress);
+            let volume: bigint = await getPoolVolumeFromEvent(pairContract, data[i].pairAddress);
+            let liquidityData = {
+                liquidity: 0n,
+                liquidityArr: [0n]
+            }
             let pool = await poolData(web3, data[i], volume, liquidityData);        
             pools.push(pool);
         }
     }
-    // const pools = data?.map(async (el : PairContract) => {
-    //     let volume = await getPoolVolumeFromEvent(pairContract, el.pairAddress);
-    //     let liquidityData = await getPoolLiquidityFromEvent(pairContract, el.pairAddress);
 
-    // });
-    console.log(pools)
-
-    queryClient.setQueryData(["pairs"], pools);
+    queryClient.setQueryData(["allPools"], pools);
     return pools;
 }
