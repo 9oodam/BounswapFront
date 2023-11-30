@@ -81,10 +81,10 @@ const InfoScreen = () => {
     enabled: !(!dataContract || !web3 || !user)
   });
 
-  // useEffect(()=>{
-  //   tokenRefetch();
-  //   poolRefetch();
-  // }, [user]);
+  useEffect(()=>{
+    tokenRefetch();
+    poolRefetch();
+  }, [user]);
 
   if (!tokens) {
     tokenRefetch();
