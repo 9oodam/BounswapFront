@@ -4,7 +4,6 @@ import SendBox from "./SendBox";
 import ReceiveBox from "./ReceiveBox";
 import TokenBox from "./TokenBox";
 import PoolBox from "./PoolBox";
-import ActivityBox from "./ActivityBox";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getUserPools } from "src/features/data/dataGetUserPools";
@@ -58,8 +57,8 @@ const InfoScreen = () => {
   };
 
   const getButtonClass = (buttonType: string) => {
-    return `w-[120px] h-[40px] rounded-[10px] font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md pl-[10px] pr-[10px] ${
-      sendReceive === buttonType ? "bg-[#548941]" : "bg-[#9CE084]"
+    return `w-[120px] h-[40px] rounded-[10px] font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md pl-[10px] pr-[10px] ${
+      sendReceive === buttonType ? "bg-deepGreen" : "bg-lightGreen"
     }`;
   };
 
@@ -67,7 +66,7 @@ const InfoScreen = () => {
     return `w-[80%] m-auto ${sendReceive ? "" : "bg-blue"}`;
   };
 
-  const { data: tokens, refetch : tokenRefetch } = useQuery({
+  const { data: tokens, refetch: tokenRefetch } = useQuery({
     queryKey: ["userTokens"],
     queryFn: getTokens,
     gcTime: 0,
@@ -76,7 +75,7 @@ const InfoScreen = () => {
     enabled: !(!dataContract || !web3 || !user)
   });
 
-  const { data: pools, refetch : poolRefetch } = useQuery({
+  const { data: pools, refetch: poolRefetch } = useQuery({
     queryKey: ["userPairs"],
     queryFn: getPools,
     gcTime: 0,

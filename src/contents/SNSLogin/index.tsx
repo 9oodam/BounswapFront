@@ -98,7 +98,7 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
           BounSwap
         </div>
         <button
-          className="w-[20%] h-11 mt-16 bg-[#75e090] shadow-lg hover:bg-[#25b14a] rounded-full text-baseWhite font-bold text-[25px] cursor-pointer"
+          className="w-[20%] h-11 mt-16 bg-lightGreen shadow-lg hover:bg-deepGreen rounded-full text-baseWhite font-bold text-[25px] cursor-pointer"
           onClick={onClickLogin}
         >
           Sign
