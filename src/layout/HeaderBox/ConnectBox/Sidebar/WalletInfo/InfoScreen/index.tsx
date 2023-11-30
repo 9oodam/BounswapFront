@@ -14,8 +14,6 @@ const InfoScreen = () => {
   const { user, web3, dataContract, pairContract } = useWeb3(null);
   const [sendReceive, setSendReceive] = useState("");
   const [history, setHistory] = useState("Tokens");
-  // const [tokens, setTokens] = useState<any[]>([]);
-  // const [pools, setPools] = useState<any[]>([]);
   const [isData, setIsData] = useState(false);
   const queryClient = useQueryClient();
 
@@ -38,7 +36,6 @@ const InfoScreen = () => {
       user: user,
       web3,
     });
-    // setTokens(data.userTokens);
     return data.userTokens;
   };
 
@@ -52,7 +49,6 @@ const InfoScreen = () => {
       userAddress: user.account,
       web3,
     });
-    // setPools(data);
     return data;
   };
 

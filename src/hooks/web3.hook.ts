@@ -56,6 +56,12 @@ const useWeb3 = (provider: string | null) => {
   //   getBousnsWallet();
   // }
 
+  useEffect(()=>{
+    if (!window?.ethereum) {
+      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      }
+  },[])
+
   useEffect(() => {
     console.log("apapap", !BounsAddress);
     if (connectStatus == "BounsWallet") {
@@ -79,11 +85,11 @@ const useWeb3 = (provider: string | null) => {
   }, [connectStatus]);
 
   const connectMetaMask = async () => {
-    if (window.ethereum) {
+    if (window?.ethereum) {
       SetconnectStatus(String(localStorage.getItem("connectStatus")));
       // SetconnectStatus(true);
-      // // await window.ethereum.request({ method: "eth_requestAccounts" });
-      // getAccounts(window.ethereum);
+      // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
+      // getAccounts(window?.ethereum);
       window.location.reload();
     } else {
       alert("MetaMask 를 설치해주세요");
@@ -117,7 +123,7 @@ const useWeb3 = (provider: string | null) => {
     } else {
       webProvider = web3;
     }
-    window.ethereum
+    window?.ethereum
       .request({ method: "eth_requestAccounts" })
       .then(async ([data]: string[]) => {
         setUser({
@@ -140,7 +146,7 @@ const useWeb3 = (provider: string | null) => {
     }
 
     // ! useEffect 실행될때마다 getbalance 실행 (wallet 주소 state 에 저장)
-    // if (!window.ethereum.selectedAddress) {
+    // if (!window?.ethereum?.selectedAddress) {
     //   alert("메타마스크 로그인");
     //   return;
     // }
@@ -151,11 +157,11 @@ const useWeb3 = (provider: string | null) => {
       return;
     }
 
-    if (window.ethereum) {
-      const web3Provider = new Web3(window.ethereum);
+    if (window?.ethereum) {
+      const web3Provider = new Web3(window?.ethereum);
       setWeb3(web3Provider);
       getAccounts(web3Provider);
-      window.ethereum.on("chainChanged", () => {
+      window?.ethereum?.on("chainChanged", () => {
         window.location.reload();
       });
     } else {
@@ -169,13 +175,13 @@ const useWeb3 = (provider: string | null) => {
       getBalance(BounsAddress);
       return;
     }
-    window.ethereum.on("chainChanged", async (chainID: string) => {
+    window?.ethereum?.on("chainChanged", async (chainID: string) => {
       console.log("네트워크 변경");
       if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
-        const net = await window.ethereum.request({
+        const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
           params: [{ chainId: "0xaa36a7" }],
@@ -194,7 +200,7 @@ const useWeb3 = (provider: string | null) => {
   }, [user]);
 
   if (web3 !== null) {
-    window.ethereum.on("accountsChanged", async (accounts: string[]) => {
+    window?.ethereum?.on("accountsChanged", async (accounts: string[]) => {
       const updatedAccount = accounts[0];
 
       setUser({
