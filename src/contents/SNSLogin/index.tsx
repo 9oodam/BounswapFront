@@ -109,7 +109,7 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
             verifyDidToken
           </button> */}
       {/* <pre className="jwtPre">{JSON.stringify(loggedData, null, 2)}</pre> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

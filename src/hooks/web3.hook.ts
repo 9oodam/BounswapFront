@@ -84,6 +84,7 @@ const useWeb3 = (provider: string | null) => {
       // SetconnectStatus(true);
       // // await window.ethereum.request({ method: "eth_requestAccounts" });
       // getAccounts(window.ethereum);
+      window.location.reload();
     } else {
       alert("MetaMask 를 설치해주세요");
     }
@@ -128,11 +129,11 @@ const useWeb3 = (provider: string | null) => {
         });
       })
       .catch(() => {
-        // alert("dsfsdfs");
+        // console.log("dsfsdfs");
         // SetconnectStatus(false);
       });
-  };
-
+    };
+    
   useEffect(() => {
     if (connectStatus == "null" || connectStatus == "") {
       return;
