@@ -26,8 +26,8 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
     token1: { amount: "", symbol: "" },
     token2: { amount: "", symbol: "" },
   });
-  const [token0Math, setToken0Match] = useState<string>("");
-  const [token1Math, setToken1Match] = useState<string>("");
+  const [token0Match, setToken0Match] = useState<string>("");
+  const [token1Match, setToken1Match] = useState<string>("");
 
   // 0-9까지의 숫자만. 소숫점을 입력할 수 있으나 입력한 뒤에는 무조건 숫자 하나 이상이 들어가야 한다.
   const Ref = /^[0-9]+$/;
@@ -40,7 +40,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
     if (pairContract) {
       if (percentage != "") {
         let percent = Number(percentage);
-        if (data.token0Symbol == "BNC" || data.token1Symbol) {
+        if (data.token0Symbol == "BNC" || data.token1Symbol == "BNC") {
           console.log("removeLiquidityBNC 실행");
           let tokenAddress =
             data.token0Symbol == "BNC"
@@ -55,6 +55,18 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
           console.log(result);
           if (result == "error") {
             errMsg();
+          }else {
+            setPercentage("");
+            setTokens({
+              token1: {
+                amount: "",
+                symbol: data.token0Symbol,
+              },
+              token2: {
+                amount: "",
+                symbol: data.token1Symbol,
+              },
+            });
           }
         } else {
           console.log("removeLiquidity 실행");
@@ -68,6 +80,18 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
           console.log(result);
           if (result == "error") {
             errMsg();
+          }else {
+            setPercentage("");
+            setTokens({
+              token1: {
+                amount: "",
+                symbol: data.token0Symbol,
+              },
+              token2: {
+                amount: "",
+                symbol: data.token1Symbol,
+              },
+            });
           }
         }
       }
@@ -120,8 +144,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
       data?.token0Address,
       data?.token1Address
     );
-    let amountOut0Str = web3?.utils.fromWei(amountOut0, "ether").toString();
-    console.log("??", amountOut0Str);
+    let amountOut0Str = Number(web3?.utils.fromWei(amountOut0, "ether")).toFixed(5);
     if (amountOut0Str) setToken0Match(amountOut0Str);
     const { amountOut: amountOut1 } = await getAmountOut(
       pairContract,
@@ -130,8 +153,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
       data?.token1Address,
       data?.token0Address
     );
-    let amountOut1Str = web3?.utils.fromWei(amountOut1, "ether").toString();
-    console.log("???", amountOut1Str);
+    let amountOut1Str = Number(web3?.utils.fromWei(amountOut1, "ether")).toFixed(5);
     if (amountOut1Str) setToken1Match(amountOut1Str);
   };
 
@@ -152,8 +174,8 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
       <img src="/images/downArrow.png" alt="arrow" className={Imgstyle.arrow} />
       <MyLiquidity token1={tokens.token1} token2={tokens.token2} />
       <Price
-        token0Match={token0Math}
-        token1Match={token1Math}
+        token0Match={token0Match}
+        token1Match={token1Match}
         token0Symbol={data.token0Symbol}
         token1Symbol={data.token1Symbol}
       />

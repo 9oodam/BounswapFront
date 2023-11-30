@@ -43,12 +43,15 @@ const StakeDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // * stake pool에 대한 정보
       const PoolInfoData = await getPoolInfo({
         stakingContract,
         queryClient,
       });
       console.log("Fetched PoolInfo Data", PoolInfoData);
 
+      // * 가장 최근에 떠난 탈주자의 값.
+      // ! 탈주자에 대한 이벤트 구독 해야 함
       const NinjaInfoData = await getNinjaInfo({
         stakingContract,
         queryClient,
@@ -61,6 +64,8 @@ const StakeDetail = () => {
         queryClient,
         user,
       });
+
+      // * stake pool에 대한 total Token Amount
       console.log("Fetched UserInfo Data", UserInfoData);
       const getTotalLPTokenData = await getTotalLPToken({
         stakingContract,

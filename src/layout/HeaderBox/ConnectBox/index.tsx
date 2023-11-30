@@ -15,22 +15,19 @@ const ConnectBox: React.FC = () => {
   const { user } = useWeb3(null);
 
   const toggleSidebar = async () => {
-    // const data = await axios.get(
-    //   "https://bouns.io/login/?client_id=6e9c40d1-1236-42c4-8a13-586e7df92327&redirect_uri=https://localhost:3000&auto_login=true"
-    // );
-    // console.log(data, "data");
-
-    // const randomWalletAddress = "0x123...abc"; // 예시 주소
-    // setWalletAddress(randomWalletAddress);
-    // 🚀 Localstorage true 값이면
-
     setSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleLogout = async () => {
+    localStorage.removeItem("connectStatus");
+    setSidebarOpen(false);
+    window.location.reload();
   };
 
   // 로그아웃 toggleSidebar 대신에 로그아웃 시켜줘야함!
   const logoutCloseButton = (
     <>
-      <button onClick={toggleSidebar} className="w-[25px] h-[25px] mr-[10px]">
+      <button onClick={handleLogout} className="w-[25px] h-[25px] mr-[10px]">
         <img
           src="images/logout-icon.png"
           alt="logout button"
@@ -58,7 +55,7 @@ const ConnectBox: React.FC = () => {
   );
 
   return (
-    <div className=" w-[10%] h-[46px] ">
+    <div className=" w-[12%] h-[46px] ">
       {user.account ? (
         <WalletAddressButton
           onClick={toggleSidebar}

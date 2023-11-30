@@ -64,6 +64,9 @@ module.exports = {
       stakDash: { max: "850px" },
 
       header: { min: "1260px", max: "1500px" },
+
+      mobileSiedbar: { min: "0px", max: "700px" },
+      pcSiedbar: { min: "701px", max: "9999px" },
     },
   },
   variants: {

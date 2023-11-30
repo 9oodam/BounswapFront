@@ -36,7 +36,6 @@ export const getAllTokens = async ({pairContract, dataContract, queryClient, web
         }
     }
 
-    console.log("features getAlltokens");
     queryClient.setQueryData(["allTokens"], tokens);
     return tokens;
 }

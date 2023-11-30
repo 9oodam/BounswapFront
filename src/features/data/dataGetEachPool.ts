@@ -14,8 +14,11 @@ interface Params {
 
 export const getEachPool =async ({pairContract, dataContract, pairAddress, userAddress, web3} : Params) => {
     const data = await (dataContract.methods.getEachPool as any)(pairAddress, userAddress).call();
+    console.log(data);
     const volume = await getPoolVolumeFromEvent(pairContract, pairAddress);
-    const liquidityData = await getPoolLiquidityFromEvent(pairContract, pairAddress);
+    console.log(volume)
+    const liquidityData = await getPoolLiquidityFromEvent(pairContract, web3, pairAddress);
+    console.log(liquidityData)
     const pool = {
             pairAddress: data.pairAddress,
             token0Address: data.token0,
@@ -26,10 +29,11 @@ export const getEachPool =async ({pairContract, dataContract, pairAddress, userA
             token1Symbol: data.token1Symbol,
             pairTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
             pairVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
-            pairLiquidity: Number(Number(web3.utils.fromWei(liquidityData.liquidity, "ether")).toFixed(5)),
+            pairLiquidity: liquidityData.liquidity,
             pairBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
             pairLiquidityArr: liquidityData.liquidityArr
-        }
+    }
+    console.log(pool)
         
     return pool;
 }

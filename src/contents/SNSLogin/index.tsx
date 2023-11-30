@@ -90,7 +90,7 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
 
   return (
     <>
-    {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
+      {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
 
       <div className={DivStyle.SNSLoginBox}>
         <img className="w-[125px] h-[125px]" src="/images/BounsIo_LOGO.png" />
@@ -109,7 +109,7 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
             verifyDidToken
           </button> */}
       {/* <pre className="jwtPre">{JSON.stringify(loggedData, null, 2)}</pre> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
