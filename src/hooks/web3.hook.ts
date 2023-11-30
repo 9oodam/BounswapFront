@@ -192,6 +192,10 @@ const useWeb3 = (provider: string | null) => {
   }, [network]);
 
   useEffect(() => {
+    // if (user.account != "") {
+    //   window.location.reload();
+    // }
+
     if (connectStatus == "BounsWallet") {
       // getBalance(BounsAddress);
       return;

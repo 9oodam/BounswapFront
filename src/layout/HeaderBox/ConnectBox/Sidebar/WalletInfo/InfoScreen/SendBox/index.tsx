@@ -9,6 +9,8 @@ const SendBox = () => {
   // send 함수
   const send = async () => {
     try {
+      if (user?.account == "") return;
+
       if (!amount || !sendAddress) {
         alert("보낼 금액과 주소 입력하세요.");
         return;
@@ -24,20 +26,28 @@ const SendBox = () => {
         from: user.account,
         to: sendAddress,
         value: web3?.utils.toWei(amount, "ether"),
+        gas: 21000,
+        gasPrice: web3?.utils.toWei("20", "gwei"),
       });
 
       if (result?.status == 1) {
+        console.log("성공");
         setAmount("");
         setSendAddress("");
+        // setSend(true);
         alert("성공했습니다");
+        window.location.reload();
       } else {
         alert("실패");
       }
-
-      console.log("result", result);
+      
     } catch (error) {
       console.log("err", error);
+      alert("실패");
     }
+
+
+    // refetch();
   };
 
   return (

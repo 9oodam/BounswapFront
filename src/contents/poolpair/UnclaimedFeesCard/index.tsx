@@ -7,7 +7,8 @@ import useWeb3 from "src/hooks/web3.hook";
 const UnclaimedFeesCard: React.FC<{
   pool: PairItem;
   fee: UnclaimedFeeData;
-}> = ({ pool, fee }) => {
+  refetch : ()=>{};
+}> = ({ pool, fee, refetch }) => {
   return (
     <Card>
       <CardTitle>Unclaimed fees</CardTitle>

@@ -27,8 +27,9 @@ const InfoScreen = () => {
   };
 
   const getTokens = async () => {
-    if (!pairContract || !dataContract || !web3 || user.account == "")
-      return null;
+    console.log("gettokens1");
+    if (!pairContract || !dataContract || !web3 || user.account == "")  return null;
+    console.log("gettoekns2");
     const data = await getUserTokens({
       pairContract,
       dataContract,
@@ -80,11 +81,10 @@ const InfoScreen = () => {
     enabled: !(!dataContract || !web3 || !user)
   });
 
-  useEffect(()=>{
-    tokenRefetch();
-    poolRefetch();
-  }, [user]);
-
+  // useEffect(()=>{
+  //   tokenRefetch();
+  //   poolRefetch();
+  // }, [user]);
 
   if (!tokens) {
     tokenRefetch();
@@ -96,37 +96,14 @@ const InfoScreen = () => {
     return <>loading</>;
   }
 
-  // useEffect(() => {
-  //   if (!dataContract || !user || !web3) return;
-  //   console.log("tokens", tokens);
-  //   console.log("pools", pools);
-
-  //   getTokens();
-  //   getPools();
-  // }, [dataContract, user, web3]);
-
-
-  // const test =async () => {
-  //   if (!pairContract) return;
-  //   try {
-  //     // const data1 = await bNCForExactTokens(pairContract, "0x0459A3045Fe91e9Cf42D1A74bf391d0EA22E080D", 100000n, 150000n, "0x28125d2d7450F4837d030186c2076cC53af03dae", "0x0967FddEc5370F42218A8b0f898BcfF45F941084", user.account)
-  //     // console.log("data1", data1);
-
-  //     // const data = await addLiquidityBNC(pairContract, "0x0967FddEc5370F42218A8b0f898BcfF45F941084", 10n, 1000n, user.account);
-  //     // console.log("testsetstets", data);
-
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // }
-
   return (
     <div className="w-full">
       {/* bnc 금액 */}
       <h3 className="font-bold text-[23px] mb-7 ">
-        {user.balance.split(".")[0] +
+        {/* {user.balance.split(".")[0] +
           "." +
-          user.balance.split(".")[1]?.slice(0, 4)}{" "}
+          user.balance.split(".")[1]?.slice(0, 4)}{" "} */}
+          {Number(tokens[0].tokenBalance).toFixed(4)}
         BNC
       </h3>
 
