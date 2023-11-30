@@ -18,16 +18,27 @@ const ConnectBox: React.FC = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const handleLogout = async () => {
+  const disconnenctWallet = async () => {
     localStorage.removeItem("connectStatus");
     setSidebarOpen(false);
     window.location.reload();
   };
 
+  const logoutHandle = async () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("loggedIn");
+    setSidebarOpen(false);
+    window.location.reload();
+  };
+
   // 로그아웃 toggleSidebar 대신에 로그아웃 시켜줘야함!
-  const logoutCloseButton = (
+  const walletLogoutBox = (
     <>
-      <button onClick={handleLogout} className="w-[22px] h-[22px] mr-[10px] hover:scale-105">
+      <button
+        onClick={disconnenctWallet}
+        className="w-[25px] h-[25px] mr-[10px]"
+      >
         <img
           src="images/logout-icon.png"
           alt="logout button"
@@ -44,14 +55,23 @@ const ConnectBox: React.FC = () => {
     </>
   );
 
-  const closeButton = (
-    <button onClick={toggleSidebar} className="w-[18px] h-[18px] ml-[10px] mr-[10px] hover:scale-105">
-      <img
-        src="images/x-letter-icon.png"
-        alt="exit button"
-        className="w-full h-full"
-      />
-    </button>
+  const LogoutBox = (
+    <>
+      <button onClick={logoutHandle} className="w-[25px] h-[25px] mr-[10px]">
+        <img
+          src="images/logout-icon.png"
+          alt="logout button"
+          className="w-full h-full"
+        />
+      </button>
+      <button onClick={toggleSidebar} className="w-[25px] h-[25px]">
+        <img
+          src="images/x-letter-icon.png"
+          alt="exit button"
+          className="w-full h-full"
+        />
+      </button>
+    </>
   );
 
   return (
@@ -72,7 +92,7 @@ const ConnectBox: React.FC = () => {
             <WalletConnect />
           )
         }
-        button={user.account ? logoutCloseButton : closeButton}
+        button={user.account ? walletLogoutBox : LogoutBox}
         isOpen={isSidebarOpen}
         toggleMenu={toggleSidebar}
       >

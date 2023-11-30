@@ -4,14 +4,17 @@ import Card from "src/components/Card";
 import CardTitle from "src/components/Card/CardTitle";
 import useWeb3 from "src/hooks/web3.hook";
 
-const UnclaimedFeesCard:React.FC<{pool : PairItem, fee : UnclaimedFeeData}> = ({pool, fee}) => {
+const UnclaimedFeesCard: React.FC<{
+  pool: PairItem;
+  fee: UnclaimedFeeData;
+}> = ({ pool, fee }) => {
   return (
     <Card>
       <CardTitle>Unclaimed fees</CardTitle>
       <div className="flex mobile:flex-col">
         <div className=" flex flex-col pc:w-[40%] items-center pc:mt-3 mobile:mt-8 mobile:mb-10">
           {/* <div className="font-bold text-[30px] w-full mobile:mb-5 ">$ 맞는지 확인 {fee.token0FeeAmount + fee.token1FeeAmount}</div> */}
-          <div className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">
+          <div className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md">
             collect fees
           </div>
         </div>

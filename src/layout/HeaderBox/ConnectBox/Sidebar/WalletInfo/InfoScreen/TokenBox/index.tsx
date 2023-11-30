@@ -33,7 +33,7 @@ const TokenBox: React.FC<{ tokens: TokenArray }> = ({ tokens }) => {
 
   return (
     <div>
-      <div className="w-full pc:p-5 mobile:mt-5">
+      <div className="w-full h-full pc:p-5 mobile:mt-5">
         {/* <h3
                     className="font-bold text-[25px] text-left mb-5"
                 >
@@ -47,7 +47,7 @@ const TokenBox: React.FC<{ tokens: TokenArray }> = ({ tokens }) => {
 
         {/* <div className='h-[240px]'> */}
         {/* <div className="grid grid-cols-1 overflow-auto scrollbar overflow-y-scroll w-full h-full"> */}
-        <div className="flex flex-col justify-start">
+        <div className="flex flex-col justify-start overflow-auto pc:h-[500px] mobileSiedbar:h-[300px] overflow-y-scroll ">
           {tokens?.map((el: TokenItem, index: number) => (
             // <div
             //   key={index}

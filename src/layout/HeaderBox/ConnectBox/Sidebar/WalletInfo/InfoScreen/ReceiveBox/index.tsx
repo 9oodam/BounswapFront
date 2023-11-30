@@ -33,12 +33,12 @@ const ReceiveBox = () => {
       </div>
       <div className="flex justify-center">
         <div
-          className={`border-[3px] w-[170px] border-[#548941] rounded-full cursor-pointer flex items-center justify-evenly ${
-            copied ? `bg-[#548941]` : ``
+          className={`border-[3px] w-[170px] border-deepGreen rounded-full cursor-pointer flex items-center justify-evenly ${
+            copied ? `bg-deepGreen` : ``
           }`}
           onClick={copy}
         >
-          <div className={copied ? ` text-baseWhite` : `text-[#548941]`}>
+          <div className={copied ? ` text-baseWhite` : `text-deepGreen`}>
             {copied ? "복사 완료" : userAddress(user.account)}
           </div>
 
