@@ -72,7 +72,7 @@ const InfoScreen = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !(!dataContract || !web3 || !user)
+    enabled: !(!dataContract || !web3 || !user),
   });
 
   const { data: pools, refetch: poolRefetch } = useQuery({
@@ -81,19 +81,18 @@ const InfoScreen = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !(!dataContract || !web3 || !user)
+    enabled: !(!dataContract || !web3 || !user),
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     tokenRefetch();
     poolRefetch();
   }, [user]);
 
-
   if (!tokens) {
     tokenRefetch();
     return <>loading</>;
-  } 
+  }
 
   if (!pools) {
     poolRefetch();
@@ -108,7 +107,6 @@ const InfoScreen = () => {
   //   getTokens();
   //   getPools();
   // }, [dataContract, user, web3]);
-
 
   // const test =async () => {
   //   if (!pairContract) return;
@@ -199,7 +197,7 @@ const InfoScreen = () => {
           {/* <button className="bg-yellow-200 p-2 rounded" onClick={(e) => { setShowHistory("Activity", e.target as Element) }} >Activity</button> */}
         </div>
 
-        <div className="w-[80%] h-[100%] rounded">
+        <div className="w-[100%] h-[100%] rounded">
           {
             history == "Tokens" ? (
               <TokenBox tokens={tokens} />
