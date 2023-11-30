@@ -23,7 +23,7 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
   const [token1Amount, setToken1Amount] = useState<string>("");
   const [isExact, setIsExact] = useState<boolean>(true);
 
-  // 0-9까지의 정수만.
+  
   const Ref = /^(-?)([0-9]*)(\.?)([^0-9]*)([0-9]*)([^0-9]*)/;
   const errMsg = () => {
     return alert("AddLiquidity 실패");

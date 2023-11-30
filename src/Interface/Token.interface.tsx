@@ -66,11 +66,11 @@ export interface TokenNameInterface {
 
 export interface TitleNumInterface {
   title: string;
-  value: number;
+  value: number | string;
 }
 
 export interface TotalVolNTime {
-  totalvolum: number;
+  totalvolum: string;
   startTime: string;
   endTime: string;
 }
@@ -207,4 +207,11 @@ export interface UserLiquidity {
   token1Liquidity: string;
   token0Percent: string | number;
   token1Percent: string | number;
+}
+
+export interface DepositeChart {
+  token0Symbol: string;
+  token1Symbol: string;
+  token0percent: string | number;
+  token1percent: string | number;
 }

@@ -3,12 +3,15 @@ import { Divstyle } from "./poolpair.styled";
 import AddRemoveLiquidity from "src/contents/poolpair/Liquidity";
 import CardTitle from "src/components/Card/CardTitle";
 import Card from "../../components/Card";
-import CircleChart from "../../components/Card/CircleChart";
 import Pairname from "../../components/Pairname";
 import DepositeCard from "src/contents/poolpair/DepositeCard";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { DataArray, UnclaimedFeeData, UserLiquidity } from "src/Interface/Token.interface";
+import {
+  DataArray,
+  UnclaimedFeeData,
+  UserLiquidity,
+} from "src/Interface/Token.interface";
 import useWeb3 from "src/hooks/web3.hook";
 import { useParams } from "react-router-dom";
 import { PairItem } from "src/Interface/Token.interface";

@@ -6,7 +6,7 @@ import AddRemoveLiquidity from "src/contents/poolpair/Liquidity";
 import CardTitle from "src/components/Card/CardTitle";
 import PoolDetail from "src/contents/poolpair/PoolDetail";
 import DivCard from "../../components/Card";
-import ChartDiv from "../../components/Card/Chart";
+import AreaChart from "src/components/AreaChart";
 import Pairname from "../../components/Pairname";
 import useWeb3 from "src/hooks/web3.hook";
 import { useParams } from "react-router-dom";
@@ -64,7 +64,7 @@ const TopPoolpair: React.FC = () => {
           <div className={Divstyle.flexCol}>
             <DivCard>
               <CardTitle>Liquidity</CardTitle>
-              <ChartDiv></ChartDiv>
+              <AreaChart />
             </DivCard>
             <DivCard>
               <CardTitle>Pool Details</CardTitle>

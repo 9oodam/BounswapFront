@@ -1,9 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
-import { Contract } from "web3";
+import Web3, { Contract } from "web3";
 
 interface Params {
   stakingContract: Contract<any> | null;
   queryClient: QueryClient;
+  web3?: Web3 | null;
 }
 
 const StakingData = async (stakingContract: Contract<any> | null) => {
@@ -17,15 +18,18 @@ const StakingData = async (stakingContract: Contract<any> | null) => {
 export const getTotalLPToken = async ({
   stakingContract,
   queryClient,
+  web3,
 }: Params) => {
   try {
     const data = await StakingData(stakingContract);
+    const etherData = web3?.utils.fromWei(BigInt(data), "ether");
+    console.log("sjfgksfsg", etherData);
 
-    const totalLPTokenAmount = data ? BigInt(data).toString() : null;
+    // const totalLPTokenAmount = data ? BigInt(data).toString() : null;
 
-    queryClient.setQueryData(["totalLPTokenAmount"], totalLPTokenAmount);
+    queryClient.setQueryData(["totalLPTokenAmount"], etherData);
 
-    return totalLPTokenAmount;
+    return etherData;
   } catch (error) {
     console.log(error);
   }
