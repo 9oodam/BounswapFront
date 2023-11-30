@@ -4,7 +4,7 @@ import AddLiquidity from "./AddLiquidity";
 import RemoveLiquidity from "./RemoveLiquidity";
 import { PairItem } from "src/Interface/Token.interface";
 
-const AddRemoveLiquidity:React.FC<{data: PairItem}> = ({data}) => {
+const AddRemoveLiquidity:React.FC<{data: PairItem, refetch:()=>{}}> = ({data, refetch}) => {
   const [addColor, setAddColor] = useState("bg-[rgba(255,255,255,0.85)]");
   const [removeColor, setRemoveColor] = useState("bg-[#A9AAA6]");
   const [addTextColor, setAddTextColor] = useState("text-[#338415]");
@@ -60,7 +60,7 @@ const AddRemoveLiquidity:React.FC<{data: PairItem}> = ({data}) => {
         </Tap>
       </div>
       <div className="min-w-[340px] pc:w-[85%] mobile:w-full pc:p-5 bg-cardWhite rounded-xl: rounded-bodyBackRadius">
-        {click == "Add" ? <AddLiquidity data={data} /> : <RemoveLiquidity data={data} />}
+        {click == "Add" ? <AddLiquidity data={data} refetch={refetch} /> : <RemoveLiquidity data={data} refetch={refetch}/>}
         <div></div>
       </div>
     </div>

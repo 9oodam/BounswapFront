@@ -30,9 +30,10 @@ const CreateProposal = () => {
     return gov
   }
 
-  const { data : gov } = useQuery({ queryKey : ["gov"], queryFn : getData, enabled : !!web3 && !!dataContract && !!pairContract && !!user });
+  const { data : gov, refetch } = useQuery({ queryKey : ["gov"], queryFn : getData, enabled : !!web3 && !!dataContract && !!pairContract && !!user });
 
   if (!gov) {
+    refetch();
     return <>loading</>;
   }
 

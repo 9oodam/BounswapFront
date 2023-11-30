@@ -13,23 +13,45 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getEachPool } from "src/features/data/dataGetEachPool";
 import { PairItem } from "src/Interface/Token.interface";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const TopPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
   const { id } = useParams();
-  const [pool, setPool] = useState<PairItem>();
+  // const [pool, setPool] = useState<PairItem>();
+  const queryClient = useQueryClient();
+
+  // useEffect(()=>{
+  //   if (!pairContract || !dataContract || !id || user.account == "" || !web3) return;
+  //   const getData = async () => {
+  //     const pool = await getEachPool({pairContract, dataContract, pairAddress: id, userAddress: user.account, web3});
+  //     console.log("pool 테스트",pool);
+  //     setPool(pool);
+  //   }
+  //   if (!pool) {
+  //     getData();
+  //   }
+  // },[dataContract, user, pool])
+
   
-  useEffect(()=>{
-    if (!pairContract || !dataContract || !id || user.account == "" || !web3) return;
-    const getData = async () => {
-      const pool = await getEachPool({pairContract, dataContract, pairAddress: id, userAddress: user.account, web3});
-      console.log("pool 테스트",pool);
-      setPool(pool);
-    }
-    getData();
-  },[dataContract, user])
+  const getData = async () => {
+    if (!pairContract || !dataContract || !id || user.account == "" || !web3) return null;
+    const pool = await getEachPool({pairContract, dataContract, queryClient, pairAddress: id, userAddress: user.account, web3});
+    return pool;
+  }
+
+  const { data : pool, refetch } = useQuery({
+    queryKey : [`toppool_${id}`],
+    queryFn : getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!pairContract|| !dataContract || !web3 || !user)
+  });
+
 
   if (!pool) {
+    refetch();
     return <>loading</>
   }
 
@@ -49,7 +71,7 @@ const TopPoolpair: React.FC = () => {
               <PoolDetail data={pool}></PoolDetail>
             </DivCard>
           </div>
-          <AddRemoveLiquidity data={pool} />
+          <AddRemoveLiquidity data={pool} refetch={refetch} />
         </div>
       </Container>
     </>

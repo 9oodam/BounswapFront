@@ -13,8 +13,9 @@ import InputToken from "./InputToken";
 import LiquidiityBtn from "../LiquidiityBtn";
 import { PairItem } from "src/Interface/Token.interface";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import { getUserPools } from "src/features/data/dataGetUserPools";
 
-const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
+const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refetch }) => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
@@ -42,7 +43,7 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
     return data.tokensObj;
   };
 
-  const { data: tokens, refetch } = useQuery({
+  const { data: tokens, refetch : refetchTokens } = useQuery({
     queryKey: ["tokensObj"],
     queryFn: getTokens,
     gcTime: 0,
@@ -51,6 +52,18 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
     enabled: !(!dataContract || !web3 || !user)
   });
 
+  const getPairs =async () => {
+    if (!pairContract || !dataContract || user.account == "" || !web3) return null;
+    return await getUserPools({pairContract, dataContract, userAddress : user.account, queryClient, web3});
+  }
+  const { data : userpairs, refetch : refetchPairs } = useQuery({
+    queryKey : ["userPairs"],
+    queryFn: getPairs,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!pairContract|| !dataContract || !web3 || !user)
+  });
 
   const tryAddLiquidity = async () => {
     if (token0Amount == "" || token1Amount == "") return;
@@ -102,6 +115,8 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
           setToken1Amount("")
 
           refetch();
+          refetchTokens();
+          refetchPairs();
         }
       }
     }
@@ -175,11 +190,9 @@ const AddLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
   //   "10000000000000000000n",
   //   web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether")
   // );
-  if (!tokens) {
-    refetch();
-  }
 
   if (!tokens) {
+    refetchTokens();
     return <>loading</>
   }
   return (
