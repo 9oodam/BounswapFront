@@ -120,9 +120,51 @@ const StakeDetail = () => {
         "Fetched myPendingRewardUpdate Data",
         myPendingRewardUpdateData
       );
+
+      // const getNinjaLeftEvent1 = await getNinjaLeftEvent({
+      //   stakingContract
+      // })
+      // console.log("getNinjaLeftEvent",getNinjaLeftEvent1);
     };
     fetchData();
   }, [stakingContract, queryClient, user]);
+
+  useEffect(() => {
+    const NinjaEvent = async () => {
+      try {
+        const subscription = stakingContract?.events
+          .NinjaLiftInfo({
+            fromBlock: 0,
+          })
+          .on("data", (event) => {
+            const emergencyData:EmergencyData= {
+              ninja: event.returnValues._Ninja as string,
+              totalLPToken: event.returnValues._totalLPToken as number,
+              totalNinjaReward: event.returnValues._totalNinjaReward as number,
+              stakingLeftTime: event.returnValues._stakingLeftTime as number,
+              ninjaRewardRate: event.returnValues._ninjaRewardRate as number,
+            };
+
+            if(emergencyData) emergencies.push(emergencyData);
+            setEmergencies((prev) => [...prev, emergencyData]);
+          })
+        // .on("error", console.error);
+
+        // return () => {
+        //   if (subscription) {
+        //     subscription.unsubscribe();
+        //   }
+        // };
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    NinjaEvent();
+
+    console.log('탈주자', emergencies);
+
+  }, [stakingContract]);
+  // event NinjaLiftInfo(address _Ninja, uint256 _totalLPToken, uint256 _totalNinjaReward, uint256 _stakingLeftTime, uint256 _ninjaRewardRate); /// @dev 탈주자의 주소, 가져간 총LP수량, 쌓고 떠난 리워드, 시간, LP당 쌓은 비율 기록
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
 

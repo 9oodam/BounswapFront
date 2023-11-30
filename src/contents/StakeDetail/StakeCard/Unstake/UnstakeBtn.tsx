@@ -4,6 +4,7 @@ import {
   emergencyWithdraw,
   maturedWithdraw,
   setStakingEndDays,
+  addStakingPool,
 } from "src/features/staking/stakingSendFeatures";
 import useWeb3 from "src/hooks/web3.hook";
 
@@ -26,6 +27,10 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
     await setStakingEndDays({ stakingContract, user });
   };
 
+  const addStaking = async () => {
+    await addStakingPool({ stakingContract, user});
+  }
+
   return (
     <>
       <div
@@ -34,8 +39,8 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
       >
         {tokenName}
       </div>
-      {/* 지워도됌 */}
-      <div onClick={setStakingEndDay}>스테이킹 날짜 줄이기</div>
+      <div onClick={addStaking}>스테이킹 풀 생성(테스트 끝나고 지워야함)</div>
+      <div onClick={setStakingEndDay}>스테이킹 날짜 줄이기(테스트 끝나고 지워야함)</div>
     </>
   );
 };
