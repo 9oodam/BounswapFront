@@ -281,7 +281,7 @@ const PoolCreate = () => {
 
   return (
     <>
-      <div className="w-full flex justify-start">
+      <div className="w-full flex justify-start mobile:pl-[20px] mobile:h-[20px]">
         <img
           onClick={backArrow}
           src="/images/backArrow.png"
@@ -328,7 +328,9 @@ const PoolCreate = () => {
             onClick={() => {
               tryAddLiquidity();
             }}
-            className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-lightGreen rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md"
+            className="w-[85%] max-w-[500px] min-w-[340px] h-[60px]
+            bg-lightGreen rounded-[20px] m-2 mt-2 mb-[30px] text-xl font-bold text-white
+            flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md"
           >
             <button>{btnText}</button>
           </div>

@@ -47,7 +47,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
             // handleInputChange(e);
           }}
           value={value}
-          className="bg-transparent w-[70%] h-[40px] text-4xl border-gray-300 rounded-lg p-2 border-none outline-none"
+          className="bg-transparent w-[70%] h-[40px] text-4xl border-gray-300 rounded-lg p-2 border-none outline-none dark:text-white"
           inputMode="decimal"
           autoComplete="off"
           autoCorrect="off"
@@ -63,7 +63,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
       </div>
       <div>
         {selectedToken && (
-          <div className="pt-8px flex justify-end">
+          <div className="pt-8px flex justify-end dark:text-white">
             <div>{`Balance : ${
               selectedToken.tokenBalance.toFixed(5)
             }`}</div>

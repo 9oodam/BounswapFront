@@ -75,7 +75,7 @@ const ConnectBox: React.FC = () => {
   );
 
   return (
-    <div className=" w-[12%] h-[46px] ">
+    <div className=" w-[12%] h-[46px] mobile:w-[25%] mobile:flex mobile:justify-end">
       {user.account ? (
         <WalletAddressButton
           onClick={toggleSidebar}

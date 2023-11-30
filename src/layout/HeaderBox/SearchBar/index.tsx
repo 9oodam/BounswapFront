@@ -125,7 +125,7 @@ const SearchBox = () => {
   }
 
   return (
-    <div className="flex-col relative  justify-center w-[25%] mobile:w-[30%] header:hidden mobile:block">
+    <div className="flex-col relative  justify-center w-[25%] mobile:w-[30%] header:hidden mobile:block mobile:w-[70%]">
       <div className="flex">
         <div className="pc:w-[331px] w-full relative h-[46px] rounded-[63px] overflow-hidden border-[3px] border-baseWhite shadow-[0px_4px_5px_#00000040]">
           <img

@@ -26,7 +26,7 @@ export const WalletAddressButton: React.FC<ButtonProps> = ({
         alt="User Avatar"
         className="w-[24px] h-[24px] rounded-full"
       />
-      <span className={`ml-2 truncate text-base`}>
+      <span className={`ml-2 truncate text-base mobile:hidden`}>
         {walletAddress?.slice(0, 10)}...
       </span>
     </button>
