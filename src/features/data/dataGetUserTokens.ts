@@ -26,7 +26,7 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
             }
     
             if(el.symbol == "BNC") {
-                balance = Number(user.balance);
+                balance = Number(Number(user.balance).toFixed(4));
             }else {
                 balance = Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(4));
             }

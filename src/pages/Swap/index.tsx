@@ -113,6 +113,9 @@ const Swap = () => {
   useEffect(() => {
     if (isExact == false) return;
     console.log(parseFloat(InputTokenAmount));
+    if(Number(InputTokenAmount.replace(".", "")) == 0) {
+      return;
+    }
     const inputAmount = web3?.utils.toBigInt(
       web3?.utils.toWei(InputTokenAmount, "ether")
     );
@@ -141,6 +144,9 @@ const Swap = () => {
   useEffect(() => {
     if (isExact == true) return;
     console.log(parseFloat(OutputTokenAmount));
+    if(Number(OutputTokenAmount.replace(".", "")) == 0) {
+      return;
+    }
     const outputAmount = web3?.utils.toBigInt(
       web3?.utils.toWei(OutputTokenAmount, "ether")
     );

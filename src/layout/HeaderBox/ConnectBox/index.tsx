@@ -45,7 +45,7 @@ const ConnectBox: React.FC = () => {
           className="w-full h-full"
         />
       </button>
-      <button onClick={toggleSidebar} className="w-[23px] h-[23px] ml-[10px]">
+      <button onClick={toggleSidebar} className="w-[18px] h-[18px] ml-[10px] mr-[10px] hover:scale-105">
         <img
           src="images/x-letter-icon.png"
           alt="exit button"
