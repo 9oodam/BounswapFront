@@ -15,7 +15,7 @@ const StakingData = async (stakingContract: Contract<any> | null) => {
 export const getPoolInfo = async ({ stakingContract, queryClient }: Params) => {
   try {
     const data = await StakingData(stakingContract);
-  
+
     const poolInfo = data
       ? {
           lpToken: data.lpToken,
@@ -29,9 +29,9 @@ export const getPoolInfo = async ({ stakingContract, queryClient }: Params) => {
           stakingPoolStartTime: BigInt(data.stakingPoolStartTime).toString(),
         }
       : null;
-  
+
     queryClient.setQueryData(["poolInfo"], poolInfo);
-  
+
     return poolInfo;
   } catch (error) {
     console.log(error);
