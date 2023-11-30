@@ -3,12 +3,15 @@ import { Divstyle } from "./poolpair.styled";
 import AddRemoveLiquidity from "src/contents/poolpair/Liquidity";
 import CardTitle from "src/components/Card/CardTitle";
 import Card from "../../components/Card";
-import CircleChart from "../../components/Card/CircleChart";
 import Pairname from "../../components/Pairname";
 import DepositeCard from "src/contents/poolpair/DepositeCard";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { DataArray, UnclaimedFeeData, UserLiquidity } from "src/Interface/Token.interface";
+import {
+  DataArray,
+  UnclaimedFeeData,
+  UserLiquidity,
+} from "src/Interface/Token.interface";
 import useWeb3 from "src/hooks/web3.hook";
 import { useParams } from "react-router-dom";
 import { PairItem } from "src/Interface/Token.interface";
@@ -20,29 +23,46 @@ import { poolGetUserLiquidity } from "src/features/pair/pairpoolGetUserLiquidity
 const MyPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
   const { id } = useParams();
-  const queryClient = useQueryClient();
+  const [pool, setPool] = useState<PairItem>();
+  const [fee, setFee] = useState<UnclaimedFeeData>();
+  const [userLiquidity, setUserLiquidity] = useState<UserLiquidity>();
 
-  const getData = async () => {
-    if (!pairContract|| !dataContract || !id || user.account == "" || !web3) return null;
-    const pool = await getEachPool({pairContract, dataContract, queryClient, pairAddress: id, userAddress: user.account, web3});
-    const fee = await getUnclaimedFee({dataContract, userAddress : user.account, pairAddress : id, web3});
-    const userLiquidity = await poolGetUserLiquidity({pairContract, userAddress : user.account, pairAddress: id, web3});
-    const mypool = {pool, fee, userLiquidity};
-    queryClient.setQueryData([`mypool_${id}`], mypool);
-    return mypool;
-  };
-  
-  const { data, refetch } = useQuery({
-    queryKey : [`mypool_${id}`],
-    queryFn : getData,
-    gcTime: 0,
-    staleTime: 0,
-    refetchOnWindowFocus: "always",
-    enabled: !(!pairContract|| !dataContract || !web3 || !user)
-  });
+  useEffect(() => {
+    if (!pairContract || !dataContract || !id || user.account == "" || !web3)
+      return;
+    const getData = async () => {
+      const pool = await getEachPool({
+        pairContract,
+        dataContract,
+        pairAddress: id,
+        userAddress: user.account,
+        web3,
+      });
+      console.log("pool 테스트", pool);
+      setPool(pool);
 
-  if (!data) {
-    refetch();
+      const fee = await getUnclaimedFee({
+        dataContract,
+        userAddress: user.account,
+        pairAddress: id,
+        web3,
+      });
+      console.log("fee", fee);
+      setFee(fee);
+
+      const userLiquidity = await poolGetUserLiquidity({
+        pairContract,
+        userAddress: user.account,
+        pairAddress: id,
+        web3,
+      });
+      console.log("userlp", userLiquidity);
+      setUserLiquidity(userLiquidity);
+    };
+    getData();
+  }, [dataContract, user, id]);
+
+  if (!pool || !fee || !userLiquidity) {
     return <>loading</>;
   } 
 
@@ -52,8 +72,8 @@ const MyPoolpair: React.FC = () => {
       <Container>
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
-            <DepositeCard pool={data.pool} userLiquidity={data.userLiquidity}/>
-            <UnclaimedFeesCard pool={data.pool} fee={data.fee}/>
+            <DepositeCard pool={pool} userLiquidity={userLiquidity} />
+            <UnclaimedFeesCard pool={pool} fee={fee} />
           </div>
           <AddRemoveLiquidity data={data.pool} refetch = {refetch} />
         </div>

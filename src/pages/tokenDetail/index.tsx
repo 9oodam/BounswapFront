@@ -3,7 +3,7 @@ import Container from "src/components/container";
 import { Divstyles } from "./tokenDetail.style";
 import DivCard from "../../components/Card";
 import CardTitle from "../../components/Card/CardTitle";
-import ChartDiv from "../../components/Card/Chart";
+import AreaChart from "src/components/AreaChart";
 import Information from "../../contents/tokenDetail/information";
 import TokenName from "src/components/TokenName";
 import { useNavigate, useParams } from "react-router-dom";
@@ -47,7 +47,7 @@ const TokenDetail: React.FC = () => {
           <div className={Divstyles.flexCol}>
             <DivCard>
               <CardTitle>Volume</CardTitle>
-              <ChartDiv />
+              <AreaChart />
             </DivCard>
             <Information />
           </div>

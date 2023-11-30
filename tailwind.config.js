@@ -28,7 +28,7 @@ module.exports = {
         cardWhite: "#ffffffd9",
         baseWhite: "#ffffff",
         deepGreen: "#338415",
-        lightGreen: "#9CE084",
+        lightGreen: "#75e090",
         deepYellow: "#D8D46C",
         lightYellow: "#f5f070",
 

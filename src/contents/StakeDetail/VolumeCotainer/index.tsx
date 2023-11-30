@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "src/components/Card";
-import Chart from "src/components/Card/Chart";
+import AreaChart from "src/components/AreaChart";
 import { Divstyles } from "./VolumeCard.style";
 import { TotalVolNTime } from "src/Interface/Token.interface";
 import VolumeCard from "./VolumeCard";
@@ -22,7 +22,7 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
           </div>
         </div>
 
-        <Chart />
+        <AreaChart />
       </div>
     </Card>
   );
