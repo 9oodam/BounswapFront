@@ -33,19 +33,19 @@ const Governance = () => {
     return await getProposals({governanceContract, queryClient, web3});
   };
 
-  // const {
-  //   data,
-  //   isLoading,
-  //   error,
-  //   refetch
-  // } = useQuery({
-  //   queryKey: ["proposals"],
-  //   queryFn: getData,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   enabled: !!governanceContract,
-  // });
+  const {
+    data,
+    isLoading,
+    error,
+    refetch : refetchData
+  } = useQuery({
+    queryKey: ["proposals"],
+    queryFn: getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!governanceContract,
+  });
 
 // -----------------------------
 
@@ -55,26 +55,26 @@ const Governance = () => {
     return gov
   }
 
-  // const { data : gov } = useQuery({ queryKey : ["gov"], queryFn : getGov, enabled : !!web3 && !!dataContract && !!pairContract && !!user });
+  const { data : gov, refetch : refetchGov } = useQuery({ queryKey : ["gov"], queryFn : getGov, enabled : !!web3 && !!dataContract && !!pairContract && !!user });
 
-  const data = useQueries({
-    queries : [
-      {
-        queryKey: ["proposals"],
-        queryFn: getData,
-        gcTime: 0,
-        staleTime: 0,
-        refetchOnWindowFocus: "always",
-        enabled: !!governanceContract,
+  // const data = useQueries({
+  //   queries : [
+  //     {
+  //       queryKey: ["proposals"],
+  //       queryFn: getData,
+  //       gcTime: 0,
+  //       staleTime: 0,
+  //       refetchOnWindowFocus: "always",
+  //       enabled: !!governanceContract,
       
-      },
-      { queryKey : ["gov"], queryFn : getGov, refetchOnWindowFocus: "always", staleTime : 0,  enabled : !!web3 && !!dataContract && !!pairContract && !!user }
-    ]
-  });
+  //     },
+  //     { queryKey : ["gov"], queryFn : getGov, refetchOnWindowFocus: "always", staleTime : 0,  enabled : !!web3 && !!dataContract && !!pairContract && !!user }
+  //   ]
+  // });
 
     // 투표
     const voteProposal =async (support : boolean, id : number, proposer : string) => {
-      if (!governanceContract || user.account == "" || !data[1].data) {
+      if (!governanceContract || user.account == "" || !gov) {
         alert("loading")
         return;
       }
@@ -85,7 +85,7 @@ const Governance = () => {
       }
   
       // 거버넌스 토큰 0이면 투표 불가
-      if (data[1].data.tokenBalance == 0) {
+      if (gov.tokenBalance == 0) {
         alert("거버넌스 토큰 없음");
         return;
       }
@@ -94,14 +94,15 @@ const Governance = () => {
       console.log("result", result);
   
       if (result == true) {
-        alert("succeed");
+        alert("투표되었습니다.");
       } else if (result == "already voted") {
-        alert("already voted");
+        alert("이미 투표했습니다.");
       } else {
-        alert("error");
+        alert("투표 취소");
       }
   
-      data[1].refetch();
+      refetchGov();
+      refetchData();
     }
 
 // -----------------------------
@@ -140,30 +141,17 @@ const Governance = () => {
   //   console.log("data", data);
   // }
 
-  useEffect(()=>{
-    console.log("0 : ", data, !data[0].data);
-    console.log("1 : ", data, !data[1].data);
-    
-    if (!data[0].data) {
-      data[0].refetch();
-      console.log("0 : refetch");
-    }
-    if (!data[1].data) {
-      data[1].refetch();
-      console.log("1 : refetch");
-    }
-  }, [data]);
 
 
-  if (!data[0].data || !data[1].data) {
+  if (!data) {
+    refetchData();
     return <>loading</>;
   }
-  // if (!data || !gov) {
-  //   return <>loading</>;
-  // }
 
-
-
+  if (!gov) {
+    refetchGov();
+    return <>loading</>;
+  }
 
   return (
     <Container>
@@ -180,7 +168,7 @@ const Governance = () => {
         <Card>
           <div className="pc:grid w-full pc:gap-y-4">
             <DashTitle />
-            <DashText data={data[0].data} voteProposal={voteProposal} />
+            <DashText data={data} voteProposal={voteProposal} />
           </div>
         </Card>
       </div>

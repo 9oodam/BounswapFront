@@ -7,12 +7,13 @@ import { getPoolLiquidityFromEvent } from "../event/liquidity";
 interface Params {
     pairContract: Contract<any>;
     dataContract: Contract<any>;
+    queryClient : QueryClient;
     pairAddress: string;
     userAddress: string;
     web3: Web3;
 }
 
-export const getEachPool =async ({pairContract, dataContract, pairAddress, userAddress, web3} : Params) => {
+export const getEachPool =async ({pairContract, dataContract, queryClient, pairAddress, userAddress, web3} : Params) => {
     const data = await (dataContract.methods.getEachPool as any)(pairAddress, userAddress).call();
     console.log(data);
     const volume = await getPoolVolumeFromEvent(pairContract, pairAddress);
@@ -33,7 +34,6 @@ export const getEachPool =async ({pairContract, dataContract, pairAddress, userA
             pairBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
             pairLiquidityArr: liquidityData.liquidityArr
     }
-    console.log(pool)
-        
+    queryClient.setQueryData([`toppool_${pairAddress}`], pool);
     return pool;
 }

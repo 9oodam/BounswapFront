@@ -245,9 +245,8 @@ const PoolCreate = () => {
 
   if (!data) {
     refetch();
+    return <>loading</>;
   }
-
-  if(!data) return <>loading</>;
 
   return (
     <>

@@ -267,14 +267,14 @@ const Swap = () => {
     setMinToken("");
     setMaxToken("");
     setBtnText("Select a token");
+
+    refetch();
   };
 
   if (!data) {
     refetch();
+    return <>loading</>;
   }
-
-  if(!data) return <>loading</>
-  // if(!data) return <>loading</>
 
   return (
     <SwapContainer>

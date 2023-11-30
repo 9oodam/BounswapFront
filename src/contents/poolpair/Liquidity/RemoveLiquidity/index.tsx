@@ -17,7 +17,7 @@ import Price from "./PercentBtnWarp/Price";
 import { PairItem } from "src/Interface/Token.interface";
 import { getAmountOut } from "src/features/pair/swapSendFeatures";
 
-const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
+const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refetch }) => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract } = useWeb3(window.ethereum);
 
@@ -82,20 +82,25 @@ const RemoveLiquidity: React.FC<{ data: PairItem }> = ({ data }) => {
             errMsg();
           }else {
             setPercentage("");
-            setTokens({
-              token1: {
-                amount: "",
-                symbol: data.token0Symbol,
-              },
-              token2: {
-                amount: "",
-                symbol: data.token1Symbol,
-              },
-            });
+            // setTokens({
+            //   token1: {
+            //     amount: "",
+            //     symbol: data.token0Symbol,
+            //   },
+            //   token2: {
+            //     amount: "",
+            //     symbol: data.token1Symbol,
+            //   },
+            // });
           }
         }
       }
     }
+
+
+
+    // refetch tokens, pools
+    refetch();
   };
 
   // ! 현재 페어 심볼과 내가 가진 페어의 양을 테스트하는 함수

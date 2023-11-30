@@ -20,50 +20,42 @@ import { poolGetUserLiquidity } from "src/features/pair/pairpoolGetUserLiquidity
 const MyPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
   const { id } = useParams();
-  const [pool, setPool] = useState<PairItem>();
-  const [fee, setFee] = useState<UnclaimedFeeData>();
-  const [userLiquidity, setUserLiquidity] = useState<UserLiquidity>()
+  const queryClient = useQueryClient();
 
+  const getData = async () => {
+    if (!pairContract|| !dataContract || !id || user.account == "" || !web3) return null;
+    const pool = await getEachPool({pairContract, dataContract, queryClient, pairAddress: id, userAddress: user.account, web3});
+    const fee = await getUnclaimedFee({dataContract, userAddress : user.account, pairAddress : id, web3});
+    const userLiquidity = await poolGetUserLiquidity({pairContract, userAddress : user.account, pairAddress: id, web3});
+    const mypool = {pool, fee, userLiquidity};
+    queryClient.setQueryData([`mypool_${id}`], mypool);
+    return mypool;
+  };
+  
+  const { data, refetch } = useQuery({
+    queryKey : [`mypool_${id}`],
+    queryFn : getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!pairContract|| !dataContract || !web3 || !user)
+  });
 
-  useEffect(()=>{
-    if (!pairContract|| !dataContract || !id || user.account == "" || !web3) return;
-    const getData = async () => {
-      const pool = await getEachPool({
-        pairContract,
-        dataContract,
-        pairAddress: id,
-        userAddress: user.account,
-        web3,
-      });
-      console.log("pool 테스트", pool);
-      setPool(pool);
-
-      const fee = await getUnclaimedFee({dataContract, userAddress : user.account, pairAddress : id, web3});
-      console.log("fee", fee);
-      setFee(fee);
-
-      const userLiquidity = await poolGetUserLiquidity({pairContract, userAddress : user.account, pairAddress: id, web3});
-      console.log("userlp", userLiquidity);
-      setUserLiquidity(userLiquidity);
-    };
-    getData();
-  }, [dataContract, user]);
-
-  if (!pool || !fee || !userLiquidity) {
+  if (!data) {
+    refetch();
     return <>loading</>;
-  }
+  } 
 
   return (
-    // <div className={Divstyle.w_90}>
     <>
-      <Pairname data={pool} />
+      <Pairname data={data.pool} />
       <Container>
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
-            <DepositeCard pool={pool} userLiquidity={userLiquidity}/>
-            <UnclaimedFeesCard pool={pool} fee={fee}/>
+            <DepositeCard pool={data.pool} userLiquidity={data.userLiquidity}/>
+            <UnclaimedFeesCard pool={data.pool} fee={data.fee}/>
           </div>
-          <AddRemoveLiquidity data={pool} />
+          <AddRemoveLiquidity data={data.pool} refetch = {refetch} />
         </div>
       </Container>
     </>
