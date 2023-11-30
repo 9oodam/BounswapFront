@@ -44,7 +44,7 @@ const MyPoolpair: React.FC = () => {
     enabled: !(!pairContract|| !dataContract || !web3 || !user)
   });
 
-  if (!data) {
+  if (!data || !pairContract || !user) {
     refetch();
     return <>loading</>;
   } 
@@ -56,7 +56,7 @@ const MyPoolpair: React.FC = () => {
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
             <DepositeCard pool={data.pool} userLiquidity={data.userLiquidity}/>
-            <UnclaimedFeesCard pool={data.pool} fee={data.fee}/>
+            <UnclaimedFeesCard pairCon={pairContract} user={user.account} pool={data.pool} fee={data.fee}/>
           </div>
           <AddRemoveLiquidity data={data.pool} refetch = {refetch} />
         </div>

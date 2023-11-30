@@ -1,6 +1,6 @@
 const TipSection = () => {
   return (
-    <div className="w-full bg-lightGreen rounded-[20px] text-xl flex items-center justify-center shadow-md p-2">
+    <div className="w-full bg-lightGreen dark:bg-D_opercityBlack rounded-[20px] text-xl flex items-center justify-center shadow-md p-2 mobile:text-sm">
       <div className="text-deepGreen">
         <strong>Tip:</strong> Select an action and describe your proposal for
         the community. The proposal cannot be modified after submission, so

@@ -281,7 +281,7 @@ const PoolCreate = () => {
 
   return (
     <>
-      <div className="w-full flex justify-start">
+      <div className="w-full flex justify-start mobile:pl-[20px] mobile:h-[20px]">
         <img
           onClick={backArrow}
           src="/images/backArrow.png"

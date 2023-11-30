@@ -300,7 +300,7 @@ const Swap = () => {
             value={InputTokenAmount}
           />
         </Card>
-        <div className="text-lightBlack dark:text-white text-4xl">↓</div>
+        <div className="text-lightBlack dark:text-baseWhite text-4xl">↓</div>
         <Card>
           <div className="text-lightBlack text-left">You receive</div>
           <TokenInput

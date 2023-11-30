@@ -2,19 +2,33 @@ import React, { useEffect } from "react";
 import { PairItem, UnclaimedFeeData } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
 import CardTitle from "src/components/Card/CardTitle";
+import { claimFee } from "src/features/pair/poolSendFeatures";
 import useWeb3 from "src/hooks/web3.hook";
+import Contract from "web3-eth-contract";
 
 const UnclaimedFeesCard: React.FC<{
+  pairCon: Contract<any>;
+  user: string;
   pool: PairItem;
   fee: UnclaimedFeeData;
-}> = ({ pool, fee }) => {
+}> = ({ pairCon, user, pool, fee }) => {
+
+  const tryClaimFee = async () => {
+    const data = claimFee(
+      pairCon, pool.pairAddress, user
+    )
+    console.log(tryClaimFee);
+  }
+
   return (
     <Card>
       <CardTitle>Unclaimed fees</CardTitle>
       <div className="flex mobile:flex-col">
         <div className=" flex flex-col pc:w-[40%] items-center pc:mt-3 mobile:mt-8 mobile:mb-10">
           {/* <div className="font-bold text-[30px] w-full mobile:mb-5 ">$ 맞는지 확인 {fee.token0FeeAmount + fee.token1FeeAmount}</div> */}
-          <div className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md">
+          <div
+          onClick={() => {tryClaimFee()}}
+          className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md">
             collect fees
           </div>
         </div>

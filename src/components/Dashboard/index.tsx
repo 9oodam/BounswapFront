@@ -22,10 +22,10 @@ const Dashboard: React.FC<{
   return (
     <div className="flex justify-center w-full">
       <Card>
-        <table className="w-full text-deepBlack">
+        <table className="w-full text-deepBlack dark:text-baseWhite">
           <thead>
             <tr className=" border-b-2 h-[50px] text-[18px] ">
-              <th className="w-[55%] text-left pl-7">
+              <th className="w-[55%] text-left pl-7 mobile:pl-3">
                 {"tokenName" in title
                   ? title.tokenName
                   : "PairName" in title
@@ -89,7 +89,7 @@ const Dashboard: React.FC<{
                 }}
               >
                 <td>
-                  <div className="flex justify-start items-center pl-7 ">
+                  <div className="flex justify-start items-center pl-7 mobile:pl-3 ">
                     {"tokenUri" in data || "stakeImg" in data ? (
                       <div className="w-[40px] h-[40px] rounded-full">
                         <img
