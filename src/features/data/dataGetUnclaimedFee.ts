@@ -14,7 +14,6 @@ export const getUnclaimedFee = async ({ dataContract, userAddress, pairAddress, 
         token0FeeAmount: Number(Number(web3.utils.fromWei(data[0], "ether")).toFixed(5)),
         token1FeeAmount: Number(Number(web3.utils.fromWei(data[1], "ether")).toFixed(5))
     }
-    console.log("data", data);
 
     return unclaimedFeeData;
 }
