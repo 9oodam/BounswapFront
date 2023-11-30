@@ -27,13 +27,34 @@ import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
 import { myPendingRewardUpdate } from "src/features/staking/stakingGetPendingReward";
 import { deposit } from "src/features/staking/stakingSendFeatures";
 
+interface totalToken {
+  lpToken: string;
+  allocPoint: string;
+  lastRewardBlock: string;
+  accBNCPerShare: string;
+  stakingPoolEndTime: string;
+  stakingPoolStartTime: string;
+}
+
+interface userInfo {
+  amount: string;
+  exactRewardCal: string;
+  pendingReward: string;
+  stakingStartTime: string;
+}
+
 const StakeDetail = () => {
-  const { user, stakingContract, LPTokenContract, wbncContract } = useWeb3(
-    window.ethereum
-  );
+  const { user, web3, stakingContract, LPTokenContract, wbncContract } =
+    useWeb3(window.ethereum);
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
   const [selectToken, setSelectTokens] = useState<StakeItem | null>(null);
   const [withdrawal, setWithdrawal] = useState<EarlyArray | null>(null);
+  const [totalLpToken, setTotalLpToken] = useState<string | null | undefined>(
+    null
+  );
+  const [poolInfo, setPoolInfo] = useState<totalToken | null>();
+  const [userInfo, setUserInfo] = useState<userInfo | null>();
+
   const params = useParams<{ id: string }>();
 
   const queryClient = useQueryClient();
@@ -48,6 +69,7 @@ const StakeDetail = () => {
         stakingContract,
         queryClient,
       });
+      setPoolInfo(PoolInfoData);
       console.log("Fetched PoolInfo Data", PoolInfoData);
 
       // * 가장 최근에 떠난 탈주자의 값.
@@ -64,13 +86,16 @@ const StakeDetail = () => {
         queryClient,
         user,
       });
+      setUserInfo(UserInfoData);
+      console.log("Fetched UserInfo Data", UserInfoData);
 
       // * stake pool에 대한 total Token Amount
-      console.log("Fetched UserInfo Data", UserInfoData);
       const getTotalLPTokenData = await getTotalLPToken({
         stakingContract,
         queryClient,
+        web3,
       });
+      setTotalLpToken(getTotalLPTokenData);
       console.log("Fetched getTotalLPToken Data", getTotalLPTokenData);
 
       const myAllRewardData = await myAllRewardInfo({
@@ -242,13 +267,14 @@ const StakeDetail = () => {
       <Container>
         <div className={Divstyles.flexRow}>
           <div className={Divstyles.flexCol}>
-            {selectToken && (
+            {totalLpToken && selectToken && (
               <VolumeCotainer
-                totalvolum={selectToken?.totalStaked}
-                endTime={getTime(selectToken.endTime)}
-                startTime={getTime(selectToken.startTime)}
+                totalvolum={totalLpToken}
+                endTime={getTime(Number(poolInfo?.stakingPoolEndTime))}
+                startTime={getTime(Number(poolInfo?.stakingPoolStartTime))}
               />
             )}
+
             <div className="w-full mobile:hidden flex justify-center">
               {withdrawal && <EarlyCard data={withdrawal} />}
             </div>
