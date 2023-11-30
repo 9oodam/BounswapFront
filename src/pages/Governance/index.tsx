@@ -4,7 +4,6 @@ import Card from "src/components/Card";
 import Container from "src/components/container";
 import useWeb3 from "src/hooks/web3.hook";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import DashTitle from "src/contents/governance/DashTitle";
 import DashText from "src/contents/governance/DashText";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,17 +12,13 @@ import { getProposals } from "src/features/governance/govGetProposals";
 import { bNCForExactTokens } from "src/features/pair/swapSendFeatures";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { vote } from "src/features/governance/govSendFeatures";
-import { getUserTokens } from "src/features/data/dataGetUserTokens";
-import { vote } from "src/features/governance/govSendFeatures";
 
 const Governance = () => {
-  const { web3, governanceContract, pairContract, dataContract, user } = useWeb3(null);
   const { web3, governanceContract, pairContract, dataContract, user } = useWeb3(null);
   const [pop, setPop] = useState<Record<number, boolean>>({});
   const [nowTime, setNowTime] = useState<number>(0);
   const [forPercent, setForPercent] = useState<number>(0);
   const [againstPercent, setAgainstPercent] = useState<number>(0);
-  const queryClient = useQueryClient();
   const queryClient = useQueryClient();
 
   useEffect(() => {

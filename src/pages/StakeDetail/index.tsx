@@ -26,6 +26,7 @@ import { myAllRewardInfo } from "src/features/staking/stakingGetMyAllRewardInfo"
 import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
 import { myPendingRewardUpdate } from "src/features/staking/stakingGetPendingReward";
 import { deposit } from "src/features/staking/stakingSendFeatures";
+import { EmergencyData, EmergencyEventArr } from "src/Interface/Ninja.interface";
 
 interface totalToken {
   lpToken: string;
@@ -54,6 +55,7 @@ const StakeDetail = () => {
   );
   const [poolInfo, setPoolInfo] = useState<totalToken | null>();
   const [userInfo, setUserInfo] = useState<userInfo | null>();
+  const [emergencies, setEmergencies] = useState<EmergencyEventArr>([]); // 탈주자 정보
 
   const params = useParams<{ id: string }>();
 
