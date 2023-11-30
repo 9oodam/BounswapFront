@@ -42,11 +42,11 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
 
   return (
     <div className="w-[85%]">
-      <div className="flex items-center justify-between p-5">
+      <div className="flex items-center justify-between p-5 dark:text-white">
         <div>Initial price and pool share</div>
       </div>
 
-      <div className="w-full p-5 rounded-[20px]">
+      <div className="w-full p-5 rounded-[20px] dark:text-white">
         <div className="grid auto-rows-auto gap-[12px]">
           <div className="flex flex-wrap m-[-px] justify-around">
             <div className="grid-flow-row auto-rows-auto justify-center">

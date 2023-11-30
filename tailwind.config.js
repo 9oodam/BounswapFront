@@ -32,15 +32,24 @@ module.exports = {
         deepYellow: "#D8D46C",
         lightYellow: "#f5f070",
 
-        D_opercityBlack: "#ffffffd9",
+        D_opercityBlack: "#000000", // swap contrainer
         D_deepBlack: "#ffffff",
         D_lightBlack: "#c8c8c8",
-        D_cardWhite: "#37373740",
+        D_cardWhite: "#373737cc", // input
         D_baseWhite: "#454545",
-        D_deepGreen: "#34c200",
+        D_deepGreen: "#34c200cc",
         D_lightGreen: "#c0fea9",
         D_deepYellow: "#ece753",
-        D_lightYellow: "#fffcb2",
+        D_lightYellow: "#000000",
+        // D_opercityBlack: "#37373740",
+        // D_deepBlack: "#ffffff",
+        // D_lightBlack: "#c8c8c8",
+        // D_cardWhite: "#37373740",
+        // D_baseWhite: "#454545",
+        // D_deepGreen: "#34c200",
+        // D_lightGreen: "#c0fea9",
+        // D_deepYellow: "#ece753",
+        // D_lightYellow: "#fffcb2",
       },
 
       borderRadius: {

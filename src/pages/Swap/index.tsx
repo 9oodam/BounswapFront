@@ -300,6 +300,7 @@ const Swap = () => {
             value={InputTokenAmount}
           />
         </Card>
+        <div className="text-lightBlack dark:text-white text-4xl">↓</div>
         <Card>
           <div className="text-lightBlack text-left">You receive</div>
           <TokenInput
@@ -314,13 +315,15 @@ const Swap = () => {
         </Card>
         {minToken &&        
         <SwapFetchingCard>
-          <div>minToken : {minToken}</div>
+          <div>Max slippage <span className="text-xs">(minToken) 0.5%</span></div>
+          <div>{minToken}</div>
         </SwapFetchingCard>
         }
         {maxToken &&        
         <SwapFetchingCard>
-          <div>maxToken : {maxToken}</div>
-        </SwapFetchingCard>
+        <div>Max slippage <span className="text-xs">(maxToken) 0.5%</span></div>
+        <div>{maxToken}</div>
+      </SwapFetchingCard>
         }
         <SwapBtn tokenName={btnText} onClick={trySwap} />
         {/* 조건 1.지갑연동 안됐을때 wallet 연결 유도 2. 토큰 두개다 골랐는데 Input or Output 입력안됐을때 "Enter an amount" 3. Input or Output 이 입력됐을때 계산실행해주기 "fetching best price 표시 -> 입력됐을때 얼마로 바꿔줄수있는지 표시 "1UNI = 3.234 WETH" 4. 내가 보유한 첫번째 TokenInput 의 balance 가 InputValue 보다 높을때는 "Insufficient WETH balance" 띄어주고 swap 막기 5.위의 조건을 다 피해가면 그때 "Swap"가능 */}
