@@ -87,7 +87,6 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
               {sharePercent
                   ? sharePercent
                   : "-"}
-                -
               </div>
               <div className="">Share of pool</div>
             </div>

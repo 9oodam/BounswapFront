@@ -156,14 +156,13 @@ const Governance = () => {
   return (
     <Container>
       <div className="w-full flex flex-col justify-center items-center">
-        <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25)">
+        <div className="text-baseWhite w-[85%] text-left text-[35px] font-bold mt-7 shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25) flex justify-between items-center">
           Governance
+          <CustomLinkButton
+            to={"/governance/create"}
+            children={"Create propsal"}
+          />
         </div>
-
-        <CustomLinkButton
-          to={"/governance/create"}
-          children={"Create propsal"}
-        />
 
         <Card>
           <div className="pc:grid w-full pc:gap-y-4">

@@ -45,11 +45,11 @@ interface userInfo {
 }
 
 const StakeDetail = () => {
-  const { user, stakingContract } = useWeb3(window.ethereum);
+  const { user, web3, stakingContract, LPTokenContract, wbncContract } =
+    useWeb3(window.ethereum);
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
   const [selectToken, setSelectTokens] = useState<StakeItem | null>(null);
   const [withdrawal, setWithdrawal] = useState<EarlyArray | null>(null);
-  const [emergencies, setEmergencies] = useState<EmergencyEventArr>([]); // 탈주자 정보
   const [totalLpToken, setTotalLpToken] = useState<string | null | undefined>(
     null
   );
@@ -66,6 +66,7 @@ const StakeDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // * stake pool에 대한 정보
       const PoolInfoData = await getPoolInfo({
         stakingContract,
         queryClient,
@@ -73,6 +74,8 @@ const StakeDetail = () => {
       setPoolInfo(PoolInfoData);
       console.log("Fetched PoolInfo Data", PoolInfoData);
 
+      // * 가장 최근에 떠난 탈주자의 값.
+      // ! 탈주자에 대한 이벤트 구독 해야 함
       const NinjaInfoData = await getNinjaInfo({
         stakingContract,
         queryClient,

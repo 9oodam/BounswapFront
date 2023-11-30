@@ -49,16 +49,17 @@ const Pool = () => {
   return (
     <Container>
       <div className="flex flex-col items-center">
-        <div className="text-baseWhite w-[85%]  text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
-          pools
-        </div>
-        <div className="w-[85%] flex justify-end">
+        <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25) flex justify-between items-center">
+          Pools
+        {/* <div className="w-[85%] flex justify-end"> */}
           <div
-            className="bg-lightGreen p-3 text-baseWhite font-bold pc:text-[20px] rounded-xl hover:bg-deepGreen cursor-pointer"
+            className="bg-lightGreen p-3 text-baseWhite font-bold pc:text-[20px] rounded-xl hover:bg-deepGreen cursor-pointer
+            h-[40px] w-[120px] flex justify-center items-center text-[14px] shadow-md"
             onClick={() => nav("/pool/create")}
           >
             New Position
           </div>
+        {/* </div> */}
         </div>
         <Dashboard
           arr={poolArr.slice(0, visible)}

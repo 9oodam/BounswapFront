@@ -72,8 +72,7 @@ const InfoScreen = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    // enabled: !!dataContract && !!web3 && !!user,
-    enabled: !(!dataContract || !web3 || !user),
+    enabled: !(!dataContract || !web3 || !user)
   });
 
   const { data: pools, refetch: poolRefetch } = useQuery({
@@ -82,20 +81,24 @@ const InfoScreen = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    // enabled: !!dataContract && !!web3 && !!user
-    enabled: !(!dataContract || !web3 || !user),
+    enabled: !(!dataContract || !web3 || !user)
   });
 
-  useEffect(() => {
-    if (!tokens) {
-      console.log("tokenrefetch");
-      tokenRefetch();
-    }
-    if (!pools) {
-      console.log("poolrefetch");
-      poolRefetch();
-    }
-  });
+  useEffect(()=>{
+    tokenRefetch();
+    poolRefetch();
+  }, [user]);
+
+
+  if (!tokens) {
+    tokenRefetch();
+    return <>loading</>;
+  } 
+
+  if (!pools) {
+    poolRefetch();
+    return <>loading</>;
+  }
 
   // useEffect(() => {
   //   if (!dataContract || !user || !web3) return;

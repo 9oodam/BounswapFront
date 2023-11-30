@@ -32,7 +32,7 @@ module.exports = {
         deepYellow: "#D8D46C",
         lightYellow: "#f5f070",
 
-        D_opercityBlack: "#000000", // swap contrainer
+        D_opercityBlack: "rgba(0, 0, 0, 0)", // swap contrainer
         D_deepBlack: "#ffffff",
         D_lightBlack: "#c8c8c8",
         D_cardWhite: "#373737cc", // input
