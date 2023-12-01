@@ -145,12 +145,6 @@ const useWeb3 = (provider: string | null) => {
     //   return;
     // }
 
-    //// ! state 가 bounswallet 일때 return
-    if (connectStatus == "BounsWallet") {
-      // getBalance(BounsAddress);
-      return;
-    }
-
     if (window.ethereum) {
       const web3Provider = new Web3(window.ethereum);
       setWeb3(web3Provider);
@@ -171,14 +165,16 @@ const useWeb3 = (provider: string | null) => {
     }
     window.ethereum.on("chainChanged", async (chainID: string) => {
       console.log("네트워크 변경");
-      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+      if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
         const net = await window.ethereum.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }],
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
@@ -217,23 +213,26 @@ const useWeb3 = (provider: string | null) => {
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2",
+        // "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
+        "0x0103f9Dec7dc8378d11f9ac29E6796d76725a0C2", // bounce
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4",
+        // "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
+        "0xd9742c39d3EA58f674AC5b7A135f5b31923D8aD9", // bounce
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0xCF36B339BC1023D574F04582f891429273AF1461",
-        // "0x050Ade3854C7493dD67271f85Fc40459674F737C",
+        // "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
+        "0xAb74d94c354779cEd1A50a4E0c428Ab1eb7CcA5B", // bounce
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0xD73865E343138f35C57EAc514257cDdD2FAa97aB",
+        // "0xD73865E343138f35C57EAc514257cDdD2FAa97aB", // sepolia
+        "0x180966C6adf826ad0D5D0D831fCe84dd7E876f94", // bounce
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
