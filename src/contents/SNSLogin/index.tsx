@@ -4,6 +4,7 @@ import { getLoginUrl } from "src/Service/authService";
 import { SNSLoginProps } from "src/Interface/SNSLoginProps";
 import Footer from "src/layout/FooterBox";
 import { DivStyle } from "./SNSLogin.styled";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -90,15 +91,15 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
 
   return (
     <>
-    {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
+      {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
 
       <div className={DivStyle.SNSLoginBox}>
-        <img className="w-[125px] h-[125px]" src="/images/BounsIo_LOGO.png" />
+        <img className="w-[125px] h-[125px]" src={`${ImgBaseUrl()}BounsIo_LOGO.png`} />
         <div className=" w-full h-[23px] top-[36px] left-0 [text-shadow:0px_4px_4px_#00000040] font-bold text-baseWhite text-[25px] tracking-[0] leading-[normal] whitespace-nowrap">
           BounSwap
         </div>
         <button
-          className="w-[20%] h-11 mt-16 bg-[#75e090] shadow-lg hover:bg-[#25b14a] rounded-full text-baseWhite font-bold text-[25px] cursor-pointer"
+          className="w-[20%] h-11 mt-16 bg-lightGreen shadow-lg hover:bg-deepGreen rounded-full text-baseWhite font-bold text-[25px] cursor-pointer"
           onClick={onClickLogin}
         >
           Sign
@@ -109,7 +110,7 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
             verifyDidToken
           </button> */}
       {/* <pre className="jwtPre">{JSON.stringify(loggedData, null, 2)}</pre> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

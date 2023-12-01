@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useWeb3 from "src/hooks/web3.hook";
 import { QRCodeCanvas } from "qrcode.react";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const ReceiveBox = () => {
   const { user } = useWeb3(null);
@@ -26,27 +27,29 @@ const ReceiveBox = () => {
     }, 1000);
   };
 
-    return (
-        <>
-            <QRCodeCanvas value={user.account} />
+  return (
+    <>
+      <div className="flex justify-center mb-2">
+        <QRCodeCanvas value={user.account} />
+      </div>
+      <div className="flex justify-center">
+        <div
+          className={`border-[3px] w-[170px] border-deepGreen rounded-full cursor-pointer flex items-center justify-evenly ${
+            copied ? `bg-deepGreen` : ``
+          }`}
+          onClick={copy}
+        >
+          <div className={copied ? ` text-baseWhite` : `text-deepGreen`}>
+            {copied ? "복사 완료" : userAddress(user.account)}
+          </div>
 
-      <div
-        className={`border-2 w-[170px] border-deepBlack rounded-full cursor-pointer flex items-center justify-evenly ${
-          copied ? `bg-deepBlack` : ``
-        }`}
-        onClick={copy}
-      >
-        <div className={copied ? ` text-baseWhite` : `text-deepBlack`}>
-          {copied ? "복사 완료" : userAddress(user.account)}
+          {!copied && (
+            <img src={`${ImgBaseUrl()}copy icon.png`} className="w-[20px] h-[20px]" />
+          )}
         </div>
-
-                {!copied && (
-                    <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
-                )}
-            </div>
-
-        </>
-    )
-}
+      </div>
+    </>
+  );
+};
 
 export default ReceiveBox;

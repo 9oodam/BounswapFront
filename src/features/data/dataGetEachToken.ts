@@ -13,12 +13,6 @@ interface Params {
 
 export const getEachToken = async ({ pairContract, dataContract, tokenAddress, web3 }: Params) => {
     const data: TokenContract = await (dataContract.methods.getEachToken as any)(tokenAddress, 0).call();
-    let uri;
-    if (data.symbol != "GOV") {
-        uri = data.uri;
-    } else {
-        uri = "images/BounsIo_LOGO.png";
-    }
     const volume = await getTokenVolumeFromEvent(pairContract, tokenAddress);
     const priceArr = await getTokenPriceFromEvent(pairContract, tokenAddress)
     console.log(volume, priceArr)
@@ -26,7 +20,7 @@ export const getEachToken = async ({ pairContract, dataContract, tokenAddress, w
             tokenAddress: data.tokenAddress,
             tokenName: data.name,
             tokenSymbol: data.symbol,
-            tokenUri: uri,
+            tokenUri: data.uri,
             tokenTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
             tokenVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
             tokenVolume7D: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),

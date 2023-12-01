@@ -7,6 +7,7 @@ import InfoScreen from "../ConnectBox/Sidebar/WalletInfo/InfoScreen";
 import WalletConnect from "../ConnectBox/Sidebar/WalletConnect";
 import { WalletAddressButton, ConnectButton } from "./ConnectBox.Style";
 import useWeb3 from "src/hooks/web3.hook";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const ConnectBox: React.FC = () => {
   const navigate = useNavigate();
@@ -15,41 +16,67 @@ const ConnectBox: React.FC = () => {
   const { user } = useWeb3(null);
 
   const toggleSidebar = async () => {
-    // const data = await axios.get(
-    //   "https://bouns.io/login/?client_id=6e9c40d1-1236-42c4-8a13-586e7df92327&redirect_uri=https://localhost:3000&auto_login=true"
-    // );
-    // console.log(data, "data");
-
-    // const randomWalletAddress = "0x123...abc"; // 예시 주소
-    // setWalletAddress(randomWalletAddress);
-    // 🚀 Localstorage true 값이면
-
     setSidebarOpen(!isSidebarOpen);
   };
 
+  const disconnenctWallet = async () => {
+    localStorage.removeItem("connectStatus");
+    setSidebarOpen(false);
+    window.location.reload();
+  };
+
+  const logoutHandle = async () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("loggedIn");
+    setSidebarOpen(false);
+    window.location.reload();
+  };
+
   // 로그아웃 toggleSidebar 대신에 로그아웃 시켜줘야함!
-  const logoutButton = (
-    <button onClick={toggleSidebar} className="w-[32px] h-[32px]">
-      <img
-        src="images/moon_toggle.png"
-        alt="logout button"
-        className="w-full h-full"
-      />
-    </button>
+  const walletLogoutBox = (
+    <>
+      <button
+        onClick={disconnenctWallet}
+        className="w-[25px] h-[25px] mr-[10px]"
+      >
+        <img
+          src={`${ImgBaseUrl()}logout-icon.png`}
+          alt="logout button"
+          className="w-full h-full"
+        />
+      </button>
+      <button onClick={toggleSidebar} className="w-[18px] h-[18px] ml-[10px] mr-[10px] hover:scale-105">
+        <img
+          src={`${ImgBaseUrl()}x-letter-icon.png`}
+          alt="exit button"
+          className="w-full h-full"
+        />
+      </button>
+    </>
   );
 
-  const closeButton = (
-    <button onClick={toggleSidebar} className="w-[32px] h-[32px]">
-      <img
-        src="images/sun_toggle.png"
-        alt="exit button"
-        className="w-full h-full"
-      />
-    </button>
+  const LogoutBox = (
+    <>
+      <button onClick={logoutHandle} className="w-[25px] h-[25px] mr-[10px]">
+        <img
+          src={`${ImgBaseUrl()}logout-icon.png`}
+          alt="logout button"
+          className="w-full h-full"
+        />
+      </button>
+      <button onClick={toggleSidebar} className="w-[25px] h-[25px]">
+        <img
+          src={`${ImgBaseUrl()}x-letter-icon.png`}
+          alt="exit button"
+          className="w-full h-full"
+        />
+      </button>
+    </>
   );
 
   return (
-    <div className=" w-[10%] h-[46px] ">
+    <div className=" w-[12%] h-[46px] mobile:w-[25%] mobile:flex mobile:justify-end">
       {user.account ? (
         <WalletAddressButton
           onClick={toggleSidebar}
@@ -66,7 +93,7 @@ const ConnectBox: React.FC = () => {
             <WalletConnect />
           )
         }
-        button={user.account ? logoutButton : closeButton}
+        button={user.account ? walletLogoutBox : LogoutBox}
         isOpen={isSidebarOpen}
         toggleMenu={toggleSidebar}
       >

@@ -10,6 +10,8 @@ import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
 
 import { Contract } from "web3-eth-contract";
+import { error, log } from "console";
+import BounsGetWallet from "./BounsGetWallet";
 
 interface UseWeb3Result {
   user: any; // user의 실제 타입으로 교체해야 합니다.
@@ -20,7 +22,7 @@ interface UseWeb3Result {
   stakingContract: Contract<any> | null;
   wbncContract: Contract<any> | null;
   LPTokenContract: Contract<any> | null;
-};
+}
 
 const useWeb3 = (provider: string | null) => {
   const [user, setUser] = useState({ account: "", balance: "" });
@@ -38,20 +40,100 @@ const useWeb3 = (provider: string | null) => {
   const [pairContract, setPairContract] = useState<Contract<any> | null>(null);
   const [governanceContract, setGovernanceContract] =
     useState<Contract<any> | null>(null);
-  const [connectStatus, SetconnectStatus] = useState(false);
+  const [connectStatus, SetconnectStatus] = useState(
+    String(localStorage.getItem("connectStatus"))
+  );
+  const [BounsAddress, SetBounsAddress] = useState("");
+
+  const getBousnsWallet = async () => {
+    console.log("BounsAddress?", BounsAddress);
+
+    const Bounswallet = await BounsGetWallet();
+    SetBounsAddress(String(Bounswallet));
+  };
+
+  // if (!BounsAddress) {
+  //   getBousnsWallet();
+  // }
+
+  useEffect(()=>{
+    // const agent = navigator.userAgent;
+    // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
+    //   console.log("모바일환경");
+    //   // alert("모바일 환경");
+    // }
+    
+    if (!window?.ethereum) {
+      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      return;
+    }
+
+    const getChainId =async () => {
+      const chainId = await window.ethereum.request({method : 'eth_chainId'});  
+      if (chainId != '0x4798') {
+        const net = await window?.ethereum?.request({
+          jsonrpc: "2.0",
+          method: "wallet_switchEthereumChain",
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
+        });
+        setNetwork(net || true);
+      }
+    }
+    
+    getChainId();
+  },[])
 
   useEffect(() => {
-    SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
-  }, []);
+    if (connectStatus == "BounsWallet") {
+      if (!BounsAddress) {
+        getBousnsWallet();
+      } else {
+        getBalance(BounsAddress);
+      }
+    }
+  }, [BounsAddress]);
+
+  useEffect(() => {
+    // SetconnectStatus(String(localStorage.getItem("connectStatus")));
+
+    if (connectStatus == "BounsWallet") {
+      getBalance(BounsAddress);
+      return;
+    }
+
+    console.log("accountsChanged", connectStatus);
+  }, [connectStatus]);
 
   const connectMetaMask = async () => {
-    if (window.ethereum) {
-      Boolean(localStorage.getItem("connectStatus"));
-      SetconnectStatus(Boolean(localStorage.getItem("connectStatus")));
-      // // await window.ethereum.request({ method: "eth_requestAccounts" });
-      // getAccounts(window.ethereum);
+    if (window?.ethereum) {
+      SetconnectStatus(String(localStorage.getItem("connectStatus")));
+      // SetconnectStatus(true);
+      // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
+      // getAccounts(window?.ethereum);
+      window.location.reload();
     } else {
       alert("MetaMask 를 설치해주세요");
+    }
+  };
+
+  const getBalance = async (address: string) => {
+    const web3 = new Web3("https://network.bouncecode.net/");
+    console.log("BounsAddress ::", BounsAddress);
+
+    if (address) {
+      try {
+        // if (!BounsAddress) getBousnsWallet();
+
+        const balance = await web3.eth.getBalance(address);
+        console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
+        setUser({
+          account: address,
+          balance: web3.utils.fromWei(balance, "ether"),
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -62,7 +144,7 @@ const useWeb3 = (provider: string | null) => {
     } else {
       webProvider = web3;
     }
-    window.ethereum
+    window?.ethereum
       .request({ method: "eth_requestAccounts" })
       .then(async ([data]: string[]) => {
         setUser({
@@ -72,36 +154,60 @@ const useWeb3 = (provider: string | null) => {
             "ether"
           ),
         });
+      })
+      .catch(() => {
+        // console.log("dsfsdfs");
+        // SetconnectStatus(false);
       });
-  };
-
+    };
+    
   useEffect(() => {
-    if (!connectStatus) {
+    if (connectStatus == "null" || connectStatus == "") {
       return;
     }
-    if (window.ethereum) {
-      const web3Provider = new Web3(window.ethereum);
+
+    // ! useEffect 실행될때마다 getbalance 실행 (wallet 주소 state 에 저장)
+    // if (!window?.ethereum?.selectedAddress) {
+    //   alert("메타마스크 로그인");
+    //   return;
+    // }
+
+    //// ! state 가 bounswallet 일때 return
+    if (connectStatus == "BounsWallet") {
+      // getBalance(BounsAddress);
+      return;
+    }
+
+    if (window?.ethereum) {
+      const web3Provider = new Web3(window?.ethereum);
       setWeb3(web3Provider);
       getAccounts(web3Provider);
-      window.ethereum.on("chainChanged", () => {
+      window?.ethereum?.on("chainChanged", () => {
         window.location.reload();
       });
     } else {
-      alert("메타마스크 설치");
+      alert("MetaMask를 설치 해주세요!");
     }
   }, [connectStatus]);
 
   // ! 0x4798 === 바운스네트워크
   useEffect(() => {
-    window.ethereum.on("chainChanged", async (chainID: string) => {
-      console.log("네트워크 변경");
-      if (chainID === "0xaa36a7" && web3 !== null) {
-        getAccounts(web3);
+    if (connectStatus == "BounsWallet") {
+      getBalance(BounsAddress);
+      return;
+    }
+    window?.ethereum?.on("chainChanged", async (chainID: string) => {
+      console.log("chainIDdsfdsdfsfds", chainID);
+      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+      if (chainID === "0x4798" && web3 !== null && connectStatus) {
+        // ! status가 Metamask 일때 실행
+        if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
-        const net = await window.ethereum.request({
+        const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }],
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
@@ -109,11 +215,19 @@ const useWeb3 = (provider: string | null) => {
   }, [network]);
 
   useEffect(() => {
-    // console.log("User : ", user);
+    // if (user.account != "") {
+    //   window.location.reload();
+    // }
+
+    if (connectStatus == "BounsWallet") {
+      // getBalance(BounsAddress);
+      return;
+    }
+    console.log("User : ", user);
   }, [user]);
 
   if (web3 !== null) {
-    window.ethereum.on("accountsChanged", async (accounts: string[]) => {
+    window?.ethereum?.on("accountsChanged", async (accounts: string[]) => {
       const updatedAccount = accounts[0];
 
       setUser({
@@ -127,37 +241,45 @@ const useWeb3 = (provider: string | null) => {
   }
 
   useEffect(() => {
+    if (connectStatus == "BounsWallet") {
+      // getBalance(BounsAddress);
+      return;
+    }
     if (web3 !== null) {
       if (dataContract && pairContract && governanceContract && stakingContract)
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0xE8f4D0D81C39243466D42726F4e527F0AA5629C6",
+        // "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
+        "0x0103f9Dec7dc8378d11f9ac29E6796d76725a0C2", // bounce
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0x848D3b8D0E2a54Ef4E2d21857700e658B8fbA41A",
+        // "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
+        "0xd9742c39d3EA58f674AC5b7A135f5b31923D8aD9", // bounce
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0x9a927D94846c80B1E83B35B67081BD58fbe6AaD9",
+        // "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
+        "0xAb74d94c354779cEd1A50a4E0c428Ab1eb7CcA5B", // bounce
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0xfd421f377227FE7E0971AB50C04d2980EF257460",
+        // "0xD73865E343138f35C57EAc514257cDdD2FAa97aB", // sepolia
+        "0x180966C6adf826ad0D5D0D831fCe84dd7E876f94", // bounce
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
         wbncAbi as any,
-        "0x5c0cCfA858Bf49840c6f4A69Db1D2DA3128161EA",
+        "0x19C466b19A30A85f4E3C3b291D820823E858D6c6",
         { data: "" }
       );
       const lpToken = new web3.eth.Contract(
         lpTokenAbi as any,
-        "0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4",
+        "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
         { data: "" }
       );
       console.log("contract 연결 완료");
@@ -184,3 +306,5 @@ const useWeb3 = (provider: string | null) => {
 };
 
 export default useWeb3;
+
+// 커넥트가 되어있다고 하는데 메타마스크 로그인이 안되어있어서 뜨는 에러로 보임

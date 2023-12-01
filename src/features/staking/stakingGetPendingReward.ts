@@ -23,7 +23,6 @@ const StakingData = async (
     _pid,
     _user
   ).call();
-  console.log("StakingData Pending", data);
   return data;
 };
 
@@ -34,10 +33,9 @@ export const myPendingRewardUpdate = async ({
 }: Params) => {
   try {
     const data = await StakingData(stakingContract, user);
-    console.log("pendingReward Data", data);
 
     const pendingBNC = data ? data.toString() : null;
-    console.log("pending???", pendingBNC);
+    console.log("pendingReward", pendingBNC);
 
     queryClient.setQueryData(["pendingBNC"], pendingBNC);
     return pendingBNC;

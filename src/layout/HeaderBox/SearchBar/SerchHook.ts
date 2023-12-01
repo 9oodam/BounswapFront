@@ -9,8 +9,10 @@ const SerchHook = (searchItems: SearchTokenInfo[]) => {
     if (searchTerm === "") {
       setSearchResults([]);
     } else {
-      const filteredResults = searchItems.filter((item) =>
-        item.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+      const filteredResults = searchItems.filter(
+        (item) =>
+          typeof item.tokenSymbol === "string" &&
+          item.tokenSymbol.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResults(filteredResults);
     }

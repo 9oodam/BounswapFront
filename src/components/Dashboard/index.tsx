@@ -7,11 +7,13 @@ import {
   StakeTitle,
   PairItem,
   PairTitle,
+
 } from "src/Interface/Token.interface";
 import Card from "src/components/Card";
 import { getTime } from "src/features/getTime";
 
 const Dashboard: React.FC<{
+  // arr:TokenArray | PairArray;
   arr: (StakeItem | TokenItem | PairItem)[];
   url: string;
   title: TokenTitle | StakeTitle | PairTitle;
@@ -20,10 +22,10 @@ const Dashboard: React.FC<{
   return (
     <div className="flex justify-center w-full">
       <Card>
-        <table className="w-full text-deepBlack">
+        <table className="w-full text-deepBlack dark:text-baseWhite">
           <thead>
             <tr className=" border-b-2 h-[50px] text-[18px] ">
-              <th className="w-[55%] text-left pl-7">
+              <th className="w-[55%] text-left pl-7 mobile:pl-3">
                 {"tokenName" in title
                   ? title.tokenName
                   : "PairName" in title
@@ -87,7 +89,7 @@ const Dashboard: React.FC<{
                 }}
               >
                 <td>
-                  <div className="flex justify-start items-center pl-7 ">
+                  <div className="flex justify-start items-center pl-7 mobile:pl-3 ">
                     {"tokenUri" in data || "stakeImg" in data ? (
                       <div className="w-[40px] h-[40px] rounded-full">
                         <img
@@ -99,20 +101,20 @@ const Dashboard: React.FC<{
                               : ""
                           }
                           alt="Logo"
-                          className="w-full rounded-full "
+                          className="w-full rounded-full border-[1px] border-gray-300 "
                         />
                       </div>
                     ) : (
-                      <div className=" w-[70px] h-[40px] flex relative">
+                      <div className=" w-[70px] h-[40px] flex relative ">
                         <img
                           src={data.token0Uri}
                           alt="Logo"
-                          className="absolute w-[40px] h-[40px] rounded-full"
+                          className="absolute w-[40px] h-[40px] rounded-full border-[1px] border-gray-300"
                         />
                         <img
                           src={data.token1Uri}
                           alt="Logo"
-                          className=" absolute w-[40px] h-[40px] rounded-full left-6"
+                          className=" absolute w-[40px] h-[40px] rounded-full left-6 border-[1px] border-gray-300"
                         />
                       </div>
                     )}

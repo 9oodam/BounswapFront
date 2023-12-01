@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LogoArea from "../HeaderBox/LogoArea";
 import ToggleBtn from "src/components/toggleBtn";
 import GithubArea from "./GithubArea";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const Footer = (): JSX.Element => {
   const [pop, setPop] = useState(false);
@@ -13,7 +14,7 @@ const Footer = (): JSX.Element => {
   };
 
   return (
-    <footer className="relative flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] p-4 mt-[150px] mobile:hidden">
+    <footer className="relative flex flex-row justify-between w-full mx-auto h-[100px] bg-[#6b7d63cc] dark:bg-[#ffffffcc] p-4 mt-[150px] mobile:hidden">
       <LogoArea />
       <div className="flex items-center justify-between mobile:hidden">
         <GithubArea name="9oodam" address="https://github.com/9oodam" />
@@ -27,7 +28,7 @@ const Footer = (): JSX.Element => {
         className="pc:hidden w-full flex justify-end items-center mr-5"
       >
         <img
-          src="/images/github-mark.png"
+          src={`${ImgBaseUrl}github-mark.png`}
           alt="github icon"
           className="w-[30px] h-[30px] opacity-80"
         />

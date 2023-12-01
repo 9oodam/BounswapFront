@@ -3,43 +3,84 @@ import Container from "src/components/container";
 import { Divstyles } from "./tokenDetail.style";
 import DivCard from "../../components/Card";
 import CardTitle from "../../components/Card/CardTitle";
-import ChartDiv from "../../components/Card/Chart";
+import AreaChart from "src/components/AreaChart";
 import Information from "../../contents/tokenDetail/information";
 import TokenName from "src/components/TokenName";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { TokenArray } from "src/Interface/Token.interface";
+import { TokenArray, TokenItem } from "src/Interface/Token.interface";
+import { getEachToken } from "src/features/data/dataGetEachToken";
+import useWeb3 from "src/hooks/web3.hook";
+import TokenVolume from "src/contents/tokenDetail/TokenDetail";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const TokenDetail: React.FC = () => {
-  const [tokens, setTokens] = useState<TokenArray | null>(null);
+  const { web3, dataContract, pairContract } = useWeb3(null);
+  const [token, setToken] = useState<TokenItem | null>(null);
+  const [priceArr, setPriceArr] = useState<number[]>([]);
+  const [indexArr, setIndexArr] = useState<number[]>([]);
   const nav = useNavigate();
 
   const queryClient = useQueryClient();
+  const { id } = useParams();
 
-  useEffect(()=>{
-    
-  },[tokens])
+  useEffect(() => {
+    if (!pairContract || !dataContract || !id || !web3) return;
+    const getData = async () => {
+      // * 토큰 price 값 배열로 반환받음
+      const data = await getEachToken({
+        pairContract,
+        dataContract,
+        tokenAddress: id,
+        web3,
+      });
+      setToken(data);
+      console.log("getData, getEachToken", data);
+    };
+    getData();
+  }, [dataContract]);
+
+  useEffect(() => {
+    if (token) {
+      let indexs: number[] = [];
+      const Arr = token.tokenPriceArr.map((el, index) => {
+        indexs.push(index + 1);
+        return Number(el) / 10 ** 18;
+      });
+      setPriceArr(Arr);
+      setIndexArr(indexs);
+    }
+  }, [token]);
+
+  if (!token) {
+    return <LoadingIndicator/>;
+  }
 
   return (
     <>
       <TokenName
-        tokenImg="https://i.pinimg.com/564x/76/ca/1a/76ca1a94e6866f3b1156218c6723ce3a.jpg"
-        tokenName="Ether"
-        tokenSymbol="ETH"
+        tokenImg={token.tokenUri}
+        tokenName={token.tokenName}
+        tokenSymbol={token.tokenSymbol}
         onClick={() => nav(-1)}
       />
       <Container>
         <div className={Divstyles.flexRow}>
           <div className={Divstyles.flexCol}>
             <DivCard>
-              <CardTitle>Volume</CardTitle>
-              <ChartDiv />
+              <CardTitle>Price</CardTitle>
+              <AreaChart
+                data={priceArr}
+                index={indexArr}
+                name={`${token.tokenSymbol} price`}
+              />
             </DivCard>
-            <Information />
+            <DivCard>
+              <CardTitle>Token Details</CardTitle>
+              <TokenVolume data={token} />
+            </DivCard>
           </div>
-          <DivCard>
-            <CardTitle>Swap</CardTitle>
-          </DivCard>
+          <Information />
         </div>
       </Container>
     </>

@@ -21,6 +21,10 @@ import AppFooter from "./layout/FooterBox/AppFooter";
 import Swap from "./pages/Swap";
 import TopDiv from "./components/container/TopDiv";
 import Pool from "./pages/Pool";
+import CreateProposal from "./pages/Governance/CreateProposal";
+import PoolCreate from "./pages/Pool/PoolCreate";
+import "../node_modules/react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -41,9 +45,18 @@ const App: React.FC = () => {
     // 로컬 스토리지에서 로그인 상태 확인
     const loggedIn = localStorage.getItem("loggedIn");
     setIsSNSLoggedIn(loggedIn === "true");
+    // console.log("sdfsdf",window.location.protocol, window.location.host);
+
+    const connectStatus = localStorage.getItem("connectStatus");
+
+    const loggedInStatus = localStorage.getItem("loggedIn");
+
+    if (!connectStatus && loggedInStatus) {
+      toast.error("지갑을 연결해주세요");
+    }
 
     if (!loggedIn) {
-      navigate(`${SNSLogin}`);
+      navigate("/");
     }
   }, [navigate]);
 
@@ -59,31 +72,53 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={true} />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        limit={1}
+      />
+
       <div className="App">
-        {!isSNSLoggedIn ? (
-          <SNSLogin onLoginSuccess={handleLoginSuccess} />
-        ) : (
-          <>
-            <div className={Divstyle.header_body}>
-              <HeaderBox />
-              <TopDiv />
-              <Routes>
-                <Route path="/swap" element={<Swap />} />
-                <Route path="/pool" element={<Pool />} />
-                <Route path="/pool/top/:id" element={<TopPoolpair />} />
-                <Route path="/pool/my/:id" element={<MyPoolpair />} />
-                <Route path="/tokens" element={<Tokens />} />
-                <Route path="/tokens:id" element={<TokenDetail />} />
-                <Route path="/stake" element={<Stake />} />
-                <Route path="/stake/:id" element={<StakeDetail />} />
-                <Route path="/governance" element={<Governance />} />
-              </Routes>
-            </div>
-            {/* AppFooter 추가(맨 아래 반응형) */}
-            <Footer />
-            <AppFooter />
-          </>
-        )}
+        <div className={Divstyle.header_body}>
+          {isSNSLoggedIn && <HeaderBox />}
+          {isSNSLoggedIn && <TopDiv />}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                !isSNSLoggedIn ? (
+                  <SNSLogin onLoginSuccess={handleLoginSuccess} />
+                ) : (
+                  <Swap />
+                )
+              }
+            />
+            <Route path="/swap" element={<Swap />} />
+            <Route path="/pool" element={<Pool />} />
+            <Route path="/pool/create" element={<PoolCreate />} />
+            <Route path="/pool/top/:id" element={<TopPoolpair />} />
+            <Route path="/pool/my/:id" element={<MyPoolpair />} />
+            <Route path="/tokens" element={<Tokens />} />
+            <Route path="/tokens/:id" element={<TokenDetail />} />
+            <Route path="/stake" element={<Stake />} />
+            <Route path="/stake/:id" element={<StakeDetail />} />
+            <Route path="/governance" element={<Governance />} />
+            <Route path="/governance/create" element={<CreateProposal />} />
+          </Routes>
+        </div>
+        {/* AppFooter 추가(맨 아래 반응형) */}
+        {isSNSLoggedIn && <Footer />}
+        {isSNSLoggedIn && <AppFooter />}
+        {/* </>
+        )} */}
       </div>
     </QueryClientProvider>
   );

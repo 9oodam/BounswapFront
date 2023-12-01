@@ -30,7 +30,7 @@ const HeaderBox = (): JSX.Element => {
           isScrolled ? "bg-headerBack" : "bg-headerBackScrolled"
         }`}
       >
-        <div className="w-full h-full flex justify-center items-center mobile:flex mobile:justify-evenly ">
+        <div className="w-full h-full flex justify-center items-center mobile:flex mobile:justify-start ">
           <Navigation />
           <SearchBox />
           <ConnectBox />

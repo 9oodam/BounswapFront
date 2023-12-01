@@ -20,7 +20,9 @@ import {
   addLiquidityBNC,
   getPairAmount,
 } from "src/features/pair/poolSendFeatures";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 import LoadingIndicator from "src/components/LoadingIndicator";
+
 
 const PoolCreate = () => {
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const PoolCreate = () => {
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-        const { swapTokens } = await getUserTokens({
+    const { swapTokens } = await getUserTokens({
       pairContract,
       dataContract,
       user: user,
@@ -275,14 +277,17 @@ const PoolCreate = () => {
     console.log(isExact);
   }, [isExact]);
 
-  if (!data) return <LoadingIndicator />;
+  if  (!data) {
+    refetch();
+    return <LoadingIndicator />;
+  }
 
   return (
     <>
-      <div className="w-full flex justify-start">
+      <div className="w-full flex justify-start mobile:pl-[20px] mobile:h-[20px]">
         <img
           onClick={backArrow}
-          src="/images/backArrow.png"
+          src={`${ImgBaseUrl()}backArrow.png`}
           className={Divstyle.arrowsize}
         />
       </div>
@@ -326,7 +331,9 @@ const PoolCreate = () => {
             onClick={() => {
               tryAddLiquidity();
             }}
-            className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-lightGreen rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md"
+            className="w-[85%] max-w-[500px] min-w-[340px] h-[60px]
+            bg-lightGreen rounded-[20px] m-2 mt-2 mb-[30px] text-xl font-bold text-white
+            flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md"
           >
             <button>{btnText}</button>
           </div>

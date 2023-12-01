@@ -1,91 +1,73 @@
-import React, { useEffect } from 'react'
-import useWeb3 from 'src/hooks/web3.hook';
-import { useState } from 'react';
+import React, { useEffect } from "react";
+import useWeb3 from "src/hooks/web3.hook";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import { TokenArray, TokenItem } from "src/Interface/Token.interface";
 
-const TokenBox = () => {
-    const { user, web3, dataContract } = useWeb3(null);
-    const [tokens, setTokens] = useState<{
-        uri: string;
-        symbol: string;
-        balance: bigint;
-    }[]>([]);
-    
-    const tokenTest = [
-        {
-            uri : "uri",
-            symbol : "eth",
-            balance : 500000000000000n
-        }, 
-        {
-            uri : "uri",
-            symbol : "eth",
-            balance : 50000000000000n
-        }, 
-        {
-            uri : "uri",
-            symbol : "eth",
-            balance : 500000000000000n
-        }, 
-    ];
+const TokenBox: React.FC<{ tokens: TokenArray }> = ({ tokens }) => {
+  const { user, web3, dataContract } = useWeb3(null);
 
-    // 
-    const getData = async () => {
-        // const data = await (dataContract?.methods.getUserPools as any)(user.account).call();
-        // setPools(data);
-        setTokens(tokenTest);
+  // const queryClient = useQueryClient();
 
-        // data[0].token0Uri
-        // data[0].token1Uri
-        // data[0].token0Symbol
-        // data[0].token1Symbol
-        // data[0].tvl
-    }
+  // const getData = async () => {
+  //     if (!dataContract || !web3 || user.account == "") return null;
+  //     const data = await getUserTokens({ dataContract, queryClient, userAddress: user.account, web3 });
 
-    useEffect(() => {
-        getData();
-    }, []);
+  //     console.log("getUserTokens", data);
+  //     return data;
+  // }
 
-    return (
-        <div>
-            {
-                tokens ?
-                    <div className="w-full pc:p-7 mobile:mt-5">
-                        <h3
-                            className="font-bold text-[25px] text-left mb-5"
-                        >
-                            Tokens
-                        </h3>
-                        <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full font-bold text-[20px] border-b-2 mb-3 items-center justify-center">
-                            <div>img</div>
-                            <div className="mobile:hidden">name</div>
-                            <div>balance</div>
-                        </div>
+  // const { data: tokens, isLoading, error } = useQuery({
+  //     queryKey: ["userTokens"],
+  //     queryFn: getData,
+  //     gcTime: 0,
+  //     staleTime: 0,
+  //     refetchOnWindowFocus: "always",
+  //     enabled: !!dataContract && !!web3 && !!user
+  // });
 
-                        {/* <div className='h-[240px]'> */}
-                            <div className="grid grid-cols-1 overflow-auto scrollbar overflow-y-scroll w-full h-full">
-                                {tokens.map((el, index) => (
-                                    <div key={index} className="w-full flex justify-around item-center">
-                                        <img className="w-[30%]" src={el.uri} />
-                                        <span className="w-[30%] mobile:hidden">
-                                            {el.symbol}
-                                        </span>
-                                        <span className="w-[30%]">{web3?.utils.fromWei(el.balance, "ether")}</span>
-                                    </div>
-                                ))}
-                            {/* </div> */}
+  // if (!tokens) {
+  //     return <>loading</>
+  // }
 
-                        </div>
-                    </div>
+  return (
+    <div>
+      <div className="w-full h-full pc:p-5 mobile:mt-5">
+        {/* <h3
+                    className="font-bold text-[25px] text-left mb-5"
+                >
+                    Tokens
+                </h3> */}
+        {/* <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full font-semibold text-[20px] border-b-2 mb-3 items-center justify-center text-D_lightBlack">
+          <div>img</div>
+          <div className="mobile:hidden">name</div>
+          <div>balance</div>
+        </div> */}
 
-
-
-
-
-                    :
-                    <></>
-            }
+        {/* <div className='h-[240px]'> */}
+        {/* <div className="grid grid-cols-1 overflow-auto scrollbar overflow-y-scroll w-full h-full"> */}
+        <div className="flex flex-col justify-start overflow-auto pc:h-[500px] mobileSiedbar:h-[300px] overflow-y-scroll ">
+          {tokens?.map((el: TokenItem, index: number) => (
+            // <div
+            //   key={index}
+            //   className="w-full flex justify-between item-center mobile:flex mobile:justify-around"
+            // >
+            <div key={index}>
+              <div className="flex justify-start items-center h-[68px] pr-[10px] pl-[10px]">
+                <div className="w-[30%] flex justify-center items-center">
+                  <img className="w-[36px] h-[36px]" src={el.tokenUri} />
+                </div>
+                <div className="w-[30%] h-[36px] flex justify-start items-center">{el.tokenSymbol}</div>
+                <div className="w-[40%] h-[36px] flex justify-start items-center">{el.tokenBalance}</div>
+              </div>
+            </div>
+          ))}
+          {/* </div> */}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default TokenBox
+export default TokenBox;

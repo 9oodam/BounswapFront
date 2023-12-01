@@ -15,20 +15,23 @@ const StakingData = async (stakingContract: Contract<any> | null) => {
 export const getPoolInfo = async ({ stakingContract, queryClient }: Params) => {
   try {
     const data = await StakingData(stakingContract);
-  
+
     const poolInfo = data
       ? {
           lpToken: data.lpToken,
+          // ! 이거 무슨 값이죠?
           allocPoint: BigInt(data.allocPoint).toString(),
+          // ! 이건 어디에 쓰는 값이죠?
           lastRewardBlock: BigInt(data.lastRewardBlock).toString(),
+          // ! 이건 어디에 쓰는 값이죠?
           accBNCPerShare: BigInt(data.accBNCPerShare).toString(),
           stakingPoolEndTime: BigInt(data.stakingPoolEndTime).toString(),
           stakingPoolStartTime: BigInt(data.stakingPoolStartTime).toString(),
         }
       : null;
-  
+
     queryClient.setQueryData(["poolInfo"], poolInfo);
-  
+
     return poolInfo;
   } catch (error) {
     console.log(error);

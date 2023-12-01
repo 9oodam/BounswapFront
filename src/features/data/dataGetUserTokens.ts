@@ -16,14 +16,7 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
     const tokensObj : { [key : string] : TokenItem} = {};
     if(data) {
         data?.map((el : TokenContract, index : number) => {
-            let uri;
             let balance;
-    
-            if (el.symbol != "GOV") {
-                uri = el.uri;
-            } else {
-                uri = "images/BounsIo_LOGO.png";
-            }
     
             if(el.symbol == "BNC") {
                 balance = Number(Number(user.balance).toFixed(4));
@@ -35,7 +28,7 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
                 tokenAddress: el.tokenAddress,
                 tokenName: el.name, 
                 tokenSymbol: el.symbol,
-                tokenUri: uri,
+                tokenUri: el.uri,
                 tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(4)),
                 tokenVolume: 0,
                 tokenVolume7D: 0,

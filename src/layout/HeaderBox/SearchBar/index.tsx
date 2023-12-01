@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import LogoArea from "../LogoArea";
 import SerchHook from "./SerchHook";
-import { SearchTokenInfo } from "src/Interface/Token.interface";
+import { SearchTokenInfo, SearchTokenArr } from "src/Interface/Token.interface";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
+import { getAllTokens } from "src/features/data/dataGetAllTokens";
+import { getAllPools } from "src/features/data/dataGetAllPools";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const SearchBox = () => {
-  // 1. web3로 토큰들(CA), Pair(CA) 다 가지고 와서 Data에 넣고
-  // 2. SearchHook에 전달
-
-  // 3. 해당 CA 클릭하면 상세페이지로 이동 (params)
-  const [tokensData, setTokensData] = useState<SearchTokenInfo[]>([]);
-
+  const [allTokenData, setAllTokenData] = useState<SearchTokenArr>([]);
   const [tokens, setTokens] = useState<string[]>([]);
   const params = useParams<{ id: string }>();
   const [selectItem, setSelectItem] = useState<SearchTokenInfo>();
@@ -21,76 +19,120 @@ const SearchBox = () => {
 
   const nav = useNavigate();
 
-  const { web3, stakingContract, wbncContract, LPTokenContract } = useWeb3(
-    window.ethereum
-  );
+  const { web3, dataContract, pairContract } =
+    useWeb3(window.ethereum);
 
-  const pairData = ["APair", "BPair"];
-
-  const getSymbol = async (contract: any) => {
-    try {
-      if (contract && web3) {
-        const symbol = await contract.methods.symbol().call();
-        const address = await contract.options.address;
-        setTokensData((prev) => {
-          const exists = prev.some((token) => token.symbol === symbol);
-          if (!exists) {
-            return [...prev, { symbol, address }];
-          }
-          return prev;
-        });
-      }
-    } catch (error) {
-      console.error(error);
+  const getPoolData = async () => {
+    if (!pairContract || !dataContract || !web3) {
+      return;
     }
+    const poolData = await getAllPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      web3,
+    });
+    return poolData;
   };
 
-  useEffect(() => {
-    getSymbol(wbncContract);
-    getSymbol(LPTokenContract);
-  }, [web3, wbncContract, LPTokenContract]);
+  const {
+    data: poolArr,
+    isLoading,
+    error,
+    isSuccess,
+  } = useQuery({
+    queryKey: ["pairs"],
+    queryFn: getPoolData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!dataContract && !!web3,
+  });
 
   useEffect(() => {
-    queryClient.setQueryData(["tokens"], tokensData);
-  }, [tokensData]);
+    const fetchAllTokens = async () => {
+      try {
+        const data = await (getAllTokens as any)({
+          pairContract: pairContract,
+          dataContract: dataContract,
+          queryClient: queryClient,
+          web3: web3,
+        });
+
+        const poolData =
+          poolArr?.map((pool) => {
+            return {
+              tokenAddress: pool.pairAddress,
+              tokenSymbol: `${pool.token0Symbol}/${pool.token1Symbol}`,
+              tokenUri: `${pool.token0Uri}+${pool.token1Uri}`,
+              isPair: true,
+            };
+          }) || [];
+
+        const updateData = [...data, ...poolData];
+
+        setAllTokenData(updateData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    console.log("allTokenData", allTokenData);
+    fetchAllTokens();
+  }, [pairContract, dataContract, queryClient, web3, poolArr]);
+
+  useEffect(() => {
+    queryClient.setQueryData(["tokens"], allTokenData);
+  }, [allTokenData]);
 
   useEffect(() => {
     const getTokens = async () => {
-      const data = await queryClient.getQueryData<string[]>(["tokens"]);
+      const data = queryClient.getQueryData<string[]>(["tokens"]);
       setTokens(data ? data : []);
     };
     getTokens();
-  }, [tokensData, queryClient, tokens]);
+  }, [allTokenData, queryClient, tokens]);
 
   useEffect(() => {
-    if (tokensData) {
+    if (allTokenData) {
       const find = async () => {
-        const select = await tokensData.find((el: SearchTokenInfo) => {
-          return el.address == params.id;
+        const select = allTokenData.find((el: SearchTokenInfo) => {
+          return el.tokenAddress == params.id;
         });
         setSelectItem(select);
       };
       find();
     }
-  }, [tokensData, params.id, selectItem]);
+  }, [allTokenData, params.id, selectItem]);
 
-  const { searchTerm, setSearchTerm, searchResults } = SerchHook(tokensData);
+  const { searchTerm, setSearchTerm, searchResults } = SerchHook(allTokenData);
 
   const searchClickHandler = (tokenSymbol: string) => {
-    const tokenInfo = tokensData.find((token) => token.symbol === tokenSymbol);
+    const tokenInfo = allTokenData.find(
+      (token) => token.tokenSymbol === tokenSymbol
+    );
     if (tokenInfo) {
-      nav(`/${tokenInfo.address}`);
+      if (tokenInfo.isPair) {
+        nav(`pool/top/${tokenInfo.tokenAddress}`);
+      } else {
+        nav(`tokens/${tokenInfo.tokenAddress}`);
+      }
+      setSearchTerm("");
     }
   };
 
+  if (!poolArr && !allTokenData) {
+    return <>loading</>;
+  }
+
   return (
-    <div className="flex-col relative  justify-center w-[25%] mobile:w-[30%] header:hidden mobile:block">
+    <div className="flex-col relative  justify-center w-[25%] mobile:w-[30%] header:hidden mobile:block mobile:w-[70%]">
       <div className="flex">
         <div className="pc:w-[331px] w-full relative h-[46px] rounded-[63px] overflow-hidden border-[3px] border-baseWhite shadow-[0px_4px_5px_#00000040]">
           <img
             className="absolute w-[22px] h-[21px] top-[10px] left-[15px]"
             alt="Search icon"
-            src="/images/search.svg"
+            src={`${ImgBaseUrl()}search.svg`}
           />
           <input
             className="absolute w-full h-full left-0 top-0 pl-[48px] pr-3 py-0 opacity-80 [font-family:'Inter-Bold',Helvetica] font-bold text-baseWhite text-[19px] tracking-[0] leading-[normal] placeholder-baseWhite bg-transparent border-none outline-none"
@@ -105,13 +147,36 @@ const SearchBox = () => {
       <div className="pc:w-[331px] w-full absolute top-full left-0 bg-lime-500 z-10 max-h-[300px] overflow-auto  border-baseWhite">
         {searchResults.length > 0 && (
           <ul>
-            {searchResults.map((tokenSymbol, index) => (
+            {searchResults.map((token, index) => (
               <li
                 key={index}
                 className="cursor-pointer hover:text-white"
-                onClick={() => searchClickHandler(tokenSymbol.symbol)}
+                onClick={() => searchClickHandler(token.tokenSymbol)}
               >
-                {tokenSymbol.symbol}
+                {token.tokenUri && token.tokenUri.includes("+") ? (
+                  token.tokenUri
+                    .split("+")
+                    .map((uri, uriIndex) => (
+                      <img
+                        key={uriIndex}
+                        src={uri}
+                        alt={`${token.tokenSymbol}-${uriIndex}`}
+                        className="inline-block w-[25px] h-[25px] rounded-full border-[1px] border-gray-300"
+                      />
+                    ))
+                ) : (
+                  <img
+                    src={token.tokenUri}
+                    alt={token.tokenSymbol}
+                    className="inline-block w-[25px] h-[25px] rounded-full border-[1px] border-gray-300"
+                  />
+                )}
+
+                {token.tokenName ? (
+                  <span>{`${token.tokenName}/${token.tokenSymbol}`}</span>
+                ) : (
+                  <span>{token.tokenSymbol}</span>
+                )}
               </li>
             ))}
           </ul>

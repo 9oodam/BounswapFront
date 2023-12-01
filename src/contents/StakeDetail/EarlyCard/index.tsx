@@ -7,11 +7,12 @@ const EarlyCard: React.FC<{ data: EarlyArray }> = ({ data }) => {
   return (
     <div className="pc:w-[85%] mobile:w-full text-baseWhite pc:p-7 mobile:mt-5">
       <h3
-        className="font-bold text-[25px] text-left mb-5 [text-shadow:0px_4px_4px_#00000040] "
+        className="font-bold text-[25px] mobile:text-[20px] text-left mb-5 [text-shadow:0px_4px_4px_#00000040]
+        mobile:flex mobile:justify-center"
       >
         Early Withdrawal History
       </h3>
-      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite font-bold text-[20px] border-b-2 mb-3 items-center justify-center">
+      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite font-bold text-[20px] mobile:text-[18px] border-b-2 mb-3 items-center justify-center">
         <div>Timestamp</div>
         <div className="mobile:hidden">Token Amount</div>
         <div>Unclaimed Rewards</div>

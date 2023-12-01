@@ -12,10 +12,10 @@ const DashText: React.FC<ProposalsArr> = ({ data, voteProposal }) => {
       {data.map((el, index) => (
         <div className=" flex flex-col mobile:mt-3">
           <div
-            className={`pc:grid pc:grid-cols-5 items-center text-deepBlack cursor-pointer hover:bg-opercityBlack pc:h-[60px] mobile:h-[50px] mobile:flex 
+            className={`pc:grid pc:grid-cols-5 items-center text-deepBlack dark:text-baseWhite cursor-pointer hover:bg-opercityBlack pc:h-[60px] mobile:h-[50px] mobile:flex 
         ${
           pop[index]
-            ? "border-t-4 border-r-4 border-l-4 rounded-t-3xl border-deepGreen"
+            ? "border-t-4 border-r-4 border-l-4 rounded-t-3xl border-lightGreen"
             : ""
         }`}
             onClick={(e) => {
@@ -52,7 +52,7 @@ const DashText: React.FC<ProposalsArr> = ({ data, voteProposal }) => {
 
           {/* 펼침 내용 */}
           {pop[index] && (
-            <div className="col-span-5 text-deepBlack border-deepGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
+            <div className="col-span-5 text-deepBlack dark:text-baseWhite border-lightGreen border-l-4 border-r-4 border-b-4 rounded-b-3xl">
               <div className="w-full flex pc:flex-row mobile:flex-col p-5">
                 <ProposalsContent data={el} />
                 <VoteContent data={el} voteProposal={voteProposal} />

@@ -15,12 +15,12 @@ export const verifyToken = async () => {
       },
     }
   ).then(async (res) => {
-    console.log("res", res);
+    // console.log("res", res);
 
     const result = await res.json();
     if (res.status == 200) {
       // res.status = 200
-      console.log("??");
+      // console.log("??");
 
       return { testTrue: res.status == 200, accessToken };
 

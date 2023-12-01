@@ -75,7 +75,7 @@ export const setStakingEndDays = async ({
 }: withdrawParams) => {
   try {
     const _pid = 0;
-    const _days = 1000000000; // 임의의 값 컨트랙트에서는 초단위로 설정되어있음 1 = 1초;
+    const _days = 10; //  1 = 1초
     await (stakingContract?.methods.setStakingEndDays as any)(_pid, _days).send(
       { from: user.account }
     );
@@ -84,3 +84,20 @@ export const setStakingEndDays = async ({
     return('error');
   }
 };
+
+export const addStakingPool = async ({
+  stakingContract,
+  user,
+}: withdrawParams) => {
+  try {
+    const _allocPoint = 10000;
+    const _endDays = 30;
+    const _lpToken = '0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4';
+    await (stakingContract?.methods.addStakingPool as any) (_allocPoint, _lpToken, _endDays).send(
+      {from: user.account}
+    );
+  } catch (error) {
+    console.log(error);
+    return ('error');
+  }
+}
