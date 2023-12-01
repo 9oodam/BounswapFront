@@ -231,5 +231,5 @@ export interface UserInfo {
   amount: string;
   exactRewardCal: string;
   pendingReward: string;
-  stakingStartTime: string | number;
+  stakingStartTime: string;
 }
