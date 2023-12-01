@@ -23,7 +23,7 @@ export const getTotalLPToken = async ({
   try {
     const data = await StakingData(stakingContract);
     const etherData = web3?.utils.fromWei(BigInt(data), "ether");
-    console.log("sjfgksfsg", etherData);
+    console.log("Total Staked", etherData);
 
     // const totalLPTokenAmount = data ? BigInt(data).toString() : null;
 

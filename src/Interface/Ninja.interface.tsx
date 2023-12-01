@@ -7,3 +7,11 @@ export interface EmergencyData {
   ninjaRewardRate: number;
 }
 export type EmergencyEventArr = EmergencyData[];
+
+export interface StakingTotalAmountData {
+    account: string;
+    poolId: number;
+    amount: number;
+}
+
+export type StakingTotalAmountArr = StakingTotalAmountData[];
