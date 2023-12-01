@@ -31,19 +31,19 @@ const EarlyCard: React.FC<{ data: EmergencyEventArr }> = ({ data }) => {
     return parseFloat(etherData).toFixed(4);
   };
   return (
-    <div className="pc:w-[85%] mobile:w-full text-baseWhite pc:p-7 mobile:mt-5">
+    <div className="pc:w-[85%] mobile:w-full text-baseWhite mobile:text-lightBlack pc:p-7 mobile:mt-5">
       <h3
         className="font-bold text-[25px] mobile:text-[20px] text-left mb-5 [text-shadow:0px_4px_4px_#00000040]
         mobile:flex mobile:justify-center"
       >
         Early Withdrawal History
       </h3>
-      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite font-bold text-[20px] mobile:text-[18px] border-b-2 mb-3 items-center justify-center">
+      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite mobile:text-lightBlack font-bold text-[20px] mobile:text-[18px] border-b-2 mb-3 items-center justify-center">
         <div>Timestamp</div>
         <div className="mobile:hidden">Token Amount</div>
         <div>Unclaimed Rewards</div>
       </div>
-      <div className="grid grid-cols-1 gap-2 overflow-auto scrollbar overflow-y-scroll w-full h-60 text-baseWhite">
+      <div className="grid grid-cols-1 gap-2 overflow-auto scrollbar overflow-y-scroll w-full h-60 text-baseWhite mobile:text-lightBlack">
         {[...data].reverse().map((el, index) => (
           <div key={index} className="w-full flex justify-around">
             <span className="w-[30%]">{formatDate(el.stakingLeftTime)}</span>

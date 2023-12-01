@@ -37,7 +37,7 @@ export const myAllRewardInfo = async ({
 
     return myAllReward;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

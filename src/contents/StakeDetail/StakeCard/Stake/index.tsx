@@ -34,7 +34,7 @@ const Stake: React.FC<Timestamp> = ({ timestamp }) => {
   return (
     <div className="p-5">
       <div className="w-full text-left text-deepBlack">Enter an Amount</div>
-      <InputAmount tokenName="JGD" setInputValue={setDepositValue} />
+      <InputAmount tokenName="STK" setInputValue={setDepositValue} />
       {deadline == false ? (
         <StakeBtn tokenName="Stake" tokenDepositAmount={depositValue} />
       ) : (

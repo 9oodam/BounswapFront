@@ -39,6 +39,7 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
       >
         {tokenName}
       </div>
+        <div onClick={addStaking}>스테이킹 풀 생성(테스트 후 지울것)</div>
     </>
   );
 };

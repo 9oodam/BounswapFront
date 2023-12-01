@@ -43,7 +43,7 @@ export const getUserInfo = async ({
 
     return userInfo;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

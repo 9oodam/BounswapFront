@@ -73,6 +73,7 @@ export interface TotalVolNTime {
   totalvolum: string;
   startTime: string;
   endTime: string;
+  volumeChart: number[];
 }
 
 export interface EarlyInfo {

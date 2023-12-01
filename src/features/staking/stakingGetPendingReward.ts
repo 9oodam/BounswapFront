@@ -40,7 +40,7 @@ export const myPendingRewardUpdate = async ({
     queryClient.setQueryData(["pendingBNC"], pendingBNC);
     return pendingBNC;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
