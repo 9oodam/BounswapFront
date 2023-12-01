@@ -56,20 +56,27 @@ const useWeb3 = (provider: string | null) => {
   //   getBousnsWallet();
   // }
 
-  useEffect(()=>{
-    // const agent = navigator.userAgent;
-    // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
-    //   console.log("모바일환경");
-    //   // alert("모바일 환경");
-    // }
-    
-    if (!window?.ethereum) {
-      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-      return;
+  const getIsMobile = () => {
+    let isMobile = false;
+    const agent = navigator.userAgent;
+    if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
+      console.log("모바일환경");
+      // alert("모바일 환경");
+        window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      isMobile = true;
     }
+    return isMobile;
+  }
+
+  useEffect(()=>{
+    
+    // if (!window?.ethereum) {
+    //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+    //   return;
+    // }
 
     const getChainId =async () => {
-      const chainId = await window.ethereum.request({method : 'eth_chainId'});  
+      const chainId = await window?.ethereum?.request({method : 'eth_chainId'});  
       if (chainId != '0x4798') {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
@@ -78,6 +85,8 @@ const useWeb3 = (provider: string | null) => {
           params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
+      } else {
+        alert("바운스 코드 네트워크가 아닙니다.");
       }
     }
     
@@ -112,6 +121,8 @@ const useWeb3 = (provider: string | null) => {
       // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
       // getAccounts(window?.ethereum);
       window.location.reload();
+    } else if (getIsMobile()) {
+      return;
     } else {
       alert("MetaMask 를 설치해주세요");
     }
@@ -185,6 +196,8 @@ const useWeb3 = (provider: string | null) => {
       window?.ethereum?.on("chainChanged", () => {
         window.location.reload();
       });
+    } else if (getIsMobile()) {
+      return;
     } else {
       alert("MetaMask를 설치 해주세요!");
     }
