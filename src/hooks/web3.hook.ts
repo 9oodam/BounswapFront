@@ -56,33 +56,33 @@ const useWeb3 = (provider: string | null) => {
   //   getBousnsWallet();
   // }
 
-  useEffect(()=>{
+  useEffect(() => {
     // const agent = navigator.userAgent;
     // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
     //   console.log("모바일환경");
     //   // alert("모바일 환경");
     // }
-    
+
     if (!window?.ethereum) {
-      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site";
       return;
     }
 
-    const getChainId =async () => {
-      const chainId = await window.ethereum.request({method : 'eth_chainId'});  
-      if (chainId != '0x4798') {
+    const getChainId = async () => {
+      const chainId = await window.ethereum.request({ method: "eth_chainId" });
+      if (chainId != "0xaa36a7") {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          // params: [{ chainId: "0xaa36a7" }], // sepolia
-          params: [{ chainId: "0x4798" }], // bounce
+          params: [{ chainId: "0xaa36a7" }], // sepolia
+          // params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
-    }
-    
+    };
+
     getChainId();
-  },[])
+  }, []);
 
   useEffect(() => {
     if (connectStatus == "BounsWallet") {
@@ -159,8 +159,8 @@ const useWeb3 = (provider: string | null) => {
         // console.log("dsfsdfs");
         // SetconnectStatus(false);
       });
-    };
-    
+  };
+
   useEffect(() => {
     if (connectStatus == "null" || connectStatus == "") {
       return;
@@ -198,16 +198,16 @@ const useWeb3 = (provider: string | null) => {
     }
     window?.ethereum?.on("chainChanged", async (chainID: string) => {
       console.log("chainIDdsfdsdfsfds", chainID);
-      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
-      if (chainID === "0x4798" && web3 !== null && connectStatus) {
+      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+        // if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          // params: [{ chainId: "0xaa36a7" }], // sepolia
-          params: [{ chainId: "0x4798" }], // bounce
+          params: [{ chainId: "0xaa36a7" }], // sepolia
+          // params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }

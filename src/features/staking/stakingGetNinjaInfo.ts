@@ -40,7 +40,7 @@ export const getNinjaInfo = async ({
 
     return ninjaInfo;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

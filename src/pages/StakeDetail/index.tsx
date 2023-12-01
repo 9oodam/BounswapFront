@@ -6,8 +6,8 @@ import {
   DataArray,
   EarlyInfo,
   TokenArray,
-  TotalToken, 
-  UserInfo 
+  TotalToken,
+  UserInfo,
 } from "../../Interface/Token.interface";
 import Container from "../../components/container";
 import Card from "../../components/Card";
@@ -165,40 +165,37 @@ const StakeDetail = () => {
   }, [stakingContract]);
 
   useEffect(() => {
-    let arr:number[] = [];
+    let arr: number[] = [];
 
-      try {
-        stakingContract?.events
-          .StakingTotalAmount({
-            fromBlock: 0,
-          })
-          .on("data", (event) => {
-            const StakingTotalAmountData: StakingTotalAmountData = {
-              account: event.returnValues.user as string,
-              poolId: event.returnValues._pid as number,
-              amount: event.returnValues.lpTokenBalances as number,
-            };
-            console.log("StakingTotalAmountData", StakingTotalAmountData);
-            // if(!stakingTotalAmount?.some((e) => e.))
-            // setStakingTotalAmount((prev) => [
-            //   ...prev,
-            //   StakingTotalAmountData.amount,
-            // ]);
-            arr.push(Number(StakingTotalAmountData.amount))
-          });
-          
-      } catch (error) {
-        console.log(error);
-      }
-    setStakingTotalAmount(arr)
-          console.log("스테이킹 누적 값", stakingTotalAmount);
-
+    try {
+      stakingContract?.events
+        .StakingTotalAmount({
+          fromBlock: 0,
+        })
+        .on("data", (event) => {
+          const StakingTotalAmountData: StakingTotalAmountData = {
+            account: event.returnValues.user as string,
+            poolId: event.returnValues._pid as number,
+            amount: event.returnValues.lpTokenBalances as number,
+          };
+          console.log("StakingTotalAmountData", StakingTotalAmountData);
+          // if(!stakingTotalAmount?.some((e) => e.))
+          // setStakingTotalAmount((prev) => [
+          //   ...prev,
+          //   StakingTotalAmountData.amount,
+          // ]);
+          arr.push(Number(StakingTotalAmountData.amount));
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    setStakingTotalAmount(arr);
+    console.log("스테이킹 누적 값", stakingTotalAmount);
   }, [stakingContract]);
 
-  useEffect(()=>{
-    console.log("@@@@@@@@@@@@@@@@@@@@@@",stakingTotalAmount)
-  },[stakingTotalAmount])
-
+  useEffect(() => {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@", stakingTotalAmount);
+  }, [stakingTotalAmount]);
 
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
@@ -361,7 +358,8 @@ const StakeDetail = () => {
           </div>
           <div className={Divstyles.flexCol}>
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
-            {selectToken && <StakeCard timestamp={selectToken.endTime} />}
+            {/* {selectToken && <StakeCard timestamp={selectToken.endTime} />} */}
+            {<StakeCard timestamp={1701723804} />}
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
             <div className="w-full mobile:hidden flex justify-center">
               {myAllreward && <MyInfoCard data={myAllreward} />}
