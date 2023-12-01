@@ -47,6 +47,7 @@ const Swap = () => {
   const [pairAddress, setPairAddress] = useState<string>("");
   // 버튼 텍스트
   const [btnText, setBtnText] = useState<string>("Select a token");
+  const [swapResult, setSwapResult] = useState<string | undefined>("");
 
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
@@ -208,6 +209,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else if (OutputSelectedToken.tokenSymbol == "BNC") {
         // ii) Exact token -> bnc
         const result = await exactTokensForBNC(
@@ -220,6 +222,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else {
         // i) Exact token -> token
         const result = await exactTokensForTokens(
@@ -232,6 +235,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       }
     } else if (isExact == false) {
       const outputAmountBigInt = web3?.utils.toBigInt(
@@ -253,6 +257,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else if (OutputSelectedToken.tokenSymbol == "BNC") {
         // v) token -> Exact bnc
         const result = await tokensForExactBNC(
@@ -265,6 +270,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else {
         // iv) token -> Exact token
         const result = await tokensForExactTokens(
@@ -277,6 +283,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       }
     }
 
@@ -291,6 +298,16 @@ const Swap = () => {
 
     refetch();
   };
+
+  useEffect(()=>{
+    if (swapResult == "") return;
+    if (swapResult == "succeed") {
+      alert("succeed");
+    } else {
+      alert(swapResult);
+    }
+  }, [swapResult]);
+
 
   if  (!data) {
     refetch();

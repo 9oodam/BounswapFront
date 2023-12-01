@@ -65,7 +65,23 @@ const useWeb3 = (provider: string | null) => {
     
     if (!window?.ethereum) {
       window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      return;
     }
+
+    const getChainId =async () => {
+      const chainId = await window.ethereum.request({method : 'eth_chainId'});  
+      if (chainId != '0x4798') {
+        const net = await window?.ethereum?.request({
+          jsonrpc: "2.0",
+          method: "wallet_switchEthereumChain",
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
+        });
+        setNetwork(net || true);
+      }
+    }
+    
+    getChainId();
   },[])
 
   useEffect(() => {
@@ -181,7 +197,7 @@ const useWeb3 = (provider: string | null) => {
       return;
     }
     window?.ethereum?.on("chainChanged", async (chainID: string) => {
-      console.log("네트워크 변경");
+      console.log("chainIDdsfdsdfsfds", chainID);
       // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
       if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행

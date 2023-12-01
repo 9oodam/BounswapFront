@@ -9,6 +9,7 @@ import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getUserPools } from "src/features/data/dataGetUserPools";
 import { addLiquidityBNC } from "src/features/pair/poolSendFeatures";
 import { bNCForExactTokens } from "src/features/pair/swapSendFeatures";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const InfoScreen = () => {
   const { user, web3, dataContract, pairContract } = useWeb3(null);
@@ -86,22 +87,25 @@ const InfoScreen = () => {
     poolRefetch();
   }, [user]);
 
-  if (!tokens) {
-    tokenRefetch();
-    return <>loading</>;
-  } 
 
-  if (!pools) {
-    poolRefetch();
-    
+  if (!tokens || !pools) {
+    if (!tokens) {
+      tokenRefetch();
+    }
+
+    if (!pools) {
+      poolRefetch();
+    }
+
     return (
       <div className="w-full pc:h-[80vh] mobile:h-[70vh] flex items-center justify-center ">
         <div className="w-[200px] h-[200px] rounded-full shadow-xl">
-          <img src="/images/Loading.gif" alt="Loading" />
+          <img src={`${ImgBaseUrl()}Loading.gif`} alt="Loading" />
         </div>
       </div>
     );
   }
+
 
   return (
     <div className="w-full">
