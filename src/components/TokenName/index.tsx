@@ -11,6 +11,7 @@ const TokenName: React.FC<TokenNameInterface> = ({
   onClick,
 }) => {
   // const nav = useNavigate();
+  console.log("tokenImg", tokenImg);
   return (
     <>
       <div className="mobile:ml-7 mobile:mr-7">

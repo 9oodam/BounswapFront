@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "src/components/Card";
 import AreaChart from "src/components/AreaChart";
 import { Divstyles } from "./VolumeCard.style";
@@ -8,7 +8,19 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
   totalvolum,
   endTime,
   startTime,
+  volumeChart,
 }) => {
+  const [indexArr, setIndexArr] = useState<number[]>([]);
+  useEffect(() => {
+    let Arr: number[] = [];
+    for (let i = 1; i <= volumeChart.length; i++) {
+      Arr.push(i);
+    }
+    setIndexArr(Arr);
+  }, [volumeChart.length]);
+  useEffect(() => {
+    console.log("ooooooooooooo", indexArr);
+  }, [indexArr]);
   return (
     <Card>
       <div className={Divstyles.flexCol}>
@@ -22,7 +34,7 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
           </div>
         </div>
 
-        {/* <AreaChart /> */}
+        <AreaChart data={volumeChart} index={indexArr} name="STK" />
       </div>
     </Card>
   );
