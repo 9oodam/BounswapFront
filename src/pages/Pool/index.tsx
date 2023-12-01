@@ -64,7 +64,7 @@ const Pool = () => {
         {/* <div className="w-[85%] flex justify-end"> */}
           <div
             className="bg-lightGreen p-3 text-baseWhite font-bold pc:text-[20px] rounded-xl hover:bg-deepGreen cursor-pointer
-            h-[40px] w-[120px] flex justify-center items-center text-[14px] shadow-md"
+            h-[40px] w-[160px] mobile:w-[120px] flex justify-center items-center text-[14px] shadow-md"
             onClick={() => nav("/pool/create")}
           >
             New Position

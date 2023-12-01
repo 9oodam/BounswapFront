@@ -13,6 +13,7 @@ export const propose = async (
       web3.utils.utf8ToHex(description),
     ]).send({
       from: userAddress,
+      gasPrice: 25000000000
     });
     return "succeed";
   } catch (error) {
@@ -41,6 +42,7 @@ export const vote = async (
       support
     ).send({
       from: userAddress,
+      gasPrice: 25000000000
     });
 
     const receipt = await (governanceContract.methods.getReceipt as any)(
