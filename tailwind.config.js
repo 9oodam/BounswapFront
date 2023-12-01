@@ -14,7 +14,7 @@ module.exports = {
         AppFooterBack:
           "linear-gradient(90deg, rgba(213,246,151,1) 0%, rgba(245,255,148,1) 100%)",
         D_AppFooterBack:
-        "linear-gradient(90deg, rgba(0, 0, 0, 100) 0%, rgba(0, 0, 0, 100) 100%)",
+          "linear-gradient(90deg, rgba(0, 0, 0, 100) 0%, rgba(0, 0, 0, 100) 100%)",
         "green-yellow":
           "linear-gradient(125deg, #B2FF96 38.14%, #FFFB88 77.5%);",
         "red-pink": "linear-gradient(125deg, #FF96B2 38.14%, #FF88FB 77.5%)",
@@ -77,7 +77,10 @@ module.exports = {
       header: { min: "1260px", max: "1500px" },
 
       mobileSiedbar: { min: "0px", max: "700px" },
+
       pcSiedbar: { min: "701px", max: "9999px" },
+
+      mobileSearch: { min: "0px", max: "490px" },
     },
   },
   variants: {
