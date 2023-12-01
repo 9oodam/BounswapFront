@@ -57,13 +57,18 @@ const useWeb3 = (provider: string | null) => {
   // }
 
   useEffect(()=>{
+    // const agent = navigator.userAgent;
+    // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
+    //   console.log("모바일환경");
+    //   // alert("모바일 환경");
+    // }
+    
     if (!window?.ethereum) {
       window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-      }
+    }
   },[])
 
   useEffect(() => {
-    console.log("apapap", !BounsAddress);
     if (connectStatus == "BounsWallet") {
       if (!BounsAddress) {
         getBousnsWallet();
