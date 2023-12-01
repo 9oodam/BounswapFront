@@ -13,7 +13,6 @@ const SearchBox = () => {
   const [tokens, setTokens] = useState<string[]>([]);
   const params = useParams<{ id: string }>();
   const [selectItem, setSelectItem] = useState<SearchTokenInfo>();
-
   const queryClient = useQueryClient();
 
   const nav = useNavigate();
@@ -63,6 +62,8 @@ const SearchBox = () => {
               tokenAddress: pool.pairAddress,
               tokenSymbol: `${pool.token0Symbol}/${pool.token1Symbol}`,
               tokenUri: `${pool.token0Uri}+${pool.token1Uri}`,
+              tokenUri0: pool.token0Uri,
+              tokenUri1: pool.token1Uri,
               isPair: true,
             };
           }) || [];
@@ -140,8 +141,6 @@ const SearchBox = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        {/* <div className="rounded-b-3xl border-x-3 border-baseWhite text-baseWhite pc:w-[331px] w-full absolute top-[20px] left-0 z-[-100] max-h-[300px] overflow-auto pc:bg-[#c9f399] mobile:bg-[#a8e99d] border-[3px] pt-[30px]">
-         */}
         <div
           className={`rounded-b-3xl text-baseWhite pc:w-[331px] w-full absolute top-[20px] left-0 z-[-100] max-h-[200px] overflow-auto pc:bg-[#c9f399] mobile:bg-[#a8e99d] pt-[30px] ${
             searchResults.length > 0
@@ -158,15 +157,16 @@ const SearchBox = () => {
                   onClick={() => searchClickHandler(token.tokenSymbol)}
                 >
                   {token.tokenUri && token.tokenUri.includes("+") ? (
-                    token.tokenUri.split("+").map((uri, uriIndex) => (
-                      //! tokenUrI 한개씩 뽑아올수있는지 물어보기
-                      <img
-                        key={uriIndex}
-                        src={uri}
-                        alt={`${token.tokenSymbol}-${uriIndex}`}
-                        className="inline-block w-[28px] h-[28px] rounded-full border-[1px] border-baseWhite mr-2"
-                      />
-                    ))
+                    token.tokenUri
+                      .split("+")
+                      .map((uri, uriIndex) => (
+                        <img
+                          key={uriIndex}
+                          src={uri}
+                          alt={`${token.tokenSymbol}-${uriIndex}`}
+                          className="inline-block w-[28px] h-[28px] rounded-full border-[1px] border-baseWhite mr-2"
+                        />
+                      ))
                   ) : (
                     <img
                       src={token.tokenUri}
@@ -174,7 +174,6 @@ const SearchBox = () => {
                       className="inline-block w-[28px] h-[28px] rounded-full border-[1px] border-baseWhite mr-2"
                     />
                   )}
-
                   <span className="text-lg [text-shadow:0px_2px_3px_#00000040]">
                     {token.tokenName ? (
                       <span>{`${token.tokenName}/${token.tokenSymbol}`}</span>

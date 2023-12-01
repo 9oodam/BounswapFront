@@ -194,6 +194,8 @@ export interface SearchTokenInfo {
   tokenName: string;
   tokenSymbol: string;
   tokenUri: string;
+  tokenUri0: string;
+  tokenUri1: string;
   isPair: boolean;
 }
 
