@@ -22,7 +22,7 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
           </div>
         </div>
 
-        <AreaChart />
+        {/* <AreaChart /> */}
       </div>
     </Card>
   );

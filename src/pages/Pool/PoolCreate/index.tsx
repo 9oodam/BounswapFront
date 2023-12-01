@@ -15,7 +15,12 @@ import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getPairAddress } from "src/features/pair/factorySendFeatures";
 import { getAmountOut } from "src/features/pair/swapSendFeatures";
 import { poolGetSharePercent } from "src/features/pair/pairpoolGetUserLiquidity";
-import { addLiquidity, addLiquidityBNC, getPairAmount } from "src/features/pair/poolSendFeatures";
+import {
+  addLiquidity,
+  addLiquidityBNC,
+  getPairAmount,
+} from "src/features/pair/poolSendFeatures";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const PoolCreate = () => {
   const navigate = useNavigate();
@@ -26,8 +31,10 @@ const PoolCreate = () => {
   const nav = useNavigate();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
-  const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
+  const [InputSelectedToken, setInputSelectedToken] =
+    useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] =
+    useState<TokenItem | null>(null);
   const [tokens, setTokens] = useState<TokenItem[]>([]);
   // 선택된 토큰, 수량
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
@@ -46,7 +53,7 @@ const PoolCreate = () => {
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const {swapTokens} = await getUserTokens({
+    const { swapTokens } = await getUserTokens({
       pairContract,
       dataContract,
       user: user,
@@ -66,10 +73,14 @@ const PoolCreate = () => {
 
   // 2) 페어 주소
   const getPairAddressData = async () => {
-    if(!pairContract) return;
-    if(!InputSelectedToken || !OutputSelectedToken) return;
-    const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
-  
+    if (!pairContract) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
+    const data = await getPairAddress(
+      pairContract,
+      InputSelectedToken.tokenAddress,
+      OutputSelectedToken.tokenAddress
+    );
+
     return data;
   };
   useEffect(() => {
@@ -86,7 +97,7 @@ const PoolCreate = () => {
     }
   }, [InputSelectedToken, OutputSelectedToken]);
 
-  // 3) 1:1 
+  // 3) 1:1
   const getPairAmountData = async (
     inputToken: string,
     outputToken: string,
@@ -112,7 +123,7 @@ const PoolCreate = () => {
     setBtnText("Add Liquidity");
   };
   useEffect(() => {
-    if(!InputSelectedToken || !OutputSelectedToken) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
     if (Number(InputTokenAmount.replace(".", "")) == 0) {
       return;
     }
@@ -120,11 +131,15 @@ const PoolCreate = () => {
       web3?.utils.toWei(InputTokenAmount, "ether")
     );
     if (numIn != undefined) {
-      getPairAmountData(InputSelectedToken?.tokenAddress, OutputSelectedToken.tokenAddress, numIn);
+      getPairAmountData(
+        InputSelectedToken?.tokenAddress,
+        OutputSelectedToken.tokenAddress,
+        numIn
+      );
     }
   }, [InputTokenAmount]);
   useEffect(() => {
-    if(!InputSelectedToken || !OutputSelectedToken) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
     if (Number(OutputTokenAmount.replace(".", "")) == 0) {
       return;
     }
@@ -132,13 +147,17 @@ const PoolCreate = () => {
       web3?.utils.toWei(OutputTokenAmount, "ether")
     );
     if (numIn != undefined) {
-      getPairAmountData(OutputSelectedToken.tokenAddress, InputSelectedToken.tokenAddress, numIn);
+      getPairAmountData(
+        OutputSelectedToken.tokenAddress,
+        InputSelectedToken.tokenAddress,
+        numIn
+      );
     }
   }, [OutputTokenAmount]);
   useEffect(() => {
-    if(!InputTokenAmount || !OutputTokenAmount) return;
+    if (!InputTokenAmount || !OutputTokenAmount) return;
     getSharePercent();
-  }, [InputTokenAmount, OutputTokenAmount])
+  }, [InputTokenAmount, OutputTokenAmount]);
 
   // 4) 유동성 공급
   const Ref = /^(-?)([0-9]*)(\.?)([^0-9]*)([0-9]*)([^0-9]*)/;
@@ -157,14 +176,23 @@ const PoolCreate = () => {
       web3?.utils.toWei(OutputTokenAmount, "ether")
     );
     if (amountADesired != undefined && amountBDesired != undefined) {
-      if (InputSelectedToken.tokenSymbol == "BNC" || OutputSelectedToken.tokenSymbol == "BNC") {
+      if (
+        InputSelectedToken.tokenSymbol == "BNC" ||
+        OutputSelectedToken.tokenSymbol == "BNC"
+      ) {
         console.log("addLiquidityBNC 실행");
         let tokenAddress =
-        InputSelectedToken.tokenSymbol == "BNC" ? OutputSelectedToken.tokenAddress : InputSelectedToken.tokenAddress;
+          InputSelectedToken.tokenSymbol == "BNC"
+            ? OutputSelectedToken.tokenAddress
+            : InputSelectedToken.tokenAddress;
         let amountTokenDesired =
-        InputSelectedToken.tokenSymbol == "BNC" ? amountBDesired : amountADesired;
+          InputSelectedToken.tokenSymbol == "BNC"
+            ? amountBDesired
+            : amountADesired;
         let amountBNCDesired =
-        InputSelectedToken.tokenSymbol == "BNC" ? amountADesired : amountBDesired;
+          InputSelectedToken.tokenSymbol == "BNC"
+            ? amountADesired
+            : amountBDesired;
         const result = await addLiquidityBNC(
           pairContract,
           tokenAddress,
@@ -189,7 +217,7 @@ const PoolCreate = () => {
         );
         if (result == "error") {
           errMsg();
-        }else {
+        } else {
           nav(`/pool/my/${pairAddress}`);
         }
       }
@@ -209,7 +237,9 @@ const PoolCreate = () => {
       InputSelectedToken.tokenAddress,
       OutputSelectedToken.tokenAddress
     );
-    let amountOut0Str = Number(web3?.utils.fromWei(amountOut0, "ether")).toFixed(5);
+    let amountOut0Str = Number(
+      web3?.utils.fromWei(amountOut0, "ether")
+    ).toFixed(5);
     if (amountOut0Str) setToken0Match(amountOut0Str);
     const { amountOut: amountOut1 } = await getAmountOut(
       pairContract,
@@ -218,7 +248,9 @@ const PoolCreate = () => {
       OutputSelectedToken.tokenAddress,
       InputSelectedToken.tokenAddress
     );
-    let amountOut1Str = Number(web3?.utils.fromWei(amountOut1, "ether")).toFixed(5);
+    let amountOut1Str = Number(
+      web3?.utils.fromWei(amountOut1, "ether")
+    ).toFixed(5);
     if (amountOut1Str) setToken1Match(amountOut1Str);
   };
   const getSharePercent = async () => {
@@ -232,9 +264,9 @@ const PoolCreate = () => {
       InputTokenAmount,
       OutputTokenAmount,
       web3
-    )
+    );
     setSharePercent(percent);
-  }
+  };
   useEffect(() => {
     tokenMatch();
   }, [pairAddress]);
@@ -243,7 +275,7 @@ const PoolCreate = () => {
     console.log(isExact);
   }, [isExact]);
 
-  if(!data) return <>loading</>;
+  if (!data) return <LoadingIndicator />;
 
   return (
     <>
@@ -261,25 +293,25 @@ const PoolCreate = () => {
           </div>
           <SwapCard>
             <TokenInput
-            tokens={data}
-            selectedToken={InputSelectedToken}
-            setSelectedToken={(token) => setInputSelectedToken(token)}
-            setInputAmount={setInputTokenAmount}
-            exact={true}
-            setExact={setIsExact}
-            value={InputTokenAmount}
+              tokens={data}
+              selectedToken={InputSelectedToken}
+              setSelectedToken={(token) => setInputSelectedToken(token)}
+              setInputAmount={setInputTokenAmount}
+              exact={true}
+              setExact={setIsExact}
+              value={InputTokenAmount}
             />
           </SwapCard>
           <div className="text-lightBlack text-4xl">+</div>
           <SwapCard>
             <TokenInput
-            tokens={data}
-            selectedToken={OutputSelectedToken}
-            setSelectedToken={(token) => setOutputSelectedToken(token)}
-            setInputAmount={setOutputTokenAmount}
-            exact={false}
-            setExact={setIsExact}
-            value={OutputTokenAmount}
+              tokens={data}
+              selectedToken={OutputSelectedToken}
+              setSelectedToken={(token) => setOutputSelectedToken(token)}
+              setInputAmount={setOutputTokenAmount}
+              exact={false}
+              setExact={setIsExact}
+              value={OutputTokenAmount}
             />
           </SwapCard>
           <InitialPoolPair
@@ -290,7 +322,12 @@ const PoolCreate = () => {
             sharePercent={sharePercent}
           />
 
-          <div onClick={() => {tryAddLiquidity()}} className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md">
+          <div
+            onClick={() => {
+              tryAddLiquidity();
+            }}
+            className="w-[85%] max-w-[500px] min-w-[340px] h-[60px] bg-[#9CE084] rounded-[20px] m-2 mt-2 text-xl font-bold text-white flex items-center justify-center hover:bg-[#548941] cursor-pointer shadow-md"
+          >
             <button>{btnText}</button>
           </div>
         </div>

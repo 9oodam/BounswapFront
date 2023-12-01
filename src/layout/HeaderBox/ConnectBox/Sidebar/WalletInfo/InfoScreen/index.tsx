@@ -108,7 +108,13 @@ const InfoScreen = () => {
   // }, [dataContract, user, web3]);
 
   if (!tokens || !pools) {
-    return <>loading</>;
+    return (
+      <div className="w-full pc:h-[80vh] mobile:h-[70vh] flex items-center justify-center ">
+        <div className="w-[200px] h-[200px] rounded-full shadow-xl">
+          <img src="/images/Loading.gif" alt="Loading" />
+        </div>
+      </div>
+    );
   }
 
   // const test =async () => {

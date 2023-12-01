@@ -13,16 +13,19 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getEachPool } from "src/features/data/dataGetEachPool";
 import { PairItem } from "src/Interface/Token.interface";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const TopPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
   const { id } = useParams();
   const [pool, setPool] = useState<PairItem>();
+  const [poolIndex, setPoolIndex] = useState<number[]>();
 
   useEffect(() => {
     if (!pairContract || !dataContract || !id || user.account == "" || !web3)
       return;
     const getData = async () => {
+      // * 풀의 유동성 배열을 반환함 pairLiquidityArr
       const pool = await getEachPool({
         pairContract,
         dataContract,
@@ -32,12 +35,19 @@ const TopPoolpair: React.FC = () => {
       });
       console.log("pool 테스트", pool);
       setPool(pool);
+
+      let index = [];
+      for (let i = 1; i <= pool?.pairLiquidityArr.length; i++) {
+        index.push(i);
+      }
+      console.log("index", index);
+      setPoolIndex(index);
     };
     getData();
   }, [dataContract, user]);
 
   if (!pool) {
-    return <>loading</>;
+    return <LoadingIndicator/>;
   }
 
   return (
@@ -49,7 +59,15 @@ const TopPoolpair: React.FC = () => {
           <div className={Divstyle.flexCol}>
             <DivCard>
               <CardTitle>Liquidity</CardTitle>
-              <AreaChart />
+              {poolIndex ? (
+                <AreaChart
+                  data={pool.pairLiquidityArr}
+                  index={poolIndex}
+                  name={`${pool.token0Symbol} - ${pool.token1Symbol}`}
+                />
+              ) : (
+                <></>
+              )}
             </DivCard>
             <DivCard>
               <CardTitle>Pool Details</CardTitle>

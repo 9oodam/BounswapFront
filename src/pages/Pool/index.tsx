@@ -9,9 +9,10 @@ import { getAllPools } from "src/features/data/dataGetAllPools";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 import { PairArray, PairItem } from "src/Interface/Token.interface";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const Pool = () => {
-  const {web3, dataContract, pairContract} = useWeb3('');
+  const { web3, dataContract, pairContract } = useWeb3("");
   const [visible, setVisible] = useState(10);
   const queryClient = useQueryClient();
   const nav = useNavigate();
@@ -25,17 +26,26 @@ const Pool = () => {
 
   const getPoolData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const data : PairArray = await getAllPools({pairContract, dataContract, queryClient, web3});
+    const data: PairArray = await getAllPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      web3,
+    });
     return data;
-  }
+  };
 
-  const { data : poolArr, isLoading, error } = useQuery({
-    queryKey : ["allPools"], 
-    queryFn : getPoolData,
-    gcTime : 0,
-    staleTime : 0,
-    refetchOnWindowFocus : "always",  
-    enabled : !!dataContract && !!web3 && !!pairContract
+  const {
+    data: poolArr,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["allPools"],
+    queryFn: getPoolData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!dataContract && !!web3 && !!pairContract,
   });
 
   const showMore = () => {
@@ -43,7 +53,7 @@ const Pool = () => {
   };
 
   if (!poolArr) {
-    return <>loading</>;
+    return <LoadingIndicator />;
   }
 
   return (

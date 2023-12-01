@@ -11,6 +11,7 @@ import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import useWeb3 from "src/hooks/web3.hook";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { propose } from "src/features/governance/govSendFeatures";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const CreateProposal = () => {
   const { web3, governanceContract, dataContract, pairContract, user } = useWeb3(null);
@@ -33,7 +34,7 @@ const CreateProposal = () => {
   const { data : gov } = useQuery({ queryKey : ["gov"], queryFn : getData, enabled : !!web3 && !!dataContract && !!pairContract && !!user });
 
   if (!gov) {
-    return <>loading</>;
+    return <LoadingIndicator/>;
   }
 
   // 의제 제출
