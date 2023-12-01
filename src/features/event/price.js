@@ -7,12 +7,15 @@ export const getTokenPriceFromEvent = async (pairContract, tokenAddress) => {
     });
 
     let priceArr = [];
-    for (let i = 0; i < data.length-1; i++) {
-        if(data[i].returnValues.token0 == tokenAddress) {
-            priceArr.push(data[i+1].returnValues.price0 - data[i].returnValues.price0)
-        }else if(data[i].returnValues.token1 == tokenAddress) {
-            priceArr.push(data[i+1].returnValues.price1 - data[i].returnValues.price1)
+    for (let i = 1; i < data.length; i++) {
+        if(tokenAddress = data[i].returnValues.token0) {
+            const difference = data[i].returnValues.price0 - data[i-1].returnValues.price0;
+            priceArr.push(difference);
+        }else if(tokenAddress = data[i].returnValues.token1) {
+            const difference = data[i].returnValues.price1 - data[i-1].returnValues.price1;
+            priceArr.push(difference);
         }
-    }
+      }
+
     return priceArr;
 }
