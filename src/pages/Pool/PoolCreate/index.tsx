@@ -267,6 +267,7 @@ const PoolCreate = () => {
       OutputTokenAmount,
       web3
     );
+    console.log('share percent : ', percent)
     setSharePercent(percent);
   };
   useEffect(() => {
