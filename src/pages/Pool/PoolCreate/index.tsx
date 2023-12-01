@@ -21,6 +21,8 @@ import {
   getPairAmount,
 } from "src/features/pair/poolSendFeatures";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
+import LoadingIndicator from "src/components/LoadingIndicator";
+
 
 const PoolCreate = () => {
   const navigate = useNavigate();
@@ -275,9 +277,9 @@ const PoolCreate = () => {
     console.log(isExact);
   }, [isExact]);
 
-  if (!data) {
+  if  (!data) {
     refetch();
-    return <>loading</>;
+    return <LoadingIndicator />;
   }
 
   return (

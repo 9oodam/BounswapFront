@@ -1,19 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import ApexCharts from "apexcharts";
 import Chart from "react-apexcharts";
 import ReactApexChart from "react-apexcharts";
 import { Divstyle } from "./AreaChart.style";
 
-const AreaChart = () => {
-  // ! 보여줄 값 넣기
-  const series = [{ name: "hohoho", data: [10, 2, 13, 30, 20] }];
+const AreaChart: React.FC<{
+  data: number[];
+  index: number[];
+  name: string;
+}> = ({ data, index, name }) => {
+  const [indexArr, setIndexArr] = useState<number[]>([]);
+
+  // useEffect(() => {
+  //   const index: number[] = [];
+  //   for (let i = 1; i <= data.length; i++) {
+  //     indexArr.push(i);
+  //   }
+  //   console.log("asdadasdasdaaaaa", indexArr);
+  //   setIndexArr(index);
+  // }, [data]);
+
+  const series = [{ name: name, data: data }];
 
   const option = {
     // theme: { mode: "dark" },
     chart: {
       height: "100%",
       width: "100%",
-      toolbar: { show: false },
+      // toolbar: { show: false },
+      toolbar: {
+        show: true,
+        tools: {
+          download: false,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true,
+        },
+        autoSelected: "zoom" as const,
+      },
       background: "transparent",
     },
     stroke: { curve: "smooth" as const, width: 3 },
@@ -24,8 +51,14 @@ const AreaChart = () => {
       axisTicks: { show: false },
       axisBorder: { show: false },
       //! 인덱스 값 넣기
-      categories: [1, 2, 3, 4, 5],
-      type: "datetime" as const,
+      // categories: index,
+      range: 10,
+      tickPlacement: "on",
+      // type: "datetime" as const,
+      type: "category" as const,
+    },
+    dataLabels: {
+      enabled: false,
     },
     fill: {
       type: "gradient",
@@ -39,6 +72,26 @@ const AreaChart = () => {
     colors: ["#338415"],
     tooltip: {
       y: { formatter: (value: number) => `$ ${value.toFixed(2)}` },
+    },
+    markers: {
+      size: 4,
+      colors: "#338415",
+      strokeColors: "#fff",
+      strokeWidth: 2,
+      strokeOpacity: 0.8,
+      // fillOpacity: 1,
+      // discrete: [],
+      shape: "circle" as const,
+      // radius: 2,
+      // offsetX: 0,
+      // offsetY: 0,
+      // onClick: undefined,
+      // onDblClick: undefined,
+      // showNullDataPoints: true,
+      hover: {
+        // size: undefined,
+        sizeOffset: 2,
+      },
     },
   };
   return (

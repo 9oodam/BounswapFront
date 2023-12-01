@@ -25,13 +25,16 @@ import SwapButton from "src/contents/Swap/SwapButton";
 import SwapCard from "src/components/Card/SwapCard";
 import { TokenArray, TokenItem } from "src/Interface/Token.interface";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const Swap = () => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
-  const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
+  const [InputSelectedToken, setInputSelectedToken] =
+    useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] =
+    useState<TokenItem | null>(null);
   const [tokens, setTokens] = useState<TokenItem[]>([]);
   // 선택된 토큰, 수량
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
@@ -48,7 +51,7 @@ const Swap = () => {
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const {swapTokens} = await getUserTokens({
+    const { swapTokens } = await getUserTokens({
       pairContract,
       dataContract,
       user: user,
@@ -68,13 +71,17 @@ const Swap = () => {
 
   // 2) 페어 주소
   const getPairAddressData = async () => {
-    if(!pairContract) return;
-    if(!InputSelectedToken || !OutputSelectedToken) return;
-    const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
+    if (!pairContract) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
+    const data = await getPairAddress(
+      pairContract,
+      InputSelectedToken.tokenAddress,
+      OutputSelectedToken.tokenAddress
+    );
     return data;
   };
   useEffect(() => {
-    if(InputSelectedToken == OutputSelectedToken) {
+    if (InputSelectedToken == OutputSelectedToken) {
       setOutputSelectedToken(null);
     }
     const fetchPairAddress = async () => {
@@ -102,8 +109,12 @@ const Swap = () => {
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
     );
-    const amountOutStr = Number(web3?.utils.fromWei(amountOut, "ether")).toFixed(5);
-    const minTokenStr = Number(web3?.utils.fromWei(minToken, "ether")).toFixed(5);
+    const amountOutStr = Number(
+      web3?.utils.fromWei(amountOut, "ether")
+    ).toFixed(5);
+    const minTokenStr = Number(web3?.utils.fromWei(minToken, "ether")).toFixed(
+      5
+    );
     if (!amountOutStr || !minTokenStr) return;
     setOutputTokenAmount(amountOutStr);
     setMinToken(minTokenStr);
@@ -133,8 +144,12 @@ const Swap = () => {
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
     );
-    const amountInStr = Number(web3?.utils.fromWei(amountIn, "ether")).toFixed(5);
-    const maxTokenStr = Number(web3?.utils.fromWei(maxToken, "ether")).toFixed(5);
+    const amountInStr = Number(web3?.utils.fromWei(amountIn, "ether")).toFixed(
+      5
+    );
+    const maxTokenStr = Number(web3?.utils.fromWei(maxToken, "ether")).toFixed(
+      5
+    );
     if (!amountInStr || !maxTokenStr) return;
     setInputTokenAmount(amountInStr);
     setMaxToken(maxTokenStr);
@@ -277,9 +292,9 @@ const Swap = () => {
     refetch();
   };
 
-  if (!data) {
+  if  (!data) {
     refetch();
-    return <>loading</>;
+    return <LoadingIndicator />;;
   }
 
   return (

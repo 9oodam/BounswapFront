@@ -11,27 +11,49 @@ import { useQueryClient } from "@tanstack/react-query";
 import { TokenArray, TokenItem } from "src/Interface/Token.interface";
 import { getEachToken } from "src/features/data/dataGetEachToken";
 import useWeb3 from "src/hooks/web3.hook";
+import TokenVolume from "src/contents/tokenDetail/TokenDetail";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const TokenDetail: React.FC = () => {
   const { web3, dataContract, pairContract } = useWeb3(null);
   const [token, setToken] = useState<TokenItem | null>(null);
+  const [priceArr, setPriceArr] = useState<number[]>([]);
+  const [indexArr, setIndexArr] = useState<number[]>([]);
   const nav = useNavigate();
 
   const queryClient = useQueryClient();
   const { id } = useParams();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!pairContract || !dataContract || !id || !web3) return;
-    const getData =async () => {
-      const data = await getEachToken({pairContract, dataContract, tokenAddress : id, web3});
+    const getData = async () => {
+      // * 토큰 price 값 배열로 반환받음
+      const data = await getEachToken({
+        pairContract,
+        dataContract,
+        tokenAddress: id,
+        web3,
+      });
       setToken(data);
       console.log("getData, getEachToken", data);
-    }
+    };
     getData();
-  },[dataContract])
+  }, [dataContract]);
+
+  useEffect(() => {
+    if (token) {
+      let indexs: number[] = [];
+      const Arr = token.tokenPriceArr.map((el, index) => {
+        indexs.push(index + 1);
+        return Number(el) / 10 ** 18;
+      });
+      setPriceArr(Arr);
+      setIndexArr(indexs);
+    }
+  }, [token]);
 
   if (!token) {
-      return <>loading</>;
+    return <LoadingIndicator/>;
   }
 
   return (
@@ -46,14 +68,19 @@ const TokenDetail: React.FC = () => {
         <div className={Divstyles.flexRow}>
           <div className={Divstyles.flexCol}>
             <DivCard>
-              <CardTitle>Volume</CardTitle>
-              <AreaChart />
+              <CardTitle>Price</CardTitle>
+              <AreaChart
+                data={priceArr}
+                index={indexArr}
+                name={`${token.tokenSymbol} price`}
+              />
             </DivCard>
-            <Information />
+            <DivCard>
+              <CardTitle>Token Details</CardTitle>
+              <TokenVolume data={token} />
+            </DivCard>
           </div>
-          <DivCard>
-            {/* <Swap/> */}
-          </DivCard>
+          <Information />
         </div>
       </Container>
     </>

@@ -13,6 +13,7 @@ import Card from "src/components/Card";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
 import { TokenArray,TokenContract } from "src/Interface/Token.interface";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const Tokens = () => {
   const {web3, dataContract, pairContract} = useWeb3('');
@@ -47,7 +48,7 @@ const Tokens = () => {
   };
 
   if (!tokenArr) {
-    return <>loading</>;
+    return <LoadingIndicator/>;
   }
 
   return (

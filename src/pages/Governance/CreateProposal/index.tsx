@@ -12,6 +12,7 @@ import useWeb3 from "src/hooks/web3.hook";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { propose } from "src/features/governance/govSendFeatures";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const CreateProposal = () => {
   const { web3, governanceContract, dataContract, pairContract, user } = useWeb3(null);
@@ -35,7 +36,7 @@ const CreateProposal = () => {
 
   if (!gov) {
     refetch();
-    return <>loading</>;
+    return <LoadingIndicator/>;
   }
 
   // 의제 제출

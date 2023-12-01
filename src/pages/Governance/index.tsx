@@ -12,6 +12,7 @@ import { getProposals } from "src/features/governance/govGetProposals";
 import { bNCForExactTokens } from "src/features/pair/swapSendFeatures";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { vote } from "src/features/governance/govSendFeatures";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const Governance = () => {
   const { web3, governanceContract, pairContract, dataContract, user } = useWeb3(null);
@@ -145,12 +146,12 @@ const Governance = () => {
 
   if (!data) {
     refetchData();
-    return <>loading</>;
+    return <LoadingIndicator />
   }
-
+  
   if (!gov) {
     refetchGov();
-    return <>loading</>;
+    return <LoadingIndicator />
   }
 
   return (
