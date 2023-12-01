@@ -56,8 +56,35 @@ const useWeb3 = (provider: string | null) => {
   //   getBousnsWallet();
   // }
 
+  useEffect(()=>{
+    // const agent = navigator.userAgent;
+    // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
+    //   console.log("모바일환경");
+    //   // alert("모바일 환경");
+    // }
+    
+    if (!window?.ethereum) {
+      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      return;
+    }
+
+    const getChainId =async () => {
+      const chainId = await window.ethereum.request({method : 'eth_chainId'});  
+      if (chainId != '0x4798') {
+        const net = await window?.ethereum?.request({
+          jsonrpc: "2.0",
+          method: "wallet_switchEthereumChain",
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
+        });
+        setNetwork(net || true);
+      }
+    }
+    
+    getChainId();
+  },[])
+
   useEffect(() => {
-    console.log("apapap", !BounsAddress);
     if (connectStatus == "BounsWallet") {
       if (!BounsAddress) {
         getBousnsWallet();
@@ -79,11 +106,11 @@ const useWeb3 = (provider: string | null) => {
   }, [connectStatus]);
 
   const connectMetaMask = async () => {
-    if (window.ethereum) {
+    if (window?.ethereum) {
       SetconnectStatus(String(localStorage.getItem("connectStatus")));
       // SetconnectStatus(true);
-      // // await window.ethereum.request({ method: "eth_requestAccounts" });
-      // getAccounts(window.ethereum);
+      // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
+      // getAccounts(window?.ethereum);
       window.location.reload();
     } else {
       alert("MetaMask 를 설치해주세요");
@@ -117,7 +144,7 @@ const useWeb3 = (provider: string | null) => {
     } else {
       webProvider = web3;
     }
-    window.ethereum
+    window?.ethereum
       .request({ method: "eth_requestAccounts" })
       .then(async ([data]: string[]) => {
         setUser({
@@ -140,7 +167,7 @@ const useWeb3 = (provider: string | null) => {
     }
 
     // ! useEffect 실행될때마다 getbalance 실행 (wallet 주소 state 에 저장)
-    // if (!window.ethereum.selectedAddress) {
+    // if (!window?.ethereum?.selectedAddress) {
     //   alert("메타마스크 로그인");
     //   return;
     // }
@@ -151,11 +178,11 @@ const useWeb3 = (provider: string | null) => {
       return;
     }
 
-    if (window.ethereum) {
-      const web3Provider = new Web3(window.ethereum);
+    if (window?.ethereum) {
+      const web3Provider = new Web3(window?.ethereum);
       setWeb3(web3Provider);
       getAccounts(web3Provider);
-      window.ethereum.on("chainChanged", () => {
+      window?.ethereum?.on("chainChanged", () => {
         window.location.reload();
       });
     } else {
@@ -169,16 +196,18 @@ const useWeb3 = (provider: string | null) => {
       getBalance(BounsAddress);
       return;
     }
-    window.ethereum.on("chainChanged", async (chainID: string) => {
-      console.log("네트워크 변경");
-      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+    window?.ethereum?.on("chainChanged", async (chainID: string) => {
+      console.log("chainIDdsfdsdfsfds", chainID);
+      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+      if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
-        const net = await window.ethereum.request({
+        const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }],
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
@@ -186,6 +215,10 @@ const useWeb3 = (provider: string | null) => {
   }, [network]);
 
   useEffect(() => {
+    // if (user.account != "") {
+    //   window.location.reload();
+    // }
+
     if (connectStatus == "BounsWallet") {
       // getBalance(BounsAddress);
       return;
@@ -194,7 +227,7 @@ const useWeb3 = (provider: string | null) => {
   }, [user]);
 
   if (web3 !== null) {
-    window.ethereum.on("accountsChanged", async (accounts: string[]) => {
+    window?.ethereum?.on("accountsChanged", async (accounts: string[]) => {
       const updatedAccount = accounts[0];
 
       setUser({
@@ -217,23 +250,27 @@ const useWeb3 = (provider: string | null) => {
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2",
+        // "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
+        "0x0103f9Dec7dc8378d11f9ac29E6796d76725a0C2", // bounce
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4",
+        // "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
+        "0xd9742c39d3EA58f674AC5b7A135f5b31923D8aD9", // bounce
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0xCF36B339BC1023D574F04582f891429273AF1461",
-        // "0x050Ade3854C7493dD67271f85Fc40459674F737C",
+        // "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
+        "0xAb74d94c354779cEd1A50a4E0c428Ab1eb7CcA5B", // bounce
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0xA381BEc860Aa6575fb33Ac2404Cd20A13aA05610",
+        // "0xD73865E343138f35C57EAc514257cDdD2FAa97aB", // sepolia
+        "0x180966C6adf826ad0D5D0D831fCe84dd7E876f94", // bounce
+        // "0xA381BEc860Aa6575fb33Ac2404Cd20A13aA05610",
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(

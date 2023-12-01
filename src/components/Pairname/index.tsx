@@ -1,14 +1,17 @@
 import { type } from "os";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Divstyle } from "./Pairname.style";
 import { PairItem } from "src/Interface/Token.interface";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
   const nav = useNavigate();
+  const location = useLocation();
   const [address, setAddress] = useState(data.pairAddress);
   const [copied, setCopied] = useState(false);
   const [isClickable, setIsClickable] = useState(true);
+  const [isMy, setIsMy] = useState(false);
 
   const pairA = (address: string) => {
     return (
@@ -27,13 +30,29 @@ const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
       setIsClickable(true); // 1초 후에 클릭 가능 상태를 true로 설정
     }, 1000);
   }
+
+  useEffect(() => {
+    if(location.pathname.includes('my')) {
+      setIsMy(true);
+    }
+  }, [])
+
   return (
     <>
-      <img
-        src="/images/backArrow.png"
-        className={Divstyle.arrowsize}
-        onClick={() => nav(-1)}
-      ></img>
+    <div className="mobile:ml-7 mobile:mr-7">
+      <div className="flex justify-between">
+        <img
+          src={`${ImgBaseUrl()}backArrow.png`}
+          className={Divstyle.arrowsize}
+          onClick={() => nav(-1)}
+        ></img>
+        {!isMy &&        
+          <div
+          onClick={() => {nav(`/pool/my/${data.pairAddress}`)}}
+          className="bg-lightGreen p-3 text-baseWhite font-bold pc:text-[20px] rounded-xl hover:bg-deepGreen cursor-pointer
+          h-[40px] w-[120px] mobile:h-[30px] mobile:w-[100px] flex justify-center items-center text-[14px] shadow-md">My Pool</div>
+        }
+      </div>
       <div className={Divstyle.Titlesize}>
         <div className="flex flex-row items-center">
           <div className={Divstyle.LogoPair}>
@@ -54,10 +73,11 @@ const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
             {copied ? "Copied" : pairA(address)}
           </div>
           {!copied && (
-            <img src="/images/copy icon.png" className="pc:w-[20px] pc:h-[20px] mobile:w-[14px] mobile:h-[14px]" />
+            <img src={`${ImgBaseUrl()}copy icon.png`} className="pc:w-[20px] pc:h-[20px] mobile:w-[14px] mobile:h-[14px]" />
           )}
         </div>
       </div>
+    </div>
     </>
   );
 };

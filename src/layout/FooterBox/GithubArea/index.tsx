@@ -1,17 +1,17 @@
 import React from "react";
 import { github } from "src/Interface/Button.interface";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const GithubArea: React.FC<github> = ({ name, address }) => {
   return (
     <div
       onClick={() => {
-        console.log("클릭은?", address);
         window.open(address, "_blank");
       }}
       className="flex mx-4 cursor-pointer mobile:my-1"
     >
       <img
-        src="/images/github-mark.png"
+        src={`${ImgBaseUrl()}github-mark.png`}
         alt="github"
         className="w-[30px] h-[30px] opacity-80 mobile:w-[20px] mobile:h-[20px] "
       />

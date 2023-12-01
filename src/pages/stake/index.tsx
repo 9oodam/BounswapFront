@@ -4,6 +4,7 @@ import Dashboard from "../../components/Dashboard";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
 import { getAllTokens } from "src/features/AllTokens";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const Stake = () => {
   const [visible, setVisible] = useState(10);
@@ -21,7 +22,7 @@ const Stake = () => {
       tokenCA: "0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4",
       stakeName: "Stake",
       stakeSymbol: "STK",
-      stakeImg: "/images/LPToken_Steake2.png",
+      stakeImg: `${ImgBaseUrl()}LPToken_Steake2.png`,
       totalStaked: 12345678,
       StakeVolume: 12000,
       your: 1234,

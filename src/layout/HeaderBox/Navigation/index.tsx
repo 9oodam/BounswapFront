@@ -12,7 +12,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex justify-between pc:w-[50%] header:w-[85%] h-100% items-center ">
+    <div className="flex justify-between pc:w-[50%] header:w-[85%] h-100% items-center mobile:w-[20%]">
       <LogoArea />
       <div className="mobile:hidden flex justify-around flex-grow">
         <Link

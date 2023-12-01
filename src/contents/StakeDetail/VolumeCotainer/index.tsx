@@ -14,7 +14,7 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
       <div className={Divstyles.flexCol}>
         <div className="w-full flex justify-between mobile:flex-col">
           <VolumeCard title="Total Staked" value={totalvolum} />
-          <div className="pc:m-5 mobile:mt-5 pc:p-5 mobile:pr-5 items-end flex flex-col justify-end text-deepBlack">
+          <div className="pc:m-5 mobile:mt-5 pc:p-5 mobile:pr-5 items-end flex flex-col justify-end text-deepBlack dark:text-baseWhite">
             <div className="mobile:hidden">Staking Period</div>
             <div className="font-bold">
               {startTime} ~ {endTime}
@@ -22,7 +22,7 @@ const VolumeCotainer: React.FC<TotalVolNTime> = ({
           </div>
         </div>
 
-        <AreaChart />
+        {/* <AreaChart /> */}
       </div>
     </Card>
   );

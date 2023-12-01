@@ -31,7 +31,7 @@ const index: React.FC<InputTokenProps> = ({
 
           // }
           else {
-            alert("숫자만 입력해 주세요!");
+            alert("정수만 입력해 주세요!");
           }
         }}
         className={Inputstyle.size}

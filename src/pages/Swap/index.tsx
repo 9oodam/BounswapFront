@@ -25,13 +25,16 @@ import SwapButton from "src/contents/Swap/SwapButton";
 import SwapCard from "src/components/Card/SwapCard";
 import { TokenArray, TokenItem } from "src/Interface/Token.interface";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const Swap = () => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
-  const [InputSelectedToken, setInputSelectedToken] = useState<TokenItem | null>(null);
-  const [OutputSelectedToken, setOutputSelectedToken] = useState<TokenItem | null>(null);
+  const [InputSelectedToken, setInputSelectedToken] =
+    useState<TokenItem | null>(null);
+  const [OutputSelectedToken, setOutputSelectedToken] =
+    useState<TokenItem | null>(null);
   const [tokens, setTokens] = useState<TokenItem[]>([]);
   // 선택된 토큰, 수량
   const [InputTokenAmount, setInputTokenAmount] = useState<string>("");
@@ -44,11 +47,12 @@ const Swap = () => {
   const [pairAddress, setPairAddress] = useState<string>("");
   // 버튼 텍스트
   const [btnText, setBtnText] = useState<string>("Select a token");
+  const [swapResult, setSwapResult] = useState<string | undefined>("");
 
   // 1) 토큰 데이터 가져오기
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const {swapTokens} = await getUserTokens({
+    const { swapTokens } = await getUserTokens({
       pairContract,
       dataContract,
       user: user,
@@ -68,13 +72,17 @@ const Swap = () => {
 
   // 2) 페어 주소
   const getPairAddressData = async () => {
-    if(!pairContract) return;
-    if(!InputSelectedToken || !OutputSelectedToken) return;
-    const data = await getPairAddress(pairContract, InputSelectedToken.tokenAddress, OutputSelectedToken.tokenAddress)
+    if (!pairContract) return;
+    if (!InputSelectedToken || !OutputSelectedToken) return;
+    const data = await getPairAddress(
+      pairContract,
+      InputSelectedToken.tokenAddress,
+      OutputSelectedToken.tokenAddress
+    );
     return data;
   };
   useEffect(() => {
-    if(InputSelectedToken == OutputSelectedToken) {
+    if (InputSelectedToken == OutputSelectedToken) {
       setOutputSelectedToken(null);
     }
     const fetchPairAddress = async () => {
@@ -102,8 +110,12 @@ const Swap = () => {
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
     );
-    const amountOutStr = Number(web3?.utils.fromWei(amountOut, "ether")).toFixed(5);
-    const minTokenStr = Number(web3?.utils.fromWei(minToken, "ether")).toFixed(5);
+    const amountOutStr = Number(
+      web3?.utils.fromWei(amountOut, "ether")
+    ).toFixed(5);
+    const minTokenStr = Number(web3?.utils.fromWei(minToken, "ether")).toFixed(
+      5
+    );
     if (!amountOutStr || !minTokenStr) return;
     setOutputTokenAmount(amountOutStr);
     setMinToken(minTokenStr);
@@ -133,8 +145,12 @@ const Swap = () => {
       InputSelectedToken?.tokenAddress,
       OutputSelectedToken?.tokenAddress
     );
-    const amountInStr = Number(web3?.utils.fromWei(amountIn, "ether")).toFixed(5);
-    const maxTokenStr = Number(web3?.utils.fromWei(maxToken, "ether")).toFixed(5);
+    const amountInStr = Number(web3?.utils.fromWei(amountIn, "ether")).toFixed(
+      5
+    );
+    const maxTokenStr = Number(web3?.utils.fromWei(maxToken, "ether")).toFixed(
+      5
+    );
     if (!amountInStr || !maxTokenStr) return;
     setInputTokenAmount(amountInStr);
     setMaxToken(maxTokenStr);
@@ -193,6 +209,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else if (OutputSelectedToken.tokenSymbol == "BNC") {
         // ii) Exact token -> bnc
         const result = await exactTokensForBNC(
@@ -205,6 +222,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else {
         // i) Exact token -> token
         const result = await exactTokensForTokens(
@@ -217,6 +235,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       }
     } else if (isExact == false) {
       const outputAmountBigInt = web3?.utils.toBigInt(
@@ -238,6 +257,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else if (OutputSelectedToken.tokenSymbol == "BNC") {
         // v) token -> Exact bnc
         const result = await tokensForExactBNC(
@@ -250,6 +270,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       } else {
         // iv) token -> Exact token
         const result = await tokensForExactTokens(
@@ -262,6 +283,7 @@ const Swap = () => {
           user.account
         );
         console.log(result);
+        setSwapResult(result);
       }
     }
 
@@ -277,9 +299,19 @@ const Swap = () => {
     refetch();
   };
 
-  if (!data) {
+  useEffect(()=>{
+    if (swapResult == "") return;
+    if (swapResult == "succeed") {
+      alert("succeed");
+    } else {
+      alert(swapResult);
+    }
+  }, [swapResult]);
+
+
+  if  (!data) {
     refetch();
-    return <>loading</>;
+    return <LoadingIndicator />;;
   }
 
   return (
@@ -300,6 +332,7 @@ const Swap = () => {
             value={InputTokenAmount}
           />
         </Card>
+        <div className="text-lightBlack dark:text-baseWhite text-4xl">↓</div>
         <Card>
           <div className="text-lightBlack text-left">You receive</div>
           <TokenInput
@@ -314,13 +347,15 @@ const Swap = () => {
         </Card>
         {minToken &&        
         <SwapFetchingCard>
-          <div>minToken : {minToken}</div>
+          <div>Max slippage <span className="text-xs">(minToken) 0.5%</span></div>
+          <div>{minToken}</div>
         </SwapFetchingCard>
         }
         {maxToken &&        
         <SwapFetchingCard>
-          <div>maxToken : {maxToken}</div>
-        </SwapFetchingCard>
+        <div>Max slippage <span className="text-xs">(maxToken) 0.5%</span></div>
+        <div>{maxToken}</div>
+      </SwapFetchingCard>
         }
         <SwapBtn tokenName={btnText} onClick={trySwap} />
         {/* 조건 1.지갑연동 안됐을때 wallet 연결 유도 2. 토큰 두개다 골랐는데 Input or Output 입력안됐을때 "Enter an amount" 3. Input or Output 이 입력됐을때 계산실행해주기 "fetching best price 표시 -> 입력됐을때 얼마로 바꿔줄수있는지 표시 "1UNI = 3.234 WETH" 4. 내가 보유한 첫번째 TokenInput 의 balance 가 InputValue 보다 높을때는 "Insufficient WETH balance" 띄어주고 swap 막기 5.위의 조건을 다 피해가면 그때 "Swap"가능 */}

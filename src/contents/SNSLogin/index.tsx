@@ -4,6 +4,7 @@ import { getLoginUrl } from "src/Service/authService";
 import { SNSLoginProps } from "src/Interface/SNSLoginProps";
 import Footer from "src/layout/FooterBox";
 import { DivStyle } from "./SNSLogin.styled";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -93,7 +94,7 @@ const SNSLogin: React.FC<SNSLoginProps> = ({ onLoginSuccess }) => {
       {/* 다른 파일 건드린 부분 == App.css 파일안에 loginButton, .App text-align 주석처리 */}
 
       <div className={DivStyle.SNSLoginBox}>
-        <img className="w-[125px] h-[125px]" src="/images/BounsIo_LOGO.png" />
+        <img className="w-[125px] h-[125px]" src={`${ImgBaseUrl()}BounsIo_LOGO.png`} />
         <div className=" w-full h-[23px] top-[36px] left-0 [text-shadow:0px_4px_4px_#00000040] font-bold text-baseWhite text-[25px] tracking-[0] leading-[normal] whitespace-nowrap">
           BounSwap
         </div>

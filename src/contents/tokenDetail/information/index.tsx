@@ -5,7 +5,7 @@ const Information = () => {
   const [showMore, setShowMore] = useState<boolean>(false);
 
   const tokenInfo = useRef<string>("");
-  const textLimit = useRef<number>(400);
+  const textLimit = useRef<number>(800);
 
   const SetInfo = () => {
     tokenInfo.current =

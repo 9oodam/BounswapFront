@@ -19,6 +19,7 @@ import { getEachPool } from "src/features/data/dataGetEachPool";
 import UnclaimedFeesCard from "src/contents/poolpair/UnclaimedFeesCard";
 import { getUnclaimedFee } from "src/features/data/dataGetUnclaimedFee";
 import { poolGetUserLiquidity } from "src/features/pair/pairpoolGetUserLiquidity";
+import LoadingIndicator from "src/components/LoadingIndicator";
 
 const MyPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
@@ -44,9 +45,9 @@ const MyPoolpair: React.FC = () => {
     enabled: !(!pairContract|| !dataContract || !web3 || !user)
   });
 
-  if (!data) {
+  if (!data || !pairContract || !user) {
     refetch();
-    return <>loading</>;
+    return <LoadingIndicator />;
   } 
 
   return (
@@ -56,7 +57,7 @@ const MyPoolpair: React.FC = () => {
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
             <DepositeCard pool={data.pool} userLiquidity={data.userLiquidity}/>
-            <UnclaimedFeesCard pool={data.pool} fee={data.fee}/>
+            <UnclaimedFeesCard pairCon={pairContract} user={user.account} pool={data.pool} fee={data.fee} refetch={refetch} />
           </div>
           <AddRemoveLiquidity data={data.pool} refetch = {refetch} />
         </div>

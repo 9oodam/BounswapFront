@@ -1,5 +1,6 @@
 import React from "react";
 import { WalletBox } from "./WalletBox";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const WalletConnectScreen: React.FC = () => {
   return (
@@ -9,11 +10,11 @@ const WalletConnectScreen: React.FC = () => {
         <div className="grid gap-[2px] rounded-[12px] overflow-hidden">
           <WalletBox
             walletName="BounsWallet"
-            walletImg="images/BNC_Icon.png"
+            walletImg={`${ImgBaseUrl()}BNC_Icon.png`}
           ></WalletBox>
           <WalletBox
             walletName="MetaMask"
-            walletImg="images/MetaMask.png"
+            walletImg={`${ImgBaseUrl()}MetaMask.png`}
           ></WalletBox>
         </div>
         <div>

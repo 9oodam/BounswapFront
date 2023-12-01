@@ -32,6 +32,7 @@ export const deposit = async ({
     );
     await (stakingContract?.methods.deposit as any)(_pid, strChange).send({
       from: user.account,
+      gasPrice: 25000000000
     });
   } catch (error) {
     console.log(error);
@@ -47,6 +48,7 @@ export const emergencyWithdraw = async ({
     const _pid = 0;
     await (stakingContract?.methods.emergencyWithdraw as any)(_pid).send({
       from: user.account,
+      gasPrice: 25000000000
     });
   } catch (error) {
     console.log();
@@ -62,6 +64,7 @@ export const maturedWithdraw = async ({
     const _pid = 0;
     await (stakingContract?.methods.maturedWithdraw as any)(_pid).send({
       from: user.account,
+      gasPrice: 25000000000
     });
   } catch (error) {
     console.log(error);
@@ -77,7 +80,7 @@ export const setStakingEndDays = async ({
     const _pid = 0;
     const _days = 10; //  1 = 1초
     await (stakingContract?.methods.setStakingEndDays as any)(_pid, _days).send(
-      { from: user.account }
+      { from: user.account, gasPrice: 25000000000 }
     );
   } catch (error) {
     console.log(error);
@@ -94,7 +97,7 @@ export const addStakingPool = async ({
     const _endDays = 30;
     const _lpToken = '0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4';
     await (stakingContract?.methods.addStakingPool as any) (_allocPoint, _lpToken, _endDays).send(
-      {from: user.account}
+      {from: user.account, gasPrice: 25000000000}
     );
   } catch (error) {
     console.log(error);

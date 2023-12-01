@@ -16,10 +16,13 @@ import MyLiquidity from "./PercentBtnWarp/MyLiquidity";
 import Price from "./PercentBtnWarp/Price";
 import { PairItem } from "src/Interface/Token.interface";
 import { getAmountOut } from "src/features/pair/swapSendFeatures";
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import { getUserPools } from "src/features/data/dataGetUserPools";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refetch }) => {
   const queryClient = useQueryClient();
-  const { user, web3, pairContract } = useWeb3(window.ethereum);
+  const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
   const [percentage, setPercentage] = useState<string>("");
   const [tokens, setTokens] = useState({
@@ -28,6 +31,51 @@ const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, r
   });
   const [token0Match, setToken0Match] = useState<string>("");
   const [token1Match, setToken1Match] = useState<string>("");
+
+  const getTokens = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserTokens({
+      pairContract,
+      dataContract,
+      queryClient,
+      user: user,
+      web3,
+    });
+    return data.userTokens;
+  };
+
+  const getPools = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      userAddress: user.account,
+      web3,
+    });
+    return data;
+  };
+
+  const { refetch: tokenRefetch } = useQuery({
+    queryKey: ["userTokens"],
+    queryFn: getTokens,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!dataContract || !web3 || !user)
+  });
+
+  const { refetch: poolRefetch } = useQuery({
+    queryKey: ["userPairs"],
+    queryFn: getPools,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!dataContract || !web3 || !user)
+  });
+
 
   // 0-9까지의 숫자만. 소숫점을 입력할 수 있으나 입력한 뒤에는 무조건 숫자 하나 이상이 들어가야 한다.
   const Ref = /^[0-9]+$/;
@@ -97,10 +145,10 @@ const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, r
       }
     }
 
-
-
     // refetch tokens, pools
     refetch();
+    tokenRefetch();
+    poolRefetch();
   };
 
   // ! 현재 페어 심볼과 내가 가진 페어의 양을 테스트하는 함수
@@ -176,7 +224,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, r
         regex={Ref}
       />
       <PercentBtnWarp setInputAmount={setPercentage} />
-      <img src="/images/downArrow.png" alt="arrow" className={Imgstyle.arrow} />
+      <img src={`${ImgBaseUrl()}downArrow.png`} alt="arrow" className={Imgstyle.arrow} />
       <MyLiquidity token1={tokens.token1} token2={tokens.token2} />
       <Price
         token0Match={token0Match}

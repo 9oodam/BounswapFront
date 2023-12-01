@@ -7,6 +7,7 @@ import InfoScreen from "../ConnectBox/Sidebar/WalletInfo/InfoScreen";
 import WalletConnect from "../ConnectBox/Sidebar/WalletConnect";
 import { WalletAddressButton, ConnectButton } from "./ConnectBox.Style";
 import useWeb3 from "src/hooks/web3.hook";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const ConnectBox: React.FC = () => {
   const navigate = useNavigate();
@@ -40,14 +41,14 @@ const ConnectBox: React.FC = () => {
         className="w-[25px] h-[25px] mr-[10px]"
       >
         <img
-          src="images/logout-icon.png"
+          src={`${ImgBaseUrl()}logout-icon.png`}
           alt="logout button"
           className="w-full h-full"
         />
       </button>
       <button onClick={toggleSidebar} className="w-[18px] h-[18px] ml-[10px] mr-[10px] hover:scale-105">
         <img
-          src="images/x-letter-icon.png"
+          src={`${ImgBaseUrl()}x-letter-icon.png`}
           alt="exit button"
           className="w-full h-full"
         />
@@ -59,14 +60,14 @@ const ConnectBox: React.FC = () => {
     <>
       <button onClick={logoutHandle} className="w-[25px] h-[25px] mr-[10px]">
         <img
-          src="images/logout-icon.png"
+          src={`${ImgBaseUrl()}logout-icon.png`}
           alt="logout button"
           className="w-full h-full"
         />
       </button>
       <button onClick={toggleSidebar} className="w-[25px] h-[25px]">
         <img
-          src="images/x-letter-icon.png"
+          src={`${ImgBaseUrl()}x-letter-icon.png`}
           alt="exit button"
           className="w-full h-full"
         />
@@ -75,7 +76,7 @@ const ConnectBox: React.FC = () => {
   );
 
   return (
-    <div className=" w-[12%] h-[46px] ">
+    <div className=" w-[12%] h-[46px] mobile:w-[25%] mobile:flex mobile:justify-end">
       {user.account ? (
         <WalletAddressButton
           onClick={toggleSidebar}
