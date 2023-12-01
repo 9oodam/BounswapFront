@@ -22,4 +22,25 @@
       @apply bg-lightBlack;
     }
   }
+  .sideBarScrollbar {
+    /* 스크롤바의 너비 */
+    &::-webkit-scrollbar {
+      @apply w-2 rounded-full;
+    }
+
+    /* 스크롤바의 트랙 */
+    &::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
+
+    /* 스크롤바 핸들 */
+    &::-webkit-scrollbar-thumb {
+      @apply bg-lightBlack;
+    }
+
+    /* 핸들 호버 시 */
+    &::-webkit-scrollbar-thumb:hover {
+      @apply bg-baseWhite rounded-coinLogo;
+    }
+  }
 }

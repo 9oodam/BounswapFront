@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { TokenArray, TokenItem } from "src/Interface/Token.interface";
+import "../../../../../../../contents/StakeDetail/EarlyCard/EarlyCard.style.css";
 
 const TokenBox: React.FC<{ tokens: TokenArray }> = ({ tokens }) => {
   const { user, web3, dataContract } = useWeb3(null);
@@ -58,8 +59,12 @@ const TokenBox: React.FC<{ tokens: TokenArray }> = ({ tokens }) => {
                 <div className="w-[30%] flex justify-center items-center">
                   <img className="w-[36px] h-[36px]" src={el.tokenUri} />
                 </div>
-                <div className="w-[30%] h-[36px] flex justify-start items-center">{el.tokenSymbol}</div>
-                <div className="w-[40%] h-[36px] flex justify-start items-center">{el.tokenBalance}</div>
+                <div className="w-[30%] h-[36px] flex justify-center items-center">
+                  {el.tokenSymbol}
+                </div>
+                <div className="w-[40%] h-[36px] flex justify-center items-center">
+                  {el.tokenBalance}
+                </div>
               </div>
             </div>
           ))}

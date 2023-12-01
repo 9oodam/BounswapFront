@@ -70,7 +70,7 @@ const InfoScreen = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !(!dataContract || !web3 || !user)
+    enabled: !(!dataContract || !web3 || !user),
   });
 
   const { data: pools, refetch: poolRefetch } = useQuery({
@@ -79,14 +79,13 @@ const InfoScreen = () => {
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !(!dataContract || !web3 || !user)
+    enabled: !(!dataContract || !web3 || !user),
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     tokenRefetch();
     poolRefetch();
   }, [user]);
-
 
   if (!tokens || !pools) {
     if (!tokens) {
@@ -109,7 +108,6 @@ const InfoScreen = () => {
 
   return (
     <div className="w-full">
-      {/* bnc 금액 */}
       <h3 className="font-bold text-[23px] mb-7 ">
         {/* {user.balance.split(".")[0] +
           "." +
@@ -118,7 +116,6 @@ const InfoScreen = () => {
         BNC
       </h3>
 
-      {/* send, receive */}
       <div className="flex flex-col gap-4">
         <div className="flex justify-evenly">
           <button
@@ -157,7 +154,6 @@ const InfoScreen = () => {
 
       <div className="w-[100%] h-[1px] bg-gray-300 my-4" />
 
-      {/* tokens, Pools, Activity */}
       <div className="flex flex-col items-center w-full">
         <div className="flex justify-evenly">
           <button
@@ -180,18 +176,14 @@ const InfoScreen = () => {
           >
             Pools
           </button>
-          {/* <button className="bg-yellow-200 p-2 rounded" onClick={(e) => { setShowHistory("Activity", e.target as Element) }} >Activity</button> */}
         </div>
 
-        <div className="w-[80%] h-[100%] rounded">
-          {
-            history == "Tokens" ? (
-              <TokenBox tokens={tokens} />
-            ) : (
-              <PoolBox pools={pools} />
-            )
-            // <ActivityBox />
-          }
+        <div className="w-[100%] h-[100%] rounded">
+          {history == "Tokens" ? (
+            <TokenBox tokens={tokens} />
+          ) : (
+            <PoolBox pools={pools} />
+          )}
         </div>
       </div>
     </div>
