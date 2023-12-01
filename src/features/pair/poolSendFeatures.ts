@@ -32,7 +32,8 @@ export const getRemoveAmount = async (pairContract: Contract<any>, pairAddress: 
 export const addLiquidity = async (pairContract: Contract<any>, tokenA: string, tokenB: string, amountADesired: BigInt, amountBDesired: BigInt, user: string) => {
   try {
     const block = await (pairContract?.methods.poolAddLiquidity as any)(tokenA, tokenB, amountADesired, amountBDesired).send({
-      from: user
+      from: user,
+      gasPrice: 25000000000
     });
     console.log(block);
     // block에 문제 있으면 error 처리할 수 있는 문구 내보내기
@@ -48,7 +49,8 @@ export const addLiquidityBNC = async (pairContract: Contract<any>, token: string
   try {
     const block = await (pairContract?.methods.poolAddLiquidityBNC as any)(token, amountTokenDesired).send({
       from: user,
-      value: amountBNCDesired
+      value: amountBNCDesired,
+      gasPrice: 25000000000
     });
     console.log(block);
     if(block) return('succeed');
@@ -62,7 +64,8 @@ export const addLiquidityBNC = async (pairContract: Contract<any>, token: string
 export const removeLiquidity = async (pairContract: Contract<any>, tokenA: string, tokenB: string, percentage: number, user: string) => {
   try {
     const block = await (pairContract?.methods.poolRemoveLiquidity as any)(tokenA, tokenB, percentage).send({
-      from: user
+      from: user,
+      gasPrice: 25000000000
     });
     console.log(block);
     if(block) return('succeed');
@@ -91,7 +94,8 @@ export const removeLiquidityBNC = async (pairContract: Contract<any>, token: str
 export const claimFee = async (pairContract: Contract<any>, pairAddress: string, user: string) => {
   try {
     const block = await (pairContract?.methods.poolClaimFee as any)(pairAddress).call({
-      from: user
+      from: user,
+      gasPrice: 25000000000
     });
     console.log(block);
     if(block) return('succeed');

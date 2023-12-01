@@ -194,6 +194,8 @@ export interface SearchTokenInfo {
   tokenName: string;
   tokenSymbol: string;
   tokenUri: string;
+  tokenUri0: string;
+  tokenUri1: string;
   isPair: boolean;
 }
 
@@ -214,4 +216,20 @@ export interface DepositeChart {
   token1Symbol: string;
   token0percent: string | number;
   token1percent: string | number;
+}
+
+export interface TotalToken {
+  lpToken: string;
+  allocPoint: string;
+  lastRewardBlock: string;
+  accBNCPerShare: string;
+  stakingPoolEndTime: string;
+  stakingPoolStartTime: string;
+}
+
+export interface UserInfo {
+  amount: string;
+  exactRewardCal: string;
+  pendingReward: string;
+  stakingStartTime: string;
 }

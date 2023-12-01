@@ -2,8 +2,34 @@ import React from "react";
 import Card from "src/components/Card";
 import { EarlyInfo, EarlyArray } from "src/Interface/Token.interface";
 import "./EarlyCard.style.css";
+import { EmergencyEventArr } from "src/Interface/Ninja.interface";
+import useWeb3 from "src/hooks/web3.hook";
 
-const EarlyCard: React.FC<{ data: EarlyArray }> = ({ data }) => {
+const EarlyCard: React.FC<{ data: EmergencyEventArr }> = ({ data }) => {
+  const { web3 } = useWeb3(window.ethereum);
+
+  // 타임스탬프를 날짜로
+  const formatDate = (timestamp: number) => {
+    const date = new Date(Number(timestamp) * 1000);
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  };
+
+  // totalLPToken 변환
+  const formatLPToken = (totalLPToken: number) => {
+    if (!web3) {
+      return '';
+    }
+    const etherData = web3?.utils.fromWei(BigInt(totalLPToken), 'ether');
+    return etherData;
+  };
+  // totalNinjaReward 변환
+  const formatNinjaReward = (totalNinjaReward: number) => {
+    if (!web3) {
+      return '';
+    }
+    const etherData = web3.utils.fromWei(BigInt(totalNinjaReward), 'ether');
+    return parseFloat(etherData).toFixed(4);
+  };
   return (
     <div className="pc:w-[85%] mobile:w-full text-baseWhite pc:p-7 mobile:mt-5">
       <h3
@@ -18,13 +44,14 @@ const EarlyCard: React.FC<{ data: EarlyArray }> = ({ data }) => {
         <div>Unclaimed Rewards</div>
       </div>
       <div className="grid grid-cols-1 gap-2 overflow-auto scrollbar overflow-y-scroll w-full h-60 text-baseWhite">
-        {data.map((el, index) => (
+        {[...data].reverse().map((el, index) => (
           <div key={index} className="w-full flex justify-around">
-            <span className="w-[30%]">{el.time}</span>
+            <span className="w-[30%]">{formatDate(el.stakingLeftTime)}</span>
             <span className="w-[30%] mobile:hidden">
-              {el.LPtoken} {el.symbol}
+              {formatLPToken(el.totalLPToken)}
+              {/* {el.symbol} */}
             </span>
-            <span className="w-[30%]">{el.reword}</span>
+            <span className="w-[30%]">{formatNinjaReward(el.totalNinjaReward)}</span>
           </div>
         ))}
       </div>
