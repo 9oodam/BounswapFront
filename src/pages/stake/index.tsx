@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/container";
 import Dashboard from "../../components/Dashboard";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
 import { getAllTokens } from "src/features/AllTokens";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
+import { getPoolInfo } from "src/features/staking/stakingGetPoolInfo";
+import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
+import { StakeItem, TotalToken, UserInfo } from "src/Interface/Token.interface";
+import { getUserInfo } from "src/features/staking/stakingGetUserInfo";
 
 const Stake = () => {
   const [visible, setVisible] = useState(10);
+  const [stakeData, setStakeData] = useState<TotalToken | null | undefined>(
+    null
+  );
+  const [totalLp, setTotalLp] = useState<number | null | undefined>(null);
+  const [userTotalLp, setUserTotalLp] = useState<string | undefined>();
+  const [tokenData, setTokenData] = useState<StakeItem[] | null>(null);
   const queryClient = useQueryClient();
 
   const titles = {
@@ -16,50 +26,89 @@ const Stake = () => {
     end: "End Date",
     yours: "Your tokens",
   };
-  const data = [
-    {
-      // ! 스테이킹을 구별할 수 있는 요소는 CA가 아닌 poolId 값이 될 것!
-      tokenCA: "0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4",
-      stakeName: "Stake",
-      stakeSymbol: "STK",
-      stakeImg: `${ImgBaseUrl()}LPToken_Steake2.png`,
-      totalStaked: 12345678,
-      StakeVolume: 12000,
-      your: 1234,
-      startTime: 1700100000,
-      endTime: 1704452400,
-    },
-  ];
 
-  const { governanceContract } = useWeb3(null);
+  const { web3, stakingContract, user } = useWeb3(window.ethereum);
 
-  const test = async () => {
-    console.log("governanceContract..", governanceContract);
-    if (governanceContract) {
-      return await getAllTokens({ governanceContract, queryClient });
-    } else {
-      return null;
-    }
+  const getPoolInfoData = async () => {
+    if (!stakingContract || !queryClient) return null;
+    await getPoolInfo({
+      stakingContract,
+      queryClient,
+    });
   };
 
-  const {
-    data: data2,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["proposals"],
-    // queryFn: fetchData,
-    queryFn: test,
+  const { data: poolInfoData, refetch } = useQuery({
+    queryKey: ["poolInfo"],
+    queryFn: getPoolInfoData,
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !!governanceContract,
+    enabled: !!stakingContract && !!queryClient,
   });
 
-  queryClient.setQueryData(["lpTokens"], data);
-  const asd = queryClient.getQueryData(["proposals"]);
-  console.log("adbajshbfgnisadnbhfkjs", asd);
-  // queryClient.(["lpTokens"], data);
+  const totalLP = async () => {
+    if (!stakingContract || !queryClient || !web3) return null;
+    await getTotalLPToken({
+      stakingContract,
+      queryClient,
+      web3,
+    });
+  };
+  const { data: totalLPTokenAmount } = useQuery({
+    queryKey: ["totalLPTokenAmount"],
+    queryFn: totalLP,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!stakingContract && !!queryClient,
+  });
+
+  console.log("@@@@@@@", poolInfoData);
+  console.log("@@@@@@@", totalLPTokenAmount);
+
+  const userFn = async () => {
+    if (!stakingContract || !queryClient || !user.account || !user.balance)
+      return null;
+    console.log("zzzzzzzzz", stakingContract, queryClient, user);
+    return await getUserInfo({ stakingContract, queryClient, user });
+  };
+
+  const { data: getUserData } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: userFn,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled:
+      !!stakingContract && !!queryClient && !!user.account && !!user.balance,
+  });
+
+  useEffect(() => {
+    console.log("유저 데이터", getUserData);
+  }, [queryClient, stakingContract]);
+
+  useEffect(() => {
+    setStakeData(poolInfoData);
+    setTotalLp(totalLPTokenAmount);
+  }, [poolInfoData, totalLPTokenAmount]);
+
+  useEffect(() => {
+    if (stakeData && totalLp && getUserData) {
+      const TokenData = [
+        {
+          tokenCA: stakeData.lpToken,
+          stakeName: "Stake",
+          stakeSymbol: "STK",
+          stakeImg: `${ImgBaseUrl()}LPToken_Steake2.png`,
+          totalStaked: Number(totalLp),
+          your: Number(getUserData.amount) / 10 ** 18,
+          endTime: Number(stakeData.stakingPoolEndTime),
+          startTime: Number(stakeData.stakingPoolStartTime),
+        },
+      ];
+      setTokenData(TokenData);
+    }
+  }, [getUserData, stakeData, totalLp]);
 
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
@@ -89,10 +138,16 @@ const Stake = () => {
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25">
           Stake
         </div>
-        <Dashboard arr={data.slice(0, visible)} url="stake" title={titles} />
+        {tokenData && (
+          <Dashboard
+            arr={tokenData.slice(0, visible)}
+            url="stake"
+            title={titles}
+          />
+        )}
 
         <div className="w-[85%] rounded-full hover:bg-opercityBlack text-baseWhite font-bold m-3 p-2 text-[18px] cursor-pointer flex justify-center items-center">
-          {visible < data.length ? (
+          {tokenData && visible < tokenData.length ? (
             <button onClick={showMore}>show more</button>
           ) : (
             <></>

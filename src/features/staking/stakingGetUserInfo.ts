@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import { Contract } from "web3";
 
+
 interface Params {
   stakingContract: Contract<any> | null;
   queryClient: QueryClient;

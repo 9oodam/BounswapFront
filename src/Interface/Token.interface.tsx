@@ -158,7 +158,6 @@ export interface StakeItem {
   totalStaked: number;
   startTime: number;
   endTime: number;
-  StakeVolume: number;
   your: number;
 }
 
