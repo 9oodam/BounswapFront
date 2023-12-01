@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 // import tokenAbi from "src/abi/token.abi.json";
 import governanceAbi from "src/abi/governance.abi.json";
-import stakingAbi from "src/abi/staking.abi.json";
+import stakingAbi from "src/abi/stake.abi.json";
 import wbncAbi from "src/abi/wbnc.abi.json";
 import lpTokenAbi from "src/abi/lpToken.abi.json";
 import dataAbi from "src/abi/Data.abi.json";
