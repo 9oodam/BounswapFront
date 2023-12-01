@@ -85,8 +85,6 @@ const useWeb3 = (provider: string | null) => {
           params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
-      } else {
-        alert("바운스 코드 네트워크가 아닙니다.");
       }
     }
     
