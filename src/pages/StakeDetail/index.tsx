@@ -203,130 +203,130 @@ const StakeDetail = () => {
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
 
-  useEffect(() => {
-    const getLptokens = async () => {
-      const data = await queryClient.getQueryData<UserInfo>(["userInfo"]);
-      console.log("❗️data", data?.amount);
-      // setLptokens(data?.amount);
-      console.log("@@lptokens", lptokens);
-    };
-    getLptokens();
-  }, [lptokens]);
+  // useEffect(() => {
+  //   const getLptokens = async () => {
+  //     const data = await queryClient.getQueryData<UserInfo>(["userInfo"]);
+  //     console.log("❗️data", data?.amount);
+  //     // setLptokens(data?.amount);
+  //     console.log("@@lptokens", lptokens);
+  //   };
+  //   getLptokens();
+  // }, [lptokens]);
   // console.log("LpTokens", data);
 
   // console.log("params", params.id);
-  useEffect(() => {
-    if (lptokens) {
-      const find = async () => {
-        const select = await lptokens.find((el: StakeItem) => {
-          // console.log("el", el);
-          return el.tokenCA == params.id;
-        });
-        // console.log("선택", select);
-        setSelectTokens(select ? select : null);
-        console.log("⭐️⭐️⭐️selectToken", selectToken);
-      };
-      find();
-    }
-  }, [lptokens, params.id, selectToken]);
+  // useEffect(() => {
+  //   if (lptokens) {
+  //     const find = async () => {
+  //       const select = await lptokens.find((el: StakeItem) => {
+  //         // console.log("el", el);
+  //         return el.tokenCA == params.id;
+  //       });
+  //       // console.log("선택", select);
+  //       setSelectTokens(select ? select : null);
+  //       console.log("⭐️⭐️⭐️selectToken", selectToken);
+  //     };
+  //     find();
+  //   }
+  // }, [lptokens, params.id, selectToken]);
 
-  useEffect(() => {
-    // ! Early 더미 값. 나중에 정보 받아오면 지우자!
-    const EarlyData = [
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 34,
-        reword: 0.034,
-        time: 1700123200,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 1,
-        reword: 0.001,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-      {
-        LPtoken: 11,
-        reword: 0.011,
-        time: 1700132400,
-        symbol: selectToken?.stakeSymbol || "",
-      },
-    ];
-    if (EarlyData) {
-      const editData = EarlyData.map((el, index) => {
-        const date = getTime(el.time);
+  // useEffect(() => {
+  //   // ! Early 더미 값. 나중에 정보 받아오면 지우자!
+  //   const EarlyData = [
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 34,
+  //       reword: 0.034,
+  //       time: 1700123200,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 1,
+  //       reword: 0.001,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //     {
+  //       LPtoken: 11,
+  //       reword: 0.011,
+  //       time: 1700132400,
+  //       symbol: selectToken?.stakeSymbol || "",
+  //     },
+  //   ];
+  //   if (EarlyData) {
+  //     const editData = EarlyData.map((el, index) => {
+  //       const date = getTime(el.time);
 
-        return {
-          LPtoken: el.LPtoken,
-          reword: el.reword,
-          time: date,
-          symbol: el.symbol,
-        };
-      });
-      console.log("???????", editData);
-      setWithdrawal(editData);
-    }
-  }, [selectToken]);
+  //       return {
+  //         LPtoken: el.LPtoken,
+  //         reword: el.reword,
+  //         time: date,
+  //         symbol: el.symbol,
+  //       };
+  //     });
+  //     console.log("???????", editData);
+  //     setWithdrawal(editData);
+  //   }
+  // }, [selectToken]);
 
   return (
     <>
@@ -361,7 +361,7 @@ const StakeDetail = () => {
           </div>
           <div className={Divstyles.flexCol}>
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
-            {selectToken && <StakeCard timestamp={selectToken.endTime} />}
+            {/* {userInfo && <StakeCard timestamp={userInfo.stakingStartTime} />} */}
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
             <div className="w-full mobile:hidden flex justify-center">
               {myAllreward && <MyInfoCard data={myAllreward} />}
