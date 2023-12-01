@@ -39,8 +39,6 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
       >
         {tokenName}
       </div>
-      <div onClick={addStaking}>스테이킹 풀 생성(테스트 끝나고 지워야함)</div>
-      <div onClick={setStakingEndDay}>스테이킹 날짜 줄이기(테스트 끝나고 지워야함)</div>
     </>
   );
 };

@@ -25,19 +25,19 @@ const MyInfoCard = () => {
         <div className={Divstyles.flexCol}>
           <div className="flex pc:w-[85%] mobile:w-[90%] justify-between pc:items-center">
             <div className="pc:w-[30%]">
-              <div className="text-lightBlack w-full text-left">
+              <div className="text-lightBlack dark:text-baseWhite w-full text-left">
                 Your tokens
               </div>
 
-              <div className="text-deepGreen font-extrabold text-[30px] w-full text-left">
+              <div className="text-deepGreen dark:text-lightGreen font-extrabold text-[30px] w-full text-left">
                 {myFee.token}
               </div>
             </div>
             <div>
-              <div className="text-lightBlack text-right">
+              <div className="text-lightBlack dark:text-baseWhite text-right">
                 Time of Initiation
               </div>
-              <div className="text-deepBlack text-right font-semibold">
+              <div className="text-deepBlack dark:text-lightBlack text-right font-semibold">
                 {getTime(myFee.time)}
               </div>
             </div>
@@ -45,19 +45,19 @@ const MyInfoCard = () => {
           <div className=" pc:w-[90%] mobile:w-[95%] p-5 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center m-5 shadow-md">
             <div className={Divstyles.flexCol}>
               <div className={`${Divstyles.flexRow}`}>
-                <div className="pc:text-left mobile:text-right w-full text-lightBlack">
+                <div className="pc:text-left mobile:text-right w-full text-lightBlack dark:text-baseWhite">
                   Total Fees
                 </div>
-                <div className="text-[28px] w-full text-deepGreen font-bold pc:text-right mobile:text-right">
+                <div className="text-[28px] w-full text-deepGreen dark:text-lightGreen font-bold pc:text-right mobile:text-right">
                   {myFee.totalfee}
                 </div>
               </div>
               <div className="w-full flex justify-between items-center mt-3 mobile:flex-col">
                 <div className="min-w-[120px] pc:w-[95%] mobile:w-[95%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
-                  <div className=" text-left text-lightBlack">
+                  <div className=" text-left text-lightBlack dark:text-baseWhite">
                     Fee per Block
                   </div>
-                  <div className="text-right text-deepGreen text-[23px] font-bold">
+                  <div className="text-right text-deepGreen dark:text-lightGreen text-[23px] font-bold">
                     {myFee.dailyfee}
                   </div>
                 </div>
@@ -65,8 +65,8 @@ const MyInfoCard = () => {
                   +
                 </div>
                 <div className="min-w-[120px] pc:w-[95%] mobile:w-[95%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
-                  <div className="text-left text-lightBlack">Bonus Fee</div>
-                  <div className="text-right text-deepGreen text-[23px] font-bold">
+                  <div className="text-left text-lightBlack dark:text-baseWhite">Bonus Fee</div>
+                  <div className="text-right text-deepGreen dark:text-lightGreen text-[23px] font-bold">
                     {myFee.earlyfee}
                   </div>
                 </div>

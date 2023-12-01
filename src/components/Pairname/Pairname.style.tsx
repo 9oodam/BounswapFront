@@ -4,5 +4,5 @@ export const Divstyle = {
   LogoPair: `relative pc:w-[100px] mobile:w-[80px] h-[50px]`,
   LogoLeft: `pc:w-[50px] pc:h-[50px] mobile:w-[40px] mobile:h-[40px] absolute rounded-coinLogo top-[4px] border-2`,
   LogoRight: `pc:w-[50px] pc:h-[50px] mobile:w-[40px] mobile:h-[40px] absolute left-7 rounded-coinLogo top-[4px] border-2`,
-  title: `text-[#242323] pc:text-4xl mobile:text-[25px] font-black text-left pc:mr-12`,
+  title: `text-deepBlack dark:text-baseWhite pc:text-4xl mobile:text-[25px] font-black text-left pc:mr-12`,
 };
