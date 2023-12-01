@@ -29,6 +29,7 @@ const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
   }
   return (
     <>
+    <div className="mobile:ml-7 mobile:mr-7">
       <img
         src="/images/backArrow.png"
         className={Divstyle.arrowsize}
@@ -58,6 +59,7 @@ const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
           )}
         </div>
       </div>
+    </div>
     </>
   );
 };

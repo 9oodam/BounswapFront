@@ -12,7 +12,7 @@ const TokenName: React.FC<TokenNameInterface> = ({
   // const nav = useNavigate();
   return (
     <>
-      <div className="mobile: ml-7">
+      <div className="mobile:ml-7 mobile:mr-7">
         <img
           src="/images/backArrow.png"
           className={Divstyles.arrowsize}

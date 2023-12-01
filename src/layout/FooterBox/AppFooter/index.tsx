@@ -23,7 +23,7 @@ const AppFooter: React.FC = () => {
   };
   return (
     <>
-      <div className="min-w-[386px] pc:hidden mobile:fixed bottom-0 bg-AppFooterBack w-full h-[80px] flex items-center justify-evenly">
+      <div className="min-w-[386px] pc:hidden mobile:fixed bottom-0 bg-AppFooterBack dark:bg-D_AppFooterBack w-full h-[80px] flex items-center justify-evenly">
         <Link
           to="/swap"
           // className={`mr-[14px] ml-[14px] left-0 font-bold text-[22px] ${getTabStyle(

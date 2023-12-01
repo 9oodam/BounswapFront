@@ -8,6 +8,6 @@ export const Divstyles = {
 };
 
 export const Textstyle = {
-    nameTitle: `text-deepBlack mobile:text-baseWhite text-4xl mobile:text-[25px] font-bold `,
+    nameTitle: `text-deepBlack dark:text-baseWhite text-4xl mobile:text-[25px] font-bold `,
     symbolTitle: `text-lightBlack text-2xl mobile:text-[20px] ml-3`,
 }

@@ -33,13 +33,13 @@ const Stake: React.FC<Timestamp> = ({ timestamp }) => {
 
   return (
     <div className="p-5">
-      <div className="w-full text-left text-deepBlack">enter Amount</div>
+      <div className="w-full text-left text-deepBlack">Enter an Amount</div>
       <InputAmount tokenName="JGD" setInputValue={setDepositValue} />
       {deadline == false ? (
         <StakeBtn tokenName="Stake" tokenDepositAmount={depositValue} />
       ) : (
         <div className="w-[100%] h-[60px] bg-lightBlack rounded-coinLogo mt-10 text-xl font-bold text-white flex items-center justify-center shadow-md">
-          만료된 stake 입니다.
+          만료된 stake pool 입니다.
         </div>
       )}
     </div>
