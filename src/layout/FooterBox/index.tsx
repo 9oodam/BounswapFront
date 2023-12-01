@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LogoArea from "../HeaderBox/LogoArea";
 import ToggleBtn from "src/components/toggleBtn";
 import GithubArea from "./GithubArea";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const Footer = (): JSX.Element => {
   const [pop, setPop] = useState(false);
@@ -27,7 +28,7 @@ const Footer = (): JSX.Element => {
         className="pc:hidden w-full flex justify-end items-center mr-5"
       >
         <img
-          src="/images/github-mark.png"
+          src={`${ImgBaseUrl}github-mark.png`}
           alt="github icon"
           className="w-[30px] h-[30px] opacity-80"
         />

@@ -11,6 +11,7 @@ import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import useWeb3 from "src/hooks/web3.hook";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { propose } from "src/features/governance/govSendFeatures";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const CreateProposal = () => {
   const { web3, governanceContract, dataContract, pairContract, user } = useWeb3(null);
@@ -63,7 +64,7 @@ const CreateProposal = () => {
       <div className="flex justify-start mobile:pl-[20px] mobile:h-[20px]">
         <img
           onClick={backArrow}
-          src="/images/backArrow.png"
+          src={`${ImgBaseUrl()}backArrow.png`}
           className={Divstyle.arrowsize}
         />
       </div>

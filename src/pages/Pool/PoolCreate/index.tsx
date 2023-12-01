@@ -20,6 +20,7 @@ import {
   addLiquidityBNC,
   getPairAmount,
 } from "src/features/pair/poolSendFeatures";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const PoolCreate = () => {
   const navigate = useNavigate();
@@ -284,7 +285,7 @@ const PoolCreate = () => {
       <div className="w-full flex justify-start mobile:pl-[20px] mobile:h-[20px]">
         <img
           onClick={backArrow}
-          src="/images/backArrow.png"
+          src={`${ImgBaseUrl()}backArrow.png`}
           className={Divstyle.arrowsize}
         />
       </div>

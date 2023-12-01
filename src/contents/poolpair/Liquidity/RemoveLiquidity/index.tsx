@@ -18,6 +18,7 @@ import { PairItem } from "src/Interface/Token.interface";
 import { getAmountOut } from "src/features/pair/swapSendFeatures";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getUserPools } from "src/features/data/dataGetUserPools";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refetch }) => {
   const queryClient = useQueryClient();
@@ -223,7 +224,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, r
         regex={Ref}
       />
       <PercentBtnWarp setInputAmount={setPercentage} />
-      <img src="/images/downArrow.png" alt="arrow" className={Imgstyle.arrow} />
+      <img src={`${ImgBaseUrl()}downArrow.png`} alt="arrow" className={Imgstyle.arrow} />
       <MyLiquidity token1={tokens.token1} token2={tokens.token2} />
       <Price
         token0Match={token0Match}

@@ -7,6 +7,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useWeb3 from "src/hooks/web3.hook";
 import { getAllTokens } from "src/features/data/dataGetAllTokens";
 import { getAllPools } from "src/features/data/dataGetAllPools";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const SearchBox = () => {
   const [allTokenData, setAllTokenData] = useState<SearchTokenArr>([]);
@@ -131,7 +132,7 @@ const SearchBox = () => {
           <img
             className="absolute w-[22px] h-[21px] top-[10px] left-[15px]"
             alt="Search icon"
-            src="/images/search.svg"
+            src={`${ImgBaseUrl()}search.svg`}
           />
           <input
             className="absolute w-full h-full left-0 top-0 pl-[48px] pr-3 py-0 opacity-80 [font-family:'Inter-Bold',Helvetica] font-bold text-baseWhite text-[19px] tracking-[0] leading-[normal] placeholder-baseWhite bg-transparent border-none outline-none"

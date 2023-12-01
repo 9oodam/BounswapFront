@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Divstyle } from "./Pairname.style";
 import { PairItem } from "src/Interface/Token.interface";
 import { useNavigate } from "react-router-dom";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
   const nav = useNavigate();
@@ -30,7 +31,7 @@ const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
   return (
     <>
       <img
-        src="/images/backArrow.png"
+        src={`${ImgBaseUrl()}backArrow.png`}
         className={Divstyle.arrowsize}
         onClick={() => nav(-1)}
       ></img>
@@ -54,7 +55,7 @@ const Pairname: React.FC<{ data: PairItem }> = ({ data }) => {
             {copied ? "Copied" : pairA(address)}
           </div>
           {!copied && (
-            <img src="/images/copy icon.png" className="pc:w-[20px] pc:h-[20px] mobile:w-[14px] mobile:h-[14px]" />
+            <img src={`${ImgBaseUrl()}copy icon.png`} className="pc:w-[20px] pc:h-[20px] mobile:w-[14px] mobile:h-[14px]" />
           )}
         </div>
       </div>

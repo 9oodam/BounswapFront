@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import GithubArea from "../GithubArea";
 import ToggleBtn from "src/components/toggleBtn";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const AppFooter: React.FC = () => {
   const [infoPop, setInfoPop] = useState(false);
@@ -35,13 +36,13 @@ const AppFooter: React.FC = () => {
         >
           {getTabStyle("/swap") && !infoPop ? (
             <img
-              src="/images/AppFooter_Swap_G.png"
+              src={`${ImgBaseUrl()}AppFooter_Swap_G.png`}
               alt="swap"
               className="w-[40px] h-[40px]"
             />
           ) : (
             <img
-              src="/images/AppFooter_Swap_W.png"
+              src={`${ImgBaseUrl()}AppFooter_Swap_W.png`}
               alt="swap"
               className="w-[40px] h-[40px]"
             />
@@ -59,13 +60,13 @@ const AppFooter: React.FC = () => {
         >
           {getTabStyle("/tokens") && !infoPop ? (
             <img
-              src="/images/AppFooter_Token_G.png"
+              src={`${ImgBaseUrl()}AppFooter_Token_G.png`}
               alt="tokens"
               className="w-[40px] h-[40px]"
             />
           ) : (
             <img
-              src="/images/AppFooter_Token_W.png"
+              src={`${ImgBaseUrl()}AppFooter_Token_W.png`}
               alt="tokens"
               className="w-[40px] h-[40px]"
             />
@@ -83,13 +84,13 @@ const AppFooter: React.FC = () => {
         >
           {getTabStyle("/pool") && !infoPop ? (
             <img
-              src="/images/AppFooter_Pool_G.png"
+              src={`${ImgBaseUrl()}AppFooter_Pool_G.png`}
               alt="pool"
               className="w-[40px] h-[40px]"
             />
           ) : (
             <img
-              src="/images/AppFooter_Pool_W.png"
+              src={`${ImgBaseUrl()}AppFooter_Pool_W.png`}
               alt="pool"
               className="w-[40px] h-[40px]"
             />
@@ -107,13 +108,13 @@ const AppFooter: React.FC = () => {
         >
           {getTabStyle("/stake") && !infoPop ? (
             <img
-              src="/images/AppFooter_Stake_G.png"
+              src={`${ImgBaseUrl()}AppFooter_Stake_G.png`}
               alt="stake"
               className="w-[40px] h-[40px]"
             />
           ) : (
             <img
-              src="/images/AppFooter_Stake_W.png"
+              src={`${ImgBaseUrl()}AppFooter_Stake_W.png`}
               alt="stake"
               className="w-[40px] h-[40px]"
             />
@@ -139,9 +140,9 @@ const AppFooter: React.FC = () => {
         </Link>
         <div className="w-[40px] h-[40px]" onClick={handleClick}>
           {infoPop ? (
-            <img src="images/AppFooter_Info_G.png" alt="info" />
+            <img src={`${ImgBaseUrl()}AppFooter_Info_G.png`} alt="info" />
           ) : (
-            <img src="images/AppFooter_Info_W.png" alt="info" />
+            <img src={`${ImgBaseUrl()}AppFooter_Info_W.png`} alt="info" />
           )}
         </div>
         <div
@@ -151,7 +152,7 @@ const AppFooter: React.FC = () => {
         >
           <div className="flex items-center justify-center">
             <img
-              src="/images/BounsIo_LOGO.png"
+              src={`${ImgBaseUrl()}BounsIo_LOGO.png`}
               alt="Logo"
               className="w-[40px] h-[40px]"
             />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 const Index = () => {
   const [dark, setDark] = useState("");
   const [isChecked, setIsChecked] = useState(localStorage.theme === "dark");
@@ -55,8 +56,8 @@ const Index = () => {
             <img
               src={
                 dark == "dark"
-                  ? `images/sun_toggle.png`
-                  : `images/moon_toggle.png`
+                  ? `${ImgBaseUrl()}sun_toggle.png`
+                  : `${ImgBaseUrl()}moon_toggle.png`
               }
               alt={dark == "dark" ? "moon" : "sun"}
               className={`w-8 flex `}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useWeb3 from "src/hooks/web3.hook";
 import { QRCodeCanvas } from "qrcode.react";
+import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const ReceiveBox = () => {
   const { user } = useWeb3(null);
@@ -43,7 +44,7 @@ const ReceiveBox = () => {
           </div>
 
           {!copied && (
-            <img src="/images/copy icon.png" className="w-[20px] h-[20px]" />
+            <img src={`${ImgBaseUrl()}copy icon.png`} className="w-[20px] h-[20px]" />
           )}
         </div>
       </div>
