@@ -10,6 +10,14 @@ import { BrowserRouter } from "react-router-dom";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+if (process.env.NODE_ENV === "production") {
+  console = window.console || {};
+  console.log = function no_console() {}; 
+  console.warn = function no_console() {}; 
+  console.error = function () {}; 
+}
+
 root.render(
   <BrowserRouter>
     <App />

@@ -322,5 +322,3 @@ const useWeb3 = (provider: string | null) => {
 };
 
 export default useWeb3;
-
-// 커넥트가 되어있다고 하는데 메타마스크 로그인이 안되어있어서 뜨는 에러로 보임
