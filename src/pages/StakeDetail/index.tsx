@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import {
   StakeItem,
   DataArray,
   EarlyInfo,
   TokenArray,
-  TotalToken,
-  UserInfo,
 } from "../../Interface/Token.interface";
 import Container from "../../components/container";
 import Card from "../../components/Card";
@@ -34,19 +32,36 @@ import {
   StakingTotalAmountData,
 } from "src/Interface/Ninja.interface";
 
+interface totalToken {
+  lpToken: string;
+  allocPoint: string;
+  lastRewardBlock: string;
+  accBNCPerShare: string;
+  stakingPoolEndTime: string;
+  stakingPoolStartTime: string;
+}
+
+interface userInfo {
+  amount: string;
+  exactRewardCal: string;
+  pendingReward: string;
+  stakingStartTime: string;
+}
+
 const StakeDetail = () => {
-  const { user, web3, stakingContract } = useWeb3(window.ethereum);
+  const { user, web3, stakingContract } =
+    useWeb3(window.ethereum);
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
   const [selectToken, setSelectTokens] = useState<StakeItem | null>(null);
   const [withdrawal, setWithdrawal] = useState<EarlyArray | null>(null);
   const [totalLpToken, setTotalLpToken] = useState<string | null | undefined>(
     null
   );
-  const [poolInfo, setPoolInfo] = useState<TotalToken | null | undefined>();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>();
+  const [poolInfo, setPoolInfo] = useState<totalToken | null>();
+  const [userInfo, setUserInfo] = useState<userInfo | null>();
   const [emergencies, setEmergencies] = useState<EmergencyEventArr>([]); // 탈주자 정보
   const [myAllreward, setMyAllreward] = useState<string[] | null>([]);
-  const [stakingTotalAmount, setStakingTotalAmount] = useState<number[]>([]);
+  const [stakingTotalAmount ,setStakingTotalAmount] = useState<number[]>([]);
 
   const params = useParams<{ id: string }>();
 
@@ -55,58 +70,6 @@ const StakeDetail = () => {
 
   const nav = useNavigate();
 
-  const getPoolInfoData = async () => {
-    if (!stakingContract || !queryClient) return null;
-    const PoolInfoData = await getPoolInfo({
-      stakingContract,
-      queryClient,
-    });
-  };
-
-  // const {data:poolInfo, refetch} = useQuery<TotalToken | null>({
-  //   queryKey: ["poolInfo"],
-  //   queryFn: getPoolInfoData,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   enabled: !!stakingContract && !!queryClient
-  // })
-  // setPoolInfo(poolInfoData)
-  // console.log("@@@@@@@2", poolInfo)
-
-  const { data: poolInfoData, refetch } = useQuery({
-    queryKey: ["poolInfo"],
-    queryFn: getPoolInfoData,
-    gcTime: 0,
-    staleTime: 0,
-    refetchOnWindowFocus: "always",
-    enabled: !!stakingContract && !!queryClient,
-  });
-console.log("saaaaaaaaaaaaaaaaaaa", poolInfoData)
-  const totalLP = async () => {
-    if (!stakingContract || !queryClient || !web3) return null;
-    const getTotalLPTokenData = await getTotalLPToken({
-      stakingContract,
-      queryClient,
-      web3,
-    });
-  };
-  const { data: totalLPTokenAmount } = useQuery({
-    queryKey: ["totalLPTokenAmount"],
-    queryFn: totalLP,
-    gcTime: 0,
-    staleTime: 0,
-    refetchOnWindowFocus: "always",
-    enabled: !!stakingContract && !!queryClient,
-  });
-  console.log("%%%%%%%%%%%%%%%", totalLPTokenAmount);
-
-
-  useEffect(() => {
-    setPoolInfo(poolInfoData);
-    setTotalLpToken(totalLPTokenAmount)
-  }, [stakingContract, poolInfoData, totalLPTokenAmount]);
-
   useEffect(() => {
     const fetchData = async () => {
       // * stake pool에 대한 정보
@@ -114,7 +77,7 @@ console.log("saaaaaaaaaaaaaaaaaaa", poolInfoData)
         stakingContract,
         queryClient,
       });
-      // setPoolInfo(PoolInfoData);
+      setPoolInfo(PoolInfoData);
       console.log("Fetched PoolInfo Data", PoolInfoData);
 
       // * 가장 최근에 떠난 탈주자의 값.
@@ -217,46 +180,38 @@ console.log("saaaaaaaaaaaaaaaaaaa", poolInfoData)
   }, [stakingContract]);
 
   useEffect(() => {
-    let arr: number[] = [];
-
-    try {
-      stakingContract?.events
-        .StakingTotalAmount({
-          fromBlock: 0,
-        })
-        .on("data", (event) => {
-          const StakingTotalAmountData: StakingTotalAmountData = {
-            account: event.returnValues.user as string,
-            poolId: event.returnValues._pid as number,
-            amount: event.returnValues.lpTokenBalances as number,
-          };
-          console.log("StakingTotalAmountData", StakingTotalAmountData);
-          // if(!stakingTotalAmount?.some((e) => e.))
-          // setStakingTotalAmount((prev) => [
-          //   ...prev,
-          //   StakingTotalAmountData.amount,
-          // ]);
-          arr.push(Number(StakingTotalAmountData.amount));
-        });
-    } catch (error) {
-      console.log(error);
-    }
-    setStakingTotalAmount(arr);
-    console.log("스테이킹 누적 값", stakingTotalAmount);
+    const StakingTotalAmountEvent = async () => {
+      try {
+        stakingContract?.events
+          .StakingTotalAmount({
+            fromBlock: 0,
+          })
+          .on("data", (event) => {
+            const StakingTotalAmountData: StakingTotalAmountData = {
+              account: event.returnValues.user as string,
+              poolId: event.returnValues._pid as number,
+              amount: event.returnValues.lpTokenBalances as number,
+            };
+            console.log("StakingTotalAmountData", StakingTotalAmountData);
+            // if(!stakingTotalAmount?.some((e) => e.))
+            setStakingTotalAmount((prev) => [...prev, StakingTotalAmountData.amount]);
+          });
+          console.log("stakingTotalAmount",stakingTotalAmount);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    StakingTotalAmountEvent();
   }, [stakingContract]);
-
-  useEffect(() => {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@", stakingTotalAmount);
-  }, [stakingTotalAmount]);
 
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
 
   useEffect(() => {
     const getLptokens = async () => {
-      const data = await queryClient.getQueryData<UserInfo>(["userInfo"]);
-      console.log("❗️data", data?.amount);
-      // setLptokens(data?.amount);
+      const data = await queryClient.getQueryData<DataArray>(["lpTokens"]);
+      // console.log("❗️data", data);
+      setLptokens(data ? data : null);
       console.log("@@lptokens", lptokens);
     };
     getLptokens();
@@ -393,13 +348,13 @@ console.log("saaaaaaaaaaaaaaaaaaa", poolInfoData)
       <Container>
         <div className={Divstyles.flexRow}>
           <div className={Divstyles.flexCol}>
-            {/* {totalLpToken && ( */}
+            {totalLpToken && selectToken && (
               <VolumeCotainer
-                totalvolum={totalLpToken== undefined? '0' : totalLpToken }
+                totalvolum={totalLpToken}
                 endTime={getTime(Number(poolInfo?.stakingPoolEndTime))}
                 startTime={getTime(Number(poolInfo?.stakingPoolStartTime))}
               />
-            {/* )} */}
+            )}
 
             <div className="w-full mobile:hidden flex justify-center">
               {emergencies && <EarlyCard data={emergencies} />}
@@ -410,7 +365,7 @@ console.log("saaaaaaaaaaaaaaaaaaa", poolInfoData)
           </div>
           <div className={Divstyles.flexCol}>
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
-            <StakeCard timestamp={Number(poolInfo?.stakingPoolEndTime)} />
+            {selectToken && <StakeCard timestamp={selectToken.endTime} />}
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
             <div className="w-full mobile:hidden flex justify-center">
               {myAllreward && <MyInfoCard data={myAllreward} />}

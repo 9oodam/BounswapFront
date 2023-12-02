@@ -14,4 +14,4 @@ export interface StakingTotalAmountData {
     amount: number;
 }
 
-export type StakingTotalAmountArr = StakingTotalAmountData[];
+export type StakingTotalAmountArr = StakingTotalAmountData[]
