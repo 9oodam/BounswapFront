@@ -52,19 +52,15 @@ const useWeb3 = (provider: string | null) => {
     SetBounsAddress(String(Bounswallet));
   };
 
-  // if (!BounsAddress) {
-  //   getBousnsWallet();
-  // }
 
-  const getIsMobile = () => {
+  const getIsMobile = (walletName : string) => {
     let isMobile = false;
     const agent = navigator.userAgent;
     if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
-      console.log("모바일환경");
-      // alert("모바일 환경");
-      // if (connectStatus == "MetaMask") {
-      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-      // }
+
+      if (walletName == "MetaMask") {
+        window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      }
       isMobile = true;
     }
     return isMobile;
@@ -76,16 +72,18 @@ const useWeb3 = (provider: string | null) => {
     //   console.log("모바일환경");
     //   // alert("모바일 환경");
     // }
+
+    if (connectStatus == "BounsWallet" || connectStatus == "null") return;
     
-    if (!window?.ethereum) {
-      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-      // if (connectStatus == "MetaMask") {
+    // if (!window?.ethereum) {
+    //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+    //   // if (connectStatus == "MetaMask") {
       
-      // if (String(localStorage.getItem("connectStatus")) == "MetaMask") {
-      //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-      // }
-      return;
-    }
+    //   // if (String(localStorage.getItem("connectStatus")) == "MetaMask") {
+    //   //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+    //   // }
+    //   return;
+    // }
 
     const getChainId =async () => {
       const chainId = await window.ethereum.request({method : 'eth_chainId'});  
@@ -125,14 +123,16 @@ const useWeb3 = (provider: string | null) => {
     console.log("accountsChanged", connectStatus);
   }, [connectStatus]);
 
-  const connectMetaMask = async () => {
+  const connectMetaMask = async (walletName : string) => {
+    SetconnectStatus(walletName);
     if (window?.ethereum) {
-      SetconnectStatus(String(localStorage.getItem("connectStatus")));
+      // SetconnectStatus(String(localStorage.getItem("connectStatus")));
       // SetconnectStatus(true);
       // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
       // getAccounts(window?.ethereum);
       window.location.reload();
-    } else if (getIsMobile()) {
+    } else if (getIsMobile(walletName)) {
+      window.location.reload();
       return;
     } else {
       alert("MetaMask 를 설치해주세요");
@@ -208,7 +208,7 @@ const useWeb3 = (provider: string | null) => {
       window?.ethereum?.on("chainChanged", () => {
         window.location.reload();
       });
-    } else if (getIsMobile()) {
+    } else if (getIsMobile(connectStatus)) {
       return;
     } else {
       alert("MetaMask를 설치 해주세요!");
