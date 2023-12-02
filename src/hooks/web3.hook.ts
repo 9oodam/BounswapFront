@@ -101,6 +101,7 @@ const useWeb3 = (provider: string | null) => {
       if (!BounsAddress) {
         getBousnsWallet();
       } else {
+        // setWeb3(""); // bounce 노드
         getBalance(BounsAddress);
       }
     }
@@ -188,6 +189,7 @@ const useWeb3 = (provider: string | null) => {
 
     //// ! state 가 bounswallet 일때 return
     if (connectStatus == "BounsWallet") {
+      setWeb3(new Web3("https://network.bouncecode.net/"));
       // getBalance(BounsAddress);
       return;
     }
@@ -257,10 +259,6 @@ const useWeb3 = (provider: string | null) => {
   }
 
   useEffect(() => {
-    if (connectStatus == "BounsWallet") {
-      // getBalance(BounsAddress);
-      return;
-    }
     if (web3 !== null) {
       if (dataContract && pairContract && governanceContract && stakingContract)
         return;

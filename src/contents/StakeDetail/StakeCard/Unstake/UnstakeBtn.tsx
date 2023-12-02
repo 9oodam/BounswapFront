@@ -17,9 +17,11 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
   const WithdrawHandler = async () => {
     if (unstakeDeadLine === false) {
       await emergencyWithdraw({ stakingContract, user });
+      window.location.reload();
     }
     if (unstakeDeadLine === true) {
       await maturedWithdraw({ stakingContract, user });
+      window.location.reload();
     }
   };
 
