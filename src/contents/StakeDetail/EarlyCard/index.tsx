@@ -17,28 +17,28 @@ const EarlyCard: React.FC<{ data: EmergencyEventArr }> = ({ data }) => {
   // totalLPToken 변환
   const formatLPToken = (totalLPToken: number) => {
     if (!web3) {
-      return '';
+      return "";
     }
-    const etherData = web3?.utils.fromWei(BigInt(totalLPToken), 'ether');
+    const etherData = web3?.utils.fromWei(BigInt(totalLPToken), "ether");
     return etherData;
   };
   // totalNinjaReward 변환
   const formatNinjaReward = (totalNinjaReward: number) => {
     if (!web3) {
-      return '';
+      return "";
     }
-    const etherData = web3.utils.fromWei(BigInt(totalNinjaReward), 'ether');
+    const etherData = web3.utils.fromWei(BigInt(totalNinjaReward), "ether");
     return parseFloat(etherData).toFixed(4);
   };
   return (
     <div className="pc:w-[85%] mobile:w-full text-baseWhite mobile:text-lightBlack pc:p-7 mobile:mt-5">
       <h3
-        className="font-bold text-[25px] mobile:text-[20px] text-left mb-5 [text-shadow:0px_4px_4px_#00000040]
+        className="font-bold text-[25px] mobile:text-[20px] text-left mb-5 pc:[text-shadow:0px_4px_4px_#00000040]
         mobile:flex mobile:justify-center"
       >
         Early Withdrawal History
       </h3>
-      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite mobile:text-lightBlack font-bold text-[20px] mobile:text-[18px] border-b-2 mb-3 items-center justify-center">
+      <div className="grid pc:grid-cols-3 mobile:grid-cols-2 w-full text-baseWhite mobile:text-lightBlack font-bold text-[20px] mobile:text-[18px] border-b-2 mobile:border-white mb-3 items-center justify-center">
         <div>Timestamp</div>
         <div className="mobile:hidden">Token Amount</div>
         <div>Unclaimed Rewards</div>
@@ -51,7 +51,9 @@ const EarlyCard: React.FC<{ data: EmergencyEventArr }> = ({ data }) => {
               {formatLPToken(el.totalLPToken)}
               {/* {el.symbol} */}
             </span>
-            <span className="w-[30%]">{formatNinjaReward(el.totalNinjaReward)}</span>
+            <span className="w-[30%]">
+              {formatNinjaReward(el.totalNinjaReward)}
+            </span>
           </div>
         ))}
       </div>

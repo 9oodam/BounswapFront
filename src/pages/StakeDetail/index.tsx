@@ -107,7 +107,7 @@ const StakeDetail = () => {
     refetchOnWindowFocus: "always",
     enabled: !!stakingContract && !!queryClient,
   });
-  // console.log("%%%%%%%%%%%%%%%", totalLPTokenAmount);
+  console.log("totalLPTokenAmount", totalLPTokenAmount);
 
   useEffect(() => {
     setPoolInfo(poolInfoData);
@@ -286,7 +286,7 @@ const StakeDetail = () => {
           <div className={Divstyles.flexCol}>
             {/* {totalLpToken && ( */}
             <VolumeCotainer
-              totalvolum={totalLpToken == undefined ? "0" : totalLpToken}
+              totalvolum={Number(Number(totalLpToken).toFixed(5))}
               endTime={getTime(Number(poolInfo?.stakingPoolEndTime))}
               startTime={getTime(Number(poolInfo?.stakingPoolStartTime))}
               volumeChart={stakingTotalAmount}
