@@ -62,7 +62,9 @@ const useWeb3 = (provider: string | null) => {
     if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
       console.log("모바일환경");
       // alert("모바일 환경");
-        window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      // if (connectStatus == "MetaMask") {
+      window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      // }
       isMobile = true;
     }
     return isMobile;
@@ -77,6 +79,11 @@ const useWeb3 = (provider: string | null) => {
     
     if (!window?.ethereum) {
       window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      // if (connectStatus == "MetaMask") {
+      
+      // if (String(localStorage.getItem("connectStatus")) == "MetaMask") {
+      //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      // }
       return;
     }
 
