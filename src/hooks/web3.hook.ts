@@ -86,8 +86,8 @@ const useWeb3 = (provider: string | null) => {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }], // sepolia
-          // params: [{ chainId: "0x4798" }], // bounce
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
@@ -214,16 +214,16 @@ const useWeb3 = (provider: string | null) => {
     }
     window?.ethereum?.on("chainChanged", async (chainID: string) => {
       console.log("chainIDdsfdsdfsfds", chainID);
-      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
-        // if (chainID === "0x4798" && web3 !== null && connectStatus) {
+      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+      if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }], // sepolia
-          // params: [{ chainId: "0x4798" }], // bounce
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
@@ -266,27 +266,26 @@ const useWeb3 = (provider: string | null) => {
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
-        // "0x0103f9Dec7dc8378d11f9ac29E6796d76725a0C2", // bounce
+        // "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
+        "0xBc3cC616C9efDFa878Fa64CD44FAB402DaE37b4C", // bounce
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
-        // "0xd9742c39d3EA58f674AC5b7A135f5b31923D8aD9", // bounce
+        // "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
+        "0x2d5f47333C8B84964163fA64491589c71723e490", // bounce
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
-        // "0xAb74d94c354779cEd1A50a4E0c428Ab1eb7CcA5B", // bounce
+        // "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
+        "0x21069009E401Fb1ED9744f9D2FBA1698DA0fCD40", // bounce
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0x1209603cB84FA9b7d7975fF4e8b65224a0C0e739", // sepolia
-        // "0x180966C6adf826ad0D5D0D831fCe84dd7E876f94", // bounce
-        // "0xA381BEc860Aa6575fb33Ac2404Cd20A13aA05610",
+        // "0x1209603cB84FA9b7d7975fF4e8b65224a0C0e739", // sepolia
+        "0xDff5aEa58a5dB1F47eF90c7c1447B534031d353D", // bounce
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
