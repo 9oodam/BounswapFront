@@ -8,7 +8,7 @@ import { getTime } from "src/features/getTime";
 import useWeb3 from "src/hooks/web3.hook";
 import { getPoolInfo } from "src/features/staking/stakingGetPoolInfo";
 
-const Unstake: React.FC<Timestamp> = ({ timestamp }) => {
+const Unstake: React.FC<Timestamp> = ({ timestamp, action, setAction }) => {
   const { stakingContract } = useWeb3(window.ethereum);
   const [endStakingTime, setEndStakingTime] = useState<string | null>(null);
   const [endTime, setEndTime] = useState<number | null>(null);
@@ -57,7 +57,7 @@ const Unstake: React.FC<Timestamp> = ({ timestamp }) => {
   return (
     <div className="p-5">
       {/* <div className="w-full text-left text-deepBlack">enter Amount</div> */}
-      <UnstakeBtn tokenName="Unstake" unstakeDeadLine={deadline} />
+      <UnstakeBtn tokenName="Unstake" unstakeDeadLine={deadline} action={action} setAction={setAction} />
       <div className=" mt-7">
         <div className="text-deepBlack font-bold">
           {deadline == false

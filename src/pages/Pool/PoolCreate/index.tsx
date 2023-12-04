@@ -22,6 +22,7 @@ import {
 } from "src/features/pair/poolSendFeatures";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 import LoadingIndicator from "src/components/LoadingIndicator";
+import { getUserPools } from "src/features/data/dataGetUserPools";
 
 
 const PoolCreate = () => {
@@ -64,6 +65,21 @@ const PoolCreate = () => {
     });
     return swapTokens;
   };
+
+  const getPools = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      userAddress: user.account,
+      web3,
+    });
+    return data;
+  };
+
+  
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["swapTokens"],
     queryFn: getData,
@@ -72,7 +88,15 @@ const PoolCreate = () => {
     refetchOnWindowFocus: "always",
     enabled: !!pairContract && !!dataContract && !!web3,
   });
-
+  
+  const { data : pool, refetch: poolRefetch } = useQuery({
+    queryKey: ["userPairs"],
+    queryFn: getPools,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!dataContract || !web3 || !user)
+  });
   // 2) 페어 주소
   const getPairAddressData = async () => {
     if (!pairContract) return;
@@ -224,6 +248,9 @@ const PoolCreate = () => {
         }
       }
     }
+
+    refetch();
+    poolRefetch();
   };
 
   // 정보 반환

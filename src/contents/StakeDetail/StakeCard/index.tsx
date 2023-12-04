@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Tap from "src/contents/poolpair/Liquidity/Tap";
 import Stake from "./Stake";
 import Unstake from "./Unstake";
 import { Timestamp } from "src/Interface/Token.interface";
 
-const StakeCard: React.FC<Timestamp> = ({ timestamp }) => {
+const StakeCard: React.FC<Timestamp> = ({ timestamp, action, setAction }) => {
   const [stakeColor, setStakeColor] = useState("bg-[rgba(255,255,255,0.85)]");
   const [unstakeColor, setUnStakeColor] = useState("bg-[#A9AAA6]");
   const [stakeTextColor, setStakeTextColor] = useState("text-[#338415]");
@@ -61,7 +61,7 @@ const StakeCard: React.FC<Timestamp> = ({ timestamp }) => {
         </Tap>
       </div>
       <div className="min-w-[340px] pc:w-[85%] mobile:w-full pc:p-5 bg-cardWhite rounded-xl: rounded-bodyBackRadius pc:h-[440px]">
-        {click == "stake" ? <Stake timestamp={timestamp} /> : <Unstake timestamp={timestamp} />}
+        {click == "stake" ? <Stake timestamp={timestamp} action={action} setAction={setAction} /> : <Unstake action={action} timestamp={timestamp} setAction={setAction} />}
       </div>
     </div>
   );

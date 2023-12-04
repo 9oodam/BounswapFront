@@ -6,13 +6,17 @@ import useWeb3 from "src/hooks/web3.hook";
 const StakeBtn: React.FC<BtnTokenDepositProps> = ({
   tokenName,
   tokenDepositAmount,
+  action,
+  setAction
 }) => {
   const { user, stakingContract, web3 } = useWeb3(window.ethereum);
 
   const depositHandler = async () => {
     
     await deposit({ stakingContract, user, amount: tokenDepositAmount, web3 });
-    window.location.reload();
+    
+    // window.location.reload();
+    setAction(!action);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
@@ -21,11 +21,15 @@ export interface InputTokenDepositProps {
 export interface BtnTokenDepositProps {
   tokenName: string;
   tokenDepositAmount: string;
+  action : boolean;
+  setAction : Dispatch<SetStateAction<boolean>>;
 }
 // LPToken wirhdraw 시 사용하는 interface
 export interface WithdrawProps {
   tokenName: string;
   unstakeDeadLine: boolean;
+  action : boolean;
+  setAction : Dispatch<SetStateAction<boolean>>;
 }
 
 export interface SelectTokenProps {
@@ -87,6 +91,8 @@ export type EarlyArray = EarlyInfo[];
 
 export interface Timestamp {
   timestamp: number;
+  action : boolean;
+  setAction : Dispatch<SetStateAction<boolean>>;
 }
 
 export interface MyFee {

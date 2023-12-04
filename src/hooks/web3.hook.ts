@@ -290,7 +290,8 @@ const useWeb3 = (provider: string | null) => {
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
         // "0x1209603cB84FA9b7d7975fF4e8b65224a0C0e739", // sepolia
-        "0xDff5aEa58a5dB1F47eF90c7c1447B534031d353D", // bounce
+        // "0xDff5aEa58a5dB1F47eF90c7c1447B534031d353D", // bounce
+        "0x989DccEBdF0fBa7b6D75a3365984F90405eAD220", // bounce
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
