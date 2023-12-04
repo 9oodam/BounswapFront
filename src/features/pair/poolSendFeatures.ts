@@ -79,7 +79,8 @@ export const removeLiquidity = async (pairContract: Contract<any>, tokenA: strin
 export const removeLiquidityBNC = async (pairContract: Contract<any>, token: string, percentage: number, user: string) => {
   try {
     const block = await (pairContract?.methods.poolRemoveLiquidityBNC as any)(token, percentage).send({
-      from: user
+      from: user,
+      gasPrice: 25000000000
     });
     console.log(block);
     if(block) return('succeed');
