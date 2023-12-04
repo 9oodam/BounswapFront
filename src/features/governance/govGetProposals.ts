@@ -8,12 +8,17 @@ interface Params {
     web3 : Web3;
 }
 
-const getState = (state : number, endTime : number) => {
+const getState = (state : number, endTime : number, quorumVotes : number, forVotes : number, againstVotes : number) => {
 // const getState = (state : bigint, endTime : bigint) => {
     const currentTime = new Date().getTime() / 1000;
     if (state != 0) return state;
-    if (currentTime <= endTime) return 0;
-    return 1;
+    if (currentTime <= endTime) {
+        return 0;
+    }
+    if (forVotes <= againstVotes || forVotes < quorumVotes) {
+        return 1;
+    }
+    return 2;
 }
 
 const getPercent = (votes : number, forVotes : number, againstVotes : number) => {
@@ -34,7 +39,7 @@ export const getProposals =async ({governanceContract, queryClient, web3} : Para
             againstVotes: Number(Number(web3.utils.fromWei(el.againstVotes, "ether")).toFixed(5)), // 소수점 5자리 number
             startTime: Number(el.startTime),
             endTime: Number(el.endTime),
-            state: getState(Number(el.state), Number(el.endTime)),
+            state: getState(Number(el.state), Number(el.endTime), Number(web3.utils.fromWei(el.quorumVotes, "ether")), Number(web3.utils.fromWei(el.forVotes, "ether")), Number(web3.utils.fromWei(el.againstVotes, "ether"))),
             forPercent : getPercent(Number(web3.utils.fromWei(el.forVotes, "ether")), Number(web3.utils.fromWei(el.forVotes, "ether")), Number(web3.utils.fromWei(el.againstVotes, "ether"))),
             againstPercent : getPercent(Number(web3.utils.fromWei(el.againstVotes, "ether")), Number(web3.utils.fromWei(el.forVotes, "ether")), Number(web3.utils.fromWei(el.againstVotes, "ether")))
         }

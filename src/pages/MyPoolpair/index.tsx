@@ -20,6 +20,8 @@ import UnclaimedFeesCard from "src/contents/poolpair/UnclaimedFeesCard";
 import { getUnclaimedFee } from "src/features/data/dataGetUnclaimedFee";
 import { poolGetUserLiquidity } from "src/features/pair/pairpoolGetUserLiquidity";
 import LoadingIndicator from "src/components/LoadingIndicator";
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
+import { getUserPools } from "src/features/data/dataGetUserPools";
 
 const MyPoolpair: React.FC = () => {
   const { web3, user, dataContract, pairContract } = useWeb3(null);
@@ -43,6 +45,51 @@ const MyPoolpair: React.FC = () => {
     staleTime: 0,
     refetchOnWindowFocus: "always",
     enabled: !(!pairContract|| !dataContract || !web3 || !user)
+  });  
+
+  const getTokens = async () => {
+    console.log("gettokens1");
+    if (!pairContract || !dataContract || !web3 || user.account == "")  return null;
+    console.log("gettoekns2");
+    const data = await getUserTokens({
+      pairContract,
+      dataContract,
+      queryClient,
+      user: user,
+      web3,
+    });
+    return data.userTokens;
+  };
+
+  const getPools = async () => {
+    if (!pairContract || !dataContract || !web3 || user.account == "")
+      return null;
+    const data = await getUserPools({
+      pairContract,
+      dataContract,
+      queryClient,
+      userAddress: user.account,
+      web3,
+    });
+    return data;
+  };
+
+  const { data: tokens, refetch: tokenRefetch } = useQuery({
+    queryKey: ["userTokens"],
+    queryFn: getTokens,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!dataContract || !web3 || !user),
+  });
+
+  const { data: pools, refetch: poolRefetch } = useQuery({
+    queryKey: ["userPairs"],
+    queryFn: getPools,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !(!dataContract || !web3 || !user),
   });
 
   if (!data || !pairContract || !user) {
@@ -57,7 +104,7 @@ const MyPoolpair: React.FC = () => {
         <div className={Divstyle.flexRow}>
           <div className={Divstyle.flexCol}>
             <DepositeCard pool={data.pool} userLiquidity={data.userLiquidity}/>
-            <UnclaimedFeesCard pairCon={pairContract} user={user.account} pool={data.pool} fee={data.fee} refetch={refetch} />
+            <UnclaimedFeesCard pairCon={pairContract} user={user.account} pool={data.pool} fee={data.fee} refetch={refetch} tokenRefetch = {tokenRefetch} poolRefetch = {poolRefetch} />
           </div>
           <AddRemoveLiquidity data={data.pool} refetch = {refetch} />
         </div>
