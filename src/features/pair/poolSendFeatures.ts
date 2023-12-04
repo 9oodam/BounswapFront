@@ -93,7 +93,7 @@ export const removeLiquidityBNC = async (pairContract: Contract<any>, token: str
 // 유저 미청구 수수료 청구
 export const claimFee = async (pairContract: Contract<any>, pairAddress: string, user: string) => {
   try {
-    const block = await (pairContract?.methods.poolClaimFee as any)(pairAddress).call({
+    const block = await (pairContract?.methods.poolClaimFee as any)(pairAddress).send({
       from: user,
       gasPrice: 25000000000
     });
