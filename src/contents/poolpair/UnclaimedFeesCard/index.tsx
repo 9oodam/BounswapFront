@@ -17,7 +17,7 @@ const UnclaimedFeesCard: React.FC<{
 }> = ({ pairCon, user, pool, fee, refetch, tokenRefetch, poolRefetch }) => {
 
   const tryClaimFee = async () => {
-    const data = claimFee(
+    const data = await claimFee(
       pairCon, pool.pairAddress, user
     )
     console.log(tryClaimFee);
