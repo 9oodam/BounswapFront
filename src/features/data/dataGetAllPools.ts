@@ -2,7 +2,6 @@ import { QueryClient } from "@tanstack/react-query";
 import Web3, { Contract } from "web3";
 import { PairArray, PairContract, PairItem } from "src/Interface/Token.interface";
 import { getPoolVolumeFromEvent } from "../event/volume";
-import { getPoolLiquidityFromEvent } from "../event/liquidity";
 
 interface Params {
     pairContract: Contract<any>;
@@ -33,18 +32,18 @@ const poolData = async (web3: Web3, el: PairContract, volume: bigint, liquidityD
     }
 }
 
-export const getAllPools = async ({pairContract, dataContract, queryClient, web3} : Params) => {
+export const getAllPools = async ({ pairContract, dataContract, queryClient, web3 }: Params) => {
     const data: PairContract[] = await dataContract.methods.getAllPools().call();
     let pools: PairArray = [];
 
-    if(data) {
+    if (data) {
         for (let i = 0; i < data.length; i++) {
             let volume: bigint = await getPoolVolumeFromEvent(pairContract, data[i].pairAddress);
             let liquidityData = {
                 liquidity: 0n,
                 liquidityArr: [0n]
             }
-            let pool = await poolData(web3, data[i], volume, liquidityData);        
+            let pool = await poolData(web3, data[i], volume, liquidityData);
             pools.push(pool);
         }
     }

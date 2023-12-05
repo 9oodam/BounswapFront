@@ -25,9 +25,6 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
   outputValue,
   sharePercent
 }) => {
-  // const firstDataBalance = firstData
-  //   ? Number(firstData.balance) / 10 ** 18
-  //   : "-";
   const firstDataValue = inputValue ? parseFloat(inputValue) : 0;
   const secondDataValue = outputValue ? parseFloat(outputValue) : 0;
   const firstRatio =
@@ -37,8 +34,6 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
 
   const isCalculationComplete =
     typeof firstRatio === "number" && typeof secondRatio === "number";
-
-  // console.log("firstData?", firstData);
 
   return (
     <div className="w-[85%]">
@@ -84,7 +79,7 @@ const InitialPoolPair: React.FC<InitialPoolProps> = ({
             </div>
             <div className="grid-flow-row auto-rows-auto justify-center">
               <div className="font-semibold">
-              {sharePercent
+                {sharePercent
                   ? sharePercent
                   : "-"}
               </div>

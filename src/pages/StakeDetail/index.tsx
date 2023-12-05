@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import {
-  StakeItem,
   DataArray,
-  EarlyInfo,
-  TokenArray,
   TotalToken,
   UserInfo,
 } from "../../Interface/Token.interface";
 import Container from "../../components/container";
-import Card from "../../components/Card";
 import { Divstyles } from "./StakeDetail.style";
 import TokenName from "src/components/TokenName";
 import { useNavigate } from "react-router-dom";
 import VolumeCotainer from "src/contents/StakeDetail/VolumeCotainer";
 import EarlyCard from "src/contents/StakeDetail/EarlyCard";
-import { EarlyArray } from "../../Interface/Token.interface";
 import StakeCard from "src/contents/StakeDetail/StakeCard";
 import { getTime } from "src/features/getTime";
 import MyInfoCard from "src/contents/StakeDetail/MyInfoCard";
@@ -27,7 +21,6 @@ import { getUserInfo } from "src/features/staking/stakingGetUserInfo";
 import { myAllRewardInfo } from "src/features/staking/stakingGetMyAllRewardInfo";
 import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
 import { myPendingRewardUpdate } from "src/features/staking/stakingGetPendingReward";
-import { deposit } from "src/features/staking/stakingSendFeatures";
 import {
   EmergencyData,
   EmergencyEventArr,
@@ -48,10 +41,7 @@ const StakeDetail = () => {
   const [stakingTotalAmount, setStakingTotalAmount] = useState<number[]>([]);
   const [action, setAction] = useState(false);
 
-  // const params = useParams<{ id: string }>();
-
   const queryClient = useQueryClient();
-  // const data = queryClient.getQueryData<DataArray>("lpTokens");
 
   const nav = useNavigate();
 
@@ -60,7 +50,6 @@ const StakeDetail = () => {
     tokenSymbol: "STK",
     tokenUri: `${ImgBaseUrl()}LPToken_Steake2.png`,
   };
-  console.log("tokenUri", tokenData.tokenUri);
 
   const getPoolInfoData = async () => {
     if (!stakingContract || !queryClient) return null;
@@ -70,17 +59,6 @@ const StakeDetail = () => {
     });
   };
 
-  // const {data:poolInfo, refetch} = useQuery<TotalToken | null>({
-  //   queryKey: ["poolInfo"],
-  //   queryFn: getPoolInfoData,
-  //   gcTime: 0,
-  //   staleTime: 0,
-  //   refetchOnWindowFocus: "always",
-  //   enabled: !!stakingContract && !!queryClient
-  // })
-  // setPoolInfo(poolInfoData)
-  // console.log("@@@@@@@2", poolInfo)
-
   const { data: poolInfoData, refetch } = useQuery({
     queryKey: ["poolInfo"],
     queryFn: getPoolInfoData,
@@ -89,7 +67,6 @@ const StakeDetail = () => {
     refetchOnWindowFocus: "always",
     enabled: !!stakingContract && !!queryClient,
   });
-  // console.log("saaaaaaaaaaaaaaaaaaa", poolInfoData)
   const totalLP = async () => {
     if (!stakingContract || !queryClient || !web3) return null;
     const getTotalLPTokenData = await getTotalLPToken({
@@ -120,8 +97,6 @@ const StakeDetail = () => {
         stakingContract,
         queryClient,
       });
-      // setPoolInfo(PoolInfoData);
-      console.log("Fetched PoolInfo Data", PoolInfoData);
 
       // * 가장 최근에 떠난 탈주자의 값.
       // ! 탈주자에 대한 이벤트 구독 해야 함
@@ -130,7 +105,6 @@ const StakeDetail = () => {
         queryClient,
         user,
       });
-      // console.log("Fetched NinjaInfo Data", NinjaInfoData);
 
       const UserInfoData = await getUserInfo({
         stakingContract,
@@ -138,7 +112,6 @@ const StakeDetail = () => {
         user,
       });
       setUserInfo(UserInfoData);
-      // console.log("Fetched UserInfo Data", UserInfoData);
 
       // * stake pool에 대한 total Token Amount
       const getTotalLPTokenData = await getTotalLPToken({
@@ -147,7 +120,6 @@ const StakeDetail = () => {
         web3,
       });
       setTotalLpToken(getTotalLPTokenData);
-      // console.log("Fetched getTotalLPToken Data", getTotalLPTokenData);
 
       const myAllRewardData = await myAllRewardInfo({
         stakingContract,
@@ -160,14 +132,6 @@ const StakeDetail = () => {
       // 2. userBlockRewardPerBlockValue : 블록당 받는 리워드 갯수
       // 3. estimatedUserRewardFromNinjsVlaue : 탈주자가 남기고간 리워드 중 내 몫
 
-      // console.log("Fetched myAllReward Data", myAllRewardData);
-      // if (myAllRewardData) {
-      //   setMyAllreward([
-      //     myAllRewardData[0].toString(),
-      //     myAllRewardData[1].toString(),
-      //     myAllRewardData[2].toString(),
-      //   ]);
-      // }
       setMyAllreward(myAllRewardData);
 
       const myPendingRewardUpdateData = await myPendingRewardUpdate({
@@ -175,10 +139,6 @@ const StakeDetail = () => {
         queryClient,
         user,
       });
-      // console.log(
-      //   "Fetched myPendingRewardUpdate Data",
-      //   myPendingRewardUpdateData
-      // );
     };
     fetchData();
   }, [stakingContract, queryClient, user, action]);
@@ -200,32 +160,18 @@ const StakeDetail = () => {
             };
             // 중복 확인
             if (!emergencies?.some((e) => e.ninja === emergencyData.ninja)) {
-              // emergencies.push(emergencyData);
               setEmergencies((prev) => [...prev, emergencyData]);
             }
-            // if (emergencyData) emergencies.push(emergencyData);
-            // setEmergencies((prev) => [...prev, emergencyData]);
           });
-        // .on("error", console.error);
-
-        // return () => {
-        //   if (subscription) {
-        //     subscription.unsubscribe();
-        //   }
-        // };
       } catch (error) {
-        // console.log(error);
+        console.log("");
       }
     };
     NinjaEvent();
-
-    // console.log("탈주자", emergencies);
   }, [stakingContract]);
 
   useEffect(() => {
     let arr: number[] = [];
-    // console.log("❌❌❌❌❌❌❌", stakingContract);
-    // console.log("❌❌❌❌❌❌❌",stakingContract instanceof Promise)
     try {
       stakingContract?.events
         .StakingTotalAmount({
@@ -237,38 +183,25 @@ const StakeDetail = () => {
             poolId: event.returnValues._pid as number,
             amount: event.returnValues.lpTokenBalances as number,
           };
-          console.log("StakingTotalAmountData", StakingTotalAmountData);
-          // if(!stakingTotalAmount?.some((e) => e.))
-          // setStakingTotalAmount((prev) => [
-          //   ...prev,
-          //   StakingTotalAmountData.amount,
-          // ]);
           arr.push(Number(StakingTotalAmountData.amount) / 10 ** 18);
         });
     } catch (error) {
-      // console.log(error);
+      console.log("");
     }
     setStakingTotalAmount(arr);
-    // console.log("🧡🧡🧡🧡🧡🧡🧡🧡", stakingTotalAmount);
   }, [stakingContract]);
 
   useEffect(() => {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@", stakingTotalAmount);
+    console.log("");
   }, [stakingTotalAmount]);
 
-  ///////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////
 
   useEffect(() => {
     const getLptokens = async () => {
-      const data = await queryClient.getQueryData<UserInfo>(["userInfo"]);
-      // console.log("❗️data", data?.amount);
-      // setLptokens(data?.amount);
-      // console.log("@@lptokens", lptokens);
+      const data = queryClient.getQueryData<UserInfo>(["userInfo"]);
     };
     getLptokens();
   }, [lptokens]);
-  // console.log("LpTokens", data);
 
   return (
     <>
@@ -283,14 +216,12 @@ const StakeDetail = () => {
       <Container>
         <div className={Divstyles.flexRow}>
           <div className={Divstyles.flexCol}>
-            {/* {totalLpToken && ( */}
             <VolumeCotainer
               totalvolum={Number(Number(totalLpToken).toFixed(5))}
               endTime={getTime(Number(poolInfo?.stakingPoolEndTime))}
               startTime={getTime(Number(poolInfo?.stakingPoolStartTime))}
               volumeChart={stakingTotalAmount}
             />
-            {/* )} */}
 
             <div className="w-full mobile:hidden flex justify-center">
               {emergencies && <EarlyCard data={emergencies} />}

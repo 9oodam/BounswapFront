@@ -6,7 +6,7 @@ export const getAmountOut = async (pairContract: Contract<any>, pairAddress: str
     const amountOutBigInt = BigInt(amountOut)
     const minToken = amountOutBigInt * BigInt(995) / BigInt(1000);
     console.log('minToken : ', minToken)
-    return {amountOut, minToken};
+    return { amountOut, minToken };
 }
 export const getAmountIn = async (pairContract: Contract<any>, pairAddress: string, outputAmount: BigInt, inputToken: string, outputToken: string) => {
     const amountIn = await (pairContract?.methods.swapGetAmountIn as any)(pairAddress, outputAmount, inputToken, outputToken).call();
@@ -14,7 +14,7 @@ export const getAmountIn = async (pairContract: Contract<any>, pairAddress: stri
     const amountInBigInt = BigInt(amountIn);
     const maxToken = amountInBigInt / BigInt(995) * BigInt(1000);
     console.log('maxToken : ', maxToken)
-    return {amountIn, maxToken};
+    return { amountIn, maxToken };
 }
 export const getOutputReserve = async (pairContract: Contract<any>, pairAddress: string, outputToken: string) => {
     const data = await (pairContract?.methods.poolGetOutputReserve as any)(pairAddress, outputToken).call();
@@ -29,8 +29,8 @@ export const exactTokensForTokens = async (pairContract: Contract<any>, pairAddr
             gasPrice: 25000000000
         })
         console.log(block);
-        if(block) return('succeed');
-        if(!block) return('failed');
+        if (block) return ('succeed');
+        if (!block) return ('failed');
     } catch (error) {
         console.log(error)
         return ('error');
@@ -44,8 +44,8 @@ export const exactTokensForBNC = async (pairContract: Contract<any>, pairAddress
             gasPrice: 25000000000
         })
         console.log(block);
-        if(block) return('succeed');
-        if(!block) return('failed');
+        if (block) return ('succeed');
+        if (!block) return ('failed');
     } catch (error) {
         console.log(error)
         return ('error');
@@ -61,8 +61,8 @@ export const exactBNCForTokens = async (pairContract: Contract<any>, pairAddress
             gasPrice: 25000000000
         })
         console.log(block);
-        if(block) return('succeed');
-        if(!block) return('failed');
+        if (block) return ('succeed');
+        if (!block) return ('failed');
     } catch (error) {
         console.log(error)
         return ('error');
@@ -75,8 +75,8 @@ export const tokensForExactTokens = async (pairContract: Contract<any>, pairAddr
             gasPrice: 25000000000
         })
         console.log(block);
-        if(block) return('succeed');
-        if(!block) return('failed');
+        if (block) return ('succeed');
+        if (!block) return ('failed');
     } catch (error) {
         console.log(error)
         return ('error');
@@ -90,8 +90,8 @@ export const tokensForExactBNC = async (pairContract: Contract<any>, pairAddress
             gasPrice: 25000000000
         })
         console.log(block);
-        if(block) return('succeed');
-        if(!block) return('failed');
+        if (block) return ('succeed');
+        if (!block) return ('failed');
     } catch (error) {
         console.log(error)
         return ('error');
@@ -106,8 +106,8 @@ export const bNCForExactTokens = async (pairContract: Contract<any>, pairAddress
             gasPrice: 25000000000
         })
         console.log(block);
-        if(block) return('succeed');
-        if(!block) return('failed');
+        if (block) return ('succeed');
+        if (!block) return ('failed');
     } catch (error) {
         console.log(error)
         return ('error');

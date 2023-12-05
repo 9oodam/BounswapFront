@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { CustomModalProps } from "src/Interface/Modal.interface";
+import { TokenItem } from "src/Interface/Token.interface";
 import ModalComponent from "src/components/Modal";
 import ButtonComponent from "src/components/Modal/ModalButton";
 import SelectTokenBody from "src/contents/Swap/SelectTokenBody";
 import SelectTokenHeader from "src/contents/Swap/SelectTokenHeader";
-import { CustomModalProps } from "src/Interface/Modal.interface";
-import { TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
   tokenAddress: string;
@@ -23,7 +21,6 @@ const CustomModal: React.FC<CustomModalProps> = ({
   setSelectedToken,
 }) => {
   const [isOpen, setModalIsOpen] = useState(false);
-  // const queryClient = useQueryClient();
 
   const handleSelectToken = (token: TokenItem) => {
     setSelectedToken(token);

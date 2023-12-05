@@ -1,15 +1,12 @@
-import useWeb3 from "src/hooks/web3.hook";
-
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-
 import { getAllPools } from "src/features/data/dataGetAllPools";
-
+import { PairArray } from "src/Interface/Token.interface";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
-import { PairArray, PairItem } from "src/Interface/Token.interface";
 import LoadingIndicator from "src/components/LoadingIndicator";
+import useWeb3 from "src/hooks/web3.hook";
 
 const Pool = () => {
   const { web3, dataContract, pairContract } = useWeb3("");
@@ -37,8 +34,6 @@ const Pool = () => {
 
   const {
     data: poolArr,
-    isLoading,
-    error,
   } = useQuery({
     queryKey: ["allPools"],
     queryFn: getPoolData,
@@ -61,7 +56,7 @@ const Pool = () => {
       <div className="flex flex-col items-center">
         <div className="text-baseWhite w-[85%] text-left mt-7 text-[35px] font-bold shadow-md:0px 4px 6px rgba(0, 0, 0, 0.25) flex justify-between items-center">
           Pools
-        {/* <div className="w-[85%] flex justify-end"> */}
+          {/* <div className="w-[85%] flex justify-end"> */}
           <div
             className="bg-lightGreen p-3 text-baseWhite font-bold pc:text-[20px] rounded-xl hover:bg-deepGreen cursor-pointer
             h-[40px] w-[160px] mobile:w-[120px] flex justify-center items-center text-[14px] shadow-md"
@@ -69,7 +64,7 @@ const Pool = () => {
           >
             New Position
           </div>
-        {/* </div> */}
+          {/* </div> */}
         </div>
         <Dashboard
           arr={poolArr.slice(0, visible)}

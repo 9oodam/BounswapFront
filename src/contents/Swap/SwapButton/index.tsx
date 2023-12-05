@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ModalComponent from "src/components/Modal";
 import SwapButtonBody from "./SwapButtonBody";
 import SwapButtonHeader from "./SwapButtonHeader";

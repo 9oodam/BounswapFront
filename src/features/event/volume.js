@@ -9,10 +9,10 @@ export const getTokenVolumeFromEvent = async (pairContract, tokenAddress) => {
     let volume = 0n;
     data?.map((value) => {
         const values = value.returnValues;
-        if(tokenAddress == values.token0) {
+        if (tokenAddress == values.token0) {
             let InOut = values.amount0In + values.amount0Out;
             volume += InOut;
-        }else if(tokenAddress == values.token1) {
+        } else if (tokenAddress == values.token1) {
             let InOut = values.amount1In + values.amount1Out;
             volume += InOut;
         }
@@ -31,7 +31,7 @@ export const getPoolVolumeFromEvent = async (pairContract, pairAddress) => {
     let volume = 0n;
     data?.map((value) => {
         const values = value.returnValues;
-        if(values.pairAddress == pairAddress) {
+        if (values.pairAddress == pairAddress) {
             let InOut = values.amount0In + values.amount0Out + values.amount1In + values.amount1Out;
             volume += InOut;
         }

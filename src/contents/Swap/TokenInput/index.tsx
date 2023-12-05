@@ -22,13 +22,13 @@ const TokenInput: React.FC<TokenInputProps> = ({
   value,
 }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(!selectedToken) return;
+    if (!selectedToken) return;
     const value = event.target.value;
-    if(!value) return;
+    if (!value) return;
 
     const valueInBigInt = Math.floor(parseFloat(value));
     console.log(selectedToken.tokenBalance, valueInBigInt)
-    
+
     if (valueInBigInt <= selectedToken.tokenBalance) {
       setInputAmount(event.target.value);
     } else {
@@ -44,7 +44,6 @@ const TokenInput: React.FC<TokenInputProps> = ({
           onChange={(e) => {
             setInputAmount(e.target.value);
             setExact(exact);
-            // handleInputChange(e);
           }}
           value={value}
           className="bg-transparent w-[70%] h-[40px] text-4xl border-gray-300 rounded-lg p-2 border-none outline-none dark:text-white"
@@ -64,9 +63,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
       <div>
         {selectedToken && (
           <div className="pt-8px flex justify-end dark:text-white">
-            <div>{`Balance : ${
-              selectedToken.tokenBalance.toFixed(5)
-            }`}</div>
+            <div>{`Balance : ${selectedToken.tokenBalance.toFixed(5)
+              }`}</div>
           </div>
         )}
       </div>

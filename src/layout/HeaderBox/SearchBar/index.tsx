@@ -143,11 +143,10 @@ const SearchBox = () => {
           />
         </div>
         <div
-          className={`rounded-b-3xl text-baseWhite pc:w-[331px] w-full absolute top-[20px] left-0 z-[-100] max-h-[200px] overflow-auto pc:bg-[#c9f399] mobile:bg-[#a8e99d] dark:bg-black pt-[30px] ${
-            searchResults.length > 0
+          className={`rounded-b-3xl text-baseWhite pc:w-[331px] w-full absolute top-[20px] left-0 z-[-100] max-h-[200px] overflow-auto pc:bg-[#c9f399] mobile:bg-[#a8e99d] dark:bg-black pt-[30px] ${searchResults.length > 0
               ? "border-[3px] border-x-3 border-baseWhite"
               : ""
-          }`}
+            }`}
         >
           {searchResults.length > 0 && (
             <ul className="overflow-y-auto h-full">

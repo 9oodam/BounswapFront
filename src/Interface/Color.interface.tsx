@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent } from "react";
+import { MouseEvent } from "react";
 import { ReactNodeProps } from "./ReactNode.interface";
 
 // * background color와 Click 이벤트를 설정하는 interface
@@ -12,7 +12,6 @@ export interface LiquidityTapProps extends ReactNodeProps {
 }
 
 // * Theme으로 컬러 변경 interface
-
 export interface ColorTheme {
   color: {
     opercityBlack: string;

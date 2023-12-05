@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
 import { PairItem, UnclaimedFeeData } from "src/Interface/Token.interface";
+import { claimFee } from "src/features/pair/poolSendFeatures";
+import React from "react";
 import Card from "src/components/Card";
 import CardTitle from "src/components/Card/CardTitle";
-import { claimFee } from "src/features/pair/poolSendFeatures";
-import useWeb3 from "src/hooks/web3.hook";
 import Contract from "web3-eth-contract";
 
 const UnclaimedFeesCard: React.FC<{
@@ -11,9 +10,9 @@ const UnclaimedFeesCard: React.FC<{
   user: string;
   pool: PairItem;
   fee: UnclaimedFeeData;
-  refetch : ()=>{};
-  tokenRefetch : ()=>{};
-  poolRefetch : ()=>{};
+  refetch: () => {};
+  tokenRefetch: () => {};
+  poolRefetch: () => {};
 }> = ({ pairCon, user, pool, fee, refetch, tokenRefetch, poolRefetch }) => {
 
   const tryClaimFee = async () => {
@@ -31,10 +30,9 @@ const UnclaimedFeesCard: React.FC<{
       <CardTitle>Unclaimed fees</CardTitle>
       <div className="flex mobile:flex-col">
         <div className=" flex flex-col pc:w-[40%] items-center pc:mt-3 mobile:mt-8 mobile:mb-10">
-          {/* <div className="font-bold text-[30px] w-full mobile:mb-5 ">$ 맞는지 확인 {fee.token0FeeAmount + fee.token1FeeAmount}</div> */}
           <div
-          onClick={() => {tryClaimFee()}}
-          className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md">
+            onClick={() => { tryClaimFee() }}
+            className="w-[90%] h-[50px] bg-lightGreen rounded-coinLogo pc:mt-7 text-xl font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md">
             collect fees
           </div>
         </div>

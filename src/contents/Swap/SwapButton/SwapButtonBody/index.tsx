@@ -1,5 +1,3 @@
-import React from "react";
-
 const SwapButtonBody = () => {
   return (
     <div className="w-full h-[448px] top-0 left-0">

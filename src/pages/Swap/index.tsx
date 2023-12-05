@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import useWeb3 from "src/hooks/web3.hook";
 
 import { getPairAddress } from "src/features/pair/factorySendFeatures";
 import {
@@ -14,18 +13,16 @@ import {
   tokensForExactBNC,
   tokensForExactTokens,
 } from "src/features/pair/swapSendFeatures";
+import { TokenItem } from "src/Interface/Token.interface";
+import { getUserTokens } from "src/features/data/dataGetUserTokens";
 
 import SwapContainer from "../../components/SwapContainer";
 import Card from "src/components/Card";
-import CustomModal from "./CustomModal";
 import TokenInput from "src/contents/Swap/TokenInput";
 import SwapBtn from "src/contents/poolpair/Liquidity/LiquidiityBtn/SwapBtn";
 import SwapFetchingCard from "src/components/Card/SwapFetchingCard";
-import SwapButton from "src/contents/Swap/SwapButton";
-import SwapCard from "src/components/Card/SwapCard";
-import { TokenArray, TokenItem } from "src/Interface/Token.interface";
-import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import LoadingIndicator from "src/components/LoadingIndicator";
+import useWeb3 from "src/hooks/web3.hook";
 
 const Swap = () => {
   const queryClient = useQueryClient();
@@ -61,7 +58,7 @@ const Swap = () => {
     });
     return swapTokens;
   };
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["swapTokens"],
     queryFn: getData,
     gcTime: 100,
@@ -125,7 +122,7 @@ const Swap = () => {
   useEffect(() => {
     if (isExact == false) return;
     console.log(parseFloat(InputTokenAmount));
-    if(Number(InputTokenAmount.replace(".", "")) == 0) {
+    if (Number(InputTokenAmount.replace(".", "")) == 0) {
       return;
     }
     const inputAmount = web3?.utils.toBigInt(
@@ -160,7 +157,7 @@ const Swap = () => {
   useEffect(() => {
     if (isExact == true) return;
     console.log(parseFloat(OutputTokenAmount));
-    if(Number(OutputTokenAmount.replace(".", "")) == 0) {
+    if (Number(OutputTokenAmount.replace(".", "")) == 0) {
       return;
     }
     const outputAmount = web3?.utils.toBigInt(
@@ -299,7 +296,7 @@ const Swap = () => {
     refetch();
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (swapResult == "") return;
     if (swapResult == "succeed") {
       alert("succeed");
@@ -309,7 +306,7 @@ const Swap = () => {
   }, [swapResult]);
 
 
-  if  (!data) {
+  if (!data) {
     refetch();
     return <LoadingIndicator />;;
   }
@@ -345,17 +342,17 @@ const Swap = () => {
             value={OutputTokenAmount}
           />
         </Card>
-        {minToken &&        
-        <SwapFetchingCard>
-          <div>Max slippage <span className="text-xs">(minToken) 0.5%</span></div>
-          <div>{minToken}</div>
-        </SwapFetchingCard>
+        {minToken &&
+          <SwapFetchingCard>
+            <div>Max slippage <span className="text-xs">(minToken) 0.5%</span></div>
+            <div>{minToken}</div>
+          </SwapFetchingCard>
         }
-        {maxToken &&        
-        <SwapFetchingCard>
-        <div>Max slippage <span className="text-xs">(maxToken) 0.5%</span></div>
-        <div>{maxToken}</div>
-      </SwapFetchingCard>
+        {maxToken &&
+          <SwapFetchingCard>
+            <div>Max slippage <span className="text-xs">(maxToken) 0.5%</span></div>
+            <div>{maxToken}</div>
+          </SwapFetchingCard>
         }
         <SwapBtn tokenName={btnText} onClick={trySwap} />
         {/* 조건 1.지갑연동 안됐을때 wallet 연결 유도 2. 토큰 두개다 골랐는데 Input or Output 입력안됐을때 "Enter an amount" 3. Input or Output 이 입력됐을때 계산실행해주기 "fetching best price 표시 -> 입력됐을때 얼마로 바꿔줄수있는지 표시 "1UNI = 3.234 WETH" 4. 내가 보유한 첫번째 TokenInput 의 balance 가 InputValue 보다 높을때는 "Insufficient WETH balance" 띄어주고 swap 막기 5.위의 조건을 다 피해가면 그때 "Swap"가능 */}

@@ -8,7 +8,7 @@ export const getUserLiquidity = async (pairContract: Contract<any>, pairAddress:
   const amount0 = data[0];
   const amount1 = data[1];
   console.log('유저 예치량 : ', amount0, amount1)
-  return {amount0, amount1};
+  return { amount0, amount1 };
 }
 
 // 유동성 공급시 토큰 1:1 계산
@@ -24,7 +24,7 @@ export const getRemoveAmount = async (pairContract: Contract<any>, pairAddress: 
   const amount1 = data[1];
   console.log('token0Amount : ', amount0);
   console.log('token1Amount : ', amount1);
-  return {amount0, amount1};
+  return { amount0, amount1 };
 }
 
 
@@ -37,8 +37,8 @@ export const addLiquidity = async (pairContract: Contract<any>, tokenA: string, 
     });
     console.log(block);
     // block에 문제 있으면 error 처리할 수 있는 문구 내보내기
-    if(block) return('succeed');
-    if(!block) return('failed');
+    if (block) return ('succeed');
+    if (!block) return ('failed');
   } catch (error) {
     console.log(error)
     return ('error');
@@ -53,8 +53,8 @@ export const addLiquidityBNC = async (pairContract: Contract<any>, token: string
       gasPrice: 25000000000
     });
     console.log(block);
-    if(block) return('succeed');
-    if(!block) return('failed');
+    if (block) return ('succeed');
+    if (!block) return ('failed');
   } catch (error) {
     console.log(error)
     return ('error');
@@ -68,8 +68,8 @@ export const removeLiquidity = async (pairContract: Contract<any>, tokenA: strin
       gasPrice: 25000000000
     });
     console.log(block);
-    if(block) return('succeed');
-    if(!block) return('failed');
+    if (block) return ('succeed');
+    if (!block) return ('failed');
   } catch (error) {
     console.log(error)
     return ('error');
@@ -83,8 +83,8 @@ export const removeLiquidityBNC = async (pairContract: Contract<any>, token: str
       gasPrice: 25000000000
     });
     console.log(block);
-    if(block) return('succeed');
-    if(!block) return('failed');
+    if (block) return ('succeed');
+    if (!block) return ('failed');
   } catch (error) {
     console.log(error)
     return ('error');
@@ -99,8 +99,8 @@ export const claimFee = async (pairContract: Contract<any>, pairAddress: string,
       gasPrice: 25000000000
     });
     console.log(block);
-    if(block) return('succeed');
-    if(!block) return('failed');
+    if (block) return ('succeed');
+    if (!block) return ('failed');
   } catch (error) {
     console.log(error)
     return ('error');

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // "target": "es5",
     "target": "es2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -17,8 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "."
-    // "paths": {
-    //   "@/*": ["src/*"]
-    // }
   }
 }

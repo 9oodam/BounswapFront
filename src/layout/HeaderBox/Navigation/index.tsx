@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import LogoArea from "../LogoArea";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const location = useLocation();
@@ -28,7 +27,6 @@ const Navigation = () => {
           className={`mr-[14px] left-[87px] font-bold text-[22px] ${getTabStyle(
             "/tokens"
           )}`}
-          // style={getTextShadowStyle("/tokens")}
         >
           Tokens
         </Link>
@@ -37,7 +35,6 @@ const Navigation = () => {
           className={`mr-[14px] left-[193px] font-bold text-[22px] ${getTabStyle(
             "/pool"
           )}`}
-          // style={getTextShadowStyle("/poolpair")}
         >
           Pools
         </Link>
@@ -46,7 +43,6 @@ const Navigation = () => {
           className={`mr-[14px] left-[281px] font-bold text-[22px] ${getTabStyle(
             "/stake"
           )}`}
-          // style={getTextShadowStyle("/stake")}
         >
           Stake
         </Link>
@@ -55,7 +51,6 @@ const Navigation = () => {
           className={`mr-[14px] left-[281px] font-bold text-[22px] ${getTabStyle(
             "/governance"
           )}`}
-          // style={getTextShadowStyle("/governance")}
         >
           Governance
         </Link>

@@ -19,11 +19,9 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
   const WithdrawHandler = async () => {
     if (unstakeDeadLine === false) {
       await emergencyWithdraw({ stakingContract, user });
-      // window.location.reload();
     }
     if (unstakeDeadLine === true) {
       await maturedWithdraw({ stakingContract, user });
-      // window.location.reload();
     }
     setAction(!action);
   };
@@ -33,7 +31,7 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
   };
 
   const addStaking = async () => {
-    await addStakingPool({ stakingContract, user});
+    await addStakingPool({ stakingContract, user });
   }
 
   return (
@@ -44,7 +42,6 @@ const UnstakeBtn: React.FC<WithdrawProps> = ({
       >
         {tokenName}
       </div>
-        {/* <div onClick={addStaking}>스테이킹 풀 생성(테스트 후 지울것)</div> */}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo } from "react";
 import { Divstyle, Textstyle } from "./information.style";
 
 const Information = () => {
@@ -27,9 +27,8 @@ const Information = () => {
   return (
     <div className={Divstyle.flex}>
       <div className={Textstyle.title}>Information</div>
-      <div className={Textstyle.mainText}>{`${commenter}${
-        showMore ? "" : "..."
-      }`}</div>
+      <div className={Textstyle.mainText}>{`${commenter}${showMore ? "" : "..."
+        }`}</div>
       <div
         onClick={() => {
           setShowMore(!showMore);

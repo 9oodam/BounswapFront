@@ -1,18 +1,18 @@
 import React from "react";
-import { PropoaslProps, proposals } from "src/Interface/governance.interface";
+import { PropoaslProps } from "src/Interface/governance.interface";
 
-const VoteContent: React.FC<PropoaslProps> = ({ data, voteProposal}) => {
- 
+const VoteContent: React.FC<PropoaslProps> = ({ data, voteProposal }) => {
+
   return (
     <div className=" pc:w-2/5 flex flex-col justify-start items-center rounded-bodyBackRadius bg-cardWhite pc:p-7 mobile:p-3 mx-3 shadow-md">
       <div className=" w-full flex flex-row justify-evenly">
-        <div onClick={()=>{voteProposal(true, data.id, data.proposer)}} className="bg-green-300 text-baseWhite w-[130px] pc:h-[50px] mobile:h-[40px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer mx-1">
+        <div onClick={() => { voteProposal(true, data.id, data.proposer) }} className="bg-green-300 text-baseWhite w-[130px] pc:h-[50px] mobile:h-[40px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-green-500 cursor-pointer mx-1">
           찬성
           <span className="font-medium text-[14px]">
             {data.forPercent}%
           </span>
         </div>
-        <div onClick={()=>{voteProposal(false, data.id, data.proposer)}} className="bg-red-300 text-baseWhite w-[130px] pc:h-[50px] mobile:h-[40px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-red-500 cursor-pointer mx-1">
+        <div onClick={() => { voteProposal(false, data.id, data.proposer) }} className="bg-red-300 text-baseWhite w-[130px] pc:h-[50px] mobile:h-[40px] flex justify-center items-center font-bold rounded-2xl shadow-md hover:bg-red-500 cursor-pointer mx-1">
           반대
           <span className="font-medium text-[14px]">
             {data.againstPercent}%

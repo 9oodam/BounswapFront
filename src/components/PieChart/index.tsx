@@ -12,7 +12,6 @@ const PieChart: React.FC<DepositeChart> = ({
   const series = [Number(token0percent), Number(token1percent)];
 
   const option = {
-    // theme: { mode: "dark" },
     chart: {
       width: "100%",
     },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type match = {
   token0Match: string;
@@ -13,8 +13,6 @@ const Price: React.FC<match> = ({
   token0Symbol,
   token1Symbol,
 }) => {
-  console.log("token0Match", token0Match);
-  console.log("token1Match", token1Match);
 
   return (
     <div className="flex flex-col w-full text-[#7C7C7C] mobile:hidden">

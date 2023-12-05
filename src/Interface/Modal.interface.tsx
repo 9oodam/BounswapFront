@@ -1,4 +1,3 @@
-// import { Token } from "src/pages/Swap/CustomModal/index";
 import { TokenItem } from "src/Interface/Token.interface";
 
 type Token = {
@@ -28,7 +27,6 @@ export interface SelectTokenBodyProps {
 }
 
 export interface CustomModalProps {
-  // tokens: Token[];
   tokens: TokenItem[];
   selectedToken: TokenItem | null; // 또는 다른 적절한 타입
   setSelectedToken: (token: TokenItem) => void;

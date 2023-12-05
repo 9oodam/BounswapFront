@@ -1,7 +1,6 @@
 import React from "react";
 import { Divstyles, Textstyle } from "./TokenName.style";
 import { TokenNameInterface } from "src/Interface/Token.interface";
-import { useNavigate } from "react-router-dom";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 //! interface 만들기. 토큰img, 토큰이름, 토큰심볼
 const TokenName: React.FC<TokenNameInterface> = ({
@@ -10,8 +9,6 @@ const TokenName: React.FC<TokenNameInterface> = ({
   tokenSymbol,
   onClick,
 }) => {
-  // const nav = useNavigate();
-  console.log("tokenImg", tokenImg);
   return (
     <>
       <div className="mobile:ml-7 mobile:mr-7">
@@ -22,7 +19,6 @@ const TokenName: React.FC<TokenNameInterface> = ({
         ></img>
         <div className={Divstyles.Titlesize}>
           <img
-            // src="https://i.pinimg.com/564x/76/ca/1a/76ca1a94e6866f3b1156218c6723ce3a.jpg"
             src={tokenImg}
             className={Divstyles.LogoImg}
           ></img>

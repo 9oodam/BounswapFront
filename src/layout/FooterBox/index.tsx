@@ -1,15 +1,13 @@
-import React, { useState } from "react";
 import LogoArea from "../HeaderBox/LogoArea";
 import ToggleBtn from "src/components/toggleBtn";
 import GithubArea from "./GithubArea";
+import { useState } from "react";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const Footer = (): JSX.Element => {
   const [pop, setPop] = useState(false);
 
   const handleClick = () => {
-    console.log("asd");
-
     setPop(!pop);
   };
 
@@ -35,9 +33,8 @@ const Footer = (): JSX.Element => {
       </div>
       <ToggleBtn />
       <div
-        className={`absolute w-[150px] h-[170px] bg-cardWhite top-[-170px] right-[0px] rounded-bodyBackRadius pc:hidden ${
-          pop ? "slide-in" : "mobile:hidden slide-out"
-        }`}
+        className={`absolute w-[150px] h-[170px] bg-cardWhite top-[-170px] right-[0px] rounded-bodyBackRadius pc:hidden ${pop ? "slide-in" : "mobile:hidden slide-out"
+          }`}
       >
         <div className="flex flex-col pc:items-center pc:justify-between mt-3">
           <GithubArea name="9oodam" address="https://github.com/9oodam" />

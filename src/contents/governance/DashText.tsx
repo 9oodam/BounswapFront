@@ -13,21 +13,19 @@ const DashText: React.FC<ProposalsArr> = ({ data, voteProposal }) => {
         <div className=" flex flex-col mobile:mt-3">
           <div
             className={`pc:grid pc:grid-cols-5 items-center text-deepBlack dark:text-baseWhite cursor-pointer hover:bg-opercityBlack pc:h-[60px] mobile:h-[50px] mobile:flex 
-        ${
-          pop[index]
-            ? "border-t-4 border-r-4 border-l-4 rounded-t-3xl border-lightGreen"
-            : ""
-        }`}
+        ${pop[index]
+                ? "border-t-4 border-r-4 border-l-4 rounded-t-3xl border-lightGreen"
+                : ""
+              }`}
             onClick={(e) => {
               setPop((pop) => ({ ...pop, [index]: !pop[index] })); // 행의 인덱스를 키로 사용하여 펼침 상태를 관리
             }}
           >
             <div
-              className={`pc:col-span-3 mobile:w-[70%] text-left pc:pl-5 font-bold mobile:p-2  ${
-                pop[index]
+              className={`pc:col-span-3 mobile:w-[70%] text-left pc:pl-5 font-bold mobile:p-2  ${pop[index]
                   ? ``
                   : `mobile:text-ellipsis mobile:overflow-hidden mobile:whitespace-nowrap`
-              } `}
+                } `}
             >
               {el.title}
             </div>

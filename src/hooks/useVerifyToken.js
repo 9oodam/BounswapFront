@@ -29,52 +29,11 @@ const useVerifyToken = () => {
         return data;
       };
       testFunc();
-      // console.log("data", data);
-
-      // console.log("data", data);
-      // if (data.status == 200) {
-      //   console.log("sdfsdfsdfsdfs");
-      //   setResSuccess(true);
-      // }
-      // const data = await testFunc();
-      // fetch(
-      //   `https://bouns.io/api/jwt-verify?token=${token}&projectId=${projectId}`,
-      //   {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // )
-      // .then((res) => {
-      //   console.log("res:", res);
-      //   setResSuccess(true);
-      //   // const result = await res.json();
-      //   // console.log("result :", result); result.email 에서 받을수 있는거 사용자 email 주소
-      //   return res.status == 200;
-      // })
-      // .then((login) => {
-      //   if (login) {
-      //     console.log("옴?");
-      //     // setResSuccess(true);
-      //   } else {
-      //     console.log("removeee");
-      //     localStorage.removeItem("accessToken"); // 토큰 제거
-      //     localStorage.removeItem("loggedIn"); // 로그인 지우기
-      //     window.location.href = "/poolpair"; // 로그인 페이지로 리다이렉트
-      //   }
-      // })
-      // .catch((error) => {
-      //   console.error("Token verification error:", error);
-      // });
     }
-
-    // testFunc();
   }, []);
-  // }, []);
 
   useEffect(() => {
-    console.log("resSuccess", resSuccess);
+    console.log("");
   }, [resSuccess]);
 
   return { resSuccess: test, token };

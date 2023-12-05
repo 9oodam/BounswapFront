@@ -50,10 +50,10 @@ const useWeb3 = (provider: string | null) => {
   };
 
 
-  const getIsMobile = (walletName : string) => {
+  const getIsMobile = (walletName: string) => {
     let isMobile = false;
     const agent = navigator.userAgent;
-    if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
+    if (agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
 
       if (walletName == "MetaMask") {
         window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
@@ -63,11 +63,11 @@ const useWeb3 = (provider: string | null) => {
     return isMobile;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     if (connectStatus == "BounsWallet" || connectStatus == "null") return;
 
-    const getChainId =async () => {
-      const chainId = await window.ethereum.request({method : 'eth_chainId'});  
+    const getChainId = async () => {
+      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
       if (chainId != '0x4798') {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
@@ -98,7 +98,7 @@ const useWeb3 = (provider: string | null) => {
     }
   }, [connectStatus]);
 
-  const connectMetaMask = async (walletName : string) => {
+  const connectMetaMask = async (walletName: string) => {
     SetconnectStatus(walletName);
     if (window?.ethereum) {
       window.location.reload();
@@ -250,7 +250,6 @@ const useWeb3 = (provider: string | null) => {
         "0x0ab4C056c769B85D7ce03dFE570Fe09e33794fF3",
         { data: "" }
       );
-      console.log("contract 연결 완료");
       setDataContract(dataCon);
       setGovernanceContract(govCon);
       setPairContract(pairCon);

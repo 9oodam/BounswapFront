@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import useWeb3 from "src/hooks/web3.hook";
 
 const SendBox = () => {
@@ -20,8 +20,6 @@ const SendBox = () => {
       );
       if (!confirm) return;
 
-      // await window.ethereum.enable();
-
       const result = await web3?.eth.sendTransaction({
         from: user.account,
         to: sendAddress,
@@ -34,20 +32,16 @@ const SendBox = () => {
         console.log("성공");
         setAmount("");
         setSendAddress("");
-        // setSend(true);
         alert("성공했습니다");
         window.location.reload();
       } else {
         alert("실패");
       }
-      
+
     } catch (error) {
       console.log("err", error);
       alert("실패");
     }
-
-
-    // refetch();
   };
 
   return (

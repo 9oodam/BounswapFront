@@ -16,7 +16,6 @@ const Stake: React.FC<Timestamp> = ({ timestamp, action, setAction }) => {
     const now = new Date();
     const nowTimestamp = Math.floor(now.getTime() / 1000);
     setNowTime(nowTimestamp);
-    // setNowTime(1705555500);
 
     if (nowTime && endTime) {
       if (nowTime < endTime) {

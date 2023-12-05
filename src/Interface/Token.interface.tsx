@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 // * 토큰의 이름을 설정하는 interface
 export interface InputTokenProps {
@@ -21,28 +21,21 @@ export interface InputTokenDepositProps {
 export interface BtnTokenDepositProps {
   tokenName: string;
   tokenDepositAmount: string;
-  action : boolean;
-  setAction : Dispatch<SetStateAction<boolean>>;
+  action: boolean;
+  setAction: Dispatch<SetStateAction<boolean>>;
 }
 // LPToken wirhdraw 시 사용하는 interface
 export interface WithdrawProps {
   tokenName: string;
   unstakeDeadLine: boolean;
-  action : boolean;
-  setAction : Dispatch<SetStateAction<boolean>>;
+  action: boolean;
+  setAction: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface SelectTokenProps {
   tokenName: string;
   onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
-
-// * 소유하고 있는 토큰의 정보를 설정하는 interface => Deposite
-// export interface TokenBalance {
-//   tokenAmount: number;
-//   tokenSymbol: string;
-//   dollar: number;
-// }
 
 //* Remove Liquidity의 %를 매개변수로 받는 interface
 export interface RemovePercent {
@@ -91,8 +84,8 @@ export type EarlyArray = EarlyInfo[];
 
 export interface Timestamp {
   timestamp: number;
-  action : boolean;
-  setAction : Dispatch<SetStateAction<boolean>>;
+  action: boolean;
+  setAction: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface MyFee {

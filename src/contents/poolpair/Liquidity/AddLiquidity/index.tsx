@@ -15,7 +15,7 @@ import { PairItem } from "src/Interface/Token.interface";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getUserPools } from "src/features/data/dataGetUserPools";
 
-const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refetch }) => {
+const AddLiquidity: React.FC<{ data: PairItem, refetch: () => {} }> = ({ data, refetch }) => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
@@ -23,7 +23,7 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
   const [token1Amount, setToken1Amount] = useState<string>("");
   const [isExact, setIsExact] = useState<boolean>(true);
 
-  
+
   const Ref = /^(-?)([0-9]*)(\.?)([^0-9]*)([0-9]*)([^0-9]*)/;
   const errMsg = () => {
     return alert("AddLiquidity 실패");
@@ -43,8 +43,8 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
     });
     return data.tokensObj;
   };
-  
-  const { data: tokens, refetch : refetchTokens } = useQuery({
+
+  const { data: tokens, refetch: refetchTokens } = useQuery({
     queryKey: ["tokensObj"],
     queryFn: getTokens,
     gcTime: 0,
@@ -52,19 +52,19 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
     refetchOnWindowFocus: "always",
     enabled: !(!dataContract || !web3 || !user)
   });
-  
-  const getPairs =async () => {
+
+  const getPairs = async () => {
     if (!pairContract || !dataContract || user.account == "" || !web3) return null;
     console.log("getpair");
-    return await getUserPools({pairContract, dataContract, userAddress : user.account, queryClient, web3});
+    return await getUserPools({ pairContract, dataContract, userAddress: user.account, queryClient, web3 });
   }
-  const { data : userpairs, refetch : refetchPairs } = useQuery({
-    queryKey : ["userPairs"],
+  const { data: userpairs, refetch: refetchPairs } = useQuery({
+    queryKey: ["userPairs"],
     queryFn: getPairs,
     gcTime: 0,
     staleTime: 0,
     refetchOnWindowFocus: "always",
-    enabled: !(!pairContract|| !dataContract || !web3 || !user)
+    enabled: !(!pairContract || !dataContract || !web3 || !user)
   });
 
   const tryAddLiquidity = async () => {
@@ -95,7 +95,7 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
         console.log("꺄르륵", result);
         if (result == "error") {
           errMsg();
-        }else {
+        } else {
           setToken0Amount("")
           setToken1Amount("")
         }
@@ -112,7 +112,7 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
         console.log(result);
         if (result == "error") {
           errMsg();
-        }else {
+        } else {
           setToken0Amount("")
           setToken1Amount("")
 
@@ -152,7 +152,6 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
   };
 
   useEffect(() => {
-    // console.log(parseFloat(token0Amount));
     if (Number(token0Amount.replace(".", "")) == 0) {
       return;
     }
@@ -167,7 +166,6 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
   }, [token0Amount]);
 
   useEffect(() => {
-    // console.log(parseFloat(token1Amount));
     if (Number(token1Amount.replace(".", "")) == 0) {
       return;
     }
@@ -188,19 +186,12 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
     console.log(isExact);
   }, [isExact]);
 
-  // console.log(
-  //   "10000000000000000000n",
-  //   web3?.utils.fromWei(web3.utils.toBigInt(10000000000000000000n), "ether")
-  // );
-
   if (!tokens) {
     refetchTokens();
     return <>loading</>
   }
   return (
-    // <div className={`${display} flex-col items-center p-5`}>
     <div className={Divstyle.flex}>
-      {/* <Balance></Balance> */}
       <div className={Divstyle.box}>
         Balance: <span className={Textstyle.balance}>{tokens[data.token0Address].tokenBalance}</span>
       </div>
@@ -212,7 +203,6 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
         exact={true}
         regex={Ref}
       />
-      {/* <Balance></Balance> */}
       <div className={Divstyle.box}>
         Balance: <span className={Textstyle.balance}>{tokens[data.token1Address].tokenBalance}</span>
       </div>

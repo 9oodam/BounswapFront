@@ -3,11 +3,6 @@ import { WalletConnectScreenProps } from "src/Interface/WalletConnect.interface"
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const WalletInfo: React.FC<WalletConnectScreenProps> = ({ walletAddress }) => {
-  // const handleDisconnect = () => {
-  //   // console.log("gd");
-  //   //   disconnect();
-  //   //   navigate("/"); // 메인으로 넘어가게
-  // };
 
   return (
     <>

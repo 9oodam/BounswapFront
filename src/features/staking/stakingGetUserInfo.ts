@@ -1,7 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import { Contract } from "web3";
 
-
 interface Params {
   stakingContract: Contract<any> | null;
   queryClient: QueryClient;
@@ -34,24 +33,17 @@ export const getUserInfo = async ({
 
     const userInfo = data
       ? {
-          amount: BigInt(data.amount).toString(),
-          exactRewardCal: BigInt(data.exactRewardCal).toString(),
-          pendingReward: BigInt(data.pendingReward).toString(),
-          stakingStartTime: BigInt(data.stakingStartTime).toString(),
-        }
+        amount: BigInt(data.amount).toString(),
+        exactRewardCal: BigInt(data.exactRewardCal).toString(),
+        pendingReward: BigInt(data.pendingReward).toString(),
+        stakingStartTime: BigInt(data.stakingStartTime).toString(),
+      }
       : null;
     queryClient.setQueryData(["userInfo"], userInfo);
 
     return userInfo;
   } catch (error) {
-    // console.log(error);
+    console.log("");
   }
 };
 
-//    /// @notice 스테이킹 유저의 정보
-//    struct UserInfo {
-//     uint256 amount; /// @dev 유저의 LP토큰 예치량
-//     uint256 exactRewardCal; /// @dev 정확한 리워드 계산을 위한 변수
-//     uint256 pendingReward; /// @dev 보상으로 얻은 리워드량
-//     uint256 stakingStartTime; /// @dev 스테이킹 시작 시간
-// }

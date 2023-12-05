@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Container from "../../components/container";
-import Dashboard from "../../components/Dashboard";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import useWeb3 from "src/hooks/web3.hook";
-import { getAllTokens } from "src/features/AllTokens";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 import { getPoolInfo } from "src/features/staking/stakingGetPoolInfo";
 import { getTotalLPToken } from "src/features/staking/stakingGetTotalLPToken";
-import { StakeItem, TotalToken, UserInfo } from "src/Interface/Token.interface";
+import { StakeItem, TotalToken } from "src/Interface/Token.interface";
 import { getUserInfo } from "src/features/staking/stakingGetUserInfo";
+import useWeb3 from "src/hooks/web3.hook";
+import Container from "../../components/container";
+import Dashboard from "../../components/Dashboard";
 
 const Stake = () => {
   const [visible, setVisible] = useState(10);
@@ -16,7 +15,6 @@ const Stake = () => {
     null
   );
   const [totalLp, setTotalLp] = useState<number | null | undefined>(null);
-  const [userTotalLp, setUserTotalLp] = useState<string | undefined>();
   const [tokenData, setTokenData] = useState<StakeItem[] | null>(null);
   const queryClient = useQueryClient();
 
@@ -113,24 +111,6 @@ const Stake = () => {
   const showMore = () => {
     setVisible((prevValue) => prevValue + 10);
   };
-
-  // const { governanceContract } = useWeb3(null);
-  // if (governanceContract !== null) {
-  //   getAllTokens({ governanceContract, queryClient });
-  // }
-
-  // const {
-  //   data: data2,
-  //   isLoading,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["proposals"],
-  //   // queryFn: fetchData,
-  //   queryFn: ()=>{getAllTokens({ governanceContract, queryClient })},
-  //   gcTime: 0,
-  //   staleTime: Infinity,
-  //   refetchOnWindowFocus: false,
-  // });
 
   return (
     <Container>

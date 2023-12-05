@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-// import ApexCharts from "apexcharts";
-import Chart from "react-apexcharts";
+import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { Divstyle } from "./AreaChart.style";
 
@@ -9,25 +7,12 @@ const AreaChart: React.FC<{
   index: number[];
   name: string;
 }> = ({ data, index, name }) => {
-  const [indexArr, setIndexArr] = useState<number[]>([]);
-
-  // useEffect(() => {
-  //   const index: number[] = [];
-  //   for (let i = 1; i <= data.length; i++) {
-  //     indexArr.push(i);
-  //   }
-  //   console.log("asdadasdasdaaaaa", indexArr);
-  //   setIndexArr(index);
-  // }, [data]);
-
   const series = [{ name: name, data: data }];
 
   const option = {
-    // theme: { mode: "dark" },
     chart: {
       height: "100%",
       width: "100%",
-      // toolbar: { show: false },
       toolbar: {
         show: true,
         tools: {
@@ -51,10 +36,8 @@ const AreaChart: React.FC<{
       axisTicks: { show: false },
       axisBorder: { show: false },
       //! 인덱스 값 넣기
-      // categories: index,
       range: 10,
       tickPlacement: "on",
-      // type: "datetime" as const,
       type: "category" as const,
     },
     dataLabels: {
@@ -79,17 +62,8 @@ const AreaChart: React.FC<{
       strokeColors: "#fff",
       strokeWidth: 2,
       strokeOpacity: 0.8,
-      // fillOpacity: 1,
-      // discrete: [],
       shape: "circle" as const,
-      // radius: 2,
-      // offsetX: 0,
-      // offsetY: 0,
-      // onClick: undefined,
-      // onDblClick: undefined,
-      // showNullDataPoints: true,
       hover: {
-        // size: undefined,
         sizeOffset: 2,
       },
     },

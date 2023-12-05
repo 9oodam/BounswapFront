@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useWeb3 from "src/hooks/web3.hook";
 
-import { Divstyles } from "src/pages/StakeDetail/StakeDetail.style";
 import { Divstyle } from "src/components/Pairname/Pairname.style";
 import SwapContainer from "src/components/SwapContainer";
 import SwapCard from "src/components/Card/SwapCard";
 import TokenInput from "src/contents/Swap/TokenInput";
-import SwapButton from "src/contents/Swap/SwapButton";
 import InitialPoolPair from "src/contents/PoolCreate/InitialPoolPair";
 import { TokenItem } from "src/Interface/Token.interface";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
@@ -79,7 +77,7 @@ const PoolCreate = () => {
     return data;
   };
 
-  
+
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["swapTokens"],
     queryFn: getData,
@@ -88,8 +86,8 @@ const PoolCreate = () => {
     refetchOnWindowFocus: "always",
     enabled: !!pairContract && !!dataContract && !!web3,
   });
-  
-  const { data : pool, refetch: poolRefetch } = useQuery({
+
+  const { data: pool, refetch: poolRefetch } = useQuery({
     queryKey: ["userPairs"],
     queryFn: getPools,
     gcTime: 0,
@@ -305,7 +303,7 @@ const PoolCreate = () => {
     console.log(isExact);
   }, [isExact]);
 
-  if  (!data) {
+  if (!data) {
     refetch();
     return <LoadingIndicator />;
   }

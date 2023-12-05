@@ -1,5 +1,3 @@
-import React from "react";
-
 const DashTitle = () => {
   return (
     <div className="grid pc:grid-cols-5 text-[20px] text-deepBlack dark:text-baseWhite font-bold mobile:hidden">

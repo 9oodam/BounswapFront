@@ -7,26 +7,26 @@ interface Params {
     dataContract: Contract<any>;
     queryClient: QueryClient;
     user: any;
-    web3 : Web3;
+    web3: Web3;
 }
 
-export const getUserTokens = async ({pairContract, dataContract, queryClient, user, web3} : Params) => {
+export const getUserTokens = async ({ pairContract, dataContract, queryClient, user, web3 }: Params) => {
     const data = await (dataContract.methods.getUserTokens as any)(user.account).call();
-    let tokens : TokenArray = [];
-    const tokensObj : { [key : string] : TokenItem} = {};
-    if(data) {
-        data?.map((el : TokenContract, index : number) => {
+    let tokens: TokenArray = [];
+    const tokensObj: { [key: string]: TokenItem } = {};
+    if (data) {
+        data?.map((el: TokenContract, index: number) => {
             let balance;
-    
-            if(el.symbol == "BNC") {
+
+            if (el.symbol == "BNC") {
                 balance = Number(Number(user.balance).toFixed(4));
-            }else {
+            } else {
                 balance = Number(Number(web3.utils.fromWei(el.balance, "ether")).toFixed(4));
             }
-    
-            let token : TokenItem = {
+
+            let token: TokenItem = {
                 tokenAddress: el.tokenAddress,
-                tokenName: el.name, 
+                tokenName: el.name,
                 tokenSymbol: el.symbol,
                 tokenUri: el.uri,
                 tokenTvl: Number(Number(web3.utils.fromWei(el.tvl, "ether")).toFixed(4)),
@@ -47,5 +47,5 @@ export const getUserTokens = async ({pairContract, dataContract, queryClient, us
     queryClient.setQueryData(["gov"], gov);
     queryClient.setQueryData(["swapTokens"], swapTokens);
     queryClient.setQueryData(["tokensObj"], tokensObj);
-    return {userTokens : userTokens, gov : gov, swapTokens : swapTokens, tokensObj : tokensObj};
+    return { userTokens: userTokens, gov: gov, swapTokens: swapTokens, tokensObj: tokensObj };
 }

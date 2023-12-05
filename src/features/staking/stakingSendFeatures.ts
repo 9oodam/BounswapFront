@@ -1,4 +1,3 @@
-import { QueryClient } from "@tanstack/react-query";
 import { Contract } from "web3";
 
 interface Params {
@@ -35,8 +34,7 @@ export const deposit = async ({
       gasPrice: 25000000000
     });
   } catch (error) {
-    // console.log(error);
-    return('error');
+    return ('error');
   }
 };
 // 탈주
@@ -52,7 +50,7 @@ export const emergencyWithdraw = async ({
     });
   } catch (error) {
     console.log();
-    return('error');
+    return ('error');
   }
 };
 // 만기 출금
@@ -67,11 +65,10 @@ export const maturedWithdraw = async ({
       gasPrice: 25000000000
     });
   } catch (error) {
-    // console.log(error);
-    return('error');
+    return ('error');
   }
 };
-////////////////////////// 스테이킹 끝나는 날짜변경(테스트용)
+//  스테이킹 끝나는 날짜변경(테스트용)
 export const setStakingEndDays = async ({
   stakingContract,
   user,
@@ -84,7 +81,7 @@ export const setStakingEndDays = async ({
     );
   } catch (error) {
     // console.log(error);
-    return('error');
+    return ('error');
   }
 };
 
@@ -96,8 +93,8 @@ export const addStakingPool = async ({
     const _allocPoint = 10000;
     const _endDays = 30;
     const _lpToken = '0x316Ce4d255b75D1320FF7eCE9d5eDb231eaF89C4';
-    await (stakingContract?.methods.addStakingPool as any) (_allocPoint, _lpToken, _endDays).send(
-      {from: user.account, gasPrice: 25000000000}
+    await (stakingContract?.methods.addStakingPool as any)(_allocPoint, _lpToken, _endDays).send(
+      { from: user.account, gasPrice: 25000000000 }
     );
   } catch (error) {
     // console.log(error);

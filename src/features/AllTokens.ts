@@ -17,12 +17,7 @@ export const getAllTokens = async ({
   governanceContract,
   queryClient,
 }: Params) => {
-  console.log("governanceContract2222", governanceContract);
-  console.log("queryClient", queryClient);
   const data = await GovernanceData(governanceContract);
-
-  console.log("getAllTokens : ", data);
-
   const proposals = data?.map(
     (el: {
       againstVotes: bigint;
@@ -51,7 +46,6 @@ export const getAllTokens = async ({
     }
   );
 
-  // const queryClient = useQueryClient();
   queryClient.setQueryData(["proposals"], proposals);
   return proposals;
 };

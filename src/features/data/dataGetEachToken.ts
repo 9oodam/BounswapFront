@@ -1,4 +1,3 @@
-// import { QueryClient } from "@tanstack/react-query";
 import Web3, { Contract } from "web3";
 import { TokenContract } from "src/Interface/Token.interface";
 import { getTokenVolumeFromEvent } from "../event/volume";
@@ -17,15 +16,15 @@ export const getEachToken = async ({ pairContract, dataContract, tokenAddress, w
     const priceArr = await getTokenPriceFromEvent(pairContract, tokenAddress)
     console.log(volume, priceArr)
     const token = {
-            tokenAddress: data.tokenAddress,
-            tokenName: data.name,
-            tokenSymbol: data.symbol,
-            tokenUri: data.uri,
-            tokenTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
-            tokenVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
-            tokenVolume7D: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
-            tokenBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
-            tokenPriceArr: priceArr
+        tokenAddress: data.tokenAddress,
+        tokenName: data.name,
+        tokenSymbol: data.symbol,
+        tokenUri: data.uri,
+        tokenTvl: Number(Number(web3.utils.fromWei(data.tvl, "ether")).toFixed(5)),
+        tokenVolume: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+        tokenVolume7D: Number(Number(web3.utils.fromWei(volume, "ether")).toFixed(5)),
+        tokenBalance: Number(Number(web3.utils.fromWei(data.balance, "ether")).toFixed(5)),
+        tokenPriceArr: priceArr
     }
     console.log(token);
 

@@ -13,7 +13,6 @@ import Card from "src/components/Card";
 import { getTime } from "src/features/getTime";
 
 const Dashboard: React.FC<{
-  // arr:TokenArray | PairArray;
   arr: (StakeItem | TokenItem | PairItem)[];
   url: string;
   title: TokenTitle | StakeTitle | PairTitle;
@@ -29,8 +28,8 @@ const Dashboard: React.FC<{
                 {"tokenName" in title
                   ? title.tokenName
                   : "PairName" in title
-                  ? title.PairName
-                  : title.stakeName}
+                    ? title.PairName
+                    : title.stakeName}
               </th>
               <th
                 className={
@@ -42,8 +41,8 @@ const Dashboard: React.FC<{
                 {"tokenTvl" in title
                   ? title.tokenTvl
                   : "PairTvl" in title
-                  ? title.PairTvl
-                  : title.stake}
+                    ? title.PairTvl
+                    : title.stake}
               </th>
               <th
                 className={
@@ -55,8 +54,8 @@ const Dashboard: React.FC<{
                 {"tokenVolume" in title
                   ? title.tokenVolume
                   : "PairVolume" in title
-                  ? title.PairVolume
-                  : title.end}
+                    ? title.PairVolume
+                    : title.end}
               </th>
               <th
                 className={
@@ -68,8 +67,8 @@ const Dashboard: React.FC<{
                 {"tokenVolume7D" in title
                   ? title.tokenVolume7D
                   : "PairVolume7D" in title
-                  ? title.PairVolume7D
-                  : title.yours}
+                    ? title.PairVolume7D
+                    : title.yours}
               </th>
             </tr>
           </thead>
@@ -97,8 +96,8 @@ const Dashboard: React.FC<{
                             "tokenUri" in data
                               ? data.tokenUri
                               : "stakeImg" in data
-                              ? data.stakeImg
-                              : ""
+                                ? data.stakeImg
+                                : ""
                           }
                           alt="Logo"
                           className="w-full rounded-full border-[1px] border-gray-300 "
@@ -153,8 +152,8 @@ const Dashboard: React.FC<{
                   {"tokenTvl" in data
                     ? data.tokenTvl
                     : "pairTvl" in data
-                    ? data.pairTvl
-                    : data.totalStaked}
+                      ? data.pairTvl
+                      : data.totalStaked}
                 </td>
                 <td
                   className={
@@ -166,8 +165,8 @@ const Dashboard: React.FC<{
                   {"tokenVolume" in data
                     ? data.tokenVolume
                     : "pairVolume" in data
-                    ? data.pairVolume
-                    : getTime(data.endTime)}
+                      ? data.pairVolume
+                      : getTime(data.endTime)}
                 </td>
                 <td
                   className={
@@ -179,8 +178,8 @@ const Dashboard: React.FC<{
                   {"tokenVolume" in data
                     ? data.tokenVolume
                     : "pairVolume" in data
-                    ? data.pairVolume
-                    : data.your}
+                      ? data.pairVolume
+                      : data.your}
                 </td>
               </tr>
             ))}

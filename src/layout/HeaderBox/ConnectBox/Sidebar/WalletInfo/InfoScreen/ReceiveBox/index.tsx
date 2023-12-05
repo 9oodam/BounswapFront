@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import useWeb3 from "src/hooks/web3.hook";
+import { useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
@@ -34,9 +34,8 @@ const ReceiveBox = () => {
       </div>
       <div className="flex justify-center">
         <div
-          className={`border-[3px] w-[170px] border-deepGreen rounded-full cursor-pointer flex items-center justify-evenly ${
-            copied ? `bg-deepGreen` : ``
-          }`}
+          className={`border-[3px] w-[170px] border-deepGreen rounded-full cursor-pointer flex items-center justify-evenly ${copied ? `bg-deepGreen` : ``
+            }`}
           onClick={copy}
         >
           <div className={copied ? ` text-baseWhite` : `text-deepGreen`}>

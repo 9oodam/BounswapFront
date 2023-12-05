@@ -2,6 +2,7 @@
 
 @layer components {
   .scrollbar {
+
     /* 스크롤바의 너비 */
     &::-webkit-scrollbar {
       @apply w-3 rounded-full;
@@ -22,7 +23,9 @@
       @apply bg-lightBlack;
     }
   }
+
   .sideBarScrollbar {
+
     /* 스크롤바의 너비 */
     &::-webkit-scrollbar {
       @apply w-2 rounded-full;

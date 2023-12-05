@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../ConnectBox/Sidebar";
 import WalletConnectScreen from "../ConnectBox/Sidebar/WalletConnect/ConnectScreen";
@@ -10,9 +10,7 @@ import useWeb3 from "src/hooks/web3.hook";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const ConnectBox: React.FC = () => {
-  const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  // const [walletAddress, setWalletAddress] = useState(""); // 지갑 주소 상태 변수
   const { user } = useWeb3(null);
 
   const toggleSidebar = async () => {

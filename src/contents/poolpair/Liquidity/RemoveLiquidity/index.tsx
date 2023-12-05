@@ -20,7 +20,7 @@ import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getUserPools } from "src/features/data/dataGetUserPools";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
-const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refetch }) => {
+const RemoveLiquidity: React.FC<{ data: PairItem, refetch: () => {} }> = ({ data, refetch }) => {
   const queryClient = useQueryClient();
   const { user, web3, pairContract, dataContract } = useWeb3(window.ethereum);
 
@@ -103,7 +103,7 @@ const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, r
           console.log(result);
           if (result == "error") {
             errMsg();
-          }else {
+          } else {
             setPercentage("");
             setTokens({
               token1: {
@@ -128,24 +128,13 @@ const RemoveLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, r
           console.log(result);
           if (result == "error") {
             errMsg();
-          }else {
+          } else {
             setPercentage("");
-            // setTokens({
-            //   token1: {
-            //     amount: "",
-            //     symbol: data.token0Symbol,
-            //   },
-            //   token2: {
-            //     amount: "",
-            //     symbol: data.token1Symbol,
-            //   },
-            // });
           }
         }
       }
     }
 
-    // refetch tokens, pools
     refetch();
     tokenRefetch();
     poolRefetch();

@@ -37,25 +37,6 @@ export const myAllRewardInfo = async ({
 
     return myAllReward;
   } catch (error) {
-    // console.log(error);
+    console.log("");
   }
 };
-
-//    /// @notice 쌓인 리워드 갯수, 블록당 받는 리워드 갯수, 탈주자가 남기고간 리워드 중 내 몫 반환
-//    function myAllReward (uint256 _pid, address _user) public view returns (uint256, uint256, uint256) {
-//     bool isStaking = false;
-//     for (uint256 i; i < stakingUsers[_pid].length; i++) {
-//         if(stakingUsers[_pid][i] == _user) {
-//             isStaking = true;
-//             break;
-//         }
-//     }
-//     if (isStaking) {
-//         uint256 pendingBNCValue = pendingBNC(_pid, _user);
-//         uint256 userBlockRewardPerBlockValue = userBlockRewardPerBlock(_pid, _user);
-//         uint256 estimatedUserRewardFromNinjsVlaue = estimatedUserRewardFromNinjs(_pid, _user);
-//         return (pendingBNCValue, userBlockRewardPerBlockValue, estimatedUserRewardFromNinjsVlaue);
-//     } else {
-//         return (0, 0, 0);
-//     }
-// }

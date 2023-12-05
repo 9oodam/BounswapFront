@@ -1,5 +1,4 @@
 import { Bytes } from "web3";
-import { TokenItem } from "./Token.interface";
 
 export interface proposals {
   id: number;
@@ -12,8 +11,8 @@ export interface proposals {
   startTime: number;
   endTime: number;
   state: number;
-  forPercent : string | number;
-  againstPercent : string | number;
+  forPercent: string | number;
+  againstPercent: string | number;
 }
 
 type VoteProposalFunction = (
@@ -23,24 +22,24 @@ type VoteProposalFunction = (
 ) => Promise<void>;
 
 export interface PropoaslProps {
-  data : proposals;
-  voteProposal : VoteProposalFunction;
+  data: proposals;
+  voteProposal: VoteProposalFunction;
 }
 
 export interface ProposalsArr {
   data: proposals[];
-  voteProposal : VoteProposalFunction;
+  voteProposal: VoteProposalFunction;
 }
 
 export interface ProposalContract {
-  id : bigint;
-  proposer : string;
-  title : Bytes;
-  description : Bytes;
-  quorumVotes : bigint;
-  forVotes : bigint;
-  againstVotes : bigint;
-  startTime : bigint;
-  endTime : bigint;
-  state : bigint;
+  id: bigint;
+  proposer: string;
+  title: Bytes;
+  description: Bytes;
+  quorumVotes: bigint;
+  forVotes: bigint;
+  againstVotes: bigint;
+  startTime: bigint;
+  endTime: bigint;
+  state: bigint;
 }

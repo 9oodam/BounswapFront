@@ -1,22 +1,14 @@
-import { url } from "inspector";
-import useWeb3 from "src/hooks/web3.hook";
-import { ContractTransactionDataAndInputError } from "web3-errors";
-
-import React, { useState, useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-
-import { getAllTokens } from "src/features/data/dataGetAllTokens";
-
-import index from "src/contents/poolpair/PoolDetail";
-import Card from "src/components/Card";
 import Container from "src/components/container";
 import Dashboard from "src/components/Dashboard";
-import { TokenArray,TokenContract } from "src/Interface/Token.interface";
 import LoadingIndicator from "src/components/LoadingIndicator";
+import useWeb3 from "src/hooks/web3.hook";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getAllTokens } from "src/features/data/dataGetAllTokens";
+import { TokenArray } from "src/Interface/Token.interface";
 
 const Tokens = () => {
-  const {web3, dataContract, pairContract} = useWeb3('');
+  const { web3, dataContract, pairContract } = useWeb3('');
   const [visible, setVisible] = useState(10);
   const queryClient = useQueryClient();
 
@@ -29,18 +21,18 @@ const Tokens = () => {
 
   const getData = async () => {
     if (!pairContract || !dataContract || !web3) return null;
-    const data = await getAllTokens({pairContract, dataContract, queryClient, web3});
+    const data = await getAllTokens({ pairContract, dataContract, queryClient, web3 });
     (data as TokenArray).splice(1, 1);
     return data;
   }
 
-  const { data : tokenArr, isLoading, error } = useQuery({
-    queryKey : ["allTokens"], 
-    queryFn : getData,
-    gcTime : 0,
-    staleTime : 0,
-    refetchOnWindowFocus : "always",  
-    enabled : !!dataContract && !!web3 && !!pairContract
+  const { data: tokenArr } = useQuery({
+    queryKey: ["allTokens"],
+    queryFn: getData,
+    gcTime: 0,
+    staleTime: 0,
+    refetchOnWindowFocus: "always",
+    enabled: !!dataContract && !!web3 && !!pairContract
   });
 
   const showMore = () => {
@@ -48,7 +40,7 @@ const Tokens = () => {
   };
 
   if (!tokenArr) {
-    return <LoadingIndicator/>;
+    return <LoadingIndicator />;
   }
 
   return (

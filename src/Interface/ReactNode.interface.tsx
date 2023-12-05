@@ -4,7 +4,6 @@ import React from "react";
 // React.ReactNode : React 요소(컴포넌트나 JSX 등)을 가리키는 타입이다.
 export interface ReactNodeProps {
   children: React.ReactNode;
-  // children: React.ReactNode | React.ReactNode[];
 }
 
 // * 컴포넌트의 display 값을 받는 interface

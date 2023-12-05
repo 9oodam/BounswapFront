@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Card from "src/components/Card";
 import { Divstyles } from "src/pages/StakeDetail/StakeDetail.style";
 import { MyFee, UserInfo } from "src/Interface/Token.interface";
 import { getTime } from "src/features/getTime";
-import useWeb3 from "src/hooks/web3.hook";
 import { useQueryClient } from "@tanstack/react-query";
+import useWeb3 from "src/hooks/web3.hook";
 
 const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
-  const [myFee, setMyFee] = useState<MyFee | null>(null);
   const [lptokens, setLptokens] = useState<UserInfo | null>(null);
   const [userTotalLp, setUserTotalLp] = useState<string | undefined>();
   const [stakingStart, setStakingStart] = useState<string | undefined>();
@@ -23,32 +21,18 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
         const userAmount = web3?.utils.fromWei(BigInt(yourTokens), "ether");
         setUserTotalLp(userAmount);
       }
-      // const userAmount = web3?.utils.fromWei(BigInt(yourTokens), 'ether');
-      // setUserTotalLp(userAmount);
 
       const stakingStartTime = data?.stakingStartTime;
-      console.log("##################", stakingStartTime);
-      console.log("##################", typeof stakingStartTime);
       setStakingStart(stakingStartTime);
-
-      console.log("❗️data", data?.amount);
-      // setLptokens(data?.amount);
-      console.log("@@lptokens", lptokens);
     };
     getLptokens();
   }, [lptokens, queryClient, stakingStart, web3]);
-  console.log("LpTokens", data);
 
   const pendingBNCValue = web3?.utils.fromWei(BigInt(data[0]), "ether");
-  console.log("pendingBNCValue", pendingBNCValue);
-
   const userBlockRewardPerBlock = web3?.utils.fromWei(BigInt(data[1]), "ether");
-  console.log("userBlockRewardPerBlock", userBlockRewardPerBlock);
-
   const bonusFee = web3?.utils.fromWei(BigInt(data[2]), "ether");
-  console.log("bonusFee", bonusFee);
 
-  useEffect(() => {}, [pendingBNCValue, userBlockRewardPerBlock, bonusFee]);
+  useEffect(() => { }, [pendingBNCValue, userBlockRewardPerBlock, bonusFee]);
 
   return (
     // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것!
@@ -70,8 +54,6 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
                 Time of Initiation
               </div>
               <div className="text-deepBlack dark:text-lightBlack text-right font-semibold">
-                {/* {getTime(myFee.time)} */}
-
                 {stakingStart == "0" ? (
                   <div>해당 pool에 예치된 토큰이 없습니다.</div>
                 ) : (

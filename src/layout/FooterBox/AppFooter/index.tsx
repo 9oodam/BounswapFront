@@ -1,18 +1,12 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import GithubArea from "../GithubArea";
 import ToggleBtn from "src/components/toggleBtn";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const AppFooter: React.FC = () => {
   const [infoPop, setInfoPop] = useState(false);
   const location = useLocation();
-
-  // const getTabStyle = (path: string) => {
-  //   return location.pathname === path
-  //     ? "text-deepGreen"
-  //     : "text-white [text-shadow:0px_4px_4px_#00000040]";
-  // };
 
   const getTabStyle = (path: string) => {
     return location.pathname === path ? true : false;
@@ -20,16 +14,12 @@ const AppFooter: React.FC = () => {
 
   const handleClick = () => {
     setInfoPop(!infoPop);
-    console.log("클릭함?");
   };
   return (
     <>
       <div className="min-w-[386px] pc:hidden mobile:fixed bottom-0 bg-AppFooterBack dark:bg-D_AppFooterBack w-full h-[80px] flex items-center justify-evenly">
         <Link
           to="/swap"
-          // className={`mr-[14px] ml-[14px] left-0 font-bold text-[22px] ${getTabStyle(
-          //   "/swap"
-          // )}`}
           onClick={() => {
             setInfoPop(false);
           }}
@@ -50,10 +40,6 @@ const AppFooter: React.FC = () => {
         </Link>
         <Link
           to="/tokens"
-          // className={`mr-[14px] left-[87px] font-bold text-[22px] ${getTabStyle(
-          //   "/tokens"
-          // )}`}
-          // style={getTextShadowStyle("/tokens")}
           onClick={() => {
             setInfoPop(false);
           }}
@@ -74,10 +60,6 @@ const AppFooter: React.FC = () => {
         </Link>
         <Link
           to="/pool"
-          // className={`mr-[14px] left-[193px] font-bold text-[22px] ${getTabStyle(
-          //   "/poolpair"
-          // )}`}
-          // style={getTextShadowStyle("/poolpair")}
           onClick={() => {
             setInfoPop(false);
           }}
@@ -98,10 +80,6 @@ const AppFooter: React.FC = () => {
         </Link>
         <Link
           to="/stake"
-          // className={`mr-[14px] left-[281px] font-bold text-[22px] ${getTabStyle(
-          //   "/stake"
-          // )}`}
-          // style={getTextShadowStyle("/stake")}
           onClick={() => {
             setInfoPop(false);
           }}
@@ -123,17 +101,15 @@ const AppFooter: React.FC = () => {
         <Link
           to="/governance"
           className="w-[40px] h-[40px] flex items-center justify-center"
-          // style={getTextShadowStyle("/governance")}
           onClick={() => {
             setInfoPop(false);
           }}
         >
           <div
-            className={`text-[45px] font-semibold [text-shadow:0px_2px_2px_#00000040] ${
-              getTabStyle("/governance") && !infoPop
+            className={`text-[45px] font-semibold [text-shadow:0px_2px_2px_#00000040] ${getTabStyle("/governance") && !infoPop
                 ? "text-deepGreen"
                 : "text-baseWhite"
-            }`}
+              }`}
           >
             G
           </div>
@@ -146,9 +122,8 @@ const AppFooter: React.FC = () => {
           )}
         </div>
         <div
-          className={`bg-opercityAppFooter dark:bg-[#ffffffCC] w-full h-[250px] absolute bottom-[80px] p-7 flex-col justify-center rounded-t-3xl ${
-            infoPop ? `` : `hidden`
-          }`}
+          className={`bg-opercityAppFooter dark:bg-[#ffffffCC] w-full h-[250px] absolute bottom-[80px] p-7 flex-col justify-center rounded-t-3xl ${infoPop ? `` : `hidden`
+            }`}
         >
           <div className="flex items-center justify-center">
             <img

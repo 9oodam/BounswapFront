@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
 import useWeb3 from "src/hooks/web3.hook";
 import SendBox from "./SendBox";
 import ReceiveBox from "./ReceiveBox";
 import TokenBox from "./TokenBox";
 import PoolBox from "./PoolBox";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserTokens } from "src/features/data/dataGetUserTokens";
 import { getUserPools } from "src/features/data/dataGetUserPools";
-import { addLiquidityBNC } from "src/features/pair/poolSendFeatures";
-import { bNCForExactTokens } from "src/features/pair/swapSendFeatures";
 import { ImgBaseUrl } from "src/features/ImgBaseUrl";
 
 const InfoScreen = () => {
   const { user, web3, dataContract, pairContract } = useWeb3(null);
   const [sendReceive, setSendReceive] = useState("");
   const [history, setHistory] = useState("Tokens");
-  const [isData, setIsData] = useState(false);
   const queryClient = useQueryClient();
 
   // send, receive 영역 출력 여부 설정하는 함수
@@ -29,7 +26,7 @@ const InfoScreen = () => {
 
   const getTokens = async () => {
     console.log("gettokens1");
-    if (!pairContract || !dataContract || !web3 || user.account == "")  return null;
+    if (!pairContract || !dataContract || !web3 || user.account == "") return null;
     console.log("gettoekns2");
     const data = await getUserTokens({
       pairContract,
@@ -55,9 +52,8 @@ const InfoScreen = () => {
   };
 
   const getButtonClass = (buttonType: string) => {
-    return `w-[120px] h-[40px] rounded-[10px] font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md pl-[10px] pr-[10px] ${
-      sendReceive === buttonType ? "bg-deepGreen" : "bg-lightGreen"
-    }`;
+    return `w-[120px] h-[40px] rounded-[10px] font-bold text-white flex items-center justify-center hover:bg-deepGreen cursor-pointer shadow-md pl-[10px] pr-[10px] ${sendReceive === buttonType ? "bg-deepGreen" : "bg-lightGreen"
+      }`;
   };
 
   const getBoxClass = () => {
@@ -89,10 +85,6 @@ const InfoScreen = () => {
 
   if (!tokens || !pools) {
 
-    if (String(localStorage.getItem("connectStatus")) == "BounsWallet") {
-      
-    }
-
     if (!tokens) {
       tokenRefetch();
     }
@@ -114,10 +106,7 @@ const InfoScreen = () => {
   return (
     <div className="w-full">
       <h3 className="font-bold text-[23px] mb-7 ">
-        {/* {user.balance.split(".")[0] +
-          "." +
-          user.balance.split(".")[1]?.slice(0, 4)}{" "} */}
-          {Number(tokens[0].tokenBalance).toFixed(4)}
+        {Number(tokens[0].tokenBalance).toFixed(4)}
         BNC
       </h3>
 
@@ -162,9 +151,8 @@ const InfoScreen = () => {
       <div className="flex flex-col items-center w-full">
         <div className="flex justify-evenly">
           <button
-            className={`w-[100px] p-2 rounded hover:scale-105 ${
-              history === "Tokens" ? "font-bold" : "font-normal"
-            }`}
+            className={`w-[100px] p-2 rounded hover:scale-105 ${history === "Tokens" ? "font-bold" : "font-normal"
+              }`}
             onClick={() => {
               setHistory("Tokens");
             }}
@@ -172,9 +160,8 @@ const InfoScreen = () => {
             Tokens
           </button>
           <button
-            className={`w-[100px] p-2 rounded hover:scale-105 ${
-              history === "Tokens" ? "font-normal" : "font-bold"
-            }`}
+            className={`w-[100px] p-2 rounded hover:scale-105 ${history === "Tokens" ? "font-normal" : "font-bold"
+              }`}
             onClick={() => {
               setHistory("Pools");
             }}
