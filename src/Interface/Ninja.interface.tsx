@@ -8,6 +8,7 @@ export interface EmergencyData {
 }
 export type EmergencyEventArr = EmergencyData[];
 
+
 export interface StakingTotalAmountData {
     account: string;
     poolId: number;

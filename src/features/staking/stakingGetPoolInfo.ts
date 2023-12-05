@@ -34,7 +34,7 @@ export const getPoolInfo = async ({ stakingContract, queryClient }: Params) => {
 
     return poolInfo;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

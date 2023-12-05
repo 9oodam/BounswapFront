@@ -88,6 +88,11 @@ const InfoScreen = () => {
   }, [user]);
 
   if (!tokens || !pools) {
+
+    if (String(localStorage.getItem("connectStatus")) == "BounsWallet") {
+      
+    }
+
     if (!tokens) {
       tokenRefetch();
     }

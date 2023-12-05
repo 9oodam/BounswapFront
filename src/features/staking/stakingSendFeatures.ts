@@ -35,7 +35,7 @@ export const deposit = async ({
       gasPrice: 25000000000
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return('error');
   }
 };
@@ -67,7 +67,7 @@ export const maturedWithdraw = async ({
       gasPrice: 25000000000
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return('error');
   }
 };
@@ -83,7 +83,7 @@ export const setStakingEndDays = async ({
       { from: user.account, gasPrice: 25000000000 }
     );
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return('error');
   }
 };
@@ -100,7 +100,7 @@ export const addStakingPool = async ({
       {from: user.account, gasPrice: 25000000000}
     );
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return ('error');
   }
 }

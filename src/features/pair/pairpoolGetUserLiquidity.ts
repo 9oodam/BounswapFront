@@ -32,6 +32,6 @@ export const poolGetSharePercent = async (pairContract : Contract<any>, tokenA :
     let amountABigInt = web3.utils.toWei(Number(amountA), "ether")
     let amountBBigInt = web3.utils.toWei(Number(amountB), "ether")
     const data = await (pairContract.methods.poolSharePercent as any)(tokenA, tokenB, amountABigInt, amountBBigInt).call();
-    console.log(data);
-    return data;
+    const percent = (Number(web3.utils.fromWei(data, 'ether')) * 100).toFixed(2);
+    return percent;
 }

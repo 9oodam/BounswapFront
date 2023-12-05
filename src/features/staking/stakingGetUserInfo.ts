@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import { Contract } from "web3";
 
+
 interface Params {
   stakingContract: Contract<any> | null;
   queryClient: QueryClient;
@@ -43,7 +44,7 @@ export const getUserInfo = async ({
 
     return userInfo;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

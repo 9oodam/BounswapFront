@@ -9,28 +9,28 @@ import { useQueryClient } from "@tanstack/react-query";
 const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
   const [myFee, setMyFee] = useState<MyFee | null>(null);
   const [lptokens, setLptokens] = useState<UserInfo | null>(null);
-  const [userTotalLp, setUserTotalLp] = useState<string|undefined>()
-  const [stakingStart, setStakingStart] = useState<string|undefined>();
+  const [userTotalLp, setUserTotalLp] = useState<string | undefined>();
+  const [stakingStart, setStakingStart] = useState<string | undefined>();
 
   const { web3 } = useWeb3(window.ethereum);
   const queryClient = useQueryClient();
 
-   useEffect(() => {
+  useEffect(() => {
     const getLptokens = async () => {
       const data = await queryClient.getQueryData<UserInfo>(["userInfo"]);
       const yourTokens = data?.amount;
       if (yourTokens !== undefined) {
-        const userAmount = web3?.utils.fromWei(BigInt(yourTokens), 'ether');
+        const userAmount = web3?.utils.fromWei(BigInt(yourTokens), "ether");
         setUserTotalLp(userAmount);
       }
       // const userAmount = web3?.utils.fromWei(BigInt(yourTokens), 'ether');
       // setUserTotalLp(userAmount);
 
       const stakingStartTime = data?.stakingStartTime;
-      console.log("##################",stakingStartTime)
-      console.log("##################",typeof stakingStartTime)
+      console.log("##################", stakingStartTime);
+      console.log("##################", typeof stakingStartTime);
       setStakingStart(stakingStartTime);
-      
+
       console.log("❗️data", data?.amount);
       // setLptokens(data?.amount);
       console.log("@@lptokens", lptokens);
@@ -38,7 +38,6 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
     getLptokens();
   }, [lptokens, queryClient, stakingStart, web3]);
   console.log("LpTokens", data);
-
 
   const pendingBNCValue = web3?.utils.fromWei(BigInt(data[0]), "ether");
   console.log("pendingBNCValue", pendingBNCValue);
@@ -53,7 +52,7 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
 
   return (
     // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것!
-    <div className=" min-w-[340px] pc:w-[85%] mobile:w-[85%] p-5 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center m-5 mt-16 shadow-md">
+    <div className=" min-w-[340px] pc:w-[85%] mobile:w-[85%] p-5 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center m-5 mt-4 shadow-md">
       {data && (
         <div className={Divstyles.flexCol}>
           <div className="flex pc:w-[85%] mobile:w-[90%] justify-between pc:items-center">
@@ -63,7 +62,7 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
               </div>
 
               <div className="text-deepGreen dark:text-lightGreen font-extrabold text-[30px] w-full text-left">
-                {userTotalLp}
+                {Number(Number(userTotalLp).toFixed(5))}
               </div>
             </div>
             <div>
@@ -73,7 +72,11 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
               <div className="text-deepBlack dark:text-lightBlack text-right font-semibold">
                 {/* {getTime(myFee.time)} */}
 
-                {stakingStart == '0' ? <div>해당 pool에 예치된 토큰이 없습니다.</div> :getTime(Number(stakingStart))}
+                {stakingStart == "0" ? (
+                  <div>해당 pool에 예치된 토큰이 없습니다.</div>
+                ) : (
+                  getTime(Number(stakingStart))
+                )}
               </div>
             </div>
           </div>
@@ -93,14 +96,16 @@ const MyInfoCard: React.FC<{ data: string[] }> = ({ data }) => {
                     Fee per Block
                   </div>
                   <div className="text-right text-deepGreen dark:text-lightGreen text-[23px] font-bold">
-                    {Number(Number(userBlockRewardPerBlock).toFixed(5))}
+                  {Number(Number(userBlockRewardPerBlock).toFixed(10))}
                   </div>
                 </div>
                 <div className="font-extrabold text-[30px] mx-3 text-deepBlack">
                   +
                 </div>
                 <div className="min-w-[120px] pc:w-[95%] mobile:w-[95%] p-5 pb-3 moblie:mt-3 bg-cardWhite dark:bg-D_cardWhite rounded-xl: rounded-bodyBackRadius items-center shadow-md">
-                  <div className="text-left text-lightBlack dark:text-baseWhite">Bonus Fee</div>
+                  <div className="text-left text-lightBlack dark:text-baseWhite">
+                    Bonus Fee
+                  </div>
                   <div className="text-right text-deepGreen dark:text-lightGreen text-[23px] font-bold">
                     {Number(Number(bonusFee).toFixed(5))}
                   </div>

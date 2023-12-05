@@ -70,9 +70,10 @@ export interface TitleNumInterface {
 }
 
 export interface TotalVolNTime {
-  totalvolum: string;
+  totalvolum: number;
   startTime: string;
   endTime: string;
+  volumeChart: number[];
 }
 
 export interface EarlyInfo {
@@ -157,7 +158,6 @@ export interface StakeItem {
   totalStaked: number;
   startTime: number;
   endTime: number;
-  StakeVolume: number;
   your: number;
 }
 

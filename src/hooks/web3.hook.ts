@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 // import tokenAbi from "src/abi/token.abi.json";
 import governanceAbi from "src/abi/governance.abi.json";
-import stakingAbi from "src/abi/staking.abi.json";
+import stakingAbi from "src/abi/stake.abi.json";
 import wbncAbi from "src/abi/wbnc.abi.json";
 import lpTokenAbi from "src/abi/lpToken.abi.json";
 import dataAbi from "src/abi/Data.abi.json";
@@ -56,6 +56,18 @@ const useWeb3 = (provider: string | null) => {
   //   getBousnsWallet();
   // }
 
+  const getIsMobile = () => {
+    let isMobile = false;
+    const agent = navigator.userAgent;
+    if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
+      console.log("모바일환경");
+      // alert("모바일 환경");
+        window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
+      isMobile = true;
+    }
+    return isMobile;
+  }
+
   useEffect(()=>{
     // const agent = navigator.userAgent;
     // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
@@ -74,21 +86,22 @@ const useWeb3 = (provider: string | null) => {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }], // sepolia
-          // params: [{ chainId: "0x4798" }], // bounce
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
-    }
-    
+    };
+
     getChainId();
-  },[])
+  }, []);
 
   useEffect(() => {
     if (connectStatus == "BounsWallet") {
       if (!BounsAddress) {
         getBousnsWallet();
       } else {
+        // setWeb3(""); // bounce 노드
         getBalance(BounsAddress);
       }
     }
@@ -112,6 +125,8 @@ const useWeb3 = (provider: string | null) => {
       // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
       // getAccounts(window?.ethereum);
       window.location.reload();
+    } else if (getIsMobile()) {
+      return;
     } else {
       alert("MetaMask 를 설치해주세요");
     }
@@ -159,8 +174,8 @@ const useWeb3 = (provider: string | null) => {
         // console.log("dsfsdfs");
         // SetconnectStatus(false);
       });
-    };
-    
+  };
+
   useEffect(() => {
     if (connectStatus == "null" || connectStatus == "") {
       return;
@@ -174,6 +189,7 @@ const useWeb3 = (provider: string | null) => {
 
     //// ! state 가 bounswallet 일때 return
     if (connectStatus == "BounsWallet") {
+      setWeb3(new Web3("https://network.bouncecode.net/"));
       // getBalance(BounsAddress);
       return;
     }
@@ -185,6 +201,8 @@ const useWeb3 = (provider: string | null) => {
       window?.ethereum?.on("chainChanged", () => {
         window.location.reload();
       });
+    } else if (getIsMobile()) {
+      return;
     } else {
       alert("MetaMask를 설치 해주세요!");
     }
@@ -198,16 +216,16 @@ const useWeb3 = (provider: string | null) => {
     }
     window?.ethereum?.on("chainChanged", async (chainID: string) => {
       console.log("chainIDdsfdsdfsfds", chainID);
-      if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
-      // if (chainID === "0x4798" && web3 !== null && connectStatus) {
+      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
+      if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
       } else {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xaa36a7" }], // sepolia
-          // params: [{ chainId: "0x4798" }], // bounce
+          // params: [{ chainId: "0xaa36a7" }], // sepolia
+          params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
       }
@@ -241,36 +259,31 @@ const useWeb3 = (provider: string | null) => {
   }
 
   useEffect(() => {
-    if (connectStatus == "BounsWallet") {
-      // getBalance(BounsAddress);
-      return;
-    }
     if (web3 !== null) {
       if (dataContract && pairContract && governanceContract && stakingContract)
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
-        // "0x0103f9Dec7dc8378d11f9ac29E6796d76725a0C2", // bounce
+        // "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
+        "0xBc3cC616C9efDFa878Fa64CD44FAB402DaE37b4C", // bounce
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
-        // "0xd9742c39d3EA58f674AC5b7A135f5b31923D8aD9", // bounce
+        // "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
+        "0x2d5f47333C8B84964163fA64491589c71723e490", // bounce
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
-        // "0xAb74d94c354779cEd1A50a4E0c428Ab1eb7CcA5B", // bounce
+        // "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
+        "0x21069009E401Fb1ED9744f9D2FBA1698DA0fCD40", // bounce
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        "0x1209603cB84FA9b7d7975fF4e8b65224a0C0e739", // sepolia
-        // "0x180966C6adf826ad0D5D0D831fCe84dd7E876f94", // bounce
-        // "0xA381BEc860Aa6575fb33Ac2404Cd20A13aA05610",
+        // "0x1209603cB84FA9b7d7975fF4e8b65224a0C0e739", // sepolia
+        "0xDff5aEa58a5dB1F47eF90c7c1447B534031d353D", // bounce
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
@@ -307,5 +320,3 @@ const useWeb3 = (provider: string | null) => {
 };
 
 export default useWeb3;
-
-// 커넥트가 되어있다고 하는데 메타마스크 로그인이 안되어있어서 뜨는 에러로 보임

@@ -126,9 +126,9 @@ const SearchBox = () => {
   }
 
   return (
-    <div className="flex-col relative  justify-center w-[25%] mobile:w-[30%] header:hidden mobile:block mobile:w-[70%]">
-      <div className="flex">
-        <div className="pc:w-[331px] w-full relative h-[46px] rounded-[63px] overflow-hidden border-[3px] border-baseWhite shadow-[0px_4px_5px_#00000040] pc:bg-[#c9f399] mobile:bg-[#a8e99d]">
+    <div className="flex-col relative  justify-center w-[25%] header:hidden mobile:block mobile:w-[70%]">
+      <div className="flex w-full">
+        <div className="pc:w-[331px] w-full relative h-[46px] rounded-[63px] overflow-hidden border-[3px] border-baseWhite shadow-[0px_4px_5px_#00000040] pc:bg-[#c9f399] mobile:bg-[#a8e99d] dark:bg-black">
           <img
             className="absolute w-[22px] h-[21px] top-[10px] left-[15px]"
             alt="Search icon"
@@ -143,7 +143,7 @@ const SearchBox = () => {
           />
         </div>
         <div
-          className={`rounded-b-3xl text-baseWhite pc:w-[331px] w-full absolute top-[20px] left-0 z-[-100] max-h-[200px] overflow-auto pc:bg-[#c9f399] mobile:bg-[#a8e99d] pt-[30px] ${
+          className={`rounded-b-3xl text-baseWhite pc:w-[331px] w-full absolute top-[20px] left-0 z-[-100] max-h-[200px] overflow-auto pc:bg-[#c9f399] mobile:bg-[#a8e99d] dark:bg-black pt-[30px] ${
             searchResults.length > 0
               ? "border-[3px] border-x-3 border-baseWhite"
               : ""
@@ -177,7 +177,10 @@ const SearchBox = () => {
                   )}
                   <span className="text-lg [text-shadow:0px_2px_3px_#00000040]">
                     {token.tokenName ? (
-                      <span>{`${token.tokenName}/${token.tokenSymbol}`}</span>
+                      <>
+                        <span className="pc:block mobileSearch:hidden">{`${token.tokenName}/${token.tokenSymbol}`}</span>
+                        <span className="pc:hidden mobileSearch:block">{`${token.tokenSymbol}`}</span>
+                      </>
                     ) : (
                       <span>{token.tokenSymbol}</span>
                     )}

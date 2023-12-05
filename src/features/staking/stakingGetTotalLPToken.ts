@@ -31,7 +31,7 @@ export const getTotalLPToken = async ({
 
     return etherData;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
