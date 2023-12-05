@@ -39,8 +39,6 @@ const StakeDetail = () => {
   const { user, web3, stakingContract } =
     useWeb3(window.ethereum);
   const [lptokens, setLptokens] = useState<DataArray | null>(null);
-  const [selectToken, setSelectTokens] = useState<StakeItem | null>(null);
-  const [withdrawal, setWithdrawal] = useState<EarlyArray | null>(null);
   const [totalLpToken, setTotalLpToken] = useState<string | null | undefined>(
     null
   );
@@ -48,7 +46,8 @@ const StakeDetail = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>();
   const [emergencies, setEmergencies] = useState<EmergencyEventArr>([]); // 탈주자 정보
   const [myAllreward, setMyAllreward] = useState<string[] | null>([]);
-  const [stakingTotalAmount ,setStakingTotalAmount] = useState<number[]>([]);
+  const [stakingTotalAmount, setStakingTotalAmount] = useState<number[]>([]);
+  const [action, setAction] = useState(false);
 
   // const params = useParams<{ id: string }>();
 
@@ -183,7 +182,7 @@ const StakeDetail = () => {
       // );
     };
     fetchData();
-  }, [stakingContract, queryClient, user]);
+  }, [stakingContract, queryClient, user, action]);
 
   useEffect(() => {
     const NinjaEvent = async () => {
@@ -299,7 +298,7 @@ const StakeDetail = () => {
           </div>
           <div className={Divstyles.flexCol}>
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
-            {selectToken && <StakeCard timestamp={selectToken.endTime} />}
+            <StakeCard timestamp={Number(poolInfo?.stakingPoolEndTime)} action={action} setAction={setAction} />
             {/* // ! h 비율 맞추기 위해서 임시로 지정해놓은 고정 값! 차트 사이즈 확인하고 수정할 것! */}
             <div className="w-full mobile:hidden flex justify-center">
               {myAllreward && <MyInfoCard data={myAllreward} />}

@@ -8,10 +8,10 @@ export const getTokenPriceFromEvent = async (pairContract, tokenAddress) => {
 
     let priceArr = [];
     for (let i = 1; i < data.length; i++) {
-        if(tokenAddress = data[i].returnValues.token0) {
+        if(tokenAddress == data[i].returnValues.token0) {
             const difference = data[i].returnValues.price0 - data[i-1].returnValues.price0;
             priceArr.push(difference);
-        }else if(tokenAddress = data[i].returnValues.token1) {
+        }else if(tokenAddress == data[i].returnValues.token1) {
             const difference = data[i].returnValues.price1 - data[i-1].returnValues.price1;
             priceArr.push(difference);
         }

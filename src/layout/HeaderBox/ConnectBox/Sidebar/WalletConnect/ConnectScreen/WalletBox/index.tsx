@@ -11,7 +11,7 @@ export const WalletBox: React.FC<WalletBoxProps> = ({
 
   const ConnectBtn = async () => {
     if (walletName == "MetaMask") {
-      connectMetaMask();
+      connectMetaMask("MetaMask");
       localStorage.setItem("connectStatus", "MetaMask");
     } else {
       // const address = await BounsGetWallet();
@@ -20,7 +20,7 @@ export const WalletBox: React.FC<WalletBoxProps> = ({
 
       // alert("아직 준비중");
       localStorage.setItem("connectStatus", "BounsWallet");
-      connectMetaMask();
+      connectMetaMask("BounsWallet");
     }
   };
 

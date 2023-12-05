@@ -3,7 +3,7 @@ import InputAmount from "./InputAmount";
 import StakeBtn from "./StakeBtn";
 import { Timestamp } from "src/Interface/Token.interface";
 
-const Stake: React.FC<Timestamp> = ({ timestamp }) => {
+const Stake: React.FC<Timestamp> = ({ timestamp, action, setAction }) => {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [nowTime, setNowTime] = useState<number | null>(null);
   const [deadline, setDeadline] = useState<boolean>(false);
@@ -36,7 +36,7 @@ const Stake: React.FC<Timestamp> = ({ timestamp }) => {
       <div className="w-full text-left text-deepBlack">Enter an Amount</div>
       <InputAmount tokenName="STK" setInputValue={setDepositValue} />
       {deadline == false ? (
-        <StakeBtn tokenName="Stake" tokenDepositAmount={depositValue} />
+        <StakeBtn tokenName="Stake" tokenDepositAmount={depositValue} action={action} setAction={setAction} />
       ) : (
         <div className="w-[100%] h-[60px] bg-lightBlack rounded-coinLogo mt-10 text-xl font-bold text-white flex items-center justify-center shadow-md">
           만료된 stake pool 입니다.

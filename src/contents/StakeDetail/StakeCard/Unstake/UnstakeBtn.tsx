@@ -11,18 +11,21 @@ import useWeb3 from "src/hooks/web3.hook";
 const UnstakeBtn: React.FC<WithdrawProps> = ({
   tokenName,
   unstakeDeadLine,
+  action,
+  setAction
 }) => {
   const { user, stakingContract } = useWeb3(window.ethereum);
 
   const WithdrawHandler = async () => {
     if (unstakeDeadLine === false) {
       await emergencyWithdraw({ stakingContract, user });
-      window.location.reload();
+      // window.location.reload();
     }
     if (unstakeDeadLine === true) {
       await maturedWithdraw({ stakingContract, user });
-      window.location.reload();
+      // window.location.reload();
     }
+    setAction(!action);
   };
 
   const setStakingEndDay = async () => {

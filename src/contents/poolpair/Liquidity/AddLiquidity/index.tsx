@@ -33,6 +33,7 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
   const getTokens = async () => {
     if (!pairContract || !dataContract || !web3 || user.account == "")
       return null;
+    console.log("gettokesn");
     const data = await getUserTokens({
       pairContract,
       dataContract,
@@ -42,7 +43,7 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
     });
     return data.tokensObj;
   };
-
+  
   const { data: tokens, refetch : refetchTokens } = useQuery({
     queryKey: ["tokensObj"],
     queryFn: getTokens,
@@ -51,9 +52,10 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
     refetchOnWindowFocus: "always",
     enabled: !(!dataContract || !web3 || !user)
   });
-
+  
   const getPairs =async () => {
     if (!pairContract || !dataContract || user.account == "" || !web3) return null;
+    console.log("getpair");
     return await getUserPools({pairContract, dataContract, userAddress : user.account, queryClient, web3});
   }
   const { data : userpairs, refetch : refetchPairs } = useQuery({
@@ -114,12 +116,12 @@ const AddLiquidity: React.FC<{ data: PairItem, refetch:()=>{} }> = ({ data, refe
           setToken0Amount("")
           setToken1Amount("")
 
-          refetch();
-          refetchTokens();
-          refetchPairs();
         }
       }
     }
+    refetch();
+    refetchTokens();
+    refetchPairs();
   };
 
   const getPairAmountData = async (
