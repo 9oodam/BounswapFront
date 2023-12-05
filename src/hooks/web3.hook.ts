@@ -271,30 +271,22 @@ const useWeb3 = (provider: string | null) => {
         return;
       const dataCon = new web3.eth.Contract(
         dataAbi as any,
-        // "0x3FA5071b97C8D8809272aa35628654f0bf22C0E2", // sepolia
-        // "0xBc3cC616C9efDFa878Fa64CD44FAB402DaE37b4C", // bounce
-        "0xd9268298fB83630a09E692eAFbB675eF89e89e35", // bounce
+        "0x58452BD9499A90Af399f0f7661545DA2D2403e9e", // bounce
         { data: "" }
       );
       const pairCon = new web3.eth.Contract(
         pairAbi as any,
-        // "0xB7cDf8CF83e2C9dFb240700814802460eEd5BAE4", // sepolia
-        // "0x2d5f47333C8B84964163fA64491589c71723e490", // bounce
-        "0x5dC80b3De113b43d4D87a81caB27Be0181784009", // bounce
+        "0xDdc8De4e598e0D6C088E55217E842c03Ec424e2F", // bounce
         { data: "" }
       );
       const govCon = new web3.eth.Contract(
         govAbi as any,
-        // "0xCF36B339BC1023D574F04582f891429273AF1461", // sepolia
-        // "0x21069009E401Fb1ED9744f9D2FBA1698DA0fCD40", // bounce
-        "0xE0cf992AF60f3f5687A45CF0D0b79Af32CCC1225", // bounce
+        "0x297E72F68CBf0410A1C58bA70D58A1448e7BAe07", // bounce
         { data: "" }
       );
       const stakingCon = new web3.eth.Contract(
         stakingAbi as any,
-        // "0x1209603cB84FA9b7d7975fF4e8b65224a0C0e739", // sepolia
-        // "0xDff5aEa58a5dB1F47eF90c7c1447B534031d353D", // bounce
-        "0x989DccEBdF0fBa7b6D75a3365984F90405eAD220", // bounce
+        "0x8d11bA6576E25149009E9136Dd85899136fDc904", // bounce
         { data: "" }
       );
       const wbnc = new web3.eth.Contract(
