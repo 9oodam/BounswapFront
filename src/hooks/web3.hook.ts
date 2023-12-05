@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Web3 from "web3";
-// import tokenAbi from "src/abi/token.abi.json";
-import governanceAbi from "src/abi/governance.abi.json";
 import stakingAbi from "src/abi/stake.abi.json";
 import wbncAbi from "src/abi/wbnc.abi.json";
 import lpTokenAbi from "src/abi/lpToken.abi.json";
@@ -10,7 +8,6 @@ import govAbi from "src/abi/governance.abi.json";
 import pairAbi from "src/abi/Pair.abi.json";
 
 import { Contract } from "web3-eth-contract";
-import { error, log } from "console";
 import BounsGetWallet from "./BounsGetWallet";
 
 interface UseWeb3Result {
@@ -67,23 +64,7 @@ const useWeb3 = (provider: string | null) => {
   }
 
   useEffect(()=>{
-    // const agent = navigator.userAgent;
-    // if(agent.indexOf("iPhone") > -1 || agent.indexOf("Android") > -1 || agent.indexOf("iPad") > -1 || agent.indexOf("iPod") > -1) {
-    //   console.log("모바일환경");
-    //   // alert("모바일 환경");
-    // }
-
     if (connectStatus == "BounsWallet" || connectStatus == "null") return;
-    
-    // if (!window?.ethereum) {
-    //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-    //   // if (connectStatus == "MetaMask") {
-      
-    //   // if (String(localStorage.getItem("connectStatus")) == "MetaMask") {
-    //   //   window.location.href = "https://metamask.app.link/dapp/www.bounswap.site"
-    //   // }
-    //   return;
-    // }
 
     const getChainId =async () => {
       const chainId = await window.ethereum.request({method : 'eth_chainId'});  
@@ -91,7 +72,6 @@ const useWeb3 = (provider: string | null) => {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          // params: [{ chainId: "0xaa36a7" }], // sepolia
           params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
@@ -106,30 +86,21 @@ const useWeb3 = (provider: string | null) => {
       if (!BounsAddress) {
         getBousnsWallet();
       } else {
-        // setWeb3(""); // bounce 노드
         getBalance(BounsAddress);
       }
     }
   }, [BounsAddress]);
 
   useEffect(() => {
-    // SetconnectStatus(String(localStorage.getItem("connectStatus")));
-
     if (connectStatus == "BounsWallet") {
       getBalance(BounsAddress);
       return;
     }
-
-    console.log("accountsChanged", connectStatus);
   }, [connectStatus]);
 
   const connectMetaMask = async (walletName : string) => {
     SetconnectStatus(walletName);
     if (window?.ethereum) {
-      // SetconnectStatus(String(localStorage.getItem("connectStatus")));
-      // SetconnectStatus(true);
-      // // await window?.ethereum?.request({ method: "eth_requestAccounts" });
-      // getAccounts(window?.ethereum);
       window.location.reload();
     } else if (getIsMobile(walletName)) {
       window.location.reload();
@@ -141,14 +112,10 @@ const useWeb3 = (provider: string | null) => {
 
   const getBalance = async (address: string) => {
     const web3 = new Web3("https://network.bouncecode.net/");
-    console.log("BounsAddress ::", BounsAddress);
 
     if (address) {
       try {
-        // if (!BounsAddress) getBousnsWallet();
-
         const balance = await web3.eth.getBalance(address);
-        console.log("Balance:", web3.utils.fromWei(balance, "ether"), "ETH");
         setUser({
           account: address,
           balance: web3.utils.fromWei(balance, "ether"),
@@ -178,8 +145,7 @@ const useWeb3 = (provider: string | null) => {
         });
       })
       .catch(() => {
-        // console.log("dsfsdfs");
-        // SetconnectStatus(false);
+        // console.log("");
       });
   };
 
@@ -188,16 +154,9 @@ const useWeb3 = (provider: string | null) => {
       return;
     }
 
-    // ! useEffect 실행될때마다 getbalance 실행 (wallet 주소 state 에 저장)
-    // if (!window?.ethereum?.selectedAddress) {
-    //   alert("메타마스크 로그인");
-    //   return;
-    // }
-
     //// ! state 가 bounswallet 일때 return
     if (connectStatus == "BounsWallet") {
       setWeb3(new Web3("https://network.bouncecode.net/"));
-      // getBalance(BounsAddress);
       return;
     }
 
@@ -223,7 +182,6 @@ const useWeb3 = (provider: string | null) => {
     }
     window?.ethereum?.on("chainChanged", async (chainID: string) => {
       console.log("chainIDdsfdsdfsfds", chainID);
-      // if (chainID === "0xaa36a7" && web3 !== null && connectStatus) {
       if (chainID === "0x4798" && web3 !== null && connectStatus) {
         // ! status가 Metamask 일때 실행
         if (connectStatus == "MetaMask") getAccounts(web3);
@@ -231,7 +189,6 @@ const useWeb3 = (provider: string | null) => {
         const net = await window?.ethereum?.request({
           jsonrpc: "2.0",
           method: "wallet_switchEthereumChain",
-          // params: [{ chainId: "0xaa36a7" }], // sepolia
           params: [{ chainId: "0x4798" }], // bounce
         });
         setNetwork(net || true);
@@ -240,15 +197,9 @@ const useWeb3 = (provider: string | null) => {
   }, [network]);
 
   useEffect(() => {
-    // if (user.account != "") {
-    //   window.location.reload();
-    // }
-
     if (connectStatus == "BounsWallet") {
-      // getBalance(BounsAddress);
       return;
     }
-    console.log("User : ", user);
   }, [user]);
 
   if (web3 !== null) {
